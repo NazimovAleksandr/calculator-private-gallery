@@ -32,6 +32,7 @@ kotlin {
     androidMain.dependencies {
       implementation(compose.preview)
       implementation(libs.androidx.activity.compose)
+      implementation(libs.bundles.admob)
     }
 
     commonMain.dependencies {
@@ -75,6 +76,10 @@ android {
     targetSdk = libs.versions.android.targetSdk.get().toInt()
     versionCode = 1
     versionName = "1.0"
+
+    manifestPlaceholders.apply {
+      set("resizeableActivity", false)
+    }
   }
   packaging {
     resources {

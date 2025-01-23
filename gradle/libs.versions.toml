@@ -27,6 +27,14 @@ koin-annotations = "1.4.0"
 koin-ksp-compiler = "1.4.0"
 
 datastore = "1.1.2"
+playServicesAds = "23.6.0"
+facebook = "6.18.0.0"
+mintegral = "16.8.61.0"
+pangle = "6.4.0.6.0"
+unity-ads = "4.13.0"
+unity = "4.13.0.0"
+applovin = "13.0.1.0"
+vungle = "7.4.2.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -53,6 +61,15 @@ koin-ksp-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", vers
 
 datastore = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
 
+ad-core = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+ad-mediation-facebook = { group = "com.google.ads.mediation", name = "facebook", version.ref = "facebook" }
+ad-mediation-mintegral = { group = "com.google.ads.mediation", name = "mintegral", version.ref = "mintegral" }
+ad-mediation-pangle = { group = "com.google.ads.mediation", name = "pangle", version.ref = "pangle" }
+ad-mediation-unity-ads = { group = "com.unity3d.ads", name = "unity-ads", version.ref = "unity-ads" }
+ad-mediation-unity = { group = "com.google.ads.mediation", name = "unity", version.ref = "unity" }
+ad-mediation-applovin = { group = "com.google.ads.mediation", name = "applovin", version.ref = "applovin" }
+ad-mediation-vungle = { group = "com.google.ads.mediation", name = "vungle", version.ref = "vungle" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -63,3 +80,15 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+admob = [
+    "ad-core",
+#    "ad-mediation-facebook",
+#    "ad-mediation-mintegral",
+#    "ad-mediation-pangle",
+#    "ad-mediation-unity-ads",
+#    "ad-mediation-unity",
+#    "ad-mediation-applovin",
+#    "ad-mediation-vungle",
+]
