@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">&#160;Calculator - File Blocking</string>
+
+    <string name="share">Share</string>
+    <string name="creating_new_password">Creating New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_four_digit">Enter a 4-digit password and then Press “=”</string>
+    <string name="reset">Reset</string>
+    <string name="password_do_not_match">Password do not match</string>
+    <string name="cant_enter_more_15">"Can't enter more than 15 digits.</string>
+
+    <string name="select_language">Select Language</string>
+    <string name="done">Done</string>
+    <string name="continue_">Continue</string>
+    <string name="welcome_to_calculator">Welcome to Calculator</string>
+
+    <string name="by_clicking_continue">By clicking continue, you agree to the</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="and">and</string>
+    <string name="tos">Terms of service</string>
+
+    <string name="security_question">Security Question</string>
+    <string name="skip">Skip</string>
+    <string name="enter_secret_word">Enter secret word</string>
+
+    <string name="where_are_you_born">Where are you born?</string>
+    <string name="what_is_your_father_name">What is your father name?</string>
+    <string name="what_is_your_mother_name">What is your mother name?</string>
+    <string name="what_is_your_favorite_color">What is your favorite color?</string>
+    <string name="what_date_is_your_birthday">What date is your birthday?</string>
+    <string name="where_is_your_hometown">Where is your hometown?</string>
+
+    <string name="need_to_remember">Need to remember</string>
+    <string name="your_answer">Your answer</string>
+    <string name="tip_to_reset_password">Tip to reset password</string>
+    <string name="i_got_it">I Got It</string>
+
+    <string name="calculator_lock">Calculator Lock</string>
+    <string name="private_web_browser">Private Web Browser</string>
+    <string name="photos">Photos</string>
+    <string name="videos">Videos</string>
+    <string name="file">File</string>
+    <string name="notes">Notes</string>
+    <string name="recycle_bin">Recycle Bin</string>
+
+    <string name="add_photo">Add Photo</string>
+    <string name="add_videos">Add Videos</string>
+    <string name="add_file">Add File</string>
+    <string name="empty">Empty</string>
+    <string name="choose_images_from">Choose Images From</string>
+    <string name="choose_videos_from">Choose Videos From</string>
+    <string name="gallery">Gallery</string>
+    <string name="folder">Folder</string>
+    <string name="all_images">All Images</string>
+    <string name="all_videos">All Videos</string>
+
+    <string name="no_photos_selected">No photos selected</string>
+    <string name="no_videos_selected">No videos selected</string>
+    <string name="no_files_selected">No files selected</string>
+
+    <string name="hide">Hide %1$s</string>
+    <string name="visible">Visible</string>
+    <string name="restore">Restore</string>
+    <string name="delete">Delete</string>
+    <string name="files">files</string>
+    <string name="application_not_found">Application Not Found</string>
+
+    <string name="secret_notes">Secret Notes</string>
+    <string name="add_new_notes">Add New Notes</string>
+    <string name="create_notes">Create Notes</string>
+    <string name="enter_title">Enter title</string>
+    <string name="type_your_secret_note">Type your secret note…</string>
+
+    <string name="settings">Settings</string>
+    <string name="security">Security</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_security_question">Change security question</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="language">Language</string>
+    <string name="more">More</string>
+    <string name="rate_5_stars">Rate 5 stars</string>
+    <string name="share_with_friends">Share with friends</string>
+
+    <string name="let_me_recommend">Let me recommend you this application</string>
+    <string name="search">Search</string>
+    <string name="link_copied">Link copied</string>
+    <string name="search_or_type_url">Search or type URL</string>
+    <string name="cancel">Cancel</string>
+    <string name="wrong_answer">Wrong answer</string>
+
+    <string name="date_added">Date Added</string>
+    <string name="file_size">File size</string>
+    <string name="name">Name</string>
+
+    <string name="next">Next</string>
+    <string name="ob_1">Create a 4-digit password</string>
+    <string name="ob_2">"Enter '11223344=' if you forget your password</string>
+    <string name="ob_3">Start securing your photos and videos</string>
+
+    <string name="okay">Okay</string>
+    <string name="advertising">Advertising</string>
+    <string name="junk">Junk</string>
+
+    <string name="re_enter_your_password">Re-enter your password to confirm and then press “=”</string>
+    <string name="history">History</string>
+    <string name="your_history_is_empty">Your history is empty</string>
+    <string name="are_you_sure_you_want">Are you sure you want to delete your entire browsing history?</string>
+    <string name="delete_all">Delete All</string>
+
+    <string name="need_access">Need access</string>
+    <string name="allow_access_to">Allow access to your photos and videos to manage your media files.</string>
+    <string name="allow">Allow</string>
+
+</resources>
