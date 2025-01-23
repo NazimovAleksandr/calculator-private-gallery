@@ -15,6 +15,6 @@ fun RootContent(
     stack = component.stack,
     modifier = modifier,
     animation = stackAnimation(slide()),
-    content = { it.instance.toContent().invoke(it.instance) }
+    content = { it.instance.content().invoke() }
   )
 }

@@ -1,12 +1,9 @@
 package com.next.level.solutions.calculator.fb.mp
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import com.next.level.solutions.calculator.fb.mp.di.decomposeModule
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
-import com.next.level.solutions.calculator.fb.mp.ui.root.RootContent
 import com.next.level.solutions.calculator.fb.mp.ui.theme.AppTheme
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -42,12 +39,8 @@ private fun Content(
 
   AppTheme(
     darkTheme = true,
-  ) {
-    RootContent(
-      component = rootComponent,
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+    content = { rootComponent.content().invoke() },
+  )
 }
 
 private fun KoinApplication.appModules() {

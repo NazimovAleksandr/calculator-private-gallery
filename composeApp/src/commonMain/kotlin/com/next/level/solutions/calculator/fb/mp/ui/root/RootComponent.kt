@@ -24,6 +24,8 @@ class RootComponent(
     childFactory = ::child,
   )
 
+  fun content(): @Composable () -> Unit = { RootContent(component = this) }
+
   private fun child(
     configuration: Configuration,
     componentContext: ComponentContext,
@@ -34,7 +36,7 @@ class RootComponent(
   private fun Configuration.toChild(
     componentContext: ComponentContext,
   ): Child {
-    componentContext.instanceKeeper.put(instanceKey, toInstanceKeeper())
+    componentContext.instanceKeeper.put(instanceKey, instanceKeeper())
     return with(this) { factory.get(componentContext) }
   }
 
@@ -42,13 +44,13 @@ class RootComponent(
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   interface Child {
-    fun toContent(): @Composable (Child) -> Unit
+    fun content(): @Composable () -> Unit
   }
 
   @Serializable
   sealed interface Configuration {
     val instanceKey: String
-    fun toInstanceKeeper(): InstanceKeeper.Instance
+    fun instanceKeeper(): InstanceKeeper.Instance
     fun KoinFactory.get(context: ComponentContext): Child
   }
 }
