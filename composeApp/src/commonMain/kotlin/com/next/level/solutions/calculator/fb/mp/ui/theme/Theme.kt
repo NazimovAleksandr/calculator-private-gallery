@@ -1,8 +1,12 @@
 package com.next.level.solutions.calculator.fb.mp.ui.theme
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 
 @Composable
 expect fun UpdateTheme(
@@ -24,7 +28,13 @@ fun AppTheme(
   MaterialTheme(
     colors = colorScheme,
     shapes = MagicShapes,
-    content = content,
+    content = {
+      Box(
+        contentAlignment = Alignment.TopStart,
+        content = { content() },
+        modifier = Modifier.background(color = MaterialTheme.colors.background)
+      )
+    },
   )
 }
 
