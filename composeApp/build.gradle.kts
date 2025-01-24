@@ -2,11 +2,13 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
-  alias(libs.plugins.androidApplication)
-  alias(libs.plugins.composeMultiplatform)
-  alias(libs.plugins.kotlinMultiplatform)
-  alias(libs.plugins.kotlinComposeCompiler)
-  alias(libs.plugins.kotlinSerialization)
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.compose.multiplatform)
+
+  alias(libs.plugins.kotlin.multiplatform)
+  alias(libs.plugins.kotlin.compose.compiler)
+  alias(libs.plugins.kotlin.serialization)
+
   alias(libs.plugins.ksp)
 }
 
@@ -44,6 +46,9 @@ kotlin {
       implementation(compose.components.uiToolingPreview)
       implementation(libs.androidx.lifecycle.viewmodel)
       implementation(libs.androidx.lifecycle.runtime.compose)
+
+      // kotlinx
+      implementation(libs.kotlinx.collections)
 
       // decompose
       implementation(libs.decompose)
@@ -111,7 +116,7 @@ dependencies {
 
 // Trigger Common Metadata Generation from Native tasks
 project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
-  if(name != "kspCommonMainKotlinMetadata") {
+  if (name != "kspCommonMainKotlinMetadata") {
     dependsOn("kspCommonMainKotlinMetadata")
   }
 }
