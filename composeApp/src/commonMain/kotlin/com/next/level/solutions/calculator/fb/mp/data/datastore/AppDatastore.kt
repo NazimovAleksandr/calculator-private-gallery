@@ -13,7 +13,12 @@ import org.koin.core.annotation.Single
 
 @Single
 class AppDatastore {
-  private val dataStore by lazy { createDataStore { "app_datastore.preferences_pb" } }
+  companion object {
+    private val dataStore by lazy { createDataStore() }
+
+    private fun createDataStore(): DataStore<Preferences> = PreferenceDataStoreFactory
+      .createWithPath(produceFile = { producePath("app_datastore.preferences_pb").toPath() })
+  }
 
   private val policyState: Preferences.Key<Boolean> = booleanPreferencesKey("policyState")
   private val languageState: Preferences.Key<Boolean> = booleanPreferencesKey("languageState")
@@ -38,7 +43,6 @@ class AppDatastore {
     }
   }
 
-
-  private fun createDataStore(producePath: () -> String): DataStore<Preferences> = PreferenceDataStoreFactory
-    .createWithPath(produceFile = { producePath().toPath() })
 }
+
+expect fun producePath(name: String): String

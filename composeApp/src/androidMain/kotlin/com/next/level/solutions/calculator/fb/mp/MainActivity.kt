@@ -19,10 +19,13 @@ import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 class MainActivity : ComponentActivity() {
   companion object {
     var adsManager: AdsManager? = null
+    var producePath: ((String) -> String)? = null
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    producePath = { filesDir.resolve(it).absolutePath }
 
     adsManager = AdsManagerImpl(
       activity = this,
