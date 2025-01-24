@@ -14,11 +14,13 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOp
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 
 class MainActivity : ComponentActivity() {
   companion object {
     var adsManager: AdsManager? = null
+    var languageChanger: Lazy<LanguageChangerImpl>? = null
     var producePath: ((String) -> String)? = null
   }
 
@@ -26,6 +28,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     producePath = { filesDir.resolve(it).absolutePath }
+    languageChanger = lazy { LanguageChangerImpl(this) }
 
     adsManager = AdsManagerImpl(
       activity = this,

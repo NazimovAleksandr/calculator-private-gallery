@@ -1,6 +1,7 @@
 package com.next.level.solutions.calculator.fb.mp.ui.composable.action.button
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,7 +27,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.next.level.solutions.calculator.fb.mp.extensions.core.clickableSingle
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 
@@ -157,7 +157,7 @@ private fun Content(
           else -> colorsValue.disabledContainerColor
         }
       )
-      .clickableSingle(enabled = enabled, onClick = action)
+      .clickable(enabled = enabled, onClick = action)
       .padding(paddingValues = paddingValues)
       .wrapContentWidth()
   }

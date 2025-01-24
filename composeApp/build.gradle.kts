@@ -49,6 +49,7 @@ kotlin {
 
       // kotlinx
       implementation(libs.kotlinx.collections)
+      implementation(libs.kotlinx.serialization)
 
       // decompose
       implementation(libs.decompose)
