@@ -12,7 +12,7 @@ val DarkSecondary = Color(0xFF333333)
 val DarkOnSecondary = DarkOnBackground
 val DarkSecondaryContainer = Color(0xFF1D1D1D)
 val DarkOnSecondaryContainer = DarkOnBackground
-val DarkTertiary = Color(0xFF44ACAC)
+val DarkTertiary = DarkOnBackground //Color(0xFF44ACAC)
 val DarkError = Color(0xFFE53935)
 val DarkScrim = Color.Black.copy(alpha = 0.7f)
 val DarkSurface = Color(0xFF505050)

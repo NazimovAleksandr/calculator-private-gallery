@@ -10,8 +10,11 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
+import com.next.level.solutions.calculator.fb.mp.ui.root.HiddenFilesConfiguration.hiddenFiles
+import com.next.level.solutions.calculator.fb.mp.ui.root.LanguageConfiguration.language
+import com.next.level.solutions.calculator.fb.mp.ui.root.OnboardingConfiguration.onboarding
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
-import com.next.level.solutions.calculator.fb.mp.ui.root.hiddenFiles
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.delay
 
 class SplashComponent(
@@ -19,10 +22,14 @@ class SplashComponent(
   private val adsManager: AdsManager,
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<RootComponent.Configuration>,
-) : RootComponent.Child, ComponentContext by componentContext {
+) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   private val _progress: MutableValue<Float> = MutableValue(0f)
   val progress: Value<Float> = _progress
+
+  init {
+    Logger.w("TAG_SPLASH", "SplashComponent init = $this")
+  }
 
   override fun content(): @Composable () -> Unit {
     launchMain { runProgress() }
@@ -32,19 +39,7 @@ class SplashComponent(
     }
   }
 
-  fun interOff() {
-//    analytics.splash.splashLoaded()
-
-    launchMain {
-      val configuration: RootComponent.Configuration = when {
-        !appDatastore.policyStateOnce() -> RootComponent.Configuration.hiddenFiles() // TODO Onboarding
-        !appDatastore.languageStateOnce() -> RootComponent.Configuration.hiddenFiles() // TODO Language()
-        else -> RootComponent.Configuration.hiddenFiles() // TODO Calculator()
-      }
-
-      navigation.replaceCurrent(configuration)
-    }
-  }
+  override fun action(action: Action) {}
 
   private suspend fun runProgress() {
     when {
@@ -62,6 +57,20 @@ class SplashComponent(
     runProgress()
   }
 
+  private fun interOff() {
+//    analytics.splash.splashLoaded()
+
+    launchMain {
+      val configuration: RootComponent.Configuration = when {
+        !appDatastore.policyStateOnce() -> RootComponent.Configuration.onboarding()
+        !appDatastore.languageStateOnce() -> RootComponent.Configuration.language()
+        else -> RootComponent.Configuration.hiddenFiles() // TODO Calculator()
+      }
+
+      navigation.replaceCurrent(configuration)
+    }
+  }
+
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
@@ -70,5 +79,4 @@ class SplashComponent(
   }
 
   class Handler : InstanceKeeper.Instance
-
 }
