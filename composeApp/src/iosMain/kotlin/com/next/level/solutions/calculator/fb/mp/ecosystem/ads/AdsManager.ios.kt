@@ -1,5 +1,7 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads
 
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpen
@@ -39,11 +41,11 @@ actual fun adsManager(): AdsManager = object : AdsManager {
       }
 
       override fun ad(
-        type: NativeSize?,
+        size: NativeSize?,
         modifier: Modifier,
-        onDisposeUploadAds: Boolean,
-        color: Color,
-      ): () -> Unit {
+        loadAtDispose: Boolean,
+        color: Color?,
+      ): @Composable ColumnScope.() -> Unit {
         // TODO("Not yet implemented")
         return {}
       }

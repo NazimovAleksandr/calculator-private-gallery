@@ -1,6 +1,7 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ
 
 import android.content.Context
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -92,15 +93,15 @@ class AdsNativeImpl(
   }
 
   override fun ad(
-    type: NativeSize?,
+    size: NativeSize?,
     modifier: Modifier,
-    onDisposeUploadAds: Boolean,
-    color: Color,
-  ): @Composable () -> Unit = {
+    loadAtDispose: Boolean,
+    color: Color?,
+  ): @Composable ColumnScope.() -> Unit = {
     NativeAdCard(
-      nativeSize = type,
+      size = size,
       modifier = modifier,
-      onDisposeUploadAds = onDisposeUploadAds,
+      loadAtDispose = loadAtDispose,
       loadNative = ::load,
       color = color,
       ad = ad,

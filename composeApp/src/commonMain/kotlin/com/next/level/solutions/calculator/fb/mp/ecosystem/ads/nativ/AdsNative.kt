@@ -1,5 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -10,9 +11,9 @@ interface AdsNative {
   fun destroy()
 
   fun ad(
-    type: NativeSize?,
-    modifier: Modifier,
-    onDisposeUploadAds: Boolean,
-    color: Color,
-  ): @Composable () -> Unit
+    size: NativeSize?,
+    modifier: Modifier = Modifier,
+    loadAtDispose: Boolean = true,
+    color: Color? = null,
+  ): @Composable ColumnScope.() -> Unit
 }

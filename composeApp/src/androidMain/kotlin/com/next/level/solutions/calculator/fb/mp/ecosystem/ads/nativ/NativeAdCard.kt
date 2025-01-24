@@ -7,13 +7,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -39,37 +44,37 @@ import com.next.level.solutions.calculator.fb.mp.ui.theme.AppThemePreview
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun NativeAdCard(
-  nativeSize: NativeSize?,
+fun ColumnScope.NativeAdCard(
+  size: NativeSize?,
   ad: Flow<NativeAd?>?,
   modifier: Modifier = Modifier,
-  onDisposeUploadAds: Boolean = true,
-  color: Color = MaterialTheme.colors.onBackground.copy(alpha = 0f),
+  loadAtDispose: Boolean = true,
+  color: Color? = MaterialTheme.colors.onBackground.copy(alpha = 0f),
   loadNative: () -> Unit,
 ) {
   Content(
-    size = nativeSize,
+    size = size,
     modifier = modifier,
-    onDisposeUploadAds = onDisposeUploadAds,
-    color = color,
+    loadAtDispose = loadAtDispose,
+    color = color ?: MaterialTheme.colors.onBackground.copy(alpha = 0f),
     loadNative = loadNative,
     ad = ad,
   )
 }
 
 @Composable
-private fun Content(
+private fun ColumnScope.Content(
   modifier: Modifier = Modifier,
   ad: Flow<NativeAd?>? = null,
   size: NativeSize? = NativeSize.Large,
-  onDisposeUploadAds: Boolean = true,
+  loadAtDispose: Boolean = true,
   color: Color = MaterialTheme.colors.onBackground.copy(alpha = 0f),
   loadNative: () -> Unit = {},
 ) {
   size ?: return
 
   Ad(
-    onDisposeUploadAds = onDisposeUploadAds,
+    loadAtDispose = loadAtDispose,
     loadNative = loadNative,
     modifier = modifier,
     color = color,
@@ -78,12 +83,13 @@ private fun Content(
   )
 }
 
+@Suppress("UnusedReceiverParameter")
 @Composable
-private fun Ad(
+private fun ColumnScope.Ad(
   modifier: Modifier = Modifier,
   ad: Flow<NativeAd?>? = null,
   size: NativeSize = NativeSize.Large,
-  onDisposeUploadAds: Boolean = true,
+  loadAtDispose: Boolean = true,
   color: Color = MaterialTheme.colors.onBackground.copy(alpha = 0f),
   loadNative: () -> Unit = {},
 ) {
@@ -95,23 +101,30 @@ private fun Ad(
     derivedStateOf { nativeAdState?.value }
   }
 
+  Divider()
+
   AdCardContainer(
     modifier = modifier,
     size = size,
     color = color,
     content = {
       when {
-        nativeAd == null -> LinearProgressIndicator()
+        nativeAd == null -> LinearProgressIndicator(
+          modifier = Modifier
+            .clip(shape = CircleShape)
+        )
 
         else -> AdCard(
           loadNative = loadNative,
           size = size,
-          onDisposeUploadAds = onDisposeUploadAds,
+          loadAtDispose = loadAtDispose,
           nativeAd = nativeAd,
         )
       }
     }
   )
+
+  Divider()
 }
 
 @Composable
@@ -146,10 +159,10 @@ private fun AdCardContainer(
 private fun AdCard(
   loadNative: () -> Unit,
   size: NativeSize = NativeSize.Large,
-  onDisposeUploadAds: Boolean = true,
+  loadAtDispose: Boolean = true,
   nativeAd: NativeAd?,
 ) {
-  if (onDisposeUploadAds) {
+  if (loadAtDispose) {
     DisposableEffect(
       key1 = Unit,
       effect = { onDispose { loadNative() } },
@@ -160,7 +173,7 @@ private fun AdCard(
     when (size) {
       NativeSize.Small -> R.layout.native_ad_small
       NativeSize.Large -> R.layout.native_ad_large
-      NativeSize.Adaptive -> R.layout.native_ad_large
+      NativeSize.Adaptive -> R.layout.native_ad_adaptive
     }
   }
 
@@ -226,8 +239,14 @@ private fun View.requestLayoutWithDelay(delayMillis: Long) {
 @Composable
 private fun Preview() {
   AppThemePreview {
-    Content(
-      size = NativeSize.Small,
-    )
+    Column(
+      verticalArrangement = Arrangement.Top,
+      horizontalAlignment = Alignment.Start,
+      modifier = Modifier
+    ) {
+      Content(
+        size = NativeSize.Small,
+      )
+    }
   }
 }
