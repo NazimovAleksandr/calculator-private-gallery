@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.done
 import calculator_fileblocking.composeapp.generated.resources.select_language
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
@@ -47,9 +49,11 @@ fun LanguageContent(
 //    }
 //  }
 
+  val model by component.model.subscribeAsState()
+
   Content(
     component = component,
-    model = component.model.value,
+    model = model,
     modifier = modifier,
     action = component::action,
   )
@@ -195,12 +199,12 @@ private fun RowScope.LanguageCard(
         .clip(shape = MaterialTheme.shapes.large)
         .background(color = backgroundColor)
         .clickable(onClick = onClick)
-        .padding(all = 20.dp)
+        .padding(all = 16.dp)
     ) {
       Text(
         text = language,
         color = MaterialTheme.colors.onSecondary,
-        style = TextStyleFactory.FS16.w600(),
+        style = TextStyleFactory.FS14.w600(),
         maxLines = 1,
         modifier = Modifier
           .weight(weight = 1f)

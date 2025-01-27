@@ -7,10 +7,11 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
-import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
+import com.next.level.solutions.calculator.fb.mp.extensions.core.launch
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.HiddenFilesConfiguration.hiddenFiles
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
@@ -33,31 +34,36 @@ class LanguageComponent(
 
   private val languageModels: MutableList<LanguageModel> = mutableListOf(
     LanguageModel(name = "English", code = "en"),
-    LanguageModel(name = "हिंदी", code = "hi"),
-    LanguageModel(name = "ગુજરાતી", code = "gu"),
+    LanguageModel(name = "Español", code = "es"),
     LanguageModel(name = "Indonesia", code = "in"),
     LanguageModel(name = "Português", code = "pt"),
-    LanguageModel(name = "Português (BR)", code = "pt", country = "BR"),
-    LanguageModel(name = "ಕನ್ನಡ", code = "kn"),
-    LanguageModel(name = "தமிழ்", code = "ta"),
-    LanguageModel(name = "తెలుగు", code = "te"),
-    LanguageModel(name = "تعيين الرمز السري", code = "ar"),
-    LanguageModel(name = "اردو", code = "ur"),
-    LanguageModel(name = "বাংলা", code = "bn"),
-    LanguageModel(name = "Deutsch", code = "de"),
-    LanguageModel(name = "Español", code = "es"),
-    LanguageModel(name = "Norsk", code = "nb"),
-    LanguageModel(name = "Русский", code = "ru"),
-    LanguageModel(name = "Italiano", code = "it"),
-    LanguageModel(name = "Français", code = "fr"),
-    LanguageModel(name = "Filipino", code = "fil"),
-    LanguageModel(name = "Svenska", code = "sv"),
-    LanguageModel(name = "中國人", code = "zh"),
-    LanguageModel(name = "한국인", code = "ko"),
-    LanguageModel(name = "日本語", code = "ja"),
+    LanguageModel(name = "Português (BR)", code = "pt", country = "-BR"),
+//    LanguageModel(name = "हिंदी", code = "hi"),
+//    LanguageModel(name = "ગુજરાતી", code = "gu"),
+//    LanguageModel(name = "ಕನ್ನಡ", code = "kn"),
+//    LanguageModel(name = "தமிழ்", code = "ta"),
+//    LanguageModel(name = "తెలుగు", code = "te"),
+//    LanguageModel(name = "تعيين الرمز السري", code = "ar"),
+//    LanguageModel(name = "اردو", code = "ur"),
+//    LanguageModel(name = "বাংলা", code = "bn"),
+//    LanguageModel(name = "Deutsch", code = "de"),
+//    LanguageModel(name = "Norsk", code = "nb"),
+//    LanguageModel(name = "Русский", code = "ru"),
+//    LanguageModel(name = "Italiano", code = "it"),
+//    LanguageModel(name = "Français", code = "fr"),
+//    LanguageModel(name = "Filipino", code = "fil"),
+//    LanguageModel(name = "Svenska", code = "sv"),
+//    LanguageModel(name = "中國人", code = "zh"),
+//    LanguageModel(name = "한국인", code = "ko"),
+//    LanguageModel(name = "日本語", code = "ja"),
   )
 
-  val model: Value<Model> = MutableValue(initialState())
+  private val _model: MutableValue<Model> = MutableValue(initialState())
+  val model: Value<Model> = _model
+
+  init {
+    Logger.w("TAG_LANGUAGE", "LanguageComponent init = $this")
+  }
 
   override fun content(): @Composable () -> Unit = {
     LanguageContent(component = this)
@@ -66,7 +72,7 @@ class LanguageComponent(
   override fun action(action: RootComponent.Child.Action) {
     action.updateModel()
 
-    launchIO {
+    launch {
       action.doSomething()?.let {
         action(it)
       }
@@ -92,10 +98,8 @@ class LanguageComponent(
   }
 
   private fun RootComponent.Child.Action.updateModel() {
-    Logger.d("TAG", "updateModel = $this")
     when (this) {
       is Action.ApplyLanguage -> update()
-      is Action.Done -> {}
     }
   }
 
@@ -109,20 +113,14 @@ class LanguageComponent(
   }
 
   private fun Action.ApplyLanguage.update() {
-    (model as MutableValue).value = model.value.copy(
-      selected = value,
-    )
+    _model.update { it.copy(selected = value) }
   }
 
-  private fun Action.ApplyLanguage.updateLocale() {
-    launchMain {
-      if (appDatastore.languageModelOnce() != value) {
-        appDatastore.languageName(value = value.name)
-        appDatastore.languageModel(value = value)
+  private suspend fun Action.ApplyLanguage.updateLocale() {
+    languageChanger.updateLocale(languageModel = value)
 
-        languageChanger.updateLocale(languageModel = value)
-      }
-    }
+    appDatastore.languageName(value = value.name)
+    appDatastore.languageModel(value = value)
   }
 
   private suspend fun done() {

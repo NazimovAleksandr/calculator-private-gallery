@@ -9,6 +9,15 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+fun LifecycleOwner.launch(
+  scope: CoroutineScope = coroutineScope(),
+  start: CoroutineStart = CoroutineStart.DEFAULT,
+  block: suspend CoroutineScope.() -> Unit,
+): Job = scope.launch(
+  start = start,
+  block = block,
+)
+
 fun LifecycleOwner.launchMain(
   scope: CoroutineScope = coroutineScope(),
   start: CoroutineStart = CoroutineStart.DEFAULT,

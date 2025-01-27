@@ -178,8 +178,6 @@ private fun Content(
       verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.Start,
       modifier = Modifier
-        .clip(shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
-        .background(color = MaterialTheme.colors.primaryVariant)
         .navigationBarsPadding()
         .weight(weight = 1f)
     ) {
