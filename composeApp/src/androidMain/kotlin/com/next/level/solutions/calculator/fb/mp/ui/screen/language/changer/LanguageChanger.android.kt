@@ -6,8 +6,6 @@ import android.content.res.Configuration
 import android.os.LocaleList
 import com.next.level.solutions.calculator.fb.mp.MainActivity
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.model.LanguageModel
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import java.util.Locale
 
 actual fun getLanguageChanger(): LanguageChanger {
@@ -20,61 +18,21 @@ actual fun getDefaultLocaleLanguageCode(): String {
 
 class LanguageChangerImpl(
   private val activity: Activity,
+  private val store: ChangerLocalStore,
 ) : LanguageChanger {
 
-  override fun updateLocale(
-    languageModel: LanguageModel,
-  ) {
-    val locale = languageModel.toLocale()
-
-    activity.updateLocale(locale)
-    activity.recreate()
+  init {
+    activity.updateLocale(store.getLocale())
   }
 
-  override fun selectedLocale(
-    availableLanguages: MutableList<Pair<String, String>>,
-  ): String {
-    val languages = languages(availableLanguages)
-    val selected = languages.flatten().firstOrNull { it?.first == Locale.getDefault().language }
-    val selectedLocale = selected?.first ?: Locale.getDefault().language ?: "en"
-
-    return selectedLocale
-  }
-
-  override fun languages(
-    availableLanguages: MutableList<Pair<String, String>>,
-  ): ImmutableList<List<Pair<String, String>?>> {
-    return availableLanguages
-      .let { list ->
-        val currentLocal = list.firstOrNull { pair ->
-          pair.first == Locale.getDefault().language
-        }
-
-        when {
-          currentLocal != null -> {
-            list.remove(currentLocal)
-            list.add(1, currentLocal)
-          }
-        }
-
-        val resultList: MutableList<List<Pair<String, String>?>> = mutableListOf()
-
-        for (i in list.indices step 2) {
-          resultList.add(
-            listOf(
-              list.getOrNull(i),
-              list.getOrNull(i + 1),
-            )
-          )
-        }
-
-        resultList
-      }
-      .toImmutableList()
+  override fun updateLocale(languageModel: LanguageModel) {
+    store.persistLocale(languageModel.toLocale())
+    activity.updateLocale(languageModel.toLocale())
+//    activity.recreate()
   }
 
   private fun LanguageModel.toLocale(): Locale {
-    return Locale(code, country, variant)
+    return Locale(code, country.replace("-", ""), variant)
   }
 
   private fun Context.updateLocale(locale: Locale) {

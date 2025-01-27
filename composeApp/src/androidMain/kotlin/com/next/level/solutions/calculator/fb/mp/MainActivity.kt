@@ -1,6 +1,9 @@
 package com.next.level.solutions.calculator.fb.mp
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
+import android.os.LocaleList
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -14,6 +17,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOp
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 
@@ -24,11 +28,36 @@ class MainActivity : ComponentActivity() {
     var producePath: ((String) -> String)? = null
   }
 
+  override fun attachBaseContext(newBase: Context?) {
+    val newBaseContext = newBase?.let { context ->
+      val resources = context.resources
+      val configuration = resources.configuration
+
+      val store = ChangerLocalStore(context.getSharedPreferences("Changer", Context.MODE_PRIVATE))
+      val localeToSwitchTo = store.getLocale()
+
+      configuration.setLocale(localeToSwitchTo)
+      val localeList = LocaleList(localeToSwitchTo)
+      LocaleList.setDefault(localeList)
+      configuration.setLocales(localeList)
+
+      ContextWrapper(context.createConfigurationContext(configuration))
+    }
+
+    super.attachBaseContext(newBaseContext)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     producePath = { filesDir.resolve(it).absolutePath }
-    languageChanger = lazy { LanguageChangerImpl(this) }
+
+    languageChanger = lazy {
+      LanguageChangerImpl(
+        activity = this,
+        store = ChangerLocalStore(getSharedPreferences("Changer", Context.MODE_PRIVATE))
+      )
+    }
 
     adsManager = AdsManagerImpl(
       activity = this,
