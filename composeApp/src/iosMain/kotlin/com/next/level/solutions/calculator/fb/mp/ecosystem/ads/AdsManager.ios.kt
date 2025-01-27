@@ -22,6 +22,7 @@ actual fun adsManager(): AdsManager = object : AdsManager {
       }
 
       override fun show(closeCallback: () -> Unit) {
+        closeCallback()
         // TODO("Not yet implemented")
       }
     }
@@ -68,12 +69,14 @@ actual fun adsManager(): AdsManager = object : AdsManager {
       }
 
       override fun show(closeCallback: () -> Unit) {
+        closeCallback()
         // TODO("Not yet implemented")
       }
 
     }
 
   override fun init(onComplete: () -> Unit) {
+    onComplete()
     // TODO("Not yet implemented")
   }
 }
