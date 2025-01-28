@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,7 +61,7 @@ private fun Content(
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = modifier
-      .background(color = MaterialTheme.colors.background)
+      .background(color = MaterialTheme.colorScheme.background)
       .navigationBarsPadding()
       .statusBarsPadding()
       .fillMaxSize()
@@ -86,10 +86,12 @@ private fun Content(
     Spacer(modifier = Modifier.weight(weight = 30f))
 
     LinearProgressIndicator(
-      progress = progress?.value ?: 0.5f,
-      color = MaterialTheme.colors.onBackground.copy(alpha = 0.4f),
-      backgroundColor = MaterialTheme.colors.onBackground.copy(alpha = 0.2f),
+      progress = { progress?.value ?: 0.5f },
+      color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
+      trackColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
       strokeCap = StrokeCap.Round,
+      gapSize = (-500).dp,
+      drawStopIndicator = {},
       modifier = Modifier
         .width(width = 120.dp)
         .height(height = 8.dp)

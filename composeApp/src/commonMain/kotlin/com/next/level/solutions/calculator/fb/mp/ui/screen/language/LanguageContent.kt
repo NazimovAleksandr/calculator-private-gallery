@@ -17,8 +17,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -43,13 +43,13 @@ fun LanguageContent(
   component: LanguageComponent,
   modifier: Modifier = Modifier,
 ) {
+  val model by component.model.subscribeAsState()
+
 //  val activateCollapseSecurity by remember { // todo
 //    derivedStateOf {
-//      component.model.value.activateCollapseSecurity
+//      model.activateCollapseSecurity
 //    }
 //  }
-
-  val model by component.model.subscribeAsState()
 
   Content(
     component = component,
@@ -95,7 +95,7 @@ private fun Content(
     verticalArrangement = Arrangement.Top,
     horizontalAlignment = Alignment.Start,
     modifier = modifier
-      .background(color = MaterialTheme.colors.background)
+      .background(color = MaterialTheme.colorScheme.background)
       .navigationBarsPadding()
       .statusBarsPadding()
       .fillMaxSize()
@@ -124,7 +124,7 @@ private fun Content(
         modifier = Modifier
           .clip(shape = CircleShape)
           .clickable { action.invoke(LanguageComponent.Action.Done) }
-          .background(color = MaterialTheme.colors.primary)
+          .background(color = MaterialTheme.colorScheme.primary)
           .padding(vertical = 8.dp, horizontal = 16.dp)
       )
     }
@@ -186,8 +186,8 @@ private fun RowScope.LanguageCard(
   onClick: () -> Unit,
 ) {
   val backgroundColor = when (selected) {
-    true -> MaterialTheme.colors.secondary
-    false -> MaterialTheme.colors.secondary.copy(alpha = 0.4f)
+    true -> MaterialTheme.colorScheme.secondary
+    false -> MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
   }
 
   when {
@@ -203,7 +203,7 @@ private fun RowScope.LanguageCard(
     ) {
       Text(
         text = language,
-        color = MaterialTheme.colors.onSecondary,
+        color = MaterialTheme.colorScheme.onSecondary,
         style = TextStyleFactory.FS14.w600(),
         maxLines = 1,
         modifier = Modifier

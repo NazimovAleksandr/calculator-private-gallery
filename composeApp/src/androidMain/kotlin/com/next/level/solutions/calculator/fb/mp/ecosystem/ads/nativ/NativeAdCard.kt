@@ -18,9 +18,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
@@ -49,14 +49,14 @@ fun ColumnScope.NativeAdCard(
   ad: Flow<NativeAd?>?,
   modifier: Modifier = Modifier,
   loadAtDispose: Boolean = true,
-  color: Color? = MaterialTheme.colors.onBackground.copy(alpha = 0f),
+  color: Color? = MaterialTheme.colorScheme.onBackground.copy(alpha = 0f),
   loadNative: () -> Unit,
 ) {
   Content(
     size = size,
     modifier = modifier,
     loadAtDispose = loadAtDispose,
-    color = color ?: MaterialTheme.colors.onBackground.copy(alpha = 0f),
+    color = color ?: MaterialTheme.colorScheme.onBackground.copy(alpha = 0f),
     loadNative = loadNative,
     ad = ad,
   )
@@ -68,7 +68,7 @@ private fun ColumnScope.Content(
   ad: Flow<NativeAd?>? = null,
   size: NativeSize? = NativeSize.Large,
   loadAtDispose: Boolean = true,
-  color: Color = MaterialTheme.colors.onBackground.copy(alpha = 0f),
+  color: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0f),
   loadNative: () -> Unit = {},
 ) {
   size ?: return
@@ -90,7 +90,7 @@ private fun ColumnScope.Ad(
   ad: Flow<NativeAd?>? = null,
   size: NativeSize = NativeSize.Large,
   loadAtDispose: Boolean = true,
-  color: Color = MaterialTheme.colors.onBackground.copy(alpha = 0f),
+  color: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0f),
   loadNative: () -> Unit = {},
 ) {
   val nativeAdState: State<NativeAd?>? = ad?.collectAsStateWithLifecycle(
@@ -101,7 +101,7 @@ private fun ColumnScope.Ad(
     derivedStateOf { nativeAdState?.value }
   }
 
-  Divider()
+  HorizontalDivider()
 
   AdCardContainer(
     modifier = modifier,
@@ -124,14 +124,14 @@ private fun ColumnScope.Ad(
     }
   )
 
-  Divider()
+  HorizontalDivider()
 }
 
 @Composable
 private fun AdCardContainer(
   modifier: Modifier = Modifier,
   size: NativeSize = NativeSize.Large,
-  color: Color = MaterialTheme.colors.onBackground.copy(alpha = 0f),
+  color: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0f),
   content: @Composable BoxScope.() -> Unit
 ) {
   val minHeight = remember(key1 = size) {

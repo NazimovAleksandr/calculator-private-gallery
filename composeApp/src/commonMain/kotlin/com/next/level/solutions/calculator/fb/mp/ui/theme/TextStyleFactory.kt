@@ -1,6 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.ui.theme
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -17,7 +17,7 @@ object TextStyleFactory {
 
         private val colorDef: Color
             @Composable
-            get() = MaterialTheme.colors.onBackground
+            get() = MaterialTheme.colorScheme.onBackground
 
         private fun createTextStyle(
             fontSize: Int,

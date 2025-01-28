@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -517,10 +517,10 @@ data class ButtonColors(
   companion object {
     @Composable
     fun default(
-      contentColor: Color = MaterialTheme.colors.onPrimary,
-      containerColor: Color = MaterialTheme.colors.primary,
-      disabledContentColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f),
-      disabledContainerColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.27f),
+      contentColor: Color = MaterialTheme.colorScheme.onPrimary,
+      containerColor: Color = MaterialTheme.colorScheme.primary,
+      disabledContentColor: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+      disabledContainerColor: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.27f),
     ): ButtonColors = ButtonColors(
       contentColor = contentColor,
       containerColor = containerColor,

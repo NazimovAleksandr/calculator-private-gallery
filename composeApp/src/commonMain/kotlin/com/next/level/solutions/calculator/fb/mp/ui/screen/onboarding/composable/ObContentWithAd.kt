@@ -19,9 +19,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -71,8 +70,8 @@ private fun Content(
   val verticalGradient = Brush.verticalGradient(
     colorStops = listOf(
       0f to Color.Transparent,
-      0.75f to MaterialTheme.colors.background.copy(alpha = 0.89f),
-      1f to MaterialTheme.colors.background,
+      0.75f to MaterialTheme.colorScheme.background.copy(alpha = 0.89f),
+      1f to MaterialTheme.colorScheme.background,
     ).toTypedArray()
   )
 
@@ -80,7 +79,7 @@ private fun Content(
     verticalArrangement = Arrangement.Bottom,
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = modifier
-      .background(color = MaterialTheme.colors.background)
+      .background(color = MaterialTheme.colorScheme.background)
       .statusBarsPadding()
   ) {
     Spacer(modifier = Modifier.height(height = 12.dp))
@@ -140,8 +139,8 @@ private fun Content(
 
         repeat(pagerState.pageCount) { iteration ->
           val color = when (pagerState.currentPage == iteration) {
-            true -> MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
-            else -> MaterialTheme.colors.onBackground.copy(alpha = 0.2f)
+            true -> MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+            else -> MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
           }
 
           Box(
@@ -225,7 +224,7 @@ private fun Button(
 ) {
   Text(
     text = stringResource(resource = text),
-    color = MaterialTheme.colors.onSecondary,
+    color = MaterialTheme.colorScheme.onSecondary,
     style = TextStyleFactory.FS15.w600(),
     modifier = Modifier
       .padding(end = 16.dp)

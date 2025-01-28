@@ -20,8 +20,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -70,7 +70,7 @@ private fun Content(
     verticalArrangement = Arrangement.Bottom,
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = modifier
-      .background(color = MaterialTheme.colors.background)
+      .background(color = MaterialTheme.colorScheme.background)
       .statusBarsPadding()
       .navigationBarsPadding()
   ) {
@@ -147,8 +147,8 @@ private fun Content(
     ) {
       repeat(pagerState.pageCount) { iteration ->
         val color = when (pagerState.currentPage == iteration) {
-          true -> MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
-          else -> MaterialTheme.colors.onBackground.copy(alpha = 0.2f)
+          true -> MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+          else -> MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
         }
 
         Box(
@@ -172,8 +172,8 @@ private fun Card(
   val verticalGradient = Brush.verticalGradient(
     colors = listOf(
       Color.Transparent,
-      MaterialTheme.colors.background,
-      MaterialTheme.colors.background,
+      MaterialTheme.colorScheme.background,
+      MaterialTheme.colorScheme.background,
     )
   )
 
@@ -211,12 +211,12 @@ private fun ColumnScope.ButtonSkip(
 ) {
   Text(
     text = stringResource(resource = Res.string.skip),
-    color = MaterialTheme.colors.onSecondary,
+    color = MaterialTheme.colorScheme.onSecondary,
     style = TextStyleFactory.FS15.w600(),
     modifier = Modifier
       .padding(end = 16.dp)
       .clip(shape = CircleShape)
-      .background(color = MaterialTheme.colors.secondary)
+      .background(color = MaterialTheme.colorScheme.secondary)
       .clickable(onClick = action)
       .padding(vertical = 8.dp, horizontal = 16.dp)
       .align(alignment = Alignment.End)
