@@ -10,8 +10,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data object OnboardingConfiguration : RootComponent.Configuration {
-  override val instanceKey: String = OnboardingComponent.INSTANCE_KEY
-
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return OnboardingComponent.Handler()
   }

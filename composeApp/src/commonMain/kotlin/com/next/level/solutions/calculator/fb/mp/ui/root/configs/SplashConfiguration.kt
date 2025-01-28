@@ -10,8 +10,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data object SplashConfiguration : RootComponent.Configuration {
-  override val instanceKey: String = SplashComponent.INSTANCE_KEY
-
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return SplashComponent.Handler()
   }

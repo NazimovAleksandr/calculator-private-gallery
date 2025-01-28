@@ -16,11 +16,8 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpenImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
-import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
-import com.next.level.solutions.calculator.fb.mp.ui.root.rootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
-import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 
 class MainActivity : ComponentActivity() {
   companion object {

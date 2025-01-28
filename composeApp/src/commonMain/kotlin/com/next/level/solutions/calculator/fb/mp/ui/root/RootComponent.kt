@@ -5,6 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.slot.ChildSlot
+import com.arkivanov.decompose.router.slot.SlotNavigation
+import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
@@ -18,6 +21,7 @@ import kotlinx.serialization.Serializable
 class RootComponent(
   componentContext: ComponentContext,
   navigation: StackNavigation<Configuration>,
+  dialogNavigation: SlotNavigation<DialogConfiguration>,
   private val factory: KoinFactory,
 ) : ComponentContext by componentContext {
 
@@ -25,6 +29,13 @@ class RootComponent(
     source = navigation,
     serializer = Configuration.serializer(),
     initialConfiguration = SplashConfiguration,
+    handleBackButton = true,
+    childFactory = ::child,
+  )
+
+  val dialog: Value<ChildSlot<*, Child>> = childSlot(
+    source = dialogNavigation,
+    serializer = DialogConfiguration.serializer(),
     handleBackButton = true,
     childFactory = ::child,
   )
@@ -39,6 +50,20 @@ class RootComponent(
   )
 
   private fun Configuration.toChild(
+    componentContext: ComponentContext,
+  ): Child {
+    componentContext.instanceKeeper.put(componentContext, instanceKeeper())
+    return with(this) { factory.get(componentContext) }
+  }
+
+  private fun child(
+    configuration: DialogConfiguration,
+    componentContext: ComponentContext,
+  ): Child = configuration.toChild(
+    componentContext = componentContext,
+  )
+
+  private fun DialogConfiguration.toChild(
     componentContext: ComponentContext,
   ): Child {
     componentContext.instanceKeeper.put(componentContext, instanceKeeper())
@@ -73,7 +98,12 @@ class RootComponent(
 
   @Serializable
   sealed interface Configuration {
-    val instanceKey: String
+    fun instanceKeeper(): InstanceKeeper.Instance
+    fun KoinFactory.get(context: ComponentContext): Child
+  }
+
+  @Serializable
+  sealed interface DialogConfiguration {
     fun instanceKeeper(): InstanceKeeper.Instance
     fun KoinFactory.get(context: ComponentContext): Child
   }
