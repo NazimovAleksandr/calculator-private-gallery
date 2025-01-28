@@ -8,8 +8,8 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.root.LanguageConfiguration.language
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.root.language
 
 class OnboardingComponent(
   componentContext: ComponentContext,
@@ -34,7 +34,7 @@ class OnboardingComponent(
     when (this) {
       is Action.Skip -> {
         appDatastore.policyState(true)
-        navigation.replaceCurrent(RootComponent.Configuration.language())
+        navigation.replaceCurrent(RootComponent.Configuration.language(changeMode = false))
       }
     }
 

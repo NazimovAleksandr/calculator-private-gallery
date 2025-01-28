@@ -13,8 +13,8 @@ import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launch
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.root.HiddenFilesConfiguration.hiddenFiles
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.getDefaultLocaleLanguageCode
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.model.LanguageModel
@@ -58,7 +58,7 @@ class LanguageComponent(
 //    LanguageModel(name = "日本語", code = "ja"),
   )
 
-  private val _model: MutableValue<Model> = MutableValue(initialState())
+  private val _model: MutableValue<Model> = MutableValue(initialModel())
   val model: Value<Model> = _model
 
   init {
@@ -79,7 +79,7 @@ class LanguageComponent(
     }
   }
 
-  private fun initialState(): Model {
+  private fun initialModel(): Model {
 //    analytics.language.languageSelectionOpen()
 
     val defaultLocaleLanguage = getDefaultLocaleLanguageCode()
@@ -131,7 +131,7 @@ class LanguageComponent(
     launchMain {
       when (handler.changeMode) {
         true -> navigation.pop()
-        else -> navigation.replaceCurrent(RootComponent.Configuration.hiddenFiles()) // todo calculator
+        else -> navigation.replaceCurrent(RootComponent.Configuration.calculator(changeMode = false))
       }
     }
   }
@@ -175,7 +175,9 @@ class LanguageComponent(
     val INSTANCE_KEY: String = this::class.toString()
   }
 
-  class Handler(val changeMode: Boolean = false) : InstanceKeeper.Instance
+  class Handler(
+    val changeMode: Boolean,
+  ) : InstanceKeeper.Instance
 
   data class Model(
     val languages: ImmutableList<List<LanguageModel?>>,

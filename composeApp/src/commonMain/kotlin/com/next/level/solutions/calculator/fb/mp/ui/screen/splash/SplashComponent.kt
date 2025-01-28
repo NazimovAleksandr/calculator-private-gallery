@@ -10,10 +10,10 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.root.HiddenFilesConfiguration.hiddenFiles
-import com.next.level.solutions.calculator.fb.mp.ui.root.LanguageConfiguration.language
-import com.next.level.solutions.calculator.fb.mp.ui.root.OnboardingConfiguration.onboarding
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
+import com.next.level.solutions.calculator.fb.mp.ui.root.language
+import com.next.level.solutions.calculator.fb.mp.ui.root.onboarding
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.delay
 
@@ -46,7 +46,7 @@ class SplashComponent(
       progress.value >= 1f -> adsManager.inter.show(::interOff)
 //      progress.value > 0.7f && !consentState() -> incrementProgress(1000) // TODO
 //      progress.value > 0.9f && !adState() -> incrementProgress(55) // TODO
-      else -> incrementProgress(5)
+      else -> incrementProgress(2)
     }
   }
 
@@ -63,8 +63,8 @@ class SplashComponent(
     launchMain {
       val configuration: RootComponent.Configuration = when {
         !appDatastore.policyStateOnce() -> RootComponent.Configuration.onboarding()
-        !appDatastore.languageStateOnce() -> RootComponent.Configuration.language()
-        else -> RootComponent.Configuration.hiddenFiles() // TODO Calculator()
+        !appDatastore.languageStateOnce() -> RootComponent.Configuration.language(changeMode = false)
+        else -> RootComponent.Configuration.calculator(changeMode = false)
       }
 
       navigation.replaceCurrent(configuration)

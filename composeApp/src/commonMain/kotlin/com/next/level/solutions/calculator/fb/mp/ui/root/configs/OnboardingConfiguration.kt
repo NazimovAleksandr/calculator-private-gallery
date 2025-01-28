@@ -19,8 +19,8 @@ data object OnboardingConfiguration : RootComponent.Configuration {
   override fun KoinFactory.get(context: ComponentContext): RootComponent.Child {
     return componentOf(::OnboardingComponent, context)
   }
+}
 
-  fun RootComponent.Configuration.Companion.onboarding(): OnboardingConfiguration {
-    return OnboardingConfiguration
-  }
+fun RootComponent.Configuration.Companion.onboarding(): OnboardingConfiguration {
+  return OnboardingConfiguration
 }

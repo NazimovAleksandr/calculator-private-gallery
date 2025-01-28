@@ -9,18 +9,20 @@ import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object LanguageConfiguration : RootComponent.Configuration {
+data class LanguageConfiguration(
+  val changeMode: Boolean,
+) : RootComponent.Configuration {
   override val instanceKey: String = LanguageComponent.INSTANCE_KEY
 
   override fun instanceKeeper(): InstanceKeeper.Instance {
-    return LanguageComponent.Handler()
+    return LanguageComponent.Handler(changeMode)
   }
 
   override fun KoinFactory.get(context: ComponentContext): RootComponent.Child {
     return componentOf(::LanguageComponent, context)
   }
+}
 
-  fun RootComponent.Configuration.Companion.language(): LanguageConfiguration {
-    return LanguageConfiguration
-  }
+fun RootComponent.Configuration.Companion.language(changeMode: Boolean): LanguageConfiguration {
+  return LanguageConfiguration(changeMode)
 }
