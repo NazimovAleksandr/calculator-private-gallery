@@ -131,7 +131,7 @@ class LanguageComponent(
     launchMain {
       when (handler.changeMode) {
         true -> navigation.pop()
-        else -> navigation.replaceCurrent(RootComponent.Configuration.calculator(changeMode = false))
+        else -> navigation.replaceCurrent(RootComponent.Configuration.calculator(changeMode = false, password = ""))
       }
     }
   }
@@ -171,10 +171,6 @@ class LanguageComponent(
   /**
    * Store contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
-  companion object {
-    val INSTANCE_KEY: String = this::class.toString()
-  }
-
   class Handler(
     val changeMode: Boolean,
   ) : InstanceKeeper.Instance

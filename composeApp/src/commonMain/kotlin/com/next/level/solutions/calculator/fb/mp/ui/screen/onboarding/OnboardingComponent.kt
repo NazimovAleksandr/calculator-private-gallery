@@ -44,10 +44,6 @@ class OnboardingComponent(
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
-  companion object {
-    val INSTANCE_KEY: String = this::class.toString()
-  }
-
   class Handler : InstanceKeeper.Instance
 
   sealed interface Action : RootComponent.Child.Action {

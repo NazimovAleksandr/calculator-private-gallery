@@ -11,6 +11,7 @@ import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.root.language
 import com.next.level.solutions.calculator.fb.mp.ui.root.onboarding
@@ -21,7 +22,7 @@ class SplashComponent(
   componentContext: ComponentContext,
   private val adsManager: AdsManager,
   private val appDatastore: AppDatastore,
-  private val navigation: StackNavigation<RootComponent.Configuration>,
+  private val navigation: StackNavigation<Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   private val _progress: MutableValue<Float> = MutableValue(0f)
@@ -61,10 +62,10 @@ class SplashComponent(
 //    analytics.splash.splashLoaded()
 
     launchMain {
-      val configuration: RootComponent.Configuration = when {
-        !appDatastore.policyStateOnce() -> RootComponent.Configuration.onboarding()
-        !appDatastore.languageStateOnce() -> RootComponent.Configuration.language(changeMode = false)
-        else -> RootComponent.Configuration.calculator(changeMode = false)
+      val configuration: Configuration = when {
+        !appDatastore.policyStateOnce() -> Configuration.onboarding()
+        !appDatastore.languageStateOnce() -> Configuration.language(changeMode = false)
+        else -> Configuration.calculator(changeMode = false, password = appDatastore.passwordStateOnce())
       }
 
       navigation.replaceCurrent(configuration)
@@ -74,9 +75,5 @@ class SplashComponent(
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
-  companion object {
-    val INSTANCE_KEY: String = this::class.toString()
-  }
-
   class Handler : InstanceKeeper.Instance
 }

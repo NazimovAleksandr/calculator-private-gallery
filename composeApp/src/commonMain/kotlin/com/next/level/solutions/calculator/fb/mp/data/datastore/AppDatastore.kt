@@ -23,8 +23,12 @@ class AppDatastore {
       .createWithPath(produceFile = { producePath("app_datastore.preferences_pb").toPath() })
   }
 
-  private val policyState: Preferences.Key<Boolean> = booleanPreferencesKey("policyState")
-  private val languageState: Preferences.Key<Boolean> = booleanPreferencesKey("languageState")
+  private val policyState: Preferences.Key<Boolean> = booleanPreferencesKey("policy")
+  private val languageState: Preferences.Key<Boolean> = booleanPreferencesKey("language")
+
+  private val passwordState: Preferences.Key<String> = stringPreferencesKey("password")
+  private val secureQuestionState: Preferences.Key<String> = stringPreferencesKey("secureQuestion")
+  private val secureAnswerState: Preferences.Key<String> = stringPreferencesKey("secureAnswer")
 
   private val languageName: Preferences.Key<String> = stringPreferencesKey("languageName")
   private val languageModel: Preferences.Key<String> = stringPreferencesKey("languageModel")
@@ -43,6 +47,15 @@ class AppDatastore {
   suspend fun languageModel(value: LanguageModel): Unit = languageModel.set(value.mapToString())
   private fun String.toLanguageModel(): LanguageModel? = Json.decodeFromString<LanguageModel?>(this)
   private fun LanguageModel.mapToString(): String = Json.encodeToString(this)
+
+  suspend fun passwordStateOnce(): String = passwordState.get().first() ?: ""
+  suspend fun passwordState(value: String): Unit = passwordState.set(value)
+
+  suspend fun secureQuestionStateOnce(): String? = secureQuestionState.get().first()
+  suspend fun secureQuestionState(value: String): Unit = secureQuestionState.set(value)
+
+  suspend fun secureAnswerStateOnce(): String? = secureAnswerState.get().first()
+  suspend fun secureAnswerState(value: String): Unit = secureAnswerState.set(value)
 
   private suspend fun <V> Preferences.Key<V>.set(value: V) {
     dataStore.edit { preferences ->

@@ -35,6 +35,9 @@ kotlin {
       implementation(compose.preview)
       implementation(libs.androidx.activity.compose)
       implementation(libs.bundles.admob)
+
+      // mathParser
+      implementation(libs.math.parser)
     }
 
     commonMain.dependencies {
