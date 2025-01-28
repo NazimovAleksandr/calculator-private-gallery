@@ -17,6 +17,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOp
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.root.rootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
@@ -70,13 +71,7 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    val rootComponentFactory: (KoinFactory) -> RootComponent = {
-      RootComponent(
-        componentContext = defaultComponentContext(),
-        navigation = it.inject(),
-        factory = it,
-      )
-    }
+    val componentContext = defaultComponentContext()
 
     val color = when (true) {
       true -> Color.Black.copy(alpha = 0.01f)
@@ -90,7 +85,7 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       App(
-        rootComponentFactory = rootComponentFactory,
+        componentContext = componentContext,
       )
     }
   }
