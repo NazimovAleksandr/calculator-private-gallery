@@ -9,14 +9,14 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 
-class ResetCodeComponent(
+class ResetCodeDialogComponent(
   componentContext: ComponentContext,
   adsManager: AdsManager,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   override fun content(): @Composable () -> Unit = {
-    ResetCodeContent(component = this)
+    ResetCodeDialogContent(component = this)
   }
 
   override fun action(action: RootComponent.Child.Action) {
@@ -26,7 +26,7 @@ class ResetCodeComponent(
   }
 
   /**
-   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler : InstanceKeeper.Instance
 

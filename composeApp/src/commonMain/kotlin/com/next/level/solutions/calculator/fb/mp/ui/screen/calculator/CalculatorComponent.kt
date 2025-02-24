@@ -327,7 +327,7 @@ class CalculatorComponent(
 //        analytics.calculator.secretQuestionPrompt()
         launchMain {
           dialogNavigation.activate(
-            DialogConfiguration.secureQuestion(_model.value.secureQuestion) {
+            DialogConfiguration.secureQuestionDialog(_model.value.secureQuestion) {
               action(Action.SecureAnswer(it))
             }
           )
@@ -359,8 +359,6 @@ class CalculatorComponent(
   private fun savePassword(password: String) {
 //    analytics.calculator.pinSecondEntered()
 
-    Logger.d("TAG_CALCULATOR", "savePassword password = $password")
-
     launchMain {
       appDatastore.passwordState(password)
 
@@ -372,7 +370,7 @@ class CalculatorComponent(
 
         else -> {
 //        analytics.calculator.pinCreatedSuccess()
-          navigation.replaceCurrent(Configuration.hiddenFiles()) // todo SecurityQuestion
+          navigation.replaceCurrent(Configuration.secureQuestion())
         }
       }
     }
@@ -395,7 +393,7 @@ class CalculatorComponent(
   }
 
   /**
-   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler(
     val changeMode: Boolean,

@@ -42,8 +42,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SecureQuestionContent(
-  component: SecureQuestionComponent,
+fun SecureQuestionDialogContent(
+  component: SecureQuestionDialogComponent,
 ) {
   val model by component.model.subscribeAsState()
 
@@ -54,11 +54,11 @@ fun SecureQuestionContent(
   }
 
   fun hide() {
-    component.action(SecureQuestionComponent.Action.Hide)
+    component.action(SecureQuestionDialogComponent.Action.Hide)
   }
 
   fun done(answer: String) {
-    component.action(SecureQuestionComponent.Action.Done(answer))
+    component.action(SecureQuestionDialogComponent.Action.Done(answer))
   }
 
   BottomSheet(
@@ -78,7 +78,7 @@ fun SecureQuestionContent(
 }
 
 @Composable
-fun SecureQuestionContentPreview(
+fun SecureQuestionDialogContentPreview(
   modifier: Modifier = Modifier,
 ) {
   Column(

@@ -25,11 +25,11 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResetCodeContent(
-  component: ResetCodeComponent,
+fun ResetCodeDialogContent(
+  component: ResetCodeDialogComponent,
 ) {
   fun hide() {
-    component.action(ResetCodeComponent.Action.Hide)
+    component.action(ResetCodeDialogComponent.Action.Hide)
   }
 
   BottomSheet(
@@ -44,7 +44,7 @@ fun ResetCodeContent(
 }
 
 @Composable
-fun ResetCodeContentPreview(
+fun ResetCodeDialogContentPreview(
   modifier: Modifier = Modifier,
 ) {
   Column(

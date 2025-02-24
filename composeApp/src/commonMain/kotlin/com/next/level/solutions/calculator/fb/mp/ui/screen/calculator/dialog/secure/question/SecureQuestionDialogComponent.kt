@@ -12,7 +12,7 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 
-class SecureQuestionComponent(
+class SecureQuestionDialogComponent(
   componentContext: ComponentContext,
   adsManager: AdsManager,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
@@ -20,11 +20,11 @@ class SecureQuestionComponent(
 
   private val handler: Handler = instance<Handler>(componentContext)
 
-  private val _model: MutableValue<Model> = MutableValue(handler.toModel())
-  val model: Value<Model> = _model
+  private val _model: MutableValue<Model> by lazy { MutableValue(handler.toModel()) }
+  val model: Value<Model> get() = _model
 
   override fun content(): @Composable () -> Unit = {
-    SecureQuestionContent(component = this)
+    SecureQuestionDialogContent(component = this)
   }
 
   override fun action(action: RootComponent.Child.Action) {
@@ -35,7 +35,7 @@ class SecureQuestionComponent(
   }
 
   /**
-   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler(
     private val secureQuestion: String,
