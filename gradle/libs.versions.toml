@@ -34,6 +34,7 @@ datastore = "1.1.2"
 #room = "2.6.1"
 
 mxparser = "6.1.0"
+compottie = "2.0.0-rc04"
 
 ad-admob = "23.6.0"
 #ad-mediation-vungle = "7.4.2.0"
@@ -79,6 +80,11 @@ datastore = { group = "androidx.datastore", name = "datastore-preferences-core",
 #room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 math-parser = { group = "org.mariuszgromada.math", name = "MathParser.org-mXparser", version.ref = "mxparser" }
+
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+#compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }
+#compottie-network = { module = "io.github.alexzhirkevich:compottie-network", version.ref = "compottie" }
+#compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
 
 ad-core = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "ad-admob" }
 #ad-mediation-unity = { group = "com.google.ads.mediation", name = "unity", version.ref = "ad-mediation-unity" }

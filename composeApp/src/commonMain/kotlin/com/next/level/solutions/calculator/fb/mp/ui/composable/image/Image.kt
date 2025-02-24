@@ -1,5 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.ui.composable.image
 
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +23,7 @@ fun Image(
   alpha: Float = DefaultAlpha,
   colorFilter: ColorFilter? = null,
 ) {
-  androidx.compose.foundation.Image(
+  Image(
     painter = painterResource(resource = id),
     contentDescription = contentDescription,
     modifier = modifier,
@@ -64,7 +65,7 @@ fun Image(
 ) {
   vector ?: return
 
-  androidx.compose.foundation.Image(
+  Image(
     painter = rememberVectorPainter(vector),
     contentDescription = contentDescription,
     modifier = modifier,
