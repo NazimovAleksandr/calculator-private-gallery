@@ -38,6 +38,8 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpenImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
+import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
+import com.next.level.solutions.calculator.fb.mp.file.hider.FileHider
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
 
@@ -83,13 +85,44 @@ class MainActivity : ComponentActivity() {
     installSplashScreen()
     super.onCreate(savedInstanceState)
 
+    init()
+
+    val componentContext = defaultComponentContext()
+
+    setContent {
+      App(
+        componentContext = componentContext,
+      )
+    }
+  }
 
   override fun onDestroy() {
     super.onDestroy()
     adsManager?.native?.destroy()
     adsManager = null
   }
+
+  private fun init() {
+    val color = when (true) {
+      true -> Color.Black.copy(alpha = 0.01f)
+      else -> Color.White.copy(alpha = 0.01f)
+    }.toArgb()
+
+    if (!BuildConfig.DEBUG) {
+      window.setFlags(FLAG_SECURE, FLAG_SECURE)
+    }
+
+    enableEdgeToEdge(
+      statusBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
+      navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
+    )
+
     producePath = { filesDir.resolve(it).absolutePath }
+
+    externalStoragePermissionGranted = {
+      ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PERMISSION_GRANTED
+          && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED
+    }
 
     languageChanger = lazy {
       LanguageChangerImpl(
@@ -163,28 +196,26 @@ class MainActivity : ComponentActivity() {
     adsManager?.init {
 
     }
-
-    val componentContext = defaultComponentContext()
-
-    val color = when (true) {
-      true -> Color.Black.copy(alpha = 0.01f)
-      else -> Color.White.copy(alpha = 0.01f)
-    }.toArgb()
-
-    enableEdgeToEdge(
-      statusBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
-      navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
-    )
-
-    setContent {
-      App(
-        componentContext = componentContext,
-      )
-    }
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    adsManager = null
+  private fun Activity.systemBars(show: Boolean) {
+    val windowInsetsController: WindowInsetsControllerCompat = WindowCompat.getInsetsController(
+      /* window = */ window,
+      /* view = */ window.decorView,
+    )
+
+    windowInsetsController.systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+    when (show) {
+      true -> windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+      else -> windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      window.attributes.layoutInDisplayCutoutMode = when (show) {
+        true -> WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+        else -> WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+      }
+    }
   }
 }

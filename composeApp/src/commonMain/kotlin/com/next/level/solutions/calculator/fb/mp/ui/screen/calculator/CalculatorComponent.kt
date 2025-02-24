@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.replaceCurrent
@@ -17,18 +18,18 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launch
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.root.HiddenFilesConfiguration.hiddenFiles
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
+import com.next.level.solutions.calculator.fb.mp.ui.root.home
 import com.next.level.solutions.calculator.fb.mp.ui.root.resetPasswordCode
 import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestion
+import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestionDialog
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.ButtonType
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isNotZero
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isZero
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 
 class CalculatorComponent(
   componentContext: ComponentContext,
@@ -41,8 +42,8 @@ class CalculatorComponent(
 
   private val handler: Handler = instance<Handler>(componentContext)
 
-  private val _model: MutableValue<Model> = MutableValue(initialModel())
-  val model: Value<Model> = _model
+  private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
+  val model: Value<Model> get() = _model
 
   private val enteredNumberRaw: MutableList<ButtonType> = mutableListOf()
   private val allNumberRaw: MutableList<ButtonType> = mutableListOf()
@@ -82,7 +83,7 @@ class CalculatorComponent(
 
     return Model(
       creatingPassword = handler.password.isEmpty() || handler.changeMode,
-      backHandlerEnabled = !handler.changeMode,
+      backHandlerEnabled = !handler.changeMode || handler.lockMode,
     )
   }
 
@@ -388,7 +389,10 @@ class CalculatorComponent(
 
   private fun toHome() {
     adsManager.inter.show {
-      navigation.replaceCurrent(Configuration.hiddenFiles()) // todo HOME
+      when (handler.lockMode) {
+        true -> dialogNavigation.dismiss()
+        else -> navigation.replaceCurrent(Configuration.home())
+      }
     }
   }
 
@@ -398,6 +402,7 @@ class CalculatorComponent(
   class Handler(
     val changeMode: Boolean,
     val password: String,
+    val lockMode: Boolean = false,
   ) : InstanceKeeper.Instance
 
   data class Model(

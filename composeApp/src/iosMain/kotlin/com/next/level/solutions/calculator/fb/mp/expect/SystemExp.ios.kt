@@ -27,3 +27,15 @@ actual fun requestExternalStoragePermission() {
     }
   }
 }
+
+actual fun systemBars(show: Boolean) {
+  // TODO:
+}
+
+actual fun setAppEventListeners(callback: (AppEvent) -> Unit) {
+  // TODO:
+}
+
+actual fun collapse() {
+  // TODO:
+}

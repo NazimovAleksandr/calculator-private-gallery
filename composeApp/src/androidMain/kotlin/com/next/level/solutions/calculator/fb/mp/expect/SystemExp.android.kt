@@ -16,3 +16,15 @@ actual fun externalStoragePermissionGranted(): Boolean {
 actual fun requestExternalStoragePermission() {
   MainActivity.requestExternalStoragePermission?.invoke()
 }
+
+actual fun systemBars(show: Boolean) {
+  MainActivity.systemBars?.invoke(show)
+}
+
+actual fun setAppEventListeners(callback: (AppEvent) -> Unit) {
+  MainActivity.appEventListeners = callback
+}
+
+actual fun collapse() {
+  MainActivity.collapse?.invoke()
+}
