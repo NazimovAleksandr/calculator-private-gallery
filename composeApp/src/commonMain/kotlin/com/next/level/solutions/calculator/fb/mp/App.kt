@@ -3,6 +3,7 @@ package com.next.level.solutions.calculator.fb.mp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import com.arkivanov.decompose.ComponentContext
+import com.next.level.solutions.calculator.fb.mp.di.dataModule
 import com.next.level.solutions.calculator.fb.mp.di.decomposeModule
 import com.next.level.solutions.calculator.fb.mp.di.ecosystemModule
 import com.next.level.solutions.calculator.fb.mp.di.rootModule
@@ -56,6 +57,7 @@ private fun KoinApplication.appModules() {
       decomposeModule,
       ecosystemModule,
       screenModule,
+      dataModule,
     )
   )
 }

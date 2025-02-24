@@ -67,11 +67,25 @@ kotlin {
 
       // datastore
       implementation(libs.datastore)
+
+      // room
+      implementation(libs.room.runtime)
+
+      // compottie (lottie)
+      implementation(libs.compottie)
     }
 
     // KSP Common sourceSet
     sourceSets.named("commonMain").configure {
       kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+    }
+  }
+
+  targets.configureEach {
+    compilations.configureEach {
+      compileTaskProvider.get().compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+      }
     }
   }
 }
@@ -91,6 +105,10 @@ android {
       set("resizeableActivity", false)
     }
   }
+  buildFeatures {
+    compose = true
+    buildConfig = true
+  }
   packaging {
     resources {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -108,20 +126,35 @@ android {
 }
 
 dependencies {
-  // KSP Tasks
-  add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-  add("kspAndroid", libs.koin.ksp.compiler)
-  add("kspIosX64", libs.koin.ksp.compiler)
-  add("kspIosArm64", libs.koin.ksp.compiler)
-  add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+  implementation(libs.androidx.foundation.layout.android)
+  // Koin KSP Tasks
+  listOf(
+    "kspCommonMainMetadata",
+    "kspAndroid",
+    "kspIosX64",
+    "kspIosArm64",
+    "kspIosSimulatorArm64",
+  ).forEach {
+    add(it, libs.koin.ksp.compiler)
+  }
+
+  // Room KSP Tasks
+  listOf(
+    "kspCommonMainMetadata",
+    "kspAndroid",
+    "kspIosX64",
+    "kspIosArm64",
+    "kspIosSimulatorArm64",
+  ).forEach {
+    add(it, libs.room.compiler)
+  }
 
   implementation(libs.androidx.appcompat)
   debugImplementation(compose.uiTooling)
+
+  ksp(libs.room.compiler)
 }
 
-// Trigger Common Metadata Generation from Native tasks
-project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
-  if (name != "kspCommonMainKotlinMetadata") {
-    dependsOn("kspCommonMainKotlinMetadata")
-  }
+ksp {
+  arg("room.schemaLocation", "${projectDir}/schemas")
 }

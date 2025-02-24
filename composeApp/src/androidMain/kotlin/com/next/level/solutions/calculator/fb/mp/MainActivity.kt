@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
     var adsManager: AdsManager? = null
     var languageChanger: Lazy<LanguageChangerImpl>? = null
     var producePath: ((String) -> String)? = null
+    var roomDatabase: (() -> RoomDatabase.Builder<MyDatabase>)? = null
   }
 
   override fun attachBaseContext(newBase: Context?) {
@@ -54,6 +55,15 @@ class MainActivity : ComponentActivity() {
       LanguageChangerImpl(
         activity = this,
         store = ChangerLocalStore(getSharedPreferences("Changer", Context.MODE_PRIVATE))
+      )
+    }
+
+    roomDatabase = {
+      val dbFile = applicationContext.getDatabasePath("my_room.db")
+
+      Room.databaseBuilder<MyDatabase>(
+        context = applicationContext,
+        name = dbFile.absolutePath
       )
     }
 
