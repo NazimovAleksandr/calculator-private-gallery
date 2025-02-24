@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="Theme.CalculatorLock" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@color/window_bg</item>
+    <item name="windowSplashScreenAnimatedIcon">@drawable/avd_v01</item>
+    <item name="windowSplashScreenAnimationDuration">200</item>
+    <item name="postSplashScreenTheme">@style/Theme.App</item>
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+  <style name="Theme.App" parent="Theme.AppCompat.Light.NoActionBar"/>
+</resources>
