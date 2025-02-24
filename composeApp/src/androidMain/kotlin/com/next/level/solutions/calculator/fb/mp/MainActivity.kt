@@ -1,13 +1,26 @@
 package com.next.level.solutions.calculator.fb.mp
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.LocaleList
+import android.provider.Settings
+import android.view.WindowManager
+import android.view.WindowManager.LayoutParams.FLAG_SECURE
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat
@@ -19,6 +32,7 @@ import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_B
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.arkivanov.decompose.defaultComponentContext
+import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpenImpl
@@ -40,6 +54,11 @@ class MainActivity : ComponentActivity() {
     var roomDatabase: (() -> RoomDatabase.Builder<MyDatabase>)? = null
     var fileHider: (() -> FileHider)? = null
   }
+
+  private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
+    contract = RequestMultiplePermissions(),
+    callback = {},
+  )
 
   override fun attachBaseContext(newBase: Context?) {
     val newBaseContext = newBase?.let { context ->
@@ -64,6 +83,12 @@ class MainActivity : ComponentActivity() {
     installSplashScreen()
     super.onCreate(savedInstanceState)
 
+
+  override fun onDestroy() {
+    super.onDestroy()
+    adsManager?.native?.destroy()
+    adsManager = null
+  }
     producePath = { filesDir.resolve(it).absolutePath }
 
     languageChanger = lazy {
