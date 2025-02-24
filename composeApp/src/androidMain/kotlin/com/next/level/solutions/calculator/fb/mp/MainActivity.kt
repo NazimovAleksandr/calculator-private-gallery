@@ -10,7 +10,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.arkivanov.decompose.defaultComponentContext
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
