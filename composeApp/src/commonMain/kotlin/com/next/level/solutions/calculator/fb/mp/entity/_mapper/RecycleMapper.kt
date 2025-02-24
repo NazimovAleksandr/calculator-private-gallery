@@ -23,16 +23,3 @@ fun TrashModelDB.toUI(): TrashModelUI = TrashModelUI(
 
   duration = this@toUI.duration
 }
-
-fun TrashModelUI.toDB(): TrashModelDB = TrashModelDB(
-  path = path,
-  type = fileType.name,
-  name = name,
-  folder = folder,
-  size = size,
-  dateAdded = dateAdded,
-  dateHidden = dateHidden,
-  dateModified = dateModified,
-  hiddenPath = hiddenPath,
-  duration = duration
-)

@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LanguageConfiguration(
-  val changeMode: Boolean,
+  private val changeMode: Boolean,
 ) : RootComponent.Configuration {
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return LanguageComponent.Handler(changeMode)

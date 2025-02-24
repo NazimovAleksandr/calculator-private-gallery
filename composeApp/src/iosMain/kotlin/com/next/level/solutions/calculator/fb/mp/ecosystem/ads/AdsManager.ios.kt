@@ -46,7 +46,7 @@ actual fun adsManager(): AdsManager = object : AdsManager {
         modifier: Modifier,
         loadAtDispose: Boolean,
         color: Color?,
-      ): @Composable ColumnScope.() -> Unit {
+      ): @Composable () -> Unit {
         // TODO("Not yet implemented")
         return {}
       }

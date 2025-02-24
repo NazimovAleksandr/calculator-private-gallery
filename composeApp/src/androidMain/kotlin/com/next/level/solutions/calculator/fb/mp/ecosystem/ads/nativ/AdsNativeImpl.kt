@@ -1,7 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ
 
 import android.content.Context
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -97,7 +96,7 @@ class AdsNativeImpl(
     modifier: Modifier,
     loadAtDispose: Boolean,
     color: Color?,
-  ): @Composable ColumnScope.() -> Unit = {
+  ): @Composable () -> Unit = {
     NativeAdCard(
       size = size,
       modifier = modifier,

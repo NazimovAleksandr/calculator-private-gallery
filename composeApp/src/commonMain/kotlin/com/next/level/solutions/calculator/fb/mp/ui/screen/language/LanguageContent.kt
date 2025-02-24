@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -175,7 +176,13 @@ private fun Content(
       }
     }
 
-    component?.nativeAdCard(size = NativeSize.Large)?.invoke(this)
+    HorizontalDivider()
+
+    component?.nativeAdCard(
+      size = NativeSize.Large,
+    )
+
+    HorizontalDivider()
   }
 }
 

@@ -43,10 +43,10 @@ fun CalculatorContent(
 fun CalculatorContentPreview(
   modifier: Modifier = Modifier,
 ) {
-    Content(
-      component = null,
-      modifier = modifier,
-    )
+  Content(
+    component = null,
+    modifier = modifier,
+  )
 }
 
 @Composable
@@ -158,6 +158,12 @@ private fun Content(
 
     Spacer(modifier = Modifier.height(height = 24.dp))
 
-    component?.nativeAdCard(size = NativeSize.Small)?.invoke(this)
+    HorizontalDivider()
+
+    component?.nativeAdCard(
+      size = NativeSize.Small,
+    )
+
+    HorizontalDivider()
   }
 }

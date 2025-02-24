@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -99,6 +100,12 @@ private fun Content(
 
     Spacer(modifier = Modifier.height(height = 44.dp))
 
-    component?.nativeAdCard(size = NativeSize.Small)?.invoke(this)
+    HorizontalDivider()
+
+    component?.nativeAdCard(
+      size = NativeSize.Small,
+    )
+
+    HorizontalDivider()
   }
 }

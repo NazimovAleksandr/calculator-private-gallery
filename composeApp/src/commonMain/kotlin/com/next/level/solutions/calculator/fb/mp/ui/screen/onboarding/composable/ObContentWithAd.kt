@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,6 +82,7 @@ private fun Content(
     modifier = modifier
       .background(color = MaterialTheme.colorScheme.background)
       .statusBarsPadding()
+      .navigationBarsPadding()
   ) {
     Spacer(modifier = Modifier.height(height = 12.dp))
 
@@ -173,17 +175,15 @@ private fun Content(
       }
     }
 
-    Column(
-      verticalArrangement = Arrangement.Top,
-      horizontalAlignment = Alignment.Start,
-      modifier = Modifier
-        .navigationBarsPadding()
-        .weight(weight = 1f)
-    ) {
-      component?.nativeAdCard(size = NativeSize.Adaptive)?.invoke(this)
+    HorizontalDivider()
 
-      Spacer(modifier = Modifier.height(height = 12.dp))
-    }
+    component?.nativeAdCard(
+      size = NativeSize.Adaptive,
+      modifier = Modifier
+        .weight(weight = 1f)
+    )
+
+    HorizontalDivider()
   }
 }
 

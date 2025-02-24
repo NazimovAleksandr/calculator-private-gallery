@@ -58,8 +58,8 @@ class LanguageComponent(
 //    LanguageModel(name = "日本語", code = "ja"),
   )
 
-  private val _model: MutableValue<Model> = MutableValue(initialModel())
-  val model: Value<Model> = _model
+  private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
+  val model: Value<Model> get() = _model
 
   init {
     Logger.w("TAG_LANGUAGE", "LanguageComponent init = $this")

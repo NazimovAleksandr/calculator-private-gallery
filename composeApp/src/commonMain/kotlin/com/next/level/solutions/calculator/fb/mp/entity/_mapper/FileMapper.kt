@@ -26,15 +26,3 @@ fun FileModelUI.toDB(): FileModelDB = FileModelDB(
   dateModified = dateModified,
   hiddenPath = hiddenPath,
 )
-
-fun FileModelUI.toTrashDB(): TrashModelDB = TrashModelDB(
-  type = FilePickerFileType.File.name,
-  path = path,
-  name = name,
-  folder = folder,
-  size = size,
-  dateAdded = dateAdded,
-  dateHidden = dateHidden,
-  dateModified = dateModified,
-  hiddenPath = hiddenPath,
-)

@@ -11,14 +11,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -44,7 +42,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.theme.AppThemePreview
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun ColumnScope.NativeAdCard(
+fun NativeAdCard(
   size: NativeSize?,
   ad: Flow<NativeAd?>?,
   modifier: Modifier = Modifier,
@@ -63,7 +61,7 @@ fun ColumnScope.NativeAdCard(
 }
 
 @Composable
-private fun ColumnScope.Content(
+private fun Content(
   modifier: Modifier = Modifier,
   ad: Flow<NativeAd?>? = null,
   size: NativeSize? = NativeSize.Large,
@@ -83,9 +81,8 @@ private fun ColumnScope.Content(
   )
 }
 
-@Suppress("UnusedReceiverParameter")
 @Composable
-private fun ColumnScope.Ad(
+private fun Ad(
   modifier: Modifier = Modifier,
   ad: Flow<NativeAd?>? = null,
   size: NativeSize = NativeSize.Large,
@@ -100,8 +97,6 @@ private fun ColumnScope.Ad(
   val nativeAd: NativeAd? by remember {
     derivedStateOf { nativeAdState?.value }
   }
-
-  HorizontalDivider()
 
   AdCardContainer(
     modifier = modifier,
@@ -123,8 +118,6 @@ private fun ColumnScope.Ad(
       }
     }
   )
-
-  HorizontalDivider()
 }
 
 @Composable

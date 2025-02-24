@@ -42,7 +42,7 @@ class OnboardingComponent(
   }
 
   /**
-   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler : InstanceKeeper.Instance
 

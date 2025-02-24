@@ -25,12 +25,12 @@ class SplashComponent(
   private val navigation: StackNavigation<Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
-  private val _progress: MutableValue<Float> = MutableValue(0f)
-  val progress: Value<Float> = _progress
-
   init {
     Logger.w("TAG_SPLASH", "SplashComponent init = $this")
   }
+
+  private val _progress: MutableValue<Float> by lazy { MutableValue(0f) }
+  val progress: Value<Float> get() = _progress
 
   override fun content(): @Composable () -> Unit {
     launchMain { runProgress() }
@@ -73,7 +73,7 @@ class SplashComponent(
   }
 
   /**
-   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler : InstanceKeeper.Instance
 }
