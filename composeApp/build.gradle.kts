@@ -71,6 +71,12 @@ kotlin {
       // room
       implementation(libs.room.runtime)
 
+      // coil3
+      implementation(libs.coil3.compose)
+
+      // mediaplayer
+      implementation(libs.mediaplayer)
+
       // compottie (lottie)
       implementation(libs.compottie)
     }
