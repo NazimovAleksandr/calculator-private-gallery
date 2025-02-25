@@ -39,8 +39,9 @@ mxparser = "6.1.0"
 coil3 = "3.0.4"
 mediaplayer = "2.0.6"
 compottie = "2.0.0-rc04"
+webview-multiplatform = "1.9.40"
 
-ad-admob = "24.0.0"
+ad-admob = "23.6.0"
 #ad-mediation-vungle = "7.4.2.0"
 #ad-mediation-unity = "4.13.0.0"
 #ad-mediation-pangle = "6.4.0.6.0"
@@ -92,6 +93,8 @@ compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "comp
 #compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }
 #compottie-network = { module = "io.github.alexzhirkevich:compottie-network", version.ref = "compottie" }
 #compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
+
+webview-multiplatform = { module = "io.github.kevinnzou:compose-webview-multiplatform", version.ref = "webview-multiplatform" }
 
 ad-core = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "ad-admob" }
 #ad-mediation-unity = { group = "com.google.ads.mediation", name = "unity", version.ref = "ad-mediation-unity" }

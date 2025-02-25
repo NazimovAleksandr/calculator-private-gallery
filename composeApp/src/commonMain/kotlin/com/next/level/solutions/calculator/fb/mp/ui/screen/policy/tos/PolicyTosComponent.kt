@@ -1,4 +1,4 @@
-package com.next.level.solutions.calculator.fb.mp.ui.screen.settings
+package com.next.level.solutions.calculator.fb.mp.ui.screen.policy.tos
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -15,30 +15,32 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsType
 import com.next.level.solutions.calculator.fb.mp.entity.ui.getSettingsItems
+import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.root.language
-import com.next.level.solutions.calculator.fb.mp.ui.root.policyTos
 import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestion
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.coroutines.flow.Flow
 
 @Stable
-class SettingsComponent(
+class PolicyTosComponent(
   componentContext: ComponentContext,
   adsManager: AdsManager,
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<RootComponent.Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
-  private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
+  private val handler: Handler = instance<Handler>(componentContext)
+
+  private val _model: MutableValue<Model> by lazy { MutableValue(Model(handler.tos)) }
   val model: Value<Model> get() = _model
 
   override fun content(): @Composable () -> Unit = {
-    SettingsContent(component = this)
+    PolicyTosContent(component = this)
   }
 
   override fun action(action: RootComponent.Child.Action) {
@@ -47,16 +49,6 @@ class SettingsComponent(
         action(it)
       }
     }
-  }
-
-  private fun initialModel(): Model {
-//    analytics.settings.screenOpen()
-
-    return Model(
-      items = getSettingsItems(),
-      language = appDatastore.languageName(),
-      tipToResetPassword = appDatastore.tipToResetPassword(),
-    )
   }
 
   private suspend fun RootComponent.Child.Action.doSomething(): Action? {
@@ -87,10 +79,10 @@ class SettingsComponent(
       )
 
       SettingsModelUI.Language -> navigation.pushNew(RootComponent.Configuration.language(changeMode = true))
-      SettingsModelUI.Privacy -> navigation.pushNew(RootComponent.Configuration.policyTos(tos = false))
-      SettingsModelUI.Tos -> navigation.pushNew(RootComponent.Configuration.policyTos(tos = true))
 //      SettingsModelUI.Rate5Stars -> triggerSignal(Signal.Rate5Stars) todo
 //      SettingsModelUI.Share -> triggerSignal(Signal.Share) todo
+//      SettingsModelUI.Privacy -> navigate(AppGraph.Policy) todo
+//      SettingsModelUI.Tos -> navigate(AppGraph.Tos) todo
       else -> {}
     }
   }
@@ -98,13 +90,12 @@ class SettingsComponent(
   /**
    * Store contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
-  class Handler : InstanceKeeper.Instance
+  class Handler(
+    val tos: Boolean,
+  ) : InstanceKeeper.Instance
 
   data class Model(
-    val items: ImmutableMap<SettingsType, ImmutableList<SettingsModelUI>>,
-    val language: Flow<String?>,
-    val tipToResetPassword: Flow<Boolean?>,
-    val resetCode: String = RESET_PASSWORD_CODE,
+    val tos: Boolean,
   )
 
   sealed interface Action : RootComponent.Child.Action {

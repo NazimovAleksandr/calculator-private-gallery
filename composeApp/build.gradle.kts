@@ -65,20 +65,14 @@ kotlin {
       implementation(libs.koin.compose)
       api(libs.koin.annotations)
 
-      // datastore
       implementation(libs.datastore)
 
-      // room
       implementation(libs.room.runtime)
-
-      // coil3
       implementation(libs.coil3.compose)
-
-      // mediaplayer
       implementation(libs.mediaplayer)
 
-      // compottie (lottie)
       implementation(libs.compottie)
+      implementation(libs.webview.multiplatform)
     }
 
     // KSP Common sourceSet
