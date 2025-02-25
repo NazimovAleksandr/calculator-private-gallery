@@ -1,6 +1,5 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads
 
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
