@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
   alias(libs.plugins.android.application)
@@ -127,7 +126,8 @@ android {
 }
 
 dependencies {
-  implementation(libs.androidx.foundation.layout.android)
+//  implementation(libs.androidx.foundation.layout.android)
+
   // Koin KSP Tasks
   listOf(
     "kspCommonMainMetadata",
