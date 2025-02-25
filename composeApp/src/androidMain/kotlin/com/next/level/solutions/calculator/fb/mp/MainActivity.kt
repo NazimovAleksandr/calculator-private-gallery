@@ -39,7 +39,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOp
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
-import com.next.level.solutions.calculator.fb.mp.file.hider.FileHider
+import com.next.level.solutions.calculator.fb.mp.file.hider.FileHiderImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
 
@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
     var systemBars: ((Boolean) -> Unit)? = null
     var appEventListeners: ((AppEvent) -> Unit)? = null
     var roomDatabase: (() -> RoomDatabase.Builder<MyDatabase>)? = null
-    var fileHider: (() -> FileHider)? = null
+    var fileHider: (() -> FileHiderImpl)? = null
   }
 
   private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
@@ -174,7 +174,7 @@ class MainActivity : ComponentActivity() {
     }
 
     fileHider = {
-      FileHider(this)
+      FileHiderImpl(this)
     }
 
     roomDatabase = {
