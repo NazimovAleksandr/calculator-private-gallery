@@ -8,12 +8,9 @@ import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
-import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
-import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.externalStoragePermissionGranted
 import com.next.level.solutions.calculator.fb.mp.expect.requestExternalStoragePermission
-import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
@@ -22,18 +19,11 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configura
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.hiddenFiles
 import com.next.level.solutions.calculator.fb.mp.ui.root.needAccessDialog
-import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.collections.immutable.PersistentMap
-import kotlinx.collections.immutable.persistentHashMapOf
-import kotlinx.collections.immutable.toPersistentMap
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
+import com.next.level.solutions.calculator.fb.mp.ui.root.settings
 
 @Stable
 class HomeComponent(
   componentContext: ComponentContext,
-  database: AppDatabase,
   private val adsManager: AdsManager,
   private val navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
@@ -42,32 +32,6 @@ class HomeComponent(
   init {
     val root = instanceKeeper.get("RootComponent") as? RootComponent
     root?.action(RootComponent.Action.ActivateCollapseSecurity)
-  }
-
-  private val hiddenFilesTrash: Flow<List<FileDataUI>> = database.getFormDatabaseByDateAdded(
-    fileType = FilePickerFileType.Trash,
-  )
-
-  private val hiddenFilesPhoto: Flow<List<FileDataUI>> = database.getFormDatabaseByDateAdded(
-    fileType = FilePickerFileType.Photo,
-  )
-
-  private val hiddenFilesVideo: Flow<List<FileDataUI>> = database.getFormDatabaseByDateAdded(
-    fileType = FilePickerFileType.Video,
-  )
-
-  private val hiddenFilesFile: Flow<List<FileDataUI>> = database.getFormDatabaseByDateAdded(
-    fileType = FilePickerFileType.File,
-  )
-
-  private val hiddenFilesNote: Flow<List<FileDataUI>> = database.getFormDatabaseByDateAdded(
-    fileType = FilePickerFileType.Note,
-  )
-
-  private var hiddenFilesCount: ImmutableMap<FilePickerFileType, Int> = persistentHashMapOf()
-
-  init {
-    updateHiddenFilesCount()
   }
 
   override fun content(): @Composable () -> Unit = {
@@ -89,7 +53,7 @@ class HomeComponent(
       is Action.Ad -> adsManager.inter.show {}
 //      is Action.SetAdState -> adState = event.state
 //      is Action.OnStart -> checkFiles(event.context)
-//      is Action.Settings -> navigation.pushNew(Configuration.settings()) todo
+      is Action.Settings -> navigation.pushNew(Configuration.settings())
 
       else -> navigateOrShowInter()
     }
@@ -138,8 +102,7 @@ class HomeComponent(
           -> navigation.pushNew(
           Configuration.hiddenFiles(
             fileType = this,
-            viewType = FilePickerViewType.Gallery,
-            hiddenFilesCount = hiddenFilesCount.getOrElse(this) { 0 }
+            viewType = FilePickerViewType.Gallery
           )
         )
 
@@ -148,8 +111,7 @@ class HomeComponent(
           -> navigation.pushNew(
           Configuration.hiddenFiles(
             fileType = this,
-            viewType = FilePickerViewType.Folder,
-            hiddenFilesCount = hiddenFilesCount.getOrElse(this) { 0 }
+            viewType = FilePickerViewType.Folder
           )
         )
       }
@@ -162,29 +124,6 @@ class HomeComponent(
       else -> interOffCallback()
     }
   }
-
-  private fun updateHiddenFilesCount() {
-    hiddenFilesTrash.collect(FilePickerFileType.Trash)
-    hiddenFilesPhoto.collect(FilePickerFileType.Photo)
-    hiddenFilesVideo.collect(FilePickerFileType.Video)
-    hiddenFilesFile.collect(FilePickerFileType.File)
-    hiddenFilesNote.collect(FilePickerFileType.Note)
-  }
-
-  private fun Flow<List<FileDataUI>>.collect(fileType: FilePickerFileType) {
-    launchIO {
-      onEach { files ->
-        if (hiddenFilesCount[fileType] != files.size) {
-          hiddenFilesCount = hiddenFilesCount.update(fileType, files.size)
-        }
-      }.collect()
-    }
-  }
-
-  private fun <K, V> Map<K, V>.update(key: K, valeu: V): PersistentMap<K, V> = this
-    .toMutableMap()
-    .also { it[key] = valeu }
-    .toPersistentMap()
 
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
