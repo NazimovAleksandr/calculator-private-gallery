@@ -79,11 +79,11 @@ private fun Content(
     component?.action(LottieComponent.Action.EndAnimation)
   }
 
-  val root = component?.model?.value?.rootComponent?.model?.subscribeAsState()
+  val model = component?.model?.subscribeAsState()
 
   val appLocked by remember {
     derivedStateOf {
-      root?.value?.appLocked == true
+      model?.value?.appLocked
     }
   }
 

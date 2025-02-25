@@ -6,9 +6,10 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
-import com.next.level.solutions.calculator.fb.mp.extensions.core.getInstance
+import com.next.level.solutions.calculator.fb.mp.extensions.core.getRootComponent
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 
@@ -18,10 +19,16 @@ class LottieComponent(
   private val navigation: StackNavigation<RootComponent.Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
-  private val root: RootComponent? = instanceKeeper.getInstance(key = "RootComponent") as? RootComponent
-
-  private val _model: MutableValue<Model> by lazy { MutableValue(Model(rootComponent = root)) }
+  private val _model: MutableValue<Model> by lazy { MutableValue(Model()) }
   val model: Value<Model> get() = _model
+
+  init {
+    val rootComponent: RootComponent? = getRootComponent()
+
+    rootComponent?.model?.subscribe { rootModel ->
+      _model.update { it.copy(appLocked = rootModel.appLocked) }
+    }
+  }
 
   override fun content(): @Composable () -> Unit = {
     LottieContent(component = this)
@@ -49,7 +56,7 @@ class LottieComponent(
   class Handler : InstanceKeeper.Instance
 
   data class Model(
-    val rootComponent: RootComponent?,
+    val appLocked: Boolean = false,
   )
 
   sealed interface Action : RootComponent.Child.Action {
