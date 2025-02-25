@@ -22,6 +22,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import calculator_fileblocking.composeapp.generated.resources.Res
+import calculator_fileblocking.composeapp.generated.resources.next
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
@@ -40,6 +42,30 @@ class MagicMenuItem(
 @Composable
 fun MagicMenu(
   items: State<ImmutableList<MagicMenuItem>>,
+  withSelected: Boolean = false,
+  textColor: Color = MaterialTheme.colorScheme.onBackground,
+  iconColor: Color = textColor,
+  offset: DpOffset = DpOffset(0.dp, 0.dp),
+  modifier: Modifier = Modifier,
+  menuModifier: Modifier = Modifier,
+  itemModifier: Modifier = Modifier,
+) {
+  Content(
+    items = items,
+    withSelected = withSelected,
+    textColor = textColor,
+    iconColor = iconColor,
+    offset = offset,
+    modifier = modifier,
+    menuModifier = menuModifier,
+    itemModifier = itemModifier
+  )
+}
+
+@Composable
+private fun Content(
+  items: State<ImmutableList<MagicMenuItem>>,
+  withSelected: Boolean = false,
   textColor: Color = MaterialTheme.colorScheme.onBackground,
   iconColor: Color = textColor,
   offset: DpOffset = DpOffset(0.dp, 0.dp),
@@ -51,6 +77,14 @@ fun MagicMenu(
 
   var expanded by remember {
     mutableStateOf(false)
+  }
+
+  var selected by remember {
+    mutableStateOf(itemsValue.firstOrNull())
+  }
+
+  val isWithSelected by remember(withSelected) {
+    mutableStateOf(withSelected)
   }
 
   val menuIconModifier = remember {
@@ -69,14 +103,29 @@ fun MagicMenu(
     contentAlignment = Alignment.TopStart,
     modifier = Modifier
   ) {
-    Image(
-      vector = MagicIcons.All.Menu,
-      colorFilter = MaterialTheme.colorScheme.onBackground,
-      modifier = modifier
-        .clip(shape = MaterialTheme.shapes.small)
-        .clickable(onClick = { expanded = true })
-        .padding(all = 8.dp)
-    )
+    when (isWithSelected && selected != null) {
+      true -> Text(
+        text = stringResource(resource = selected?.text ?: Res.string.next),
+        style = TextStyleFactory.FS15.w600(),
+        color = textColor,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier
+          .clip(shape = MaterialTheme.shapes.small)
+          .clickable(onClick = { expanded = true })
+          .padding(vertical = 8.dp)
+          .padding(end = 8.dp)
+      )
+
+      else -> Image(
+        vector = MagicIcons.All.Menu,
+        colorFilter = MaterialTheme.colorScheme.onBackground,
+        modifier = modifier
+          .clip(shape = MaterialTheme.shapes.small)
+          .clickable(onClick = { expanded = true })
+          .padding(all = 8.dp)
+      )
+    }
 
     DropdownMenu(
       expanded = expanded,
@@ -106,6 +155,7 @@ fun MagicMenu(
             )
           },
           onClick = {
+            selected = item
             item.action()
             expanded = false
           },

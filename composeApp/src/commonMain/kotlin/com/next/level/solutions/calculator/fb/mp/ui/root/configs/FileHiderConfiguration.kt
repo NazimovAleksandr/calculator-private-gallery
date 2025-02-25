@@ -7,7 +7,6 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
 import com.next.level.solutions.calculator.fb.mp.ui.screen.file.hider.FileHiderComponent
-import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.HiddenFilesComponent
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import kotlinx.serialization.Serializable
 

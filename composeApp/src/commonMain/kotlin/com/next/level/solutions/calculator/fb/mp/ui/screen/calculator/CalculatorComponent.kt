@@ -15,6 +15,7 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.constants.RESET_PASSWORD_CODE
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
+import com.next.level.solutions.calculator.fb.mp.extensions.core.getRootComponent
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launch
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
@@ -30,6 +31,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isNotZero
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isZero
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 
 class CalculatorComponent(
   componentContext: ComponentContext,
@@ -40,6 +42,7 @@ class CalculatorComponent(
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
+  private val rootComponent: RootComponent? = getRootComponent()
   private val handler: Handler = instance<Handler>(componentContext)
 
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
@@ -390,7 +393,12 @@ class CalculatorComponent(
   private fun toHome() {
     adsManager.inter.show {
       when (handler.lockMode) {
-        true -> dialogNavigation.dismiss()
+        true -> {
+          Logger.d("TAG_C", "rootComponent = $rootComponent")
+          rootComponent?.action(RootComponent.Action.LockOff)
+          dialogNavigation.dismiss()
+        }
+
         else -> navigation.replaceCurrent(Configuration.home())
       }
     }

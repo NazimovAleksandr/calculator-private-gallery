@@ -25,6 +25,7 @@ class AppDatastore {
 
   private val policyState: Preferences.Key<Boolean> = booleanPreferencesKey("policy")
   private val languageState: Preferences.Key<Boolean> = booleanPreferencesKey("language")
+  private val tipToResetPassword: Preferences.Key<Boolean> = booleanPreferencesKey("language")
 
   private val passwordState: Preferences.Key<String> = stringPreferencesKey("password")
   private val secureQuestionState: Preferences.Key<String> = stringPreferencesKey("secureQuestion")
@@ -38,6 +39,9 @@ class AppDatastore {
 
   suspend fun languageStateOnce(): Boolean = languageState.get().first() ?: false
   suspend fun languageState(value: Boolean): Unit = languageState.set(value)
+
+  fun tipToResetPassword(): Flow<Boolean?> = tipToResetPassword.get()
+  suspend fun tipToResetPassword(value: Boolean): Unit = tipToResetPassword.set(value)
 
   fun languageName(): Flow<String?> = languageName.get()
   suspend fun languageNameOnce(): String = languageName().first() ?: ""
