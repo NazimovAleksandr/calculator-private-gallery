@@ -3,11 +3,15 @@ package com.next.level.solutions.calculator.fb.mp.expect
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
-import com.next.level.solutions.calculator.fb.mp.file.hider.FileHider
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
+
+actual fun getRoomDatabase(): RoomDatabase.Builder<MyDatabase> {
+  val dbFilePath = documentDirectory() + "/my_room.db"
+  return Room.databaseBuilder<MyDatabase>(name = dbFilePath)
+}
 
 @OptIn(ExperimentalForeignApi::class)
 private fun documentDirectory(): String {
@@ -19,13 +23,4 @@ private fun documentDirectory(): String {
     error = null,
   )
   return requireNotNull(documentDirectory?.path)
-}
-
-actual fun getRoomDatabase(): RoomDatabase.Builder<MyDatabase> {
-  val dbFilePath = documentDirectory() + "/my_room.db"
-  return Room.databaseBuilder<MyDatabase>(name = dbFilePath)
-}
-
-actual fun getFileHider(): FileHider {
-  return FileHider()
 }
