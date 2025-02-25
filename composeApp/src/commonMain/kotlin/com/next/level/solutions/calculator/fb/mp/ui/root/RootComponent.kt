@@ -105,6 +105,7 @@ class RootComponent(
     componentContext: ComponentContext,
   ): Child {
     componentContext.instanceKeeper.put(componentContext, instanceKeeper())
+    componentContext.instanceKeeper.put("RootComponent", this@RootComponent)
     return with(this) { factory.get(componentContext) }
   }
 

@@ -1,7 +1,9 @@
 package com.next.level.solutions.calculator.fb.mp.entity.ui
 
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class NoteModelUI(
   override val dateAdded: String,
   override val name: String,
