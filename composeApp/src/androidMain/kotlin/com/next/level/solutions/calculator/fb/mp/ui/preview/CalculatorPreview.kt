@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.CalculatorContentPreview
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CalculatorButtonsPreview
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CreatingPassword
-import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.reset.code.ResetCodeContentPreview
-import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.secure.question.SecureQuestionContentPreview
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.reset.code.ResetCodeDialogContentPreview
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.secure.question.SecureQuestionDialogContentPreview
 import com.next.level.solutions.calculator.fb.mp.ui.theme.AppThemePreview
 
 @PreviewLightDark
@@ -59,7 +59,7 @@ private fun CreatingPassword_Preview() {
 @Composable
 private fun ResetPasswordCodeDialog_Preview() {
   AppThemePreview {
-    ResetCodeContentPreview(
+    ResetCodeDialogContentPreview(
       modifier = Modifier
         .background(color = MaterialTheme.colorScheme.secondary)
     )
@@ -70,7 +70,7 @@ private fun ResetPasswordCodeDialog_Preview() {
 @Composable
 private fun SecureQuestionDialog_Preview() {
   AppThemePreview {
-    SecureQuestionContentPreview(
+    SecureQuestionDialogContentPreview(
       modifier = Modifier
         .background(color = MaterialTheme.colorScheme.secondary)
     )

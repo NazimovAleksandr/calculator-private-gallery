@@ -1,9 +1,7 @@
 package com.next.level.solutions.calculator.fb.mp.entity._mapper
 
 import com.next.level.solutions.calculator.fb.mp.entity.db.FileModelDB
-import com.next.level.solutions.calculator.fb.mp.entity.db.TrashModelDB
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileModelUI
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
 
 fun FileModelDB.toUI(): FileModelUI = FileModelUI(
   path = path,

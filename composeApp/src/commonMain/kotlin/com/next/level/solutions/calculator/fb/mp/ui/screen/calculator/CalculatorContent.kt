@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +24,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
+import com.next.level.solutions.calculator.fb.mp.expect.collapse
+import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CalculatorButtons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CreatingPassword
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.TextAutoSize
@@ -36,6 +39,12 @@ fun CalculatorContent(
   Content(
     component = component,
     modifier = modifier,
+  )
+
+  BackHandler(
+    backHandler = component.backHandler,
+    isEnabled = component.model.value.backHandlerEnabled,
+    onBack = { collapse() }
   )
 }
 
