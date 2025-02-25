@@ -75,8 +75,11 @@
     <string name="search_or_type_url">Cari atau ketik URL</string>
     <string name="cancel">Batal</string>
     <string name="wrong_answer">Jawaban salah</string>
+    <string name="sort_by">Urutkan berdasarkan:</string>
     <string name="date_added">Tanggal Ditambahkan</string>
     <string name="file_size">Ukuran File</string>
+    <string name="date">Tanggal</string>
+    <string name="size">Ukuran</string>
     <string name="name">Nama</string>
     <string name="next">Berikutnya</string>
     <string name="ob_1">Buat kata sandi 4 digit</string>

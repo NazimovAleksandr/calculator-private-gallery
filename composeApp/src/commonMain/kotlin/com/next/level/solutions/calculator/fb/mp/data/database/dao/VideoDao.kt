@@ -19,7 +19,7 @@ interface VideoDao {
   @Query("SELECT * FROM videos_db ORDER by size DESC")
   fun getByFileSize(): Flow<List<VideoModelDB>>
 
-  @Query("SELECT * FROM videos_db ORDER by name DESC")
+  @Query("SELECT * FROM videos_db ORDER by name ASC")
   fun getByName(): Flow<List<VideoModelDB>>
 
   @Delete

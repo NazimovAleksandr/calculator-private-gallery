@@ -19,7 +19,7 @@ interface FileDao {
   @Query("SELECT * FROM files_db ORDER by size DESC")
   fun getByFileSize(): Flow<List<FileModelDB>>
 
-  @Query("SELECT * FROM files_db ORDER by name DESC")
+  @Query("SELECT * FROM files_db ORDER by name ASC")
   fun getByName(): Flow<List<FileModelDB>>
 
   @Delete

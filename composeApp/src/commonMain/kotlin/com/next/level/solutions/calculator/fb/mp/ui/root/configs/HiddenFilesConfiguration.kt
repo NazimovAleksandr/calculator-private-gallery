@@ -14,13 +14,11 @@ import kotlinx.serialization.Serializable
 data class HiddenFilesConfiguration(
   private val fileType: FilePickerFileType,
   private val viewType: FilePickerViewType,
-  private val hiddenFilesCount: Int,
 ) : RootComponent.Configuration {
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return HiddenFilesComponent.Handler(
       fileType = fileType,
       viewType = viewType,
-      hiddenFilesCount = hiddenFilesCount,
     )
   }
   override fun KoinFactory.get(context: ComponentContext): RootComponent.Child {
@@ -31,11 +29,9 @@ data class HiddenFilesConfiguration(
 fun RootComponent.Configuration.Companion.hiddenFiles(
   fileType: FilePickerFileType,
   viewType: FilePickerViewType,
-  hiddenFilesCount: Int,
 ): HiddenFilesConfiguration {
   return HiddenFilesConfiguration(
     fileType = fileType,
     viewType = viewType,
-    hiddenFilesCount = hiddenFilesCount,
   )
 }

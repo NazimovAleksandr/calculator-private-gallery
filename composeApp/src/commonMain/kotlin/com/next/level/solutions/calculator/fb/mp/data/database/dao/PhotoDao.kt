@@ -19,7 +19,7 @@ interface PhotoDao {
   @Query("SELECT * FROM photos_db ORDER by size DESC")
   fun getByFileSize(): Flow<List<PhotoModelDB>>
 
-  @Query("SELECT * FROM photos_db ORDER by name DESC")
+  @Query("SELECT * FROM photos_db ORDER by name ASC")
   fun getByName(): Flow<List<PhotoModelDB>>
 
   @Delete

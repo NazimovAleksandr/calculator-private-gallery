@@ -75,8 +75,11 @@
     <string name="search_or_type_url">Buscar o escribir URL</string>
     <string name="cancel">Cancelar</string>
     <string name="wrong_answer">Respuesta incorrecta</string>
+    <string name="sort_by">Ordenar por:</string>
     <string name="date_added">Fecha Agregada</string>
     <string name="file_size">Tamaño del archivo</string>
+    <string name="date">Fecha</string>
+    <string name="size">Tamaño</string>
     <string name="name">Nombre</string>
     <string name="next">Siguiente</string>
     <string name="ob_1">Crea una contraseña de 4 dígitos</string>

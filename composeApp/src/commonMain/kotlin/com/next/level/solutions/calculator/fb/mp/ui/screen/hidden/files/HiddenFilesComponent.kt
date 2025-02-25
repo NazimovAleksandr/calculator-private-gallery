@@ -15,6 +15,7 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
+import com.next.level.solutions.calculator.fb.mp.entity.ui.NoteModelUI
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
@@ -107,7 +108,6 @@ class HiddenFilesComponent(
       fileType = handler.fileType,
       viewType = handler.viewType,
       files = hiddenFilesByDateAdded,
-      hiddenFilesCount = handler.hiddenFilesCount
     )
   }
 
@@ -161,11 +161,8 @@ class HiddenFilesComponent(
 //        triggerSignal(Signal.OpenFile(file = file))
 //        state
 //      }
-//
-//      FilePickerFileType.Note -> { // todo
-//        navigate(AppGraph.OpenNotes(noteDate = (file as NoteModelUI).dateAdded))
-//        state
-//      }
+
+      FilePickerFileType.Note -> navigation.pushNew(Configuration.createNotes(file as NoteModelUI))
 
       else -> _model.update { it.copy(openFile = file) }
     }
@@ -196,7 +193,7 @@ class HiddenFilesComponent(
 
     when (handler.fileType) {
       FilePickerFileType.Note -> navigation.pushNew(
-        configuration = Configuration.createNotes(),
+        configuration = Configuration.createNotes(null),
       )
 
       FilePickerFileType.Photo -> dialogNavigation.activate(
@@ -313,7 +310,6 @@ class HiddenFilesComponent(
   class Handler(
     val fileType: FilePickerFileType,
     val viewType: FilePickerViewType,
-    val hiddenFilesCount: Int,
   ) : InstanceKeeper.Instance
 
   data class Model(
@@ -322,7 +318,6 @@ class HiddenFilesComponent(
     val files: StateFlow<ImmutableList<FileDataUI>>,
     val openFile: FileDataUI? = null,
     val selectedItemCount: Int = 0,
-    val hiddenFilesCount: Int,
   )
 
   sealed interface Action : RootComponent.Child.Action {

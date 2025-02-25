@@ -18,7 +18,7 @@ interface TrashDao {
   @Query("SELECT * FROM trash_db ORDER by size DESC")
   fun getByFileSize(): Flow<List<TrashModelDB>>
 
-  @Query("SELECT * FROM trash_db ORDER by name DESC")
+  @Query("SELECT * FROM trash_db ORDER by name ASC")
   fun getByName(): Flow<List<TrashModelDB>>
 
   @Query("DELETE FROM trash_db WHERE path = :path")

@@ -75,8 +75,11 @@
     <string name="search_or_type_url">Pesquisar ou digitar URL</string>
     <string name="cancel">Cancelar</string>
     <string name="wrong_answer">Resposta errada</string>
+    <string name="sort_by">Ordenar por:</string>
     <string name="date_added">Data Adicionada</string>
     <string name="file_size">Tamanho do arquivo</string>
+    <string name="date">Data</string>
+    <string name="size">Tamanho</string>
     <string name="name">Nome</string>
     <string name="next">Próximo</string>
     <string name="ob_1">Crie uma senha de 4 dígitos</string>

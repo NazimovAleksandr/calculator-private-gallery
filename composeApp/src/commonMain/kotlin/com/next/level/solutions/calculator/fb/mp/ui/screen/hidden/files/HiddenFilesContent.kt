@@ -29,13 +29,14 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.date_added
+import calculator_fileblocking.composeapp.generated.resources.date
 import calculator_fileblocking.composeapp.generated.resources.file
-import calculator_fileblocking.composeapp.generated.resources.file_size
 import calculator_fileblocking.composeapp.generated.resources.name
 import calculator_fileblocking.composeapp.generated.resources.photos
 import calculator_fileblocking.composeapp.generated.resources.recycle_bin
 import calculator_fileblocking.composeapp.generated.resources.secret_notes
+import calculator_fileblocking.composeapp.generated.resources.size
+import calculator_fileblocking.composeapp.generated.resources.sort_by
 import calculator_fileblocking.composeapp.generated.resources.videos
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
@@ -205,18 +206,23 @@ private fun Content(
     mutableStateOf(
       persistentListOf(
         MagicMenuItem(
-          text = Res.string.date_added,
+          text = Res.string.date,
           action = { component?.action(HiddenFilesComponent.Action.SortByDateAdded) },
-        ),
-        MagicMenuItem(
-          text = Res.string.file_size,
-          action = { component?.action(HiddenFilesComponent.Action.SortByFileSize) },
         ),
         MagicMenuItem(
           text = Res.string.name,
           action = { component?.action(HiddenFilesComponent.Action.SortByName) },
         ),
-      )
+      ).apply {
+        if (fileType != FilePickerFileType.Note) {
+          add(
+            MagicMenuItem(
+              text = Res.string.size,
+              action = { component?.action(HiddenFilesComponent.Action.SortByFileSize) },
+            ),
+          )
+        }
+      }
     )
   }
 
@@ -272,8 +278,16 @@ private fun Content(
               .clip(shape = MaterialTheme.shapes.small)
           )
 
+          Text(
+            text = stringResource(resource = Res.string.sort_by),
+            style = TextStyleFactory.FS13.w600(),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+          )
+
           MagicMenu(
             items = menuItems,
+            withSelected = true,
           )
         }
       )

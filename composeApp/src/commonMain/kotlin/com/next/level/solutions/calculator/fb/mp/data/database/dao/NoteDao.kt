@@ -18,7 +18,7 @@ interface NoteDao {
   @Query("SELECT * FROM notes_db ORDER by date_added DESC")
   fun getByFileSize(): Flow<List<NoteModelDB>>
 
-  @Query("SELECT * FROM notes_db ORDER by name DESC")
+  @Query("SELECT * FROM notes_db ORDER by name ASC")
   fun getByName(): Flow<List<NoteModelDB>>
 
   @Query("SELECT * FROM notes_db WHERE date_added = :dateAdded")

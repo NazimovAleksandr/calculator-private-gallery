@@ -88,8 +88,11 @@
     <string name="cancel">Cancel</string>
     <string name="wrong_answer">Wrong answer</string>
 
+    <string name="sort_by">Sort by:</string>
     <string name="date_added">Date Added</string>
     <string name="file_size">File size</string>
+    <string name="date">Date</string>
+    <string name="size">Size</string>
     <string name="name">Name</string>
 
     <string name="next">Next</string>

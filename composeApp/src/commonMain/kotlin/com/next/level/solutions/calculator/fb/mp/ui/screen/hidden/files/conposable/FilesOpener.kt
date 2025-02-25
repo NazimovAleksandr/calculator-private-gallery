@@ -281,7 +281,6 @@ private fun ScreenToolbar(
 
   val alphaAnimation by animateFloatAsState(
     targetValue = if (alphaAnimationStateValue) 1f else 0f,
-    label = "toolbarAlphaAnimation",
     animationSpec = tween(
       durationMillis = 1500,
     )
@@ -289,7 +288,6 @@ private fun ScreenToolbar(
 
   val toolbarTranslationY by animateIntOffsetAsState(
     targetValue = if (!fullScreenStateValue) IntOffset.Zero else IntOffset(x = 0, y = -300),
-    label = "toolbarTranslationY",
     animationSpec = tween(
       durationMillis = 700,
     )
