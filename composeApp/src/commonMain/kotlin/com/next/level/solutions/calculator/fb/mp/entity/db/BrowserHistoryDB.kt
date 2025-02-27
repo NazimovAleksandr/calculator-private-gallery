@@ -10,7 +10,6 @@ data class BrowserHistoryDB(
     @ColumnInfo(name = "url") val url: String,
     @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "time") val time: Long,
-    @ColumnInfo(name = "is_ad") val isAd: Boolean = false,
     @ColumnInfo(name = "is_remove") val isRemove: Boolean = false,
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
 )

@@ -15,7 +15,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configura
 import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.root.language
 import com.next.level.solutions.calculator.fb.mp.ui.root.onboarding
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.delay
 
 class SplashComponent(
@@ -24,10 +23,6 @@ class SplashComponent(
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
-
-  init {
-    Logger.w("TAG_SPLASH", "SplashComponent init = $this")
-  }
 
   private val _progress: MutableValue<Float> by lazy { MutableValue(0f) }
   val progress: Value<Float> get() = _progress

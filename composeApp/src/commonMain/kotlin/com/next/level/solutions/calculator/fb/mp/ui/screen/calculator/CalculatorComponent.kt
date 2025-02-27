@@ -31,7 +31,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isNotZero
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isZero
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 
 class CalculatorComponent(
   componentContext: ComponentContext,
@@ -394,7 +393,6 @@ class CalculatorComponent(
     adsManager.inter.show {
       when (handler.lockMode) {
         true -> {
-          Logger.d("TAG_C", "rootComponent = $rootComponent")
           rootComponent?.action(RootComponent.Action.LockOff)
           dialogNavigation.dismiss()
         }

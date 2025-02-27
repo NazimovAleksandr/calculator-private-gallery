@@ -8,7 +8,6 @@ class BrowserHistoryUI(
   val url: String,
   val date: String,
   val time: Long,
-  val isAd: Boolean = false,
   val isRemove: Boolean = false,
   val id: Int? = null,
 )

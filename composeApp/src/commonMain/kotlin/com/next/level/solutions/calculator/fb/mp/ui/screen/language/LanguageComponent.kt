@@ -19,7 +19,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.getDefaultLocaleLanguageCode
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.model.LanguageModel
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -61,10 +60,6 @@ class LanguageComponent(
 
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
   val model: Value<Model> get() = _model
-
-  init {
-    Logger.w("TAG_LANGUAGE", "LanguageComponent init = $this")
-  }
 
   override fun content(): @Composable () -> Unit = {
     LanguageContent(component = this)

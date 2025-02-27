@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -84,24 +83,9 @@ private fun Content(
 
     WebView(
       state = webViewState,
-//      onCreated = { it: NativeWebView ->
-////        it.settings.javaScriptEnabled = true
-//      },
       modifier = Modifier
         .fillMaxWidth()
         .weight(weight = 1f)
     )
   }
-
-//  DisposableEffect(key1 = Unit) {
-//    webViewState.webSettings.apply {
-////      isJavaScriptEnabled = true
-////
-////      androidWebSettings.apply {
-////        isAlgorithmicDarkeningAllowed = true
-////        safeBrowsingEnabled = true
-////      }
-//    }
-//    onDispose { }
-//  }
 }

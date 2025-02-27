@@ -8,7 +8,6 @@ fun BrowserHistoryDB.toUI(): BrowserHistoryUI = BrowserHistoryUI(
   url = url,
   date = date,
   time = time,
-  isAd = isAd,
   isRemove = isRemove,
   id = id,
 )
@@ -18,7 +17,6 @@ fun BrowserHistoryUI.toDB(): BrowserHistoryDB = BrowserHistoryDB(
   url = url,
   date = date,
   time = time,
-  isAd = isAd,
   isRemove = isRemove,
   id = id,
 )

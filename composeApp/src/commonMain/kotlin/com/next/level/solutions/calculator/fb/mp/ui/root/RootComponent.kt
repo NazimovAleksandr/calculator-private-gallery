@@ -18,6 +18,7 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
+import com.next.level.solutions.calculator.fb.mp.extensions.core.hexString
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
@@ -32,7 +33,7 @@ class RootComponent(
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
 
   init {
-    Logger.w("TAG_ROOT", "RootComponent init = $this")
+    Logger.w("RootComponent", "init: hex = ${this.hexString()}")
   }
 
   val stack: Value<ChildStack<*, Child>> = childStack(
@@ -174,6 +175,10 @@ class RootComponent(
 
     abstract fun content(): @Composable () -> Unit
     abstract fun action(action: Action)
+
+    init {
+      Logger.w("${this::class.simpleName}", "init: hex = ${this.hexString()}")
+    }
 
     @Composable
     fun nativeAdCard(
