@@ -31,6 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.continue_
@@ -71,6 +73,9 @@ private fun Content(
   component: SecureQuestionComponent?,
   modifier: Modifier = Modifier,
 ) {
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val focusManager = LocalFocusManager.current
+
   val model = component?.model?.subscribeAsState()
 
   val initQuestion by remember {
@@ -187,7 +192,12 @@ private fun Content(
     ActionButton(
       text = stringResource(resource = Res.string.continue_),
       enabled = answerState,
-      action = { component?.action(SecureQuestionComponent.Action.SaveAnswer) },
+      action = {
+        keyboardController?.hide()
+        focusManager.clearFocus()
+
+        component?.action(SecureQuestionComponent.Action.SaveAnswer)
+      },
       modifier = Modifier
         .padding(horizontal = 50.dp)
         .fillMaxWidth()

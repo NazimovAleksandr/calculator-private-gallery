@@ -22,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.create_notes
@@ -63,6 +65,9 @@ private fun Content(
   component: CreateNotesComponent?,
   modifier: Modifier = Modifier,
 ) {
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val focusManager = LocalFocusManager.current
+
   val focusRequester = remember { FocusRequester() }
 
   val model = component?.model?.subscribeAsState()
@@ -77,6 +82,9 @@ private fun Content(
   val noteValue = remember(key1 = note) { mutableStateOf(note?.note ?: "") }
 
   fun create() {
+    keyboardController?.hide()
+    focusManager.clearFocus()
+
     component?.action(
       CreateNotesComponent.Action.Create(
         name = titleValue.value.trim(),
@@ -102,6 +110,9 @@ private fun Content(
         }
       ),
       navAction = {
+        keyboardController?.hide()
+        focusManager.clearFocus()
+
         component?.action(CreateNotesComponent.Action.Back)
       },
       menu = {
