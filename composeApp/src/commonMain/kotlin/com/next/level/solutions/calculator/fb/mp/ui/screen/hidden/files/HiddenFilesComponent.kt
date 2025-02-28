@@ -87,7 +87,8 @@ class HiddenFilesComponent(
 
   private var selectedFiles: List<FileDataUI> = emptyList()
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     HiddenFilesContent(component = this)
   }
 

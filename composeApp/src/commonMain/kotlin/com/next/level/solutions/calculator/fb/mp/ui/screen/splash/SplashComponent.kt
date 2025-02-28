@@ -27,12 +27,13 @@ class SplashComponent(
   private val _progress: MutableValue<Float> by lazy { MutableValue(0f) }
   val progress: Value<Float> get() = _progress
 
-  override fun content(): @Composable () -> Unit {
+  init {
     launchMain { runProgress() }
+  }
 
-    return {
-      SplashContent(component = this)
-    }
+  @Composable
+  override fun content() {
+    SplashContent(component = this)
   }
 
   override fun action(action: Action) {}

@@ -30,7 +30,8 @@ class LottieComponent(
     }
   }
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     LottieContent(component = this)
   }
 

@@ -35,7 +35,8 @@ class HomeComponent(
     root?.action(RootComponent.Action.ActivateCollapseSecurity)
   }
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     HomeContent(component = this)
   }
 

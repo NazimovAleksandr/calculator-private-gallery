@@ -33,7 +33,8 @@ class SecureQuestionComponent(
   private var question = ""
   private var answer = ""
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     SecureQuestionContent(component = this)
   }
 

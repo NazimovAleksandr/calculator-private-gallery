@@ -30,7 +30,8 @@ class CreateNotesComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(Model(note = handler.note)) }
   val model: Value<Model> get() = _model
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     CreateNotesContent(component = this)
   }
 

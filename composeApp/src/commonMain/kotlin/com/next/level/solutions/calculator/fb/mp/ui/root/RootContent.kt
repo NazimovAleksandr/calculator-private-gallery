@@ -19,16 +19,12 @@ fun RootContent(
   component: RootComponent,
   modifier: Modifier = Modifier,
 ) {
-  val dialog by component.dialog.subscribeAsState()
-
   Children(
     stack = component.stack,
     modifier = modifier,
     animation = stackAnimation(slide()),
-    content = { it.instance.content().invoke() }
+    content = { it.instance.content() }
   )
-
-  dialog.child?.instance?.content()?.invoke()
 
   val scope = rememberCoroutineScope()
 
@@ -42,4 +38,12 @@ fun RootContent(
       }
     }
   }
+}
+
+@Composable
+fun RootDialog(
+  component: RootComponent,
+) {
+  val dialog by component.dialog.subscribeAsState()
+  dialog.child?.instance?.content()
 }

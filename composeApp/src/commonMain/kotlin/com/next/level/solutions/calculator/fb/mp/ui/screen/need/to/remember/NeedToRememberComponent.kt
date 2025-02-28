@@ -27,7 +27,8 @@ class NeedToRememberComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(handler.toModel()) }
   val model: Value<Model> get() = _model
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     NeedToRememberContent(component = this)
   }
 

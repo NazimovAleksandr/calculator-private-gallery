@@ -18,7 +18,8 @@ class DeleteAllDialogComponent(
 
   private val handler: Handler = instance<Handler>(componentContext)
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     DeleteAllDialogContent(component = this)
   }
 

@@ -61,7 +61,8 @@ class LanguageComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
   val model: Value<Model> get() = _model
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     LanguageContent(component = this)
   }
 

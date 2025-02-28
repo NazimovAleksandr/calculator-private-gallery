@@ -48,7 +48,8 @@ class BrowserHistoryComponent(
     childFactory = ::child,
   )
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     BrowserHistoryContent(component = this)
   }
 

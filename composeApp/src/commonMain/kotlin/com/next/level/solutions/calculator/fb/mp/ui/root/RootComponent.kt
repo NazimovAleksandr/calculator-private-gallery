@@ -25,6 +25,7 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.serialization.Serializable
+import kotlin.random.Random
 
 class RootComponent(
   componentContext: ComponentContext,
@@ -40,6 +41,7 @@ class RootComponent(
   }
 
   val stack: Value<ChildStack<*, Child>> = childStack(
+    key = Random.nextInt().toString(),
     source = navigation,
     serializer = Configuration.serializer(),
     initialConfiguration = SplashConfiguration,
@@ -48,6 +50,7 @@ class RootComponent(
   )
 
   val dialog: Value<ChildSlot<*, Child>> = childSlot(
+    key = Random.nextInt().toString(),
     source = dialogNavigation,
     serializer = DialogConfiguration.serializer(),
     handleBackButton = true,
@@ -57,7 +60,11 @@ class RootComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(Model()) }
   val model: Value<Model> get() = _model
 
-  fun content(): @Composable () -> Unit = { RootContent(component = this) }
+  @Composable
+  fun content() {
+    RootContent(component = this)
+    RootDialog(component = this)
+  }
 
   fun action(action: Child.Action) {
     action.updateModel()
@@ -180,7 +187,9 @@ class RootComponent(
   ) {
     interface Action
 
-    abstract fun content(): @Composable () -> Unit
+    @Composable
+    abstract fun content()
+
     abstract fun action(action: Action)
 
     init {

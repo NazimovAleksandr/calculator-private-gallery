@@ -15,7 +15,8 @@ class ResetCodeDialogComponent(
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     ResetCodeDialogContent(component = this)
   }
 

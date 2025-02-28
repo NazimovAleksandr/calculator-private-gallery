@@ -25,7 +25,8 @@ class PolicyTosComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(Model(handler.tos)) }
   val model: Value<Model> get() = _model
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     PolicyTosContent(component = this)
   }
 

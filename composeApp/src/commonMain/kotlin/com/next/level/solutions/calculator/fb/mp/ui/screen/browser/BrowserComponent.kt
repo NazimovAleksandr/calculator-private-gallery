@@ -51,7 +51,8 @@ class BrowserComponent(
 
   private val dateFormat = getDateFormat("dd MMM yyyy")
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     BrowserContent(component = this)
   }
 

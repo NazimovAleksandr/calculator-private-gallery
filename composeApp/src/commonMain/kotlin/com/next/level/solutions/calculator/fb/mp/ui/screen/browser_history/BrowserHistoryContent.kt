@@ -56,7 +56,7 @@ internal fun BrowserHistoryContent(
     modifier = modifier,
   )
 
-  dialog.child?.instance?.content()?.invoke()
+  dialog.child?.instance?.content()
 }
 
 @Composable

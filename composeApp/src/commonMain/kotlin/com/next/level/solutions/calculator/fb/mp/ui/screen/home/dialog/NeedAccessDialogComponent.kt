@@ -18,7 +18,8 @@ class NeedAccessDialogComponent(
 
   private val handler: Handler = instance<Handler>(componentContext)
 
-  override fun content(): @Composable () -> Unit = {
+  @Composable
+  override fun content() {
     NeedAccessDialogContent(component = this)
   }
 
