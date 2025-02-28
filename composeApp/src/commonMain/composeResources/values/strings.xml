@@ -37,6 +37,7 @@
 
     <string name="calculator_lock">Calculator Lock</string>
     <string name="private_web_browser">Private Web Browser</string>
+    <string name="browser">Browser</string>
     <string name="photos">Photos</string>
     <string name="videos">Videos</string>
     <string name="file">File</string>

@@ -1,5 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -54,6 +54,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable.Files
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable.FilesOpener
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
 
@@ -109,7 +110,7 @@ private fun AnimatedContent(
       modifier = Modifier
         .weight(weight = 1f)
     ) {
-      androidx.compose.animation.AnimatedContent(
+      AnimatedContent(
         targetState = openFile,
         label = "SharedTransition",
         modifier = Modifier
@@ -124,13 +125,12 @@ private fun AnimatedContent(
       }
     }
 
-    HorizontalDivider()
-
-    component?.nativeAdCard(
-      size = NativeSize.Small,
-    )
-
-    HorizontalDivider()
+    withNotNull(component) {
+      nativeAdCard(
+        // todo Small or Large
+        size = NativeSize.Small,
+      )
+    }
   }
 }
 

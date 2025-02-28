@@ -24,9 +24,6 @@ interface BrowserHistoryDao {
     @Query("SELECT * FROM browser_history WHERE url = :url LIMIT 1")
     suspend fun getItemByUrl(url: String): BrowserHistoryDB?
 
-    @Query("SELECT * FROM browser_history WHERE is_ad = 1 ORDER BY time DESC LIMIT 1")
-    suspend fun getLastItemByAd(): BrowserHistoryDB?
-
     @Query("SELECT * FROM browser_history WHERE id = :id LIMIT 1")
     suspend fun getItemById(id: Int): BrowserHistoryDB?
 

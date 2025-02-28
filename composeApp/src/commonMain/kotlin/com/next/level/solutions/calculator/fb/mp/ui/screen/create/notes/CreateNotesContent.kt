@@ -37,6 +37,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.text.field.AppTex
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Tick
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -132,9 +133,11 @@ private fun Content(
       }
     )
 
-    component?.nativeAdCard(
-      size = NativeSize.Small,
-    )
+    withNotNull(component) {
+      nativeAdCard(
+        size = NativeSize.Small,
+      )
+    }
 
     Spacer(modifier = Modifier.height(height = 16.dp))
 

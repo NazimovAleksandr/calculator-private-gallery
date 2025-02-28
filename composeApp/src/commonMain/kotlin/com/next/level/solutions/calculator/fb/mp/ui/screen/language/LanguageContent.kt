@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +36,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Tick
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -176,13 +176,11 @@ private fun Content(
       }
     }
 
-    HorizontalDivider()
-
-    component?.nativeAdCard(
-      size = NativeSize.Large,
-    )
-
-    HorizontalDivider()
+    withNotNull(component) {
+      nativeAdCard(
+        size = NativeSize.Large,
+      )
+    }
   }
 }
 

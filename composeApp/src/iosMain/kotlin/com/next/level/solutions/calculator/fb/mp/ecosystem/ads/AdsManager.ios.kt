@@ -1,11 +1,13 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpen
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInter
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
+import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 
 actual fun adsManager(): AdsManager = object : AdsManager {
@@ -32,6 +34,11 @@ actual fun adsManager(): AdsManager = object : AdsManager {
         // TODO("Not yet implemented")
       }
 
+      override fun isInit(): Boolean {
+        // TODO("Not yet implemented")
+        return false
+      }
+
       override fun load() {
         // TODO("Not yet implemented")
       }
@@ -45,7 +52,8 @@ actual fun adsManager(): AdsManager = object : AdsManager {
         modifier: Modifier,
         loadAtDispose: Boolean,
         color: Color?,
-      ): @Composable () -> Unit {
+        dividerSize: DividerSize,
+      ): @Composable ColumnScope.() -> Unit {
         // TODO("Not yet implemented")
         return {}
       }

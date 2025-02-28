@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,6 +27,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Calculator
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -100,12 +100,10 @@ private fun Content(
 
     Spacer(modifier = Modifier.height(height = 44.dp))
 
-    HorizontalDivider()
-
-    component?.nativeAdCard(
-      size = NativeSize.Small,
-    )
-
-    HorizontalDivider()
+    withNotNull(component) {
+      nativeAdCard(
+        size = NativeSize.Small,
+      )
+    }
   }
 }

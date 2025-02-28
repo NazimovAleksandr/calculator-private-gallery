@@ -181,10 +181,11 @@ class RootComponent(
     }
 
     @Composable
-    fun nativeAdCard(
+    fun ColumnScope.nativeAdCard(
       size: NativeSize?,
       modifier: Modifier = Modifier,
       loadAtDispose: Boolean = true,
+      dividerSize: DividerSize = DividerSize(),
       color: Color? = null,
     ) {
       adsManager.native.ad(
@@ -192,7 +193,8 @@ class RootComponent(
         modifier = modifier,
         loadAtDispose = loadAtDispose,
         color = color,
-      ).invoke()
+        dividerSize = dividerSize,
+      ).invoke(this)
     }
   }
 

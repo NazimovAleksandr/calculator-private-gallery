@@ -56,6 +56,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
 import com.next.level.solutions.calculator.fb.mp.ui.screen.file.hider.composable.Spinner
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
@@ -300,12 +301,10 @@ private fun Content(
         .padding(all = 16.dp)
     )
 
-    HorizontalDivider()
-
-    component?.nativeAdCard(
-      size = NativeSize.Small,
-    )
-
-    HorizontalDivider()
+    withNotNull(component) {
+      nativeAdCard(
+        size = NativeSize.Small,
+      )
+    }
   }
 }

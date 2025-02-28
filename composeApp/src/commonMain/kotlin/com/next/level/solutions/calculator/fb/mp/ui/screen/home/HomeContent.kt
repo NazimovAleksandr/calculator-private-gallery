@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,13 +22,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
+import calculator_fileblocking.composeapp.generated.resources.browser
 import calculator_fileblocking.composeapp.generated.resources.calculator_lock
 import calculator_fileblocking.composeapp.generated.resources.file
 import calculator_fileblocking.composeapp.generated.resources.junk
 import calculator_fileblocking.composeapp.generated.resources.notes
 import calculator_fileblocking.composeapp.generated.resources.photos
-import calculator_fileblocking.composeapp.generated.resources.private_web_browser
-import calculator_fileblocking.composeapp.generated.resources.reset
 import calculator_fileblocking.composeapp.generated.resources.videos
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
@@ -39,11 +37,11 @@ import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Folder
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Notes
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Photos
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Settings
-import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Tick
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Trash
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Videos
 import com.next.level.solutions.calculator.fb.mp.ui.screen.home.composable.RowCard
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -108,39 +106,11 @@ private fun Content(
       )
     }
 
-    HorizontalDivider()
-
-    component?.nativeAdCard(
-      size = NativeSize.Adaptive,
-      modifier = Modifier
-        .weight(weight = 1f)
-    )
-
-    HorizontalDivider()
-
-    Spacer(modifier = Modifier.height(height = 10.dp))
-
-    Row(
-      horizontalArrangement = Arrangement.spacedBy(space = 16.dp),
-      verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier
-        .padding(horizontal = 16.dp)
-        .fillMaxWidth()
-        .clip(shape = MaterialTheme.shapes.extraLarge)
-        .background(color = MaterialTheme.colorScheme.secondaryContainer)
-        .clickable { component?.action(HomeComponent.Action.Browser) }
-        .padding(vertical = 20.dp, horizontal = 24.dp)
-    ) {
-      Image(
-        vector = MagicIcons.All.Browser,
+    withNotNull(component) {
+      nativeAdCard(
+        size = NativeSize.Adaptive,
         modifier = Modifier
-      )
-
-      Text(
-        text = stringResource(resource = Res.string.private_web_browser),
-        color = MaterialTheme.colorScheme.onSecondaryContainer,
-        style = TextStyleFactory.FS16.w600(),
-        modifier = Modifier
+          .weight(weight = 1f)
       )
     }
 
@@ -180,9 +150,9 @@ private fun Content(
         .padding(horizontal = 16.dp)
     ) {
       RowCard(
-        icon = MagicIcons.All.Tick,
-        text = Res.string.reset,
-        action = { component?.action(HomeComponent.Action.Ad) }
+        icon = MagicIcons.All.Browser,
+        text = Res.string.browser,
+        action = { component?.action(HomeComponent.Action.Browser) }
       )
 
       RowCard(

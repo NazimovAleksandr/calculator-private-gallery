@@ -1,6 +1,7 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ
 
 import android.content.Context
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -79,6 +80,10 @@ class AdsNativeImpl(
     load()
   }
 
+  override fun isInit(): Boolean {
+    return adLoader != null
+  }
+
   override fun load() {
     if (adLoader?.isLoading == false && sdkErrorCount < sdkErrorMaxCount) {
 //      analytics.ads.loading(adUnitId, type)
@@ -96,15 +101,19 @@ class AdsNativeImpl(
     modifier: Modifier,
     loadAtDispose: Boolean,
     color: Color?,
-  ): @Composable () -> Unit = {
-    NativeAdCard(
-      size = size,
-      modifier = modifier,
-      loadAtDispose = loadAtDispose,
-      loadNative = ::load,
-      color = color,
-      ad = ad,
-    )
+    dividerSize: DividerSize,
+  ): @Composable ColumnScope.() -> Unit = {
+    if (isInit()) {
+      NativeAdCard(
+        size = size,
+        modifier = modifier,
+        loadAtDispose = loadAtDispose,
+        loadNative = ::load,
+        color = color,
+        dividerSize = dividerSize,
+        ad = ad,
+      )
+    }
   }
 
   private fun loadCallback() = object : AdListener() {

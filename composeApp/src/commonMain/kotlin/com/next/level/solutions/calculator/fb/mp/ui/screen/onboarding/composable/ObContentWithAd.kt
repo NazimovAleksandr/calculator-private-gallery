@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +41,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.screen.onboarding.OnboardingComponent
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -175,15 +175,13 @@ private fun Content(
       }
     }
 
-    HorizontalDivider()
-
-    component?.nativeAdCard(
-      size = NativeSize.Adaptive,
-      modifier = Modifier
-        .weight(weight = 1f)
-    )
-
-    HorizontalDivider()
+    withNotNull(component) {
+      nativeAdCard(
+        size = NativeSize.Adaptive,
+        modifier = Modifier
+          .weight(weight = 1f)
+      )
+    }
   }
 }
 

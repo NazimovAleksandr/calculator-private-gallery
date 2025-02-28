@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -45,11 +46,14 @@ import kotlinx.coroutines.flow.Flow
 fun NativeAdCard(
   size: NativeSize?,
   ad: Flow<NativeAd?>?,
-  modifier: Modifier = Modifier,
-  loadAtDispose: Boolean = true,
-  color: Color? = MaterialTheme.colorScheme.onBackground.copy(alpha = 0f),
+  modifier: Modifier,
+  loadAtDispose: Boolean,
+  color: Color?,
+  dividerSize: DividerSize,
   loadNative: () -> Unit,
 ) {
+  HorizontalDivider(thickness = dividerSize.top)
+
   Content(
     size = size,
     modifier = modifier,
@@ -58,6 +62,8 @@ fun NativeAdCard(
     loadNative = loadNative,
     ad = ad,
   )
+
+  HorizontalDivider(thickness = dividerSize.bottom)
 }
 
 @Composable
