@@ -26,129 +26,13 @@ import com.multiplatform.webview.web.WebViewState
 import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.browser.actions.BrowserViewActions
 import io.ktor.http.Url
 
-//@Composable
-//fun rememberBrowserWebViewClient(
-//  okHttp: OkHttpClient? = null,
-//  urlData: UrlData? = null,
-//  actions: (BrowserWebViewClientActions) -> Unit,
-//): BrowserWebViewClient {
-//  val context = LocalContext.current
-//
-//  val webFilter = WebFilter.instance()
-//  val scriptManager = ScriptManager.instance(context)
-//
-//  val scope = rememberCoroutineScope()
-//
-//  fun onLoadResource(
-//    view: WebView?,
-//    first: String?,
-//    second: String? = first,
-//  ) {
-//    first ?: return
-//    second ?: return
-//
-//    if (first.isEmpty()) return
-//
-//    scope.launch(Dispatchers.Main) {
-//      val title = view?.title ?: return@launch
-//
-//      actions.invoke(
-//        BrowserWebViewClientActions.LoadResource(
-//          first = first,
-//          second = second,
-//          title = title,
-//          okHttp = okHttp,
-//        )
-//      )
-//    }
-//  }
-//
-//  fun doUpdateVisitedHistory(url: String) {
-//    actions.invoke(BrowserWebViewClientActions.UpdateUrl(url = url))
-//  }
-//
-//  fun onUrlLoading(url: String, isRedirect: Boolean) {
-//    actions.invoke(BrowserWebViewClientActions.UrlLoading(url = url, redirect = isRedirect))
-//  }
-//
-//  fun onPageCommitVisible(url: String?, title: String?) {
-//    actions.invoke(BrowserWebViewClientActions.OnPageCommitVisible(url, title))
-//  }
-//
-//  fun onPageStarted(url: String?, title: String?) {
-//    actions.invoke(BrowserWebViewClientActions.OnPageStarted(url, title))
-//  }
-//
-//  fun onPageFinished(url: String?, title: String?) {
-////    activity.lifecycleScope.launch(Dispatchers.IO) {
-////      CookieManager.getInstance().flush()
-////    }
-//
-//    actions.invoke(BrowserWebViewClientActions.OnPageFinished(url, title))
-//  }
-//
-//  fun onErrorConnection() {
-//    actions.invoke(BrowserWebViewClientActions.OnErrorConnection)
-//  }
-//
-//  return remember {
-//    BrowserWebViewClient(
-//      doUpdateVisitedHistory = ::doUpdateVisitedHistory,
-//      onUrlLoading = ::onUrlLoading,
-//      onLoadResource = ::onLoadResource,
-//      onPageCommitVisible = ::onPageCommitVisible,
-//      onPageStarted = ::onPageStarted,
-//      onPageFinished = ::onPageFinished,
-//      onErrorConnection = ::onErrorConnection,
-//    )
-//  }
-//}
-
-//@Composable
-//fun rememberBrowserWebChromeClient(
-//  actions: (BrowserWebChromeClientActions) -> Unit,
-//): BrowserWebChromeClient {
-//
-//  fun showCustomView(view: View?) {
-//    actions.invoke(BrowserWebChromeClientActions.ShowCustomView(view = view))
-//  }
-//
-//  fun hideCustomView() {
-//    actions.invoke(BrowserWebChromeClientActions.HideCustomView)
-//  }
-//
-//  fun createWindow(view: WebView, url: String) {
-//    actions.invoke(BrowserWebChromeClientActions.CreateWindow(view = view, url = url))
-//  }
-//
-//  fun receivedIcon(icon: Bitmap?) {
-//    actions.invoke(BrowserWebChromeClientActions.ReceivedIcon(icon = icon))
-//  }
-//
-//  fun receivedTitle(title: String?) {
-//    actions.invoke(BrowserWebChromeClientActions.ReceivedTitle(title = title))
-//  }
-//
-//  return remember {
-//    BrowserWebChromeClient(
-//      showCustomView = ::showCustomView,
-//      hideCustomView = ::hideCustomView,
-//      createWindow = ::createWindow,
-//      receivedIcon = ::receivedIcon,
-//      receivedTitle = ::receivedTitle,
-//    )
-//  }
-//}
-
 @Composable
-fun BrowserView(
+inline fun BrowserView(
   webViewState: WebViewState,
   navigator: WebViewNavigator,
-//  webViewClient: BrowserWebViewClient,
-//  webChromeClient: BrowserWebChromeClient,
   modifier: Modifier = Modifier,
-//  multipleWindows: Boolean = false,
-  actions: (BrowserViewActions) -> Unit,
+//  multipleWindows: Boolean = false todo ?,
+  crossinline actions: (BrowserViewActions) -> Unit,
 ) {
   val pageIconValue: MutableState<Bitmap?> = remember {
     mutableStateOf(null)
@@ -162,42 +46,20 @@ fun BrowserView(
 
   val cacheKey = Url(url.toString()).host
 
-  val platformContext = LocalPlatformContext.current
 
-  val pageIconRequest = remember(key1 = pageIconValue.value) {
-    ImageRequest.Builder(platformContext)
-      .data(pageIconValue.value)
-      .memoryCacheKey(cacheKey)
-      .diskCacheKey(cacheKey)
-      .diskCachePolicy(CachePolicy.ENABLED)
-      .memoryCachePolicy(CachePolicy.ENABLED)
-      .build()
-  }
+
+
 
   Box(
     modifier = modifier
   ) {
-    AsyncImage(
-      model = pageIconRequest,
-      contentDescription = null,
-      modifier = Modifier
-        .size(size = 50.dp)
-        .padding(all = 10.dp)
-    )
+
 
     WebView(
       state = webViewState,
       navigator = navigator,
       captureBackPresses = false,
-//    onCreated = { it: NativeWebView ->
-//      it.initWebView(
-//        multipleWindows = multipleWindows,
-//        scope = scope,
-//      )
-//    },
-
-//    client = webViewClient,
-//    chromeClient = webChromeClient,
+      modifier = Modifier.fillMaxSize(),
       platformWebViewParams = getPlatformWebViewParams(
         onPageStarted = { url, title ->
           actions(BrowserViewActions.OnPageStarted(url, title))
@@ -216,7 +78,6 @@ fun BrowserView(
           actions(BrowserViewActions.OnCreateWindow(view, url))
         }
       ),
-      modifier = Modifier.fillMaxSize()
     )
   }
 

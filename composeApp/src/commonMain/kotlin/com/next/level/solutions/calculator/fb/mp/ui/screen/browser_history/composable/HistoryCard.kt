@@ -34,6 +34,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Delete
 import com.next.level.solutions.calculator.fb.mp.ui.screen.browser_history.model.HistoryItem
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import io.ktor.http.Url
+import okio.FileSystem
 
 sealed interface HistoryCard {
   class Open(val item: BrowserHistoryUI) : HistoryCard
@@ -196,7 +197,7 @@ private fun SiteIcon(
   val platformContext = LocalPlatformContext.current
 
   val pageIconRequest = ImageRequest.Builder(platformContext)
-    .data("pageIconValue")
+    .data(FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "image_cache"/ "$host.png")
     .memoryCacheKey(host)
     .diskCacheKey(host)
     .diskCachePolicy(CachePolicy.ENABLED)

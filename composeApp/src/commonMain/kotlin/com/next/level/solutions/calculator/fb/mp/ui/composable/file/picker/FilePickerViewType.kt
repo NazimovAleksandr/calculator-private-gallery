@@ -3,7 +3,6 @@ package com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +28,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,7 +41,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.files
-import coil3.compose.rememberAsyncImagePainter
+import coil3.PlatformContext
+import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
 import coil3.toUri
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileModelUI
@@ -51,6 +53,8 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.VideoModelUI
 import com.next.level.solutions.calculator.fb.mp.expect.DateFormat
 import com.next.level.solutions.calculator.fb.mp.expect.getDateFormat
 import com.next.level.solutions.calculator.fb.mp.extensions.composable.sharedElementExt
+import com.next.level.solutions.calculator.fb.mp.extensions.core.CacheParams
+import com.next.level.solutions.calculator.fb.mp.extensions.core.imageRequest
 import com.next.level.solutions.calculator.fb.mp.extensions.core.uppercaseFirstChar
 import com.next.level.solutions.calculator.fb.mp.ui.composable.check.box.CheckBox
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
@@ -184,7 +188,19 @@ private inline fun GalleryCard(
   crossinline onLongClick: () -> Unit,
   crossinline onTap: () -> Unit,
 ) {
-  val painter = rememberAsyncImagePainter(model = file.hiddenPath?.toUri() ?: file.path.toUri())
+  val platformContext: PlatformContext = LocalPlatformContext.current
+  val scope = rememberCoroutineScope()
+
+  val imageRequest = remember {
+    platformContext.imageRequest(
+      data = file.hiddenPath?.toUri() ?: file.path.toUri(),
+      cacheParams = CacheParams(
+        key = file.name,
+        fileQuality = 50,
+        scope = scope,
+      ),
+    )
+  }
 
   val selectMode by remember {
     derivedStateOf {
@@ -203,8 +219,8 @@ private inline fun GalleryCard(
         )
       }
   ) {
-    Image(
-      painter = painter,
+    AsyncImage(
+      model = imageRequest,
       contentDescription = null,
       contentScale = ContentScale.Crop,
       modifier = Modifier

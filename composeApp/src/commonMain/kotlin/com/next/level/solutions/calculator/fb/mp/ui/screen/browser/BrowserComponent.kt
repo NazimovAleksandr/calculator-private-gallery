@@ -3,6 +3,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.browser
 import androidx.compose.runtime.Composable
 import coil3.Bitmap
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.DelicateDecomposeApi
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.slot.child
@@ -100,9 +101,12 @@ class BrowserComponent(
         else -> dialogNavigation.dismiss()
       }
 
-      is Action.AddTab -> navigation.push(
-        Configuration.browser("AddTab ${Random.nextInt()}${Random.nextInt()}")
-      )
+      is Action.AddTab -> {
+        @OptIn(DelicateDecomposeApi::class)
+        navigation.push(
+          Configuration.browser("AddTab ${Random.nextInt()}${Random.nextInt()}")
+        )
+      }
 
       is Action.History -> dialogNavigation.activate(
         DialogConfiguration.browserHistory { action(Action.Load(it)) }

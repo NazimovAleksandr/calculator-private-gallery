@@ -36,7 +36,7 @@ datastore = "1.1.2"
 room = "2.7.0-beta01"
 
 mxparser = "6.1.0"
-coil3 = "3.0.4"
+coil3 = "3.1.0"
 mediaplayer = "2.0.6"
 compottie = "2.0.0-rc04"
 webview-multiplatform = "1.9.40"
@@ -87,8 +87,10 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 math-parser = { group = "org.mariuszgromada.math", name = "MathParser.org-mXparser", version.ref = "mxparser" }
-coil3-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil3" }
 mediaplayer = { module = "io.github.khubaibkhan4:mediaplayer-kmp", version.ref = "mediaplayer" }
+
+coil3-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil3" }
+coil3-video = { group = "io.coil-kt.coil3", name = "coil-video", version.ref = "coil3" }
 
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
 #compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }

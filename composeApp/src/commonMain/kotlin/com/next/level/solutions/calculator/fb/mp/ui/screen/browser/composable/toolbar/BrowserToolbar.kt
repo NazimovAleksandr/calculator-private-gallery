@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -12,16 +13,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.unit.dp
 import coil3.Bitmap
+import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
 import com.multiplatform.webview.web.WebViewState
+import com.next.level.solutions.calculator.fb.mp.extensions.core.CacheParams
+import com.next.level.solutions.calculator.fb.mp.extensions.core.imageRequest
 import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.toolbar.actions.BrowserInputLinkActions
 import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.toolbar.actions.ToolbarActions
+import io.ktor.http.Url
 
 @Composable
 //@Suppress("NOTHING_TO_INLINE") // for fix recompositions
@@ -61,6 +70,12 @@ private fun Content(
   webViewState: WebViewState? = null,
   actions: (ToolbarActions) -> Unit = {},
 ) {
+  val platformContext = LocalPlatformContext.current
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val focusManager = LocalFocusManager.current
+
+  val scope = rememberCoroutineScope()
+
   var isEditLink by remember {
     mutableIntStateOf(0)
   }
@@ -87,8 +102,15 @@ private fun Content(
     mutableStateOf(state.value?.linkEditorVisible == true)
   }
 
-  val keyboardController = LocalSoftwareKeyboardController.current
-  val focusManager = LocalFocusManager.current
+  val pageIconRequest = remember(key1 = pageIcon.value) {
+    platformContext.imageRequest(
+      data = pageIcon.value,
+      cacheParams = CacheParams(
+        key = Url(url.toString()).host,
+        scope = scope,
+      ),
+    )
+  }
 
   Column(
     verticalArrangement = Arrangement.Top,
@@ -105,6 +127,14 @@ private fun Content(
       NavigationButton(
         linkEditor = linkEditorVisible,
         actions = actions,
+      )
+
+      AsyncImage(
+        model = pageIconRequest,
+        contentDescription = null,
+        modifier = Modifier
+          .size(size = 1.dp)
+          .alpha(alpha = 0.01f)
       )
 
       BrowserInputLink(

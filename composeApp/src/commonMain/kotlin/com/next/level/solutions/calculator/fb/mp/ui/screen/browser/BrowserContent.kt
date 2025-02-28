@@ -192,8 +192,6 @@ private fun Content(
     BrowserView(
       webViewState = webViewState,
       navigator = navigator,
-//        webViewClient = webViewClient,
-//        webChromeClient = webChromeClient,
       modifier = Modifier
         .weight(weight = 1f)
     ) {

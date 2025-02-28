@@ -68,8 +68,9 @@ kotlin {
       implementation(libs.datastore)
 
       implementation(libs.room.runtime)
-      implementation(libs.coil3.compose)
       implementation(libs.mediaplayer)
+      implementation(libs.coil3.compose)
+      implementation(libs.coil3.video)
 
       implementation(libs.compottie)
       implementation(libs.webview.multiplatform)
