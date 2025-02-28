@@ -34,10 +34,10 @@ class LanguageComponent(
 
   private val languageModels: MutableList<LanguageModel> = mutableListOf(
     LanguageModel(name = "English", code = "en"),
-    LanguageModel(name = "Español", code = "es"),
-    LanguageModel(name = "Indonesia", code = "in"),
-    LanguageModel(name = "Português", code = "pt"),
-    LanguageModel(name = "Português (BR)", code = "pt", country = "-BR"),
+    LanguageModel(name = "Русский", code = "ru"),
+//    LanguageModel(name = "Indonesia", code = "in"),
+//    LanguageModel(name = "Português", code = "pt"),
+//    LanguageModel(name = "Português (BR)", code = "pt", country = "-BR"),
 //    LanguageModel(name = "हिंदी", code = "hi"),
 //    LanguageModel(name = "ગુજરાતી", code = "gu"),
 //    LanguageModel(name = "ಕನ್ನಡ", code = "kn"),
@@ -48,7 +48,6 @@ class LanguageComponent(
 //    LanguageModel(name = "বাংলা", code = "bn"),
 //    LanguageModel(name = "Deutsch", code = "de"),
 //    LanguageModel(name = "Norsk", code = "nb"),
-//    LanguageModel(name = "Русский", code = "ru"),
 //    LanguageModel(name = "Italiano", code = "it"),
 //    LanguageModel(name = "Français", code = "fr"),
 //    LanguageModel(name = "Filipino", code = "fil"),

@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">Калькулятор - Блокировка файлов</string>
+
+    <string name="share">Поделиться</string>
+    <string name="creating_new_password">Создание нового пароля</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="enter_four_digit">Введите 4-значный пароль, затем нажмите "="</string>
+    <string name="reset">Сброс</string>
+    <string name="password_do_not_match">Пароли не совпадают</string>
+    <string name="cant_enter_more_15">Нельзя ввести больше 15 цифр.</string>
+
+    <string name="select_language">Выберите язык</string>
+    <string name="done">Готово</string>
+    <string name="continue_">Продолжить</string>
+    <string name="welcome_to_calculator">Добро пожаловать в Калькулятор</string>
+
+    <string name="by_clicking_continue">Нажимая "Продолжить", вы соглашаетесь с</string>
+    <string name="privacy_policy">Политикой конфиденциальности</string>
+    <string name="and">и</string>
+    <string name="tos">Условиями обслуживания</string>
+
+    <string name="security_question">Контрольный вопрос</string>
+    <string name="skip">Пропустить</string>
+    <string name="enter_secret_word">Введите секретное слово</string>
+
+    <string name="where_are_you_born">Где вы родились?</string>
+    <string name="what_is_your_father_name">Как зовут вашего отца?</string>
+    <string name="what_is_your_mother_name">Как зовут вашу мать?</string>
+    <string name="what_is_your_favorite_color">Какой ваш любимый цвет?</string>
+    <string name="what_date_is_your_birthday">Какого числа у вас день рождения?</string>
+    <string name="where_is_your_hometown">Какой ваш родной город?</string>
+
+    <string name="need_to_remember">Необходимо запомнить</string>
+    <string name="your_answer">Ваш ответ</string>
+    <string name="tip_to_reset_password">Совет по сбросу пароля</string>
+    <string name="i_got_it">Понял</string>
+
+    <string name="calculator_lock">Блокировка калькулятора</string>
+    <string name="private_web_browser">Приватный веб-браузер</string>
+    <string name="browser">Браузер</string>
+    <string name="photos">Фото</string>
+    <string name="videos">Видео</string>
+    <string name="file">Файл</string>
+    <string name="notes">Заметки</string>
+    <string name="recycle_bin">Корзина</string>
+
+    <string name="add_photo">Добавить фото</string>
+    <string name="add_videos">Добавить видео</string>
+    <string name="add_file">Добавить файл</string>
+    <string name="empty">Пусто</string>
+    <string name="choose_images_from">Выберите изображения из</string>
+    <string name="choose_videos_from">Выберите видео из</string>
+    <string name="gallery">Галерея</string>
+    <string name="folder">Папка</string>
+    <string name="all_images">Все изображения</string>
+    <string name="all_videos">Все видео</string>
+
+    <string name="no_photos_selected">Фотографии не выбраны</string>
+    <string name="no_videos_selected">Видео не выбраны</string>
+    <string name="no_files_selected">Файлы не выбраны</string>
+
+    <string name="hide">Скрыть %1$s</string>
+    <string name="visible">Видимый</string>
+    <string name="restore">Восстановить</string>
+    <string name="delete">Удалить</string>
+    <string name="files">файлы</string>
+    <string name="application_not_found">Приложение не найдено</string>
+
+    <string name="secret_notes">Секретные заметки</string>
+    <string name="add_new_notes">Добавить новую заметку</string>
+    <string name="create_notes">Создать заметку</string>
+    <string name="enter_title">Введите заголовок</string>
+    <string name="type_your_secret_note">Введите вашу секретную заметку…</string>
+
+    <string name="settings">Настройки</string>
+    <string name="security">Безопасность</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="change_security_question">Изменить контрольный вопрос</string>
+    <string name="take_a_picture">Сделать фото</string>
+    <string name="language">Язык</string>
+    <string name="more">Больше</string>
+    <string name="rate_5_stars">Оцените на 5 звезд</string>
+    <string name="share_with_friends">Поделиться с друзьями</string>
+
+    <string name="let_me_recommend">Позвольте мне порекомендовать вам это приложение</string>
+    <string name="search">Поиск</string>
+    <string name="link_copied">Ссылка скопирована</string>
+    <string name="search_or_type_url">Введите запрос или URL</string>
+    <string name="cancel">Отмена</string>
+    <string name="wrong_answer">Неправильный ответ</string>
+
+    <string name="sort_by">Сортировать по:</string>
+    <string name="date_added">Дата добавления</string>
+    <string name="file_size">Размер файла</string>
+    <string name="date">Дата</string>
+    <string name="size">Размер</string>
+    <string name="name">Имя</string>
+
+    <string name="next">Далее</string>
+    <string name="ob_1">Создайте 4-значный пароль</string>
+    <string name="ob_2">Введите '11223344=' если забыли пароль</string>
+    <string name="ob_3">Начните защищать свои фото и видео</string>
+
+    <string name="okay">Окей</string>
+    <string name="advertising">Реклама</string>
+    <string name="junk">Мусор</string>
+
+    <string name="re_enter_your_password">Введите пароль повторно для подтверждения, затем нажмите "="</string>
+    <string name="history">История</string>
+    <string name="your_history_is_empty">Ваша история пуста</string>
+    <string name="are_you_sure_you_want">Вы уверены, что хотите удалить всю историю браузера?</string>
+    <string name="delete_all">Удалить все</string>
+
+    <string name="need_access">Требуется доступ</string>
+    <string name="allow_access_to">Разрешите доступ к фото и видео для управления медиафайлами.</string>
+    <string name="allow">Разрешить</string>
+</resources>

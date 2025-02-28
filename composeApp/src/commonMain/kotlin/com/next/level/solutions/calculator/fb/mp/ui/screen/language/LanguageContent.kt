@@ -20,7 +20,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -44,30 +46,10 @@ fun LanguageContent(
   component: LanguageComponent,
   modifier: Modifier = Modifier,
 ) {
-  val model by component.model.subscribeAsState()
-
-//  val activateCollapseSecurity by remember { // todo
-//    derivedStateOf {
-//      model.activateCollapseSecurity
-//    }
-//  }
-
   Content(
     component = component,
-    model = model,
     modifier = modifier,
-    action = component::action,
   )
-
-//  if (activateCollapseSecurity) {
-//    DisposableEffect(key1 = Unit) {
-//      mainStore send MainStore.Event.DeactivateCollapseSecurity
-//
-//      onDispose {
-//        mainStore send MainStore.Event.ActivateCollapseSecurity
-//      }
-//    }
-//  }
 }
 
 @Composable
@@ -78,7 +60,7 @@ fun LanguageContentPreview(
 ) {
     Content(
       component = component,
-      model = model,
+      modelPreview = model,
       modifier = modifier,
     )
 }
@@ -86,10 +68,17 @@ fun LanguageContentPreview(
 @Composable
 private fun Content(
   component: LanguageComponent?,
-  model: LanguageComponent.Model?,
   modifier: Modifier = Modifier,
-  action: (LanguageComponent.Action) -> Unit = {},
+  modelPreview: LanguageComponent.Model? = null,
 ) {
+  val model = component?.model?.subscribeAsState()
+
+  val modelValue by remember {
+    derivedStateOf {
+      modelPreview ?: model?.value
+    }
+  }
+
   val scrollState = rememberScrollState()
 
   Column(
@@ -124,7 +113,7 @@ private fun Content(
         style = TextStyleFactory.FS15.w600(),
         modifier = Modifier
           .clip(shape = CircleShape)
-          .clickable { action.invoke(LanguageComponent.Action.Done) }
+          .clickable { component?.action(LanguageComponent.Action.Done) }
           .background(color = MaterialTheme.colorScheme.primary)
           .padding(vertical = 8.dp, horizontal = 16.dp)
       )
@@ -141,7 +130,7 @@ private fun Content(
         .padding(horizontal = 16.dp)
         .padding(top = 2.dp, bottom = 36.dp)
     ) {
-      model?.languages?.forEach { items ->
+      modelValue?.languages?.forEach { items ->
         Row(
           horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
           verticalAlignment = Alignment.Top,
@@ -151,10 +140,10 @@ private fun Content(
 
           LanguageCard(
             language = firstLanguage?.name,
-            selected = firstLanguage == model.selected,
+            selected = firstLanguage == modelValue?.selected,
           ) {
             if (firstLanguage != null) {
-              action.invoke(
+              component?.action(
                 LanguageComponent.Action.ApplyLanguage(value = firstLanguage)
               )
             }
@@ -164,10 +153,10 @@ private fun Content(
 
           LanguageCard(
             language = secondLanguage?.name,
-            selected = secondLanguage == model.selected,
+            selected = secondLanguage == modelValue?.selected,
           ) {
             if (secondLanguage != null) {
-              action.invoke(
+              component?.action(
                 LanguageComponent.Action.ApplyLanguage(value = secondLanguage)
               )
             }
