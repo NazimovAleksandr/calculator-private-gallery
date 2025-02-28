@@ -23,9 +23,9 @@ class LottieComponent(
   val model: Value<Model> get() = _model
 
   init {
-    val rootComponent: RootComponent? = getRootComponent()
+    val rootComponent: RootComponent = getRootComponent()
 
-    rootComponent?.model?.subscribe { rootModel ->
+    rootComponent.model.subscribe { rootModel ->
       _model.update { it.copy(appLocked = rootModel.appLocked) }
     }
   }

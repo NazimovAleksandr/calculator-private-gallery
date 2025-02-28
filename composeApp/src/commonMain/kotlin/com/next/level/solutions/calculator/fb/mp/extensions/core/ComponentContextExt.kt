@@ -7,6 +7,6 @@ inline fun <reified T> ComponentContext.instance(
   context: ComponentContext,
 ): T = instanceKeeper.getInstance(key = context) as T
 
-inline fun ComponentContext.getRootComponent(): RootComponent? = instanceKeeper.getInstance(
+inline fun ComponentContext.getRootComponent(): RootComponent = instanceKeeper.getInstance(
   key = "RootComponent",
-) as? RootComponent
+) as? RootComponent ?: throw IllegalStateException("RootComponent not found")

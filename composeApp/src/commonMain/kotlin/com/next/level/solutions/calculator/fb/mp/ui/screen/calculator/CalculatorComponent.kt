@@ -41,7 +41,7 @@ class CalculatorComponent(
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
-  private val rootComponent: RootComponent? = getRootComponent()
+  private val rootComponent: RootComponent = getRootComponent()
   private val handler: Handler = instance<Handler>(componentContext)
 
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
@@ -393,7 +393,7 @@ class CalculatorComponent(
     adsManager.inter.show {
       when (handler.lockMode) {
         true -> {
-          rootComponent?.action(RootComponent.Action.LockOff)
+          rootComponent.action(RootComponent.Action.LockOff)
           dialogNavigation.dismiss()
         }
 
