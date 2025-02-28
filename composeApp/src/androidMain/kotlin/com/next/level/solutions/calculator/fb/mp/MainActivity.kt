@@ -11,6 +11,7 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.LocaleList
 import android.provider.Settings
 import android.view.WindowManager
@@ -23,12 +24,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.arkivanov.decompose.defaultComponentContext
@@ -42,6 +44,9 @@ import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
 import com.next.level.solutions.calculator.fb.mp.file.hider.FileHiderImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
   companion object {
@@ -120,8 +125,10 @@ class MainActivity : ComponentActivity() {
     producePath = { filesDir.resolve(it).absolutePath }
 
     externalStoragePermissionGranted = {
-      ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) == PERMISSION_GRANTED
-          && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED
+      when {
+        Build.VERSION.SDK_INT >= 30 -> Environment.isExternalStorageManager()
+        else -> hasPermission(WRITE_EXTERNAL_STORAGE) && hasPermission(READ_EXTERNAL_STORAGE)
+      }
     }
 
     languageChanger = lazy {
@@ -132,14 +139,26 @@ class MainActivity : ComponentActivity() {
     }
 
     requestExternalStoragePermission = {
+      lifecycleScope.launch(Dispatchers.Main) {
+        while (externalStoragePermissionGranted?.invoke() == false) {
+          delay(300)
+        }
+
+        val intent = Intent(this@MainActivity, MainActivity::class.java)
+
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        startActivity(intent)
+      }
+
       if (Build.VERSION.SDK_INT >= 30) {
         try {
           val intent = Intent(
             Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
             Uri.parse("package:$packageName"),
           )
-
-          intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
 
           startActivity(intent)
         } catch (e: Exception) {
@@ -217,5 +236,9 @@ class MainActivity : ComponentActivity() {
         else -> WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
       }
     }
+  }
+
+  private fun Context.hasPermission(permissions: String): Boolean {
+    return checkSelfPermission(this, permissions) == PERMISSION_GRANTED
   }
 }
