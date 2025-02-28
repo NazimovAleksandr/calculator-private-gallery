@@ -1,5 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.expect
 
+import android.graphics.Bitmap
 import com.next.level.solutions.calculator.fb.mp.MainActivity
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -22,4 +23,8 @@ actual fun setAppEventListeners(callback: (AppEvent) -> Unit) {
 
 actual fun collapse() {
   MainActivity.collapse?.invoke()
+}
+
+actual fun saveToCache(icon: Bitmap?, name: String, quality: Int) {
+  MainActivity.saveBitmapToCache?.invoke(icon, name, quality)
 }

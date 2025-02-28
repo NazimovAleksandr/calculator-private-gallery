@@ -1,5 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.expect
 
+import coil3.Bitmap
 import platform.Foundation.NSDate
 import platform.Foundation.timeIntervalSince1970
 import platform.Photos.PHAuthorizationStatusAuthorized
@@ -38,4 +39,8 @@ actual fun setAppEventListeners(callback: (AppEvent) -> Unit) {
 
 actual fun collapse() {
   // TODO:
+}
+
+actual fun saveToCache(icon: Bitmap?, name: String, quality: Int) {
+  // todo
 }

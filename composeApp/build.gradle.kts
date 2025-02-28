@@ -108,23 +108,33 @@ android {
       set("resizeableActivity", false)
     }
   }
+
   buildFeatures {
     compose = true
     buildConfig = true
   }
-  packaging {
-    resources {
-      excludes += "/META-INF/{AL2.0,LGPL2.1}"
-    }
-  }
+
   buildTypes {
     getByName("release") {
       isMinifyEnabled = false
     }
   }
+
+//  bundle {
+//    language {
+//      enableSplit = false
+//    }
+//  }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+  }
+
+  packaging {
+    resources {
+      excludes += "/META-INF/{AL2.0,LGPL2.1}"
+    }
   }
 }
 

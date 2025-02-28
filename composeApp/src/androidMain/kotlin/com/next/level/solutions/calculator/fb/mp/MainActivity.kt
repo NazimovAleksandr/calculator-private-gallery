@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -53,6 +54,8 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.Lang
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okio.FileSystem
+import java.io.File
 
 class MainActivity : ComponentActivity() {
   companion object {
@@ -68,6 +71,7 @@ class MainActivity : ComponentActivity() {
     var fileHider: (() -> FileHiderImpl)? = null
     var showCustomView: ((View?) -> Unit)? = null
     var hideCustomView: (() -> Unit)? = null
+    var saveBitmapToCache: ((Bitmap?, String, Int) -> Unit)? = null
   }
 
   private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
@@ -99,6 +103,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     init()
+    iniExpect()
 
     val componentContext = defaultComponentContext()
 
@@ -129,9 +134,9 @@ class MainActivity : ComponentActivity() {
       statusBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
       navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
     )
+  }
 
-    producePath = { filesDir.resolve(it).absolutePath }
-
+  private fun iniExpect() {producePath = { filesDir.resolve(it).absolutePath }
     externalStoragePermissionGranted = {
       when {
         Build.VERSION.SDK_INT >= 30 -> Environment.isExternalStorageManager()
@@ -200,6 +205,21 @@ class MainActivity : ComponentActivity() {
       )
     }
 
+    saveBitmapToCache = { icon, name, quality ->
+      icon?.let {
+        val folder = File(FileSystem.SYSTEM_TEMPORARY_DIRECTORY.toFile(), "image_cache")
+        if (!folder.exists()) folder.mkdir()
+
+        val file = File(folder, "$name.png")
+        if (!file.exists()) folder.mkdir()
+
+        file.outputStream().use { out ->
+          it.compress(Bitmap.CompressFormat.PNG, quality, out)
+          out.flush()
+        }
+      }
+    }
+
     fileHider = {
       FileHiderImpl(this)
     }
@@ -247,7 +267,7 @@ class MainActivity : ComponentActivity() {
     )
 
     adsManager?.init {
-
+      // todo ?
     }
   }
 
