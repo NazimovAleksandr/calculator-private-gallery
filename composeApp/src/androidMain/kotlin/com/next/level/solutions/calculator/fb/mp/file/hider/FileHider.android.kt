@@ -33,7 +33,7 @@ import kotlin.reflect.KFunction8
 import kotlin.time.measureTime
 
 actual fun getFileHider(): FileHider {
-  return MainActivity.fileHider?.invoke() ?: throw IllegalStateException("FileHider not initialized")
+  return MainActivity.expect?.value?.fileHider?.invoke() ?: throw IllegalStateException("FileHider not initialized")
 }
 
 enum class FileData(val field: String) {

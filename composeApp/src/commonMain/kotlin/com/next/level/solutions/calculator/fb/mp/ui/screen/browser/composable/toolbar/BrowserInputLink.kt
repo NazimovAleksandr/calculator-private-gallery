@@ -213,10 +213,10 @@ inline fun InputLink(
       actionClose = {
         linkTextFieldValue.value = TextFieldValue("")
         action(BrowserInputLinkActions.Search(""))
-      }, // todo remember?
+      },
       actionReload = {
         action(BrowserInputLinkActions.ClickReload)
-      }, // todo remember?
+      },
     )
   }
 

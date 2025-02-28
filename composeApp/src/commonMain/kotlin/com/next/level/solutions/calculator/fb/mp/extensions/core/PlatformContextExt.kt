@@ -5,7 +5,7 @@ import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.toBitmap
-import com.next.level.solutions.calculator.fb.mp.expect.saveToCache
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -28,7 +28,7 @@ fun PlatformContext.imageRequest(
   .listener { _, result ->
     cacheParams?.apply {
       scope.launch(Dispatchers.IO) {
-        saveToCache(
+        PlatformExp.saveToCache(
           icon = result.image.toBitmap(),
           name = key,
           quality = fileQuality,

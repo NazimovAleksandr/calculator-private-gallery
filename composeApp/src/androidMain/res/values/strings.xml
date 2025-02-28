@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Calculator - File Blocking</string>
+    <string name="share">Share</string>
+    <string name="app_not_found">Application Not Found</string>
+    <string name="let_me_recommend">Let me recommend you this application</string>
 </resources>

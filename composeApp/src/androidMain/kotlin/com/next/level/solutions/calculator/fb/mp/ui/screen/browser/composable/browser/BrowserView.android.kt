@@ -21,8 +21,8 @@ actual fun getPlatformWebViewParams(
     chromeClient = BrowserWebChromeClient(
       onReceivedIcon = onReceivedIcon,
       onCreateWindow = onCreateWindow,
-      onShowCustomView = { MainActivity.showCustomView?.invoke(it) },
-      onHideCustomView = { MainActivity.hideCustomView?.invoke() },
+      onShowCustomView = { MainActivity.expect?.value?.showCustomView?.invoke(it) },
+      onHideCustomView = { MainActivity.expect?.value?.hideCustomView?.invoke() },
     ),
   )
 }

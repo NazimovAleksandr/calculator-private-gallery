@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
-import com.next.level.solutions.calculator.fb.mp.expect.collapse
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CalculatorButtons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CreatingPassword
@@ -44,7 +44,7 @@ fun CalculatorContent(
   BackHandler(
     backHandler = component.backHandler,
     isEnabled = component.model.value.backHandlerEnabled,
-    onBack = { collapse() }
+    onBack = { PlatformExp.collapse() }
   )
 }
 

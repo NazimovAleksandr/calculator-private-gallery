@@ -9,7 +9,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.language.model.Langua
 import java.util.Locale
 
 actual fun getLanguageChanger(): LanguageChanger {
-  return MainActivity.languageChanger?.value ?: throw IllegalStateException("LanguageChanger is not initialized")
+  return MainActivity.expect?.value?.languageChanger?.value ?: throw IllegalStateException("LanguageChanger is not initialized")
 }
 
 actual fun getDefaultLocaleLanguageCode(): String {

@@ -41,8 +41,7 @@ import calculator_fileblocking.composeapp.generated.resources.videos
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
-import com.next.level.solutions.calculator.fb.mp.expect.externalStoragePermissionGranted
-import com.next.level.solutions.calculator.fb.mp.expect.systemBars
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
 import com.next.level.solutions.calculator.fb.mp.ui.composable.check.box.CheckBox
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
@@ -74,7 +73,7 @@ fun HiddenFilesContent(
     onResume = {
       if (
         component.model.value.fileType != FilePickerFileType.Note
-        && !externalStoragePermissionGranted()
+        && !PlatformExp.externalStoragePermissionGranted()
       ) {
         component.action(HiddenFilesComponent.Action.Back)
       }
@@ -140,7 +139,6 @@ private fun AnimatedContent(
 
     withNotNull(component) {
       nativeAdCard(
-        // todo Small or Large
         size = NativeSize.Small,
       )
     }
@@ -342,8 +340,8 @@ private fun Content(
       BackHandler(
         backHandler = backHandler,
         onBack = {
-          systemBars(show = true)
-//          screenOrientationState(landscape = false) todo
+          PlatformExp.systemBars(show = true)
+//          screenOrientationState(landscape = false)
 //          delay(200)
           component.action(HiddenFilesComponent.Action.CloseFilesOpener)
         },

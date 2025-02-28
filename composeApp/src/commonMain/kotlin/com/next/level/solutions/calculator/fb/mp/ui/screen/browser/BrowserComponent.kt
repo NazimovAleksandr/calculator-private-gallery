@@ -19,7 +19,7 @@ import com.multiplatform.webview.web.NativeWebView
 import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.BrowserHistoryUI
-import com.next.level.solutions.calculator.fb.mp.expect.currentTimeMillis
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.expect.getDateFormat
 import com.next.level.solutions.calculator.fb.mp.extensions.core.getRootComponent
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
@@ -167,7 +167,7 @@ class BrowserComponent(
     title: String?,
     url: String?,
   ) {
-    val time = currentTimeMillis()
+    val time = PlatformExp.currentTimeMillis()
 
     launchIO {
       appDatabase.addBrowserHistory(

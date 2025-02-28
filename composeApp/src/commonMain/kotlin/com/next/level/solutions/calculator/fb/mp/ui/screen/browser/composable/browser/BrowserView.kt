@@ -19,7 +19,6 @@ inline fun BrowserView(
   webViewState: WebViewState,
   navigator: WebViewNavigator,
   modifier: Modifier = Modifier,
-//  multipleWindows: Boolean = false todo ?,
   crossinline actions: (BrowserViewActions) -> Unit,
 ) {
   val pageIconValue: MutableState<Bitmap?> = remember {

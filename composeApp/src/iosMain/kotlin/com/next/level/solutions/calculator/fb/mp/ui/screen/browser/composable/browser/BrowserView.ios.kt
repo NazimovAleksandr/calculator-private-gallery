@@ -4,7 +4,7 @@ import coil3.Bitmap
 import com.multiplatform.webview.web.NativeWebView
 import com.multiplatform.webview.web.PlatformWebViewParams
 
-// todo
+// TODO("Not yet implemented"):
 actual fun getPlatformWebViewParams(
   onPageStarted: (url: String?, title: String?) -> Unit,
   onPageFinished: (url: String?, title: String?) -> Unit,

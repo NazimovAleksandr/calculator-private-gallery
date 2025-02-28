@@ -48,7 +48,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import coil3.toUri
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
-import com.next.level.solutions.calculator.fb.mp.expect.systemBars
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.composable.sharedElementExt
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
@@ -197,7 +197,7 @@ private fun Content(
                 .fillMaxSize()
                 .pointerInput(key1 = Unit) {
                   detectTapGestures {
-                    systemBars(show = fullScreenState.value)
+                    PlatformExp.systemBars(show = fullScreenState.value)
                     fullScreenState.value = !fullScreenState.value
                   }
                 }
@@ -253,7 +253,7 @@ private fun Content(
 
   LaunchedEffect(key1 = Unit) {
     alphaAnimationState.value = true
-    systemBars(show = true)
+    PlatformExp.systemBars(show = true)
   }
 
 //  LifecycleEventListener(onDispose = ::onDispose)

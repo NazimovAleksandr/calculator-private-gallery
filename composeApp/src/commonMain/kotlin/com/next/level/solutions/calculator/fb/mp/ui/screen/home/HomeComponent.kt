@@ -9,8 +9,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
-import com.next.level.solutions.calculator.fb.mp.expect.externalStoragePermissionGranted
-import com.next.level.solutions.calculator.fb.mp.expect.requestExternalStoragePermission
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
@@ -65,10 +64,10 @@ class HomeComponent(
 
   private fun RootComponent.Child.Action.checkExternalStorage(): Boolean? {
     val result = when (this) {
-      is Action.Trash -> externalStoragePermissionGranted()
-      is Action.Photos -> externalStoragePermissionGranted()
-      is Action.Videos -> externalStoragePermissionGranted()
-      is Action.Files -> externalStoragePermissionGranted()
+      is Action.Trash -> PlatformExp.externalStoragePermissionGranted()
+      is Action.Photos -> PlatformExp.externalStoragePermissionGranted()
+      is Action.Videos -> PlatformExp.externalStoragePermissionGranted()
+      is Action.Files -> PlatformExp.externalStoragePermissionGranted()
 
       else -> true
     }
@@ -78,7 +77,7 @@ class HomeComponent(
 
       else -> {
 //        analytics.home.mediaPermissionRequest()
-        dialogNavigation.activate(DialogConfiguration.needAccessDialog(::requestExternalStoragePermission))
+        dialogNavigation.activate(DialogConfiguration.needAccessDialog(PlatformExp::requestExternalStoragePermission))
         null
       }
     }

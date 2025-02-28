@@ -15,6 +15,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsType
 import com.next.level.solutions.calculator.fb.mp.entity.ui.getSettingsItems
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
@@ -90,9 +91,8 @@ class SettingsComponent(
       SettingsModelUI.Language -> navigation.pushNew(RootComponent.Configuration.language(changeMode = true))
       SettingsModelUI.Privacy -> navigation.pushNew(RootComponent.Configuration.policyTos(tos = false))
       SettingsModelUI.Tos -> navigation.pushNew(RootComponent.Configuration.policyTos(tos = true))
-//      SettingsModelUI.Rate5Stars -> triggerSignal(Signal.Rate5Stars) todo
-//      SettingsModelUI.Share -> triggerSignal(Signal.Share) todo
-      else -> {}
+      SettingsModelUI.Rate5Stars -> PlatformExp.openMarket()
+      SettingsModelUI.Share -> PlatformExp.shareApp()
     }
   }
 

@@ -3,11 +3,10 @@ package com.next.level.solutions.calculator.fb.mp
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
@@ -23,6 +22,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_SECURE
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -32,6 +32,7 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestMultiple
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.content.FileProvider
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -47,37 +48,33 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpenImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
+import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
 import com.next.level.solutions.calculator.fb.mp.file.hider.FileHiderImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okio.FileSystem
 import java.io.File
+import java.net.URLConnection
 
 class MainActivity : ComponentActivity() {
   companion object {
+    var expect: Lazy<Expect>? = null
     var adsManager: AdsManager? = null
-    var languageChanger: Lazy<LanguageChangerImpl>? = null
-    var producePath: ((String) -> String)? = null
-    var externalStoragePermissionGranted: (() -> Boolean)? = null
-    var requestExternalStoragePermission: (() -> Unit)? = null
-    var collapse: (() -> Unit)? = null
-    var systemBars: ((Boolean) -> Unit)? = null
-    var appEventListeners: ((AppEvent) -> Unit)? = null
     var roomDatabase: (() -> RoomDatabase.Builder<MyDatabase>)? = null
-    var fileHider: (() -> FileHiderImpl)? = null
-    var showCustomView: ((View?) -> Unit)? = null
-    var hideCustomView: (() -> Unit)? = null
-    var saveBitmapToCache: ((Bitmap?, String, Int) -> Unit)? = null
+    var appEventListeners: ((AppEvent) -> Unit)? = null
   }
 
   private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
     contract = RequestMultiplePermissions(),
     callback = {},
   )
+
+  private var fullScreenView: View? = null
 
   override fun attachBaseContext(newBase: Context?) {
     val newBaseContext = newBase?.let { context ->
@@ -103,7 +100,6 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     init()
-    iniExpect()
 
     val componentContext = defaultComponentContext()
 
@@ -112,6 +108,16 @@ class MainActivity : ComponentActivity() {
         componentContext = componentContext,
       )
     }
+  }
+
+  override fun onStart() {
+    super.onStart()
+    initExpect()
+  }
+
+  override fun onStop() {
+    super.onStop()
+    expect = null
   }
 
   override fun onDestroy() {
@@ -134,121 +140,6 @@ class MainActivity : ComponentActivity() {
       statusBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
       navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
     )
-  }
-
-  private fun iniExpect() {producePath = { filesDir.resolve(it).absolutePath }
-    externalStoragePermissionGranted = {
-      when {
-        Build.VERSION.SDK_INT >= 30 -> Environment.isExternalStorageManager()
-        else -> hasPermission(WRITE_EXTERNAL_STORAGE) && hasPermission(READ_EXTERNAL_STORAGE)
-      }
-    }
-
-    languageChanger = lazy {
-      LanguageChangerImpl(
-        activity = this,
-        store = ChangerLocalStore(getSharedPreferences("Changer", Context.MODE_PRIVATE))
-      )
-    }
-
-    requestExternalStoragePermission = {
-      lifecycleScope.launch(Dispatchers.Main) {
-        while (externalStoragePermissionGranted?.invoke() == false) {
-          delay(300)
-        }
-
-        val intent = Intent(this@MainActivity, MainActivity::class.java)
-
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-        startActivity(intent)
-      }
-
-      if (Build.VERSION.SDK_INT >= 30) {
-        try {
-          val intent = Intent(
-            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-            Uri.parse("package:$packageName"),
-          )
-
-          startActivity(intent)
-        } catch (e: Exception) {
-          val intent = Intent(
-            Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION,
-          )
-          intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-
-          startActivity(intent)
-        }
-      } else {
-        launcher.launch(
-          arrayOf(
-            READ_EXTERNAL_STORAGE,
-            WRITE_EXTERNAL_STORAGE,
-          )
-        )
-      }
-    }
-
-    systemBars = {
-      systemBars(it)
-    }
-
-    collapse = {
-      startActivity(
-        Intent(Intent.ACTION_MAIN).apply {
-          addCategory(Intent.CATEGORY_HOME)
-          flags = FLAG_ACTIVITY_NEW_TASK
-        }
-      )
-    }
-
-    saveBitmapToCache = { icon, name, quality ->
-      icon?.let {
-        val folder = File(FileSystem.SYSTEM_TEMPORARY_DIRECTORY.toFile(), "image_cache")
-        if (!folder.exists()) folder.mkdir()
-
-        val file = File(folder, "$name.png")
-        if (!file.exists()) folder.mkdir()
-
-        file.outputStream().use { out ->
-          it.compress(Bitmap.CompressFormat.PNG, quality, out)
-          out.flush()
-        }
-      }
-    }
-
-    fileHider = {
-      FileHiderImpl(this)
-    }
-
-    var fullScreenView: View? = null
-
-    showCustomView = {
-      fullScreenView = it
-
-      it?.let { view ->
-        val rootView = window?.decorView as? ViewGroup
-        rootView?.addView(view, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
-
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-        systemBars(false)
-
-        view.requestFocus()
-      }
-    }
-
-    hideCustomView = {
-      val rootView = window?.decorView as? ViewGroup
-      rootView?.removeView(fullScreenView)
-      fullScreenView = null
-
-      systemBars(true)
-      @SuppressLint("SourceLockedOrientationActivity")
-      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    }
 
     roomDatabase = {
       val dbFile = applicationContext.getDatabasePath("my_room.db")
@@ -266,12 +157,136 @@ class MainActivity : ComponentActivity() {
       appOpen = AdsAppOpenImpl(this),
     )
 
-    adsManager?.init {
-      // todo ?
+    adsManager?.init {}
+  }
+
+  private fun initExpect() {
+    expect = lazy {
+      Expect(
+        toast = { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() },
+        producePath = { filesDir.resolve(it).absolutePath },
+        fileHider = { FileHiderImpl(this) },
+        languageChanger = lazy { languageChangerImpl() },
+        externalStoragePermissionGranted = ::externalStoragePermissionGranted,
+        requestExternalStoragePermission = ::requestExternalStoragePermission,
+        saveBitmapToCache = ::saveBitmapToCache,
+        showCustomView = ::showCustomView,
+        hideCustomView = ::hideCustomView,
+        openMarket = ::openMarket,
+        systemBars = ::systemBars,
+        shareLink = ::shareLink,
+        shareApp = ::shareApp,
+        collapse = ::collapse,
+        openFile = ::openFile,
+      )
     }
   }
 
-  private fun Activity.systemBars(show: Boolean) {
+  private fun collapse() {
+    startActivityTry(
+      Intent(Intent.ACTION_MAIN).apply {
+        addCategory(Intent.CATEGORY_HOME)
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+      }
+    )
+  }
+
+  private fun openFile(fileDataUI: FileDataUI) {
+    try {
+      Logger.d("_TAG", "openFile 1")
+      val file = File(
+        /* pathname = */ fileDataUI.hiddenPath ?: fileDataUI.path,
+      )
+      Logger.d("_TAG", "openFile 2")
+      val mimeType = URLConnection.guessContentTypeFromName(
+        /* fname = */ file.absolutePath,
+      )
+      Logger.d("_TAG", "openFile 3")
+      val uri = FileProvider.getUriForFile(
+        /* context = */ this,
+        /* authority = */ applicationContext.packageName + ".provider",
+        /* file = */ file,
+      )
+      Logger.d("_TAG", "openFile 4")
+      val intent = Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(uri, mimeType)
+        setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+      }
+      Logger.d("_TAG", "openFile 5")
+      startActivity(intent)
+      Logger.d("_TAG", "openFile 6")
+    } catch (e: ActivityNotFoundException) {
+      Toast.makeText(this, getString(R.string.app_not_found), Toast.LENGTH_SHORT).show()
+      Logger.e("TAG", "error = $e")
+    }
+  }
+
+  private fun shareLink(title: String?, link: String) {
+    val intent = Intent().apply {
+      action = Intent.ACTION_SEND
+      type = "text/*"
+
+      title?.let { putExtra(Intent.EXTRA_SUBJECT, title) }
+      putExtra(Intent.EXTRA_TEXT, link)
+    }
+
+    val chooserTitle = getString(R.string.share)
+    val shareIntent = Intent.createChooser(intent, chooserTitle)
+
+    startActivityTry(shareIntent)
+  }
+
+  private fun shareApp() {
+    val storeLink = "https://play.google.com/store/apps/details?id="
+
+    val intent = Intent().apply {
+      action = Intent.ACTION_SEND
+      type = "text/plain"
+
+      putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+
+      putExtra(
+        Intent.EXTRA_TEXT,
+        """
+          ${getString(R.string.let_me_recommend)}
+
+          $storeLink$packageName
+        """.trimIndent()
+      )
+    }
+
+    val chooserTitle = getString(R.string.share)
+    val shareIntent = Intent.createChooser(intent, chooserTitle)
+
+    startActivityTry(shareIntent)
+  }
+
+  private fun openMarket() {
+    val storeLink = "https://play.google.com/store/apps/details?id="
+
+    val goToMarket = Intent().apply {
+      action = Intent.ACTION_VIEW
+      data = Uri.parse("$storeLink$packageName")
+      setPackage("com.android.vending")
+    }
+
+    try {
+      startActivity(goToMarket)
+    } catch (e: ActivityNotFoundException) {
+      try {
+        startActivity(
+          Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse("$storeLink$packageName")
+          }
+        )
+      } catch (ignore: Exception) {
+      }
+    }
+  }
+
+  private fun systemBars(show: Boolean) {
     val windowInsetsController: WindowInsetsControllerCompat = WindowCompat.getInsetsController(
       /* window = */ window,
       /* view = */ window.decorView,
@@ -292,7 +307,127 @@ class MainActivity : ComponentActivity() {
     }
   }
 
+  private fun showCustomView(view: View?) {
+    fullScreenView = view
+
+    view?.let {
+      val rootView = window?.decorView as? ViewGroup
+      rootView?.addView(view, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+
+      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+      systemBars(false)
+
+      view.requestFocus()
+    }
+  }
+
+  private fun hideCustomView() {
+    val rootView = window?.decorView as? ViewGroup
+    rootView?.removeView(fullScreenView)
+    fullScreenView = null
+
+    systemBars(true)
+    @SuppressLint("SourceLockedOrientationActivity")
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+  }
+
+  private fun saveBitmapToCache(icon: Bitmap?, name: String, quality: Int) {
+    icon?.let {
+      val folder = File(FileSystem.SYSTEM_TEMPORARY_DIRECTORY.toFile(), "image_cache")
+      if (!folder.exists()) folder.mkdir()
+
+      val file = File(folder, "$name.png")
+      if (!file.exists()) folder.mkdir()
+
+      file.outputStream().use { out ->
+        it.compress(Bitmap.CompressFormat.PNG, quality, out)
+        out.flush()
+      }
+    }
+  }
+
+  private fun languageChangerImpl(): LanguageChangerImpl {
+    return LanguageChangerImpl(
+      activity = this,
+      store = ChangerLocalStore(getSharedPreferences("Changer", Context.MODE_PRIVATE))
+    )
+  }
+
+  private fun externalStoragePermissionGranted(): Boolean {
+    return when {
+      Build.VERSION.SDK_INT >= 30 -> Environment.isExternalStorageManager()
+      else -> hasPermission(WRITE_EXTERNAL_STORAGE) && hasPermission(READ_EXTERNAL_STORAGE)
+    }
+  }
+
+  private fun requestExternalStoragePermission() {
+    lifecycleScope.launch(Dispatchers.Main) {
+      while (expect?.value?.externalStoragePermissionGranted?.invoke() == false) {
+        delay(300)
+      }
+
+      val intent = Intent(this@MainActivity, MainActivity::class.java)
+
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+      startActivityTry(intent)
+    }
+
+    if (Build.VERSION.SDK_INT >= 30) {
+      try {
+        val intent = Intent(
+          Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+          Uri.parse("package:$packageName"),
+        )
+
+        startActivity(intent)
+      } catch (e: Exception) {
+        val intent = Intent(
+          Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION,
+        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        startActivity(intent)
+      }
+    } else {
+      launcher.launch(
+        arrayOf(
+          READ_EXTERNAL_STORAGE,
+          WRITE_EXTERNAL_STORAGE,
+        )
+      )
+    }
+  }
+
   private fun Context.hasPermission(permissions: String): Boolean {
     return checkSelfPermission(this, permissions) == PERMISSION_GRANTED
   }
+
+  private fun Context.startActivityTry(intent: Intent, onError: (() -> Unit)? = null) {
+    try {
+      startActivity(intent)
+    } catch (ignore: Exception) {
+      onError?.invoke()
+    }
+  }
+
+  class Expect(
+    val languageChanger: Lazy<LanguageChangerImpl>,
+    val producePath: (String) -> String,
+    val externalStoragePermissionGranted: () -> Boolean,
+    val requestExternalStoragePermission: () -> Unit,
+    val collapse: () -> Unit,
+    val openMarket: () -> Unit,
+    val shareApp: () -> Unit,
+    val systemBars: (Boolean) -> Unit,
+    val fileHider: () -> FileHiderImpl,
+    val showCustomView: (View?) -> Unit,
+    val hideCustomView: () -> Unit,
+    val saveBitmapToCache: (Bitmap?, String, Int) -> Unit,
+    val shareLink: (String?, String) -> Unit,
+    val toast: (String) -> Unit,
+    val openFile: (fileDataUI: FileDataUI) -> Unit,
+  )
 }

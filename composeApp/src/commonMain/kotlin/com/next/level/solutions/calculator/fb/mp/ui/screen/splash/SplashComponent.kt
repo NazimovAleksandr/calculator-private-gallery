@@ -41,8 +41,8 @@ class SplashComponent(
   private suspend fun runProgress() {
     when {
       progress.value >= 1f -> adsManager.inter.show(::interOff)
-//      progress.value > 0.7f && !consentState() -> incrementProgress(1000) // TODO
-//      progress.value > 0.9f && !adState() -> incrementProgress(55) // TODO
+//      progress.value > 0.7f && !consentState() -> incrementProgress(1000)
+//      progress.value > 0.9f && !adState() -> incrementProgress(55)
       else -> incrementProgress(2)
     }
   }

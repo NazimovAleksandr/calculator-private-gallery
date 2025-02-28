@@ -34,11 +34,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.ic_placeholder_icon
+import calculator_fileblocking.composeapp.generated.resources.link_copied
 import coil3.Bitmap
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Copy
@@ -46,6 +48,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Pencil
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Share
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import io.ktor.http.Url
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun ColumnScope.BrowserLinkEditor(
@@ -57,6 +60,11 @@ internal fun ColumnScope.BrowserLinkEditor(
   onDismiss: () -> Unit,
 ) {
   if (!visible) return
+
+  val platformContext = LocalPlatformContext.current
+  val clipboardManager: ClipboardManager = LocalClipboardManager.current
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val focusManager = LocalFocusManager.current
 
   val pageIconValue by remember {
     derivedStateOf {
@@ -72,8 +80,6 @@ internal fun ColumnScope.BrowserLinkEditor(
 
   val cacheKey = Url(url.toString()).host
 
-  val platformContext = LocalPlatformContext.current
-
   val pageIconRequest = ImageRequest.Builder(platformContext)
     .data(pageIconValue)
     .memoryCacheKey(cacheKey)
@@ -82,10 +88,7 @@ internal fun ColumnScope.BrowserLinkEditor(
     .memoryCachePolicy(CachePolicy.ENABLED)
     .build()
 
-  val clipboardManager: ClipboardManager = LocalClipboardManager.current
-
-  val keyboardController = LocalSoftwareKeyboardController.current
-  val focusManager = LocalFocusManager.current
+  val linkCopied = stringResource(Res.string.link_copied)
 
   if (url != null) {
     Row(
@@ -155,7 +158,7 @@ internal fun ColumnScope.BrowserLinkEditor(
         modifier = Modifier
           .padding(all = 2.dp)
           .clip(shape = CircleShape)
-//          .clickable(onClick = { context.shareLink(titleValue, url) }) todo
+          .clickable(onClick = { PlatformExp.shareLink(titleValue, url) })
           .padding(all = 10.dp)
       )
 
@@ -167,14 +170,7 @@ internal fun ColumnScope.BrowserLinkEditor(
           .clip(shape = CircleShape)
           .clickable(onClick = {
             clipboardManager.setText(AnnotatedString(url))
-
-//            Toast todo
-//              .makeText(
-//                context,
-//                context.getString(R.string.link_copied),
-//                Toast.LENGTH_SHORT
-//              )
-//              .show()
+            PlatformExp.toast(linkCopied)
           })
           .padding(all = 10.dp)
       )

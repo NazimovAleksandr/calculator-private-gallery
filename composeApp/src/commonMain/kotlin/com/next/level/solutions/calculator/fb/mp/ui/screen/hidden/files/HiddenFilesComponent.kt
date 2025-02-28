@@ -16,6 +16,7 @@ import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.NoteModelUI
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
@@ -43,7 +44,7 @@ import kotlinx.coroutines.flow.stateIn
 @Suppress("UnusedReceiverParameter")
 class HiddenFilesComponent(
   componentContext: ComponentContext,
-  private val adsManager: AdsManager,
+  val adsManager: AdsManager,
   private val database: AppDatabase,
   private val fileHider: FileHider,
   private val navigation: StackNavigation<Configuration>,
@@ -158,11 +159,7 @@ class HiddenFilesComponent(
 
   private fun Action.OpenFilesOpener.update() {
     when (handler.fileType) {
-//      FilePickerFileType.File -> { // todo
-//        triggerSignal(Signal.OpenFile(file = file))
-//        state
-//      }
-
+      FilePickerFileType.File -> PlatformExp.openFile(file)
       FilePickerFileType.Note -> navigation.pushNew(Configuration.createNotes(file as NoteModelUI))
 
       else -> _model.update { it.copy(openFile = file) }

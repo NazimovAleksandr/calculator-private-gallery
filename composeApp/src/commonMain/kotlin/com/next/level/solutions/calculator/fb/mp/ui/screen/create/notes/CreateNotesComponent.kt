@@ -11,7 +11,7 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.NoteModelUI
-import com.next.level.solutions.calculator.fb.mp.expect.currentTimeMillis
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
@@ -59,11 +59,11 @@ class CreateNotesComponent(
       fileType = FilePickerFileType.Note,
       files = listOf(
         _model.value.note?.copy(
-          dateModified = currentTimeMillis().toString(),
+          dateModified = PlatformExp.currentTimeMillis().toString(),
           name = name,
           note = note,
         ) ?: NoteModelUI(
-          dateAdded = currentTimeMillis().toString(),
+          dateAdded = PlatformExp.currentTimeMillis().toString(),
           name = name,
           note = note,
         )

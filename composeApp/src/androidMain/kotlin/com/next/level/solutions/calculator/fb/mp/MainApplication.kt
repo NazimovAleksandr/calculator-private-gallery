@@ -79,10 +79,12 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
 
   private fun catchClosedScopeException() {
     if (BuildConfig.DEBUG) {
+      val handler = Thread.getDefaultUncaughtExceptionHandler()
+
       Thread.setDefaultUncaughtExceptionHandler { t, e ->
         when {
           e is ClosedScopeException -> Logger.e("MainApplication", "ClosedScopeException")
-          else -> Thread.getDefaultUncaughtExceptionHandler()?.uncaughtException(t, e)
+          else -> handler?.uncaughtException(t, e)
         }
       }
     }

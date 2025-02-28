@@ -40,7 +40,7 @@ class OnboardingComponent(
     //    analytics.browser.browserOpen()
 
     return Model(
-      withAd = adsManager.native.isInit(), /*todo remoteConfig*/
+      withAd = adsManager.native.isInit(),
     )
   }
 
