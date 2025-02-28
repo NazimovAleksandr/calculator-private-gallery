@@ -4,11 +4,13 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.core.error.ClosedScopeException
 
 class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
 
@@ -21,6 +23,7 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
   override fun onCreate() {
     super.onCreate()
     registerActivityLifecycleCallbacks(this)
+    catchClosedScopeException()
   }
 
   override fun onActivityStarted(activity: Activity) {
@@ -73,4 +76,15 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
   override fun onActivityPaused(activity: Activity) {}
   override fun onActivityDestroyed(activity: Activity) {}
   override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+
+  private fun catchClosedScopeException() {
+    if (BuildConfig.DEBUG) {
+      Thread.setDefaultUncaughtExceptionHandler { t, e ->
+        when {
+          e is ClosedScopeException -> Logger.e("MainApplication", "ClosedScopeException")
+          else -> Thread.getDefaultUncaughtExceptionHandler()?.uncaughtException(t, e)
+        }
+      }
+    }
+  }
 }
