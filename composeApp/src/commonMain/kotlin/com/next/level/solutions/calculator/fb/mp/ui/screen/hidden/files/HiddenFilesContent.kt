@@ -41,6 +41,7 @@ import calculator_fileblocking.composeapp.generated.resources.videos
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
+import com.next.level.solutions.calculator.fb.mp.expect.externalStoragePermissionGranted
 import com.next.level.solutions.calculator.fb.mp.expect.systemBars
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
 import com.next.level.solutions.calculator.fb.mp.ui.composable.check.box.CheckBox
@@ -48,6 +49,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FileP
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
+import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.composable.magic.menu.MagicMenu
 import com.next.level.solutions.calculator.fb.mp.ui.composable.magic.menu.MagicMenuItem
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
@@ -66,6 +68,17 @@ fun HiddenFilesContent(
   AnimatedContent(
     component = component,
     modifier = modifier,
+  )
+
+  LifecycleEventListener(
+    onResume = {
+      if (
+        component.model.value.fileType != FilePickerFileType.Note
+        && !externalStoragePermissionGranted()
+      ) {
+        component.action(HiddenFilesComponent.Action.Back)
+      }
+    },
   )
 }
 
