@@ -2,8 +2,6 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.b
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
@@ -12,12 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import coil3.Bitmap
-import coil3.compose.AsyncImage
-import coil3.compose.LocalPlatformContext
-import coil3.request.CachePolicy
-import coil3.request.ImageRequest
 import com.multiplatform.webview.web.NativeWebView
 import com.multiplatform.webview.web.PlatformWebViewParams
 import com.multiplatform.webview.web.WebView
@@ -38,49 +31,30 @@ inline fun BrowserView(
     mutableStateOf(null)
   }
 
-  val url by remember {
-    derivedStateOf {
-      webViewState.lastLoadedUrl
-    }
-  }
-
-  val cacheKey = Url(url.toString()).host
-
-
-
-
-
-  Box(
-    modifier = modifier
-  ) {
-
-
-    WebView(
-      state = webViewState,
-      navigator = navigator,
-      captureBackPresses = false,
-      modifier = Modifier.fillMaxSize(),
-      platformWebViewParams = getPlatformWebViewParams(
-        onPageStarted = { url, title ->
-          actions(BrowserViewActions.OnPageStarted(url, title))
-        },
-        onPageFinished = { url, title ->
-          actions(BrowserViewActions.OnPageFinished(url, title))
-        },
-        onPageCommitVisible = { url, title ->
-          actions(BrowserViewActions.OnPageCommitVisible(url, title))
-        },
-        onReceivedIcon = { icon ->
-          pageIconValue.value = icon
-          actions(BrowserViewActions.OnReceivedIcon(icon))
-        },
-        onCreateWindow = { view, url ->
-          actions(BrowserViewActions.OnCreateWindow(view, url))
-        }
-      ),
-    )
-  }
-
+  WebView(
+    state = webViewState,
+    navigator = navigator,
+    captureBackPresses = false,
+    modifier = modifier,
+    platformWebViewParams = getPlatformWebViewParams(
+      onPageStarted = { url, title ->
+        actions(BrowserViewActions.OnPageStarted(url, title))
+      },
+      onPageFinished = { url, title ->
+        actions(BrowserViewActions.OnPageFinished(url, title))
+      },
+      onPageCommitVisible = { url, title ->
+        actions(BrowserViewActions.OnPageCommitVisible(url, title))
+      },
+      onReceivedIcon = { icon ->
+        pageIconValue.value = icon
+        actions(BrowserViewActions.OnReceivedIcon(icon))
+      },
+      onCreateWindow = { view, url ->
+        actions(BrowserViewActions.OnCreateWindow(view, url))
+      }
+    ),
+  )
 
   DisposableEffect(key1 = Unit) {
     webViewState.webSettings.apply {
