@@ -1,5 +1,6 @@
 package com.next.level.solutions.calculator.fb.mp.ui.root
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +18,7 @@ import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
+import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.extensions.core.hexString
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
@@ -29,6 +31,7 @@ class RootComponent(
   navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
   private val appDatastore: AppDatastore,
+  private val adsManager: AdsManager,
   private val factory: KoinFactory,
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
 
@@ -76,7 +79,10 @@ class RootComponent(
   }
 
   private fun Child.Action.doSomething(): Action? {
-    toString()
+    when (this) {
+      is Action.AppOpen -> adsManager.appOpen.show {}
+    }
+
     return null
   }
 
@@ -164,6 +170,7 @@ class RootComponent(
   sealed interface Action : Child.Action {
     object LockOn : Action
     object LockOff : Action
+    object AppOpen : Action
     object ActivateCollapseSecurity : Action
     object DeactivateCollapseSecurity : Action
   }

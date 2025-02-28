@@ -36,7 +36,7 @@ fun RootContent(
     setAppEventListeners {
       scope.launch(Dispatchers.Main) {
         when (it) {
-          is AppEvent.AppOpen -> {} // todo
+          is AppEvent.AppOpen -> component.action(RootComponent.Action.AppOpen)
           is AppEvent.AppLock -> component.action(RootComponent.Action.LockOn)
         }
       }
