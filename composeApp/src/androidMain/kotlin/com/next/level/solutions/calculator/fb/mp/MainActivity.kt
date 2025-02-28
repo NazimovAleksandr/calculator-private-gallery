@@ -2,11 +2,13 @@ package com.next.level.solutions.calculator.fb.mp
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
@@ -14,8 +16,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.LocaleList
 import android.provider.Settings
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_SECURE
+import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -60,6 +66,8 @@ class MainActivity : ComponentActivity() {
     var appEventListeners: ((AppEvent) -> Unit)? = null
     var roomDatabase: (() -> RoomDatabase.Builder<MyDatabase>)? = null
     var fileHider: (() -> FileHiderImpl)? = null
+    var showCustomView: ((View?) -> Unit)? = null
+    var hideCustomView: (() -> Unit)? = null
   }
 
   private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
@@ -194,6 +202,32 @@ class MainActivity : ComponentActivity() {
 
     fileHider = {
       FileHiderImpl(this)
+    }
+
+    var fullScreenView: View? = null
+
+    showCustomView = {
+      fullScreenView = it
+
+      it?.let { view ->
+        val rootView = window?.decorView as? ViewGroup
+        rootView?.addView(view, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+        systemBars(false)
+
+        view.requestFocus()
+      }
+    }
+
+    hideCustomView = {
+      val rootView = window?.decorView as? ViewGroup
+      rootView?.removeView(fullScreenView)
+      fullScreenView = null
+
+      systemBars(true)
+      @SuppressLint("SourceLockedOrientationActivity")
+      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     roomDatabase = {

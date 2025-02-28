@@ -17,6 +17,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FileP
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
+import com.next.level.solutions.calculator.fb.mp.ui.root.browser
 import com.next.level.solutions.calculator.fb.mp.ui.root.hiddenFiles
 import com.next.level.solutions.calculator.fb.mp.ui.root.needAccessDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.settings
@@ -89,7 +90,7 @@ class HomeComponent(
       is Action.Videos -> FilePickerFileType.Video.navigateOrShowInter()
       is Action.Files -> FilePickerFileType.File.navigateOrShowInter()
       is Action.Notes -> FilePickerFileType.Note.navigateOrShowInter()
-//      is Action.Browser -> navigateOrShowInter()//  todo Browser
+      is Action.Browser -> navigateOrShowInter()
     }
   }
 
@@ -119,6 +120,20 @@ class HomeComponent(
 
     when {
 //      trash() -> interOffCallback()
+//      interIsEnabledByFirstClick() && showInterByFirstClick() -> showInter()
+//      showInterByNClick() -> showInter()
+      else -> interOffCallback()
+    }
+  }
+
+  private fun Action.Browser.navigateOrShowInter() {
+    toString()
+
+    val interOffCallback = {
+      navigation.pushNew(Configuration.browser())
+    }
+
+    when {
 //      interIsEnabledByFirstClick() && showInterByFirstClick() -> showInter()
 //      showInterByNClick() -> showInter()
       else -> interOffCallback()

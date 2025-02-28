@@ -73,6 +73,9 @@ kotlin {
 
       implementation(libs.compottie)
       implementation(libs.webview.multiplatform)
+      implementation(libs.ktor.client.core)
+//      implementation(libs.ktor.client.okhttp)
+//      implementation(libs.ktor.client.darwin)
     }
 
     // KSP Common sourceSet
