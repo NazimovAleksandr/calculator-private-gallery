@@ -19,5 +19,6 @@ Calculator - File Blocking
 - [ ] Android
   - [ ] MainActivity: onComplete init Ads ?
   - [ ] MainActivity: After openFile DeactivateCollapseSecurity ?
+  - [ ] FileVisibilityManager: removeFromFileData
 - [ ] iOS
 
