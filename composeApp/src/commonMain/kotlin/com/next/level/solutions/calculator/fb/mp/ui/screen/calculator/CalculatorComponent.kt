@@ -27,10 +27,10 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.home
 import com.next.level.solutions.calculator.fb.mp.ui.root.resetPasswordCode
 import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestion
 import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestionDialog
-import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.ButtonType
-import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isNotZero
-import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.isZero
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.operation
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
+import kotlinx.collections.immutable.ImmutableList
 
 class CalculatorComponent(
   componentContext: ComponentContext,
@@ -47,12 +47,14 @@ class CalculatorComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
   val model: Value<Model> get() = _model
 
-  private val enteredNumberRaw: MutableList<ButtonType> = mutableListOf()
-  private val allNumberRaw: MutableList<ButtonType> = mutableListOf()
+  private val enteredNumberRaw: MutableList<Char> = mutableListOf()
+  private val allNumberRaw: MutableList<Char> = mutableListOf()
 
   private var checkedPasswordCount: Int = 0
 
   private var secureAnswer: String = ""
+
+  private val buttons = Buttons()
 
   init {
     launch {
@@ -85,6 +87,7 @@ class CalculatorComponent(
 //    analytics.calculator.pinCreateScreenOpen()
 
     return Model(
+      buttons = buttons.getButtons(),
       creatingPassword = handler.password.isEmpty() || handler.changeMode,
       backHandlerEnabled = !handler.changeMode || handler.lockMode,
     )
@@ -110,69 +113,63 @@ class CalculatorComponent(
   private fun Action.CalculatorButtonClick.update() {
     if (
       _model.value.creatingPassword
-      && !type.forPassword
-    ) {
-      return
-    }
+      && !type.forPassword()
+    ) return
 
     if (
       _model.value.creatingPassword
       && _model.value.enteredNumber.length < 4
-      && type == ButtonType.Equal
-    ) {
-      return
-    }
+      && type == buttons.equal
+    ) return
 
     if (
       _model.value.creatingPassword
       && _model.value.enteredNumber.length >= 4
-      && type != ButtonType.Delete
-      && type != ButtonType.Equal
-    ) {
-      return
-    }
+      && type != buttons.delete
+      && type != buttons.equal
+    ) return
 
-    val enteredRaw: List<ButtonType> = enteredNumberRaw.toList()
-    val allRaw: List<ButtonType> = allNumberRaw.toList()
+    val enteredRaw: List<Char> = enteredNumberRaw.toList()
+    val allRaw: List<Char> = allNumberRaw.toList()
 
-    val raw: Pair<List<ButtonType>, List<ButtonType>> = when (type) {
-      ButtonType.Plus,
-      ButtonType.Minus,
-      ButtonType.Divide,
-      ButtonType.Multiply,
+    val raw: Pair<List<Char>, List<Char>> = when (type) {
+      buttons.plus,
+      buttons.minus,
+      buttons.divide,
+      buttons.multiply,
         -> {
         when {
-          allRaw.isEmpty() -> emptyList<ButtonType>() to allRaw + enteredRaw + type
-          allRaw.last().operation && enteredRaw.isEmpty() -> enteredRaw to allRaw.dropLast(1) + type
-          else -> emptyList<ButtonType>() to allRaw + enteredRaw + type
+          allRaw.isEmpty() -> emptyList<Char>() to enteredRaw + type
+          allRaw.last().operation() && enteredRaw.isEmpty() -> enteredRaw to allRaw.dropLast(1) + type
+          else -> emptyList<Char>() to allRaw + enteredRaw + type
         }
       }
 
-      ButtonType.Zero -> when {
-        enteredRaw.contains(ButtonType.Point) -> enteredRaw + type to allRaw
+      buttons.zero -> when {
+        enteredRaw.contains(buttons.point) -> enteredRaw + type to allRaw
         enteredRaw.firstOrNull().isNotZero() -> enteredRaw + type to allRaw
+        else -> enteredRaw/* + type*/ to allRaw
+      }
+
+      buttons.point -> when {
+        enteredRaw.contains(buttons.point) -> enteredRaw to allRaw
         else -> enteredRaw + type to allRaw
       }
 
-      ButtonType.Point -> when {
-        enteredRaw.contains(ButtonType.Point) -> enteredRaw to allRaw
-        else -> enteredRaw + type to allRaw
-      }
-
-      ButtonType.Equal -> when {
+      buttons.equal -> when {
         _model.value.creatingPassword -> allRaw to allRaw.also { checkPassword() }
-        allRaw.isEmpty() && enteredRaw.isPassword() -> emptyList<ButtonType>() to allRaw.also { toHome() }
+        allRaw.isEmpty() && enteredRaw.isPassword() -> emptyList<Char>() to allRaw.also { toHome() }
         allRaw.isEmpty() && enteredRaw.isResetPassword() -> enteredRaw to allRaw.also { resetPassword() }
         else -> allRaw + enteredRaw to emptyList()
       }
 
-      ButtonType.Delete -> when {
+      buttons.delete -> when {
         enteredRaw.size > 1 -> enteredRaw.dropLast(1) to allRaw
-        else -> emptyList<ButtonType>() to allRaw
+        else -> emptyList<Char>() to allRaw
       }
 
       else -> when {
-        enteredRaw.firstOrNull().isZero() && !enteredRaw.contains(ButtonType.Point) -> enteredRaw to allRaw
+        enteredRaw.firstOrNull().isZero() && !enteredRaw.contains(buttons.point) -> emptyList<Char>() + type to allRaw
         else -> enteredRaw + type to allRaw
       }
     }
@@ -189,22 +186,22 @@ class CalculatorComponent(
     allNumberRaw.addAll(raw.second)
 
     val enteredNumber = when (type) {
-      ButtonType.Equal -> {
-        val result = enteredNumberRaw.toNumber().calculate()
+      buttons.equal -> {
+        val result = enteredNumberRaw.asString().calculate()
 
         enteredNumberRaw.clear()
-        enteredNumberRaw.addAll(result.toButtonType())
+        enteredNumberRaw.addAll(result.toList().map { it })
 
         result
       }
 
-      else -> enteredNumberRaw.toNumber()
+      else -> enteredNumberRaw.asString()
     }
 
     _model.update {
       it.copy(
         enteredNumber = enteredNumber,
-        allNumber = allNumberRaw.toNumber()
+        allNumber = allNumberRaw.asString()
       )
     }
   }
@@ -256,8 +253,8 @@ class CalculatorComponent(
     }
   }
 
-  private fun <E : ButtonType> List<E>.toNumber(): String {
-    return joinToString("") { it.value.toString() }
+  private fun <E : Char> List<E>.asString(): String {
+    return joinToString("")
   }
 
   private fun String.calculate(): String {
@@ -267,32 +264,12 @@ class CalculatorComponent(
       .calculate(this)
       .let {
         when {
-          this.contains(".") -> it
-          this.contains("/") -> it
+          contains(".") -> it
+          contains("/") -> it
           else -> it.toInt()
         }
       }
       .toString()
-  }
-
-  private fun String.toButtonType(): List<ButtonType> {
-    return toList().map {
-      when (it) {
-        ButtonType.Zero.value -> ButtonType.Zero
-        ButtonType.One.value -> ButtonType.One
-        ButtonType.Two.value -> ButtonType.Two
-        ButtonType.Three.value -> ButtonType.Three
-        ButtonType.Four.value -> ButtonType.Four
-        ButtonType.Five.value -> ButtonType.Five
-        ButtonType.Six.value -> ButtonType.Six
-        ButtonType.Seven.value -> ButtonType.Seven
-        ButtonType.Eight.value -> ButtonType.Eight
-        ButtonType.Nine.value -> ButtonType.Nine
-        ButtonType.Point.value -> ButtonType.Point
-
-        else -> ButtonType.Zero
-      }
-    }
   }
 
   private fun checkPassword() {
@@ -306,8 +283,8 @@ class CalculatorComponent(
     }
   }
 
-  private fun <E : ButtonType> List<E>.isPassword(): Boolean {
-    return (toNumber() == handler.password)
+  private fun <E : Char> List<E>.isPassword(): Boolean {
+    return (asString() == handler.password)
       .also {
         if (size == 4) {
           when (it) {
@@ -349,15 +326,20 @@ class CalculatorComponent(
     launchMain { dialogNavigation.activate(DialogConfiguration.resetPasswordCode()) }
   }
 
-  private fun <E : ButtonType> List<E>.isResetPassword(): Boolean {
-    return (toNumber() == RESET_PASSWORD_CODE)
+  private fun <E : Char> List<E>.isResetPassword(): Boolean {
+    return (asString() == RESET_PASSWORD_CODE)
 //      .also { if (it) analytics.calculator.resetCodeEntered() }
   }
 
   private fun resetPassword() {
     checkedPasswordCount = 0
     launch { appDatastore.passwordState("") }
-    navigation.replaceCurrent(Configuration.calculator(changeMode = handler.changeMode, password = ""))
+    navigation.replaceCurrent(
+      Configuration.calculator(
+        changeMode = handler.changeMode,
+        password = ""
+      )
+    )
   }
 
   private fun savePassword(password: String) {
@@ -403,6 +385,22 @@ class CalculatorComponent(
     }
   }
 
+  private fun Char?.isZero(): Boolean {
+    return this == buttons.zero
+  }
+
+  private fun Char?.isNotZero(): Boolean {
+    return this != buttons.zero
+  }
+
+  private fun Char?.forPassword(): Boolean {
+    return this != buttons.point
+        && this != buttons.plus
+        && this != buttons.minus
+        && this != buttons.divide
+        && this != buttons.multiply
+  }
+
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
@@ -419,10 +417,11 @@ class CalculatorComponent(
     val password: String = "",
     val allNumber: String = "",
     val secureQuestion: String = "",
+    val buttons: ImmutableList<ImmutableList<Char>>,
   )
 
   sealed interface Action : RootComponent.Child.Action {
-    class CalculatorButtonClick(val type: ButtonType) : Action
+    class CalculatorButtonClick(val type: Char) : Action
     class SetPassword(val password: String) : Action
 
     class SecureQuestion(val value: String) : Action

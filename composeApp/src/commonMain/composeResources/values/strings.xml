@@ -23,12 +23,14 @@
     <string name="skip">Skip</string>
     <string name="enter_secret_word">Enter secret word</string>
 
-    <string name="where_are_you_born">Where are you born?</string>
-    <string name="what_is_your_father_name">What is your father name?</string>
-    <string name="what_is_your_mother_name">What is your mother name?</string>
-    <string name="what_is_your_favorite_color">What is your favorite color?</string>
-    <string name="what_date_is_your_birthday">What date is your birthday?</string>
-    <string name="where_is_your_hometown">Where is your hometown?</string>
+    <string-array name="questions">
+        <item>What’s your favorite movie?</item>
+        <item>What’s your favorite artist?</item>
+        <item>What city were you born in?</item>
+        <item>What was your first car?</item>
+        <item>What was the first concert you attended?</item>
+        <item>What year did you enter college?</item>
+    </string-array>
 
     <string name="need_to_remember">Need to remember</string>
     <string name="your_answer">Your answer</string>

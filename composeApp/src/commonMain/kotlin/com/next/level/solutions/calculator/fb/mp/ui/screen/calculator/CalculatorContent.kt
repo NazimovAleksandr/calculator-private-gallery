@@ -30,6 +30,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.TextAutoSize
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun CalculatorContent(
@@ -65,9 +66,15 @@ private fun Content(
 ) {
   val model = component?.model?.subscribeAsState()
 
+  val buttons by remember {
+    derivedStateOf {
+      model?.value?.buttons ?: persistentListOf()
+    }
+  }
+
   val creatingPassword = remember {
     derivedStateOf {
-      model?.value?.creatingPassword ?: false
+      model?.value?.creatingPassword == true
     }
   }
 
@@ -158,6 +165,7 @@ private fun Content(
     Spacer(modifier = Modifier.height(height = 24.dp))
 
     CalculatorButtons(
+      buttons = buttons,
       creatingPassword = creatingPassword2,
       enteredNumberLength = enteredNumberLength2,
       action = { component?.action(CalculatorComponent.Action.CalculatorButtonClick(it)) },

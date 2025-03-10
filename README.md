@@ -12,9 +12,6 @@ Calculator - File Blocking
   - [ ] Lottie json 
   - [ ] Splash
     - [ ] Increment progress time if (!consentState(), !adState())
-  - [x] HiddenFiles
-    - [x] nativeAdCard: Small or Large 
-    - [x] FilesOpener: Landscape and FullScreen
   - [ ] Browser
     - [ ] BrowserView: multipleWindows ?
     - [x] BrowserComponent: validUrl

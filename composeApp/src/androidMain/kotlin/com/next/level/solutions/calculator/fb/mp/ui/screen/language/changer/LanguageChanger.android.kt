@@ -12,7 +12,7 @@ class LanguageChangerImpl(
 ) : LanguageChanger {
 
   init {
-    context.updateLocale(store.getLocale())
+    updateLocale()
   }
 
   override fun getDefaultLocaleLanguageCode(): String {
@@ -23,6 +23,10 @@ class LanguageChangerImpl(
     store.persistLocale(languageModel.toLocale())
     context.updateLocale(languageModel.toLocale())
 //    activity.recreate()
+  }
+
+  override fun updateLocale() {
+    context.updateLocale(store.getLocale())
   }
 
   private fun LanguageModel.toLocale(): Locale {

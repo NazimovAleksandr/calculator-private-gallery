@@ -23,12 +23,14 @@
     <string name="skip">Пропустить</string>
     <string name="enter_secret_word">Введите секретное слово</string>
 
-    <string name="where_are_you_born">Где вы родились?</string>
-    <string name="what_is_your_father_name">Как зовут вашего отца?</string>
-    <string name="what_is_your_mother_name">Как зовут вашу мать?</string>
-    <string name="what_is_your_favorite_color">Какой ваш любимый цвет?</string>
-    <string name="what_date_is_your_birthday">Какого числа у вас день рождения?</string>
-    <string name="where_is_your_hometown">Какой ваш родной город?</string>
+    <string-array name="questions">
+        <item>Какой ваш любимый фильм?</item>
+        <item>Кто ваш любимый артист?</item>
+        <item>В каком городе вы родились?</item>
+        <item>Какая была ваша первая машина?</item>
+        <item>Какой был первый концерт, который вы посетили?</item>
+        <item>В каком году вы поступили в колледж?</item>
+    </string-array>
 
     <string name="need_to_remember">Необходимо запомнить</string>
     <string name="your_answer">Ваш ответ</string>

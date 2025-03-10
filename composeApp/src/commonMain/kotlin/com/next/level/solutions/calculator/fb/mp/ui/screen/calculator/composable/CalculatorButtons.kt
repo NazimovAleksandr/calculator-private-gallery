@@ -23,17 +23,22 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.operation
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 internal fun CalculatorButtons(
+  buttons: ImmutableList<ImmutableList<Char>>,
   creatingPassword: State<Boolean>,
   enteredNumberLength: State<Boolean>,
   modifier: Modifier = Modifier,
   space: Dp = 10.dp,
-  action: (ButtonType) -> Unit,
+  action: (Char) -> Unit,
 ) {
   Content(
+    buttons = buttons,
     creatingPassword = creatingPassword,
     enteredNumberLength = enteredNumberLength,
     modifier = modifier,
@@ -50,6 +55,7 @@ internal fun CalculatorButtonsPreview(
   space: Dp = 10.dp,
 ) {
   Content(
+    buttons = Buttons().getButtons(),
     creatingPassword = creatingPassword,
     enteredNumberLength = enteredNumberLength,
     modifier = modifier,
@@ -59,11 +65,12 @@ internal fun CalculatorButtonsPreview(
 
 @Composable
 private fun Content(
+  buttons: ImmutableList<ImmutableList<Char>>,
   creatingPassword: State<Boolean>,
   enteredNumberLength: State<Boolean>,
   modifier: Modifier = Modifier,
   space: Dp = 10.dp,
-  action: (ButtonType) -> Unit = {},
+  action: (Char) -> Unit = {},
 ) {
   val haptic = LocalHapticFeedback.current
 
@@ -76,7 +83,7 @@ private fun Content(
     modifier = modifier
   ) {
     items(
-      items = ButtonType.getButtons(),
+      items = buttons,
       key = { it.toString() }
     ) { buttons ->
       Column(
@@ -86,12 +93,12 @@ private fun Content(
       ) {
         buttons.forEach { buttonType ->
           val creating = when {
-            buttonType.operation -> creatingPassword
+            buttonType.operation() -> creatingPassword
             else -> null
           }
 
           val enteredNumber = when {
-            buttonType.operation -> enteredNumberLength
+            buttonType.operation() -> enteredNumberLength
             else -> null
           }
 
@@ -112,7 +119,7 @@ private fun Content(
 
 @Composable
 private fun Button(
-  type: ButtonType,
+  type: Char,
   creatingPassword: State<Boolean>?,
   enteredNumberLength: State<Boolean>?,
   modifier: Modifier = Modifier,
@@ -128,25 +135,24 @@ private fun Button(
 
   val backgroundColor = when {
     creatingPasswordValue?.value == false -> MaterialTheme.colorScheme.primary
-
-    type.isEqual() && enteredNumberLengthValue?.value == true -> MaterialTheme.colorScheme.primary
-
+    type == '=' && enteredNumberLengthValue?.value == true -> MaterialTheme.colorScheme.primary
     else -> MaterialTheme.colorScheme.secondary
   }
 
   Text(
-    text = type.text,
+    text = type.text(),
     color = MaterialTheme.colorScheme.onSecondary,
-    style = when (type) {
-      ButtonType.Delete -> TextStyleFactory.FS36.w400()
+    style = when {
+      type == '/' -> TextStyleFactory.FS36.w400()
+      type.operation() -> TextStyleFactory.FS36.w400()
       else -> TextStyleFactory.FS32.w400()
     },
     modifier = modifier
       .fillMaxWidth()
       .let {
-        when (type.operation) {
-          false -> it.aspectRatio(ratio = 1f)
+        when (type.operation()) {
           true -> it.aspectRatio(ratio = 3 / 2.33f)
+          else -> it.aspectRatio(ratio = 1f)
         }
       }
       .clip(shape = CircleShape)
@@ -154,4 +160,13 @@ private fun Button(
       .clickable(onClick = action)
       .wrapContentSize()
   )
+}
+
+private fun Char.text(): String {
+  return when (this) {
+    '*' -> "×"
+    '/' -> "÷"
+    'd' -> "   ⌫    "
+    else -> this.toString()
+  }
 }

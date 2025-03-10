@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CornerSize
@@ -30,12 +30,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.what_date_is_your_birthday
-import calculator_fileblocking.composeapp.generated.resources.what_is_your_father_name
-import calculator_fileblocking.composeapp.generated.resources.what_is_your_favorite_color
-import calculator_fileblocking.composeapp.generated.resources.what_is_your_mother_name
-import calculator_fileblocking.composeapp.generated.resources.where_are_you_born
-import calculator_fileblocking.composeapp.generated.resources.where_is_your_hometown
+import calculator_fileblocking.composeapp.generated.resources.questions
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
@@ -44,8 +39,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.stringArrayResource
 
 @Composable
 internal inline fun Questions(
@@ -59,25 +53,12 @@ internal inline fun Questions(
     mutableStateOf(false)
   }
 
-  val questions: ImmutableList<StringResource> = remember {
-    persistentListOf(
-      Res.string.where_are_you_born,
-      Res.string.what_is_your_father_name,
-      Res.string.what_is_your_mother_name,
-      Res.string.what_is_your_favorite_color,
-      Res.string.what_date_is_your_birthday,
-      Res.string.where_is_your_hometown,
-    )
-  }
-
   var questionsValue: ImmutableList<String> = remember {
     persistentListOf()
   }
 
   if (questionsValue.isEmpty()) {
-    questionsValue = questions.map {
-      stringResource(it)
-    }.toImmutableList()
+    questionsValue = stringArrayResource(Res.array.questions).toImmutableList()
   }
 
   var selectedQuestion by remember {
@@ -153,7 +134,7 @@ internal inline fun Questions(
                 color = MaterialTheme.colorScheme.onSecondary,
                 style = TextStyleFactory.FS16.w600(),
                 modifier = Modifier
-                  .height(height = 72.dp)
+                  .heightIn(min = 72.dp)
                   .fillMaxWidth()
                   .then(clip)
                   .background(color = MaterialTheme.colorScheme.secondary)

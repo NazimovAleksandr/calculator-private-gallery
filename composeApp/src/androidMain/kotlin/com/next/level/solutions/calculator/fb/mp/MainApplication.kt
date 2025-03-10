@@ -2,22 +2,28 @@ package com.next.level.solutions.calculator.fb.mp
 
 import android.app.Activity
 import android.app.Application
+import android.content.res.Configuration
 import android.os.Bundle
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
+import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.error.ClosedScopeException
 import org.koin.core.logger.Level
+import kotlin.getValue
 
 class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
+
+  private val languageChanger: LanguageChanger by inject()
 
   private var lastStartActivity: Activity? = null
   private var showAppOpenAd: Boolean = false
@@ -29,6 +35,10 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
     super.onCreate()
     registerActivityLifecycleCallbacks(this)
     catchClosedScopeException()
+  }
+
+  override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+    languageChanger.updateLocale()
   }
 
   override fun onActivityStarted(activity: Activity) {
@@ -72,11 +82,15 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
     }
   }
 
-  override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
   override fun onActivityResumed(activity: Activity) {}
   override fun onActivityPaused(activity: Activity) {}
   override fun onActivityDestroyed(activity: Activity) {}
   override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+
+  override fun onConfigurationChanged(newConfig: Configuration) {
+    super.onConfigurationChanged(newConfig)
+    languageChanger.updateLocale()
+  }
 
   private fun catchClosedScopeException() {
     if (BuildConfig.DEBUG) {
