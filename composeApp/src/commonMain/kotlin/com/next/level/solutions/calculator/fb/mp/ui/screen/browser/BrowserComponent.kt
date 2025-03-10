@@ -185,13 +185,13 @@ class BrowserComponent(
     return try {
       Url(this)
       this
-    } catch (ignored: Exception) {
+    } catch (_: Exception) {
       try {
         val url = "https://$this/"
 
         Url(url)
         url
-      } catch (ignored: Exception) {
+      } catch (_: Exception) {
         "https://www.google.com/search?q=$this"
       }
     }

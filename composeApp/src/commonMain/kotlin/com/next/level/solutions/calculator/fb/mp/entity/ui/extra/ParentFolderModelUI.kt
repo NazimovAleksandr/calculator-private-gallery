@@ -4,7 +4,6 @@ package com.next.level.solutions.calculator.fb.mp.entity.ui
 
 import com.next.level.solutions.calculator.fb.mp.entity.db.FileDataDB
 import com.next.level.solutions.calculator.fb.mp.entity.db.TrashModelDB
-import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 
 data class ParentFolderModelUI(

@@ -9,6 +9,7 @@ import com.next.level.solutions.calculator.fb.mp.entity.db.FileDataDB
 import com.next.level.solutions.calculator.fb.mp.entity.db.FileModelDB
 import kotlinx.coroutines.flow.Flow
 
+@Suppress("AndroidUnresolvedRoomSqlReference")
 @Dao
 interface FileDao : DaoDB {
   @Insert(onConflict = OnConflictStrategy.REPLACE)

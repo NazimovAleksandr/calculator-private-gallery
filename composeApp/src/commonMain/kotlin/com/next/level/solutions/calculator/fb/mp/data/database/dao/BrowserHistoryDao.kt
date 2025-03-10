@@ -6,9 +6,9 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.next.level.solutions.calculator.fb.mp.entity.db.BrowserHistoryDB
-import com.next.level.solutions.calculator.fb.mp.entity.db.FileModelDB
 import kotlinx.coroutines.flow.Flow
 
+@Suppress("AndroidUnresolvedRoomSqlReference")
 @Dao
 interface BrowserHistoryDao {
     @Query("SELECT * FROM browser_history ORDER BY time DESC")

@@ -39,15 +39,15 @@ class AdsManagerImpl(
 //    mintegral(activity)
 //    appLovin(activity)
 
-//    MobileAds.initialize(activity.application) {
-////      unity3d(activity)
-////      vungle()
-//
-//      inter.load()
-//      native.init()
-//      appOpen.load()
+    MobileAds.initialize(activity.application) {
+//      unity3d(activity)
+//      vungle()
+
+      inter.load()
+      native.init()
+      appOpen.load()
       onComplete.invoke()
-//    }
+    }
 
     init = true
   }

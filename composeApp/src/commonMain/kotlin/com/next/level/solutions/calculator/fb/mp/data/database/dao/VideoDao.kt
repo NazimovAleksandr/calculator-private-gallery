@@ -6,10 +6,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.next.level.solutions.calculator.fb.mp.entity.db.FileDataDB
-import com.next.level.solutions.calculator.fb.mp.entity.db.PhotoModelDB
 import com.next.level.solutions.calculator.fb.mp.entity.db.VideoModelDB
 import kotlinx.coroutines.flow.Flow
 
+@Suppress("AndroidUnresolvedRoomSqlReference")
 @Dao
 interface VideoDao : DaoDB {
   @Insert(onConflict = OnConflictStrategy.REPLACE)

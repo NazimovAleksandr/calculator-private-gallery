@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.compose.runtime.Immutable
 import org.json.JSONObject
 import java.util.Locale
+import androidx.core.content.edit
 
 @Immutable
 class ChangerLocalStore(
@@ -33,7 +34,7 @@ class ChangerLocalStore(
       put(VARIANT, locale.variant)
     }
 
-    sharedPreferences.edit().putString(LOCALE, json.toString()).apply()
+    sharedPreferences.edit { putString(LOCALE, json.toString()) }
   }
 
   companion object {

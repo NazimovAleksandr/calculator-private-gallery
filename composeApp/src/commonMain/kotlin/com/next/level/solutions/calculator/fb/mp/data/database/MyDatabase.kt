@@ -23,12 +23,12 @@ internal expect object AppDatabaseCtor : RoomDatabaseConstructor<MyDatabase>
   version = 1,
   exportSchema = false,
   entities = [
+    BrowserHistoryDB::class,
     FileModelDB::class,
     NoteModelDB::class,
     PhotoModelDB::class,
     TrashModelDB::class,
     VideoModelDB::class,
-    BrowserHistoryDB::class,
   ],
 )
 @ConstructedBy(AppDatabaseCtor::class)

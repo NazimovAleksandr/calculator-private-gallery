@@ -41,14 +41,12 @@ class HomeComponent(
 
   override fun action(action: RootComponent.Child.Action) {
     launchMain {
-      action.doSomething()?.let {
-        action(it)
-      }
+      action.doSomething()
     }
   }
 
-  private fun RootComponent.Child.Action.doSomething(): Action? {
-    checkExternalStorage() ?: return null
+  private fun RootComponent.Child.Action.doSomething() {
+    checkExternalStorage() ?: return
 
     when (this) {
       is Action.Ad -> adsManager.inter.show {}
@@ -58,8 +56,6 @@ class HomeComponent(
 
       else -> navigateOrShowInter()
     }
-
-    return null
   }
 
   private fun RootComponent.Child.Action.checkExternalStorage(): Boolean? {

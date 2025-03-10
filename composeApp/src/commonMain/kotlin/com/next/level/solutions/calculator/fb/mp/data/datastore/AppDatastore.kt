@@ -42,7 +42,6 @@ class AppDatastore {
   suspend fun tipToResetPassword(value: Boolean): Unit = tipToResetPassword.set(value)
 
   fun languageName(): Flow<String?> = languageName.get()
-  suspend fun languageNameOnce(): String = languageName().first() ?: ""
   suspend fun languageName(value: String): Unit = languageName.set(value)
 
   suspend fun languageModelOnce(): LanguageModel? = languageModel.get().map { it?.toLanguageModel() }.first()

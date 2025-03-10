@@ -22,12 +22,10 @@ import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.app_name
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Calculator
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
-import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -100,10 +98,10 @@ private fun Content(
 
     Spacer(modifier = Modifier.height(height = 44.dp))
 
-    withNotNull(component) {
-      nativeAdCard(
-        size = NativeSize.Small,
-      )
-    }
+//    withNotNull(component) {
+//      nativeAdCard(
+//        size = NativeSize.Small,
+//      )
+//    }
   }
 }
