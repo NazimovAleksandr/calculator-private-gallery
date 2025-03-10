@@ -3,6 +3,8 @@ package com.next.level.solutions.calculator.fb.mp.di
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
+import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePath
+import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePathImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
@@ -21,7 +23,6 @@ import platform.Foundation.NSUserDomainMask
 
 actual val platformModule: Module
   get() = module {
-
     @OptIn(ExperimentalForeignApi::class)
     single<RoomDatabase.Builder<MyDatabase>> {
       val documentDirectory = NSFileManager.defaultManager.URLForDirectory(
@@ -42,6 +43,10 @@ actual val platformModule: Module
 
     single<AdsManager> {
       AdsManagerImpl()
+    }
+
+    single<ProducePath> {
+      ProducePathImpl()
     }
 
     factory<MathParser> {

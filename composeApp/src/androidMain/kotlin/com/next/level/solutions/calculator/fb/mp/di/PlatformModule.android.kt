@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.next.level.solutions.calculator.fb.mp.MainActivity
 import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
+import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePath
+import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePathImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManagerImpl
@@ -34,6 +36,12 @@ actual val platformModule: Module
 
     single<AdsManager> {
       MainActivity.adsManager ?: throw IllegalStateException("AdsManager not initialized")
+    }
+
+    single<ProducePath> {
+      ProducePathImpl(
+        filesDir = get<Context>().applicationContext.filesDir,
+      )
     }
 
     factory<MathParser> {

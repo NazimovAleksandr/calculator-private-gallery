@@ -36,7 +36,7 @@ class LanguageComponent(
     LanguageModel(name = "Русский", code = "ru"),
 //    LanguageModel(name = "Indonesia", code = "in"),
 //    LanguageModel(name = "Português", code = "pt"),
-//    LanguageModel(name = "Português (BR)", code = "pt", country = "-BR"),
+//    LanguageModel(name = "Português (BR)", code = "pt", country = "BR"),
 //    LanguageModel(name = "हिंदी", code = "hi"),
 //    LanguageModel(name = "ગુજરાતી", code = "gu"),
 //    LanguageModel(name = "ಕನ್ನಡ", code = "kn"),
@@ -87,7 +87,6 @@ class LanguageComponent(
 
     launchIO {
       appDatastore.languageName(value = selected.name)
-      appDatastore.languageModel(value = selected)
     }
 
     return Model(
@@ -118,9 +117,7 @@ class LanguageComponent(
 
   private suspend fun Action.ApplyLanguage.updateLocale() {
     languageChanger.updateLocale(languageModel = value)
-
     appDatastore.languageName(value = value.name)
-    appDatastore.languageModel(value = value)
   }
 
   private suspend fun done() {

@@ -6,6 +6,8 @@ Calculator - File Blocking
 - [ ] Common
   - [ ] App Name 
   - [ ] App Icon 
+  - [ ] Privacy Policy
+  - [ ] Terms of service
   - [ ] Firebase 
   - [ ] Lottie json 
   - [ ] Splash
@@ -22,6 +24,9 @@ Calculator - File Blocking
   - [ ] MainActivity: After openFile DeactivateCollapseSecurity ?
   - [ ] FileVisibilityManager: removeFromFileData
 - [ ] iOS
-  - [ ] Language: Select default language
+  - [ ] Browser
+  - [ ] VideoPlayer
+  - [ ] PlatformExp
+  - [x] Language: Select default language
   - [ ] FileVisibilityManager
 
