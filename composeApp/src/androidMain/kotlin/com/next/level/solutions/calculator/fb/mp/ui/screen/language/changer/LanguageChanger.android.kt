@@ -26,7 +26,11 @@ class LanguageChangerImpl(
   }
 
   private fun LanguageModel.toLocale(): Locale {
-    return Locale(code, country.replace("-", ""), variant)
+    return Locale(
+      /* language = */ code,
+      /* country = */ country,
+      /* variant = */ variant,
+    )
   }
 
   private fun Context.updateLocale(locale: Locale) {

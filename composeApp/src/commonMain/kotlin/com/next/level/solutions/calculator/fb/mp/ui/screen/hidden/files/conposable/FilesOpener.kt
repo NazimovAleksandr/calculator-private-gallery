@@ -1,6 +1,5 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable
 
-import VideoPlayer
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -25,6 +24,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -99,10 +99,6 @@ private fun Content(
   animatedVisibilityScope: AnimatedVisibilityScope? = null,
   action: (HiddenFilesComponent.Action) -> Unit = {},
 ) {
-//  val density = LocalDensity.current
-
-//  val scope = rememberCoroutineScope()
-
   val fileData = remember(firstFile) {
     mutableStateOf(firstFile)
   }
@@ -124,55 +120,13 @@ private fun Content(
     pageCount = { files.size }
   )
 
-//  val exoPlayer: ExoPlayer = remember {
-//    ExoPlayer.Builder(context).build()
-//      .apply {
-//        try {
-//          playWhenReady = true
-//
-//          addListener(object : Player.Listener {
-////            override fun onPlayerError(error: PlaybackException) {
-////              super.onPlayerError(error)
-////              marketing.analytics.player.error()
-////            }
-////
-////            override fun onIsPlayingChanged(isPlaying: Boolean) {
-////              super.onIsPlayingChanged(isPlaying)
-////
-////              when (isPlaying) {
-////                false -> marketing.analytics.player.close(time = System.currentTimeMillis() - startTime)
-////                true -> startTime = System.currentTimeMillis()
-////              }
-////            }
-//          })
-//
-////          marketing.analytics.player.launch()
-//
-//        } catch (ignore: Exception) {
-//        }
-//      }
-//  }
-
-//  fun onDispose() {
-//    exoPlayer.release()
-//    activity.onDisposeScreen()
-//  }
-
-  fun onLandscapeChange(state: Boolean) {
-    landscapeState.value = state
-  }
-
-  fun onFullScreenChange(state: Boolean) {
-    fullScreenState.value = state
-  }
-
   Box(
     contentAlignment = Alignment.TopStart,
     modifier = modifier
       .background(color = MaterialTheme.colorScheme.background)
       .fillMaxSize()
   ) {
-    if (files.size > 0) {
+    if (files.isNotEmpty()) {
       HorizontalPager(
         state = pagerState,
         pageContent = { page ->
@@ -191,7 +145,7 @@ private fun Content(
                 animatedVisibilityScope = animatedVisibilityScope,
               )
           ) {
-            FilePreview(
+            DocumentImage(
               file = file,
               modifier = Modifier
                 .fillMaxSize()
@@ -220,12 +174,17 @@ private fun Content(
             }
 
             if (playerVisible) {
-              Player(
+              VideoPlayer(
                 file = file,
                 modifier = Modifier
                   .fillMaxSize()
                   .pointerInput(key1 = Unit) {}
-              )
+              ) {
+                when (it) {
+                  is VideoPlayerAction.LandscapeChange -> landscapeState.value = it.state
+                  is VideoPlayerAction.FullScreenChange -> fullScreenState.value = it.state
+                }
+              }
             }
           }
         },
@@ -251,12 +210,15 @@ private fun Content(
     }
   }
 
-  LaunchedEffect(key1 = Unit) {
+  DisposableEffect(key1 = Unit) {
     alphaAnimationState.value = true
     PlatformExp.systemBars(show = true)
-  }
 
-//  LifecycleEventListener(onDispose = ::onDispose)
+    onDispose {
+      PlatformExp.systemBars(show = true)
+      PlatformExp.screenOrientation(landscape = false)
+    }
+  }
 }
 
 @Composable
@@ -373,7 +335,7 @@ private fun PlayButton(
 }
 
 @Composable
-private fun FilePreview(
+private fun DocumentImage(
   file: FileDataUI,
   modifier: Modifier = Modifier,
 ) {
@@ -387,27 +349,3 @@ private fun FilePreview(
     modifier = modifier
   )
 }
-
-@Composable
-private fun Player(
-  file: FileDataUI,
-  modifier: Modifier = Modifier,
-) {
-//  fun PlayerView.onStop() {
-//    activity.screenOrientationPortrait()
-//    setFullscreenButtonState(false)
-//  }
-
-  VideoPlayer(
-    url = file.hiddenPath ?: file.path,
-    autoPlay = true,
-    showControls = true,
-    modifier = modifier
-//      .graphicsLayer(alpha = if (alphaValue) 1f else 0f)
-  )
-}
-
-//private fun ComponentActivity.onDisposeScreen() {
-//  systemBarsState(show = true)
-//  screenOrientationState(landscape = false)
-//}

@@ -9,6 +9,8 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.content.res.Configuration
+import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
@@ -123,6 +125,15 @@ class MainActivity : ComponentActivity() {
     adsManager = null
   }
 
+  override fun onConfigurationChanged(newConfig: Configuration) {
+    super.onConfigurationChanged(newConfig)
+
+    when (newConfig.orientation) {
+      ORIENTATION_LANDSCAPE -> expect?.value?.screenOrientationListener?.invoke(true)
+      else -> expect?.value?.screenOrientationListener?.invoke(false)
+    }
+  }
+
   private fun init() {
     val color = when (true) {
       true -> Color.Black.copy(alpha = 0.01f)
@@ -156,14 +167,15 @@ class MainActivity : ComponentActivity() {
         saveBitmapToCache = ::saveBitmapToCache,
         showCustomView = ::showCustomView,
         hideCustomView = ::hideCustomView,
-        producePath = ::producePath,
         openMarket = ::openMarket,
         systemBars = ::systemBars,
         shareLink = ::shareLink,
         shareApp = ::shareApp,
         collapse = ::collapse,
         openFile = ::openFile,
-        toast = ::toast,
+        screenOrientationFullSensor = ::screenOrientationFullSensor,
+        screenOrientationPortrait = ::screenOrientationPortrait,
+        screenOrientationSensorLandscape = ::screenOrientationSensorLandscape,
       )
     }
   }
@@ -330,14 +342,6 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-  private fun producePath(name: String): String {
-    return filesDir.resolve(name).absolutePath
-  }
-
-  private fun toast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-  }
-
   private fun externalStoragePermissionGranted(): Boolean {
     return when {
       Build.VERSION.SDK_INT >= 30 -> Environment.isExternalStorageManager()
@@ -398,8 +402,20 @@ class MainActivity : ComponentActivity() {
     }
   }
 
+  private fun screenOrientationFullSensor() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+  }
+
+  private fun screenOrientationPortrait() {
+    @SuppressLint("SourceLockedOrientationActivity")
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+  }
+
+  private fun screenOrientationSensorLandscape() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+  }
+
   class Expect(
-    val producePath: (String) -> String,
     val externalStoragePermissionGranted: () -> Boolean,
     val requestExternalStoragePermission: () -> Unit,
     val collapse: () -> Unit,
@@ -410,7 +426,10 @@ class MainActivity : ComponentActivity() {
     val hideCustomView: () -> Unit,
     val saveBitmapToCache: (Bitmap?, String, Int) -> Unit,
     val shareLink: (String?, String) -> Unit,
-    val toast: (String) -> Unit,
     val openFile: (fileDataUI: FileDataUI) -> Unit,
+    val screenOrientationFullSensor: () -> Unit,
+    val screenOrientationPortrait: () -> Unit,
+    val screenOrientationSensorLandscape: () -> Unit,
+    var screenOrientationListener: ((Boolean) -> Unit)? = null,
   )
 }

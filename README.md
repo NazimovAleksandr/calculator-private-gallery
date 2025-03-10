@@ -12,10 +12,9 @@ Calculator - File Blocking
   - [ ] Lottie json 
   - [ ] Splash
     - [ ] Increment progress time if (!consentState(), !adState())
-    - [ ] Tasks Layout
-  - [ ] HiddenFiles
-    - [ ] nativeAdCard: Small or Large 
-    - [ ] FilesOpener: Landscape and FullScreen
+  - [x] HiddenFiles
+    - [x] nativeAdCard: Small or Large 
+    - [x] FilesOpener: Landscape and FullScreen
   - [ ] Browser
     - [ ] BrowserView: multipleWindows ?
     - [ ] BrowserComponent: validUrl

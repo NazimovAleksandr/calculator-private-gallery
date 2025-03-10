@@ -16,12 +16,16 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,9 +49,9 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
 import com.next.level.solutions.calculator.fb.mp.ui.composable.check.box.CheckBox
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.composable.magic.menu.MagicMenu
@@ -57,7 +61,10 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposab
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable.FilesOpener
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -96,23 +103,38 @@ fun HiddenFilesContentPreview(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun AnimatedContent(
-  component: HiddenFilesComponent?,
+  component: HiddenFilesComponent,
   modifier: Modifier = Modifier,
 ) {
-  val model = component?.model?.subscribeAsState()
+  val model = component.model.subscribeAsState()
 
   val openFile: FileDataUI? by remember {
     derivedStateOf {
-      model?.value?.openFile
+      model.value.openFile
     }
   }
 
   val navigationBars = WindowInsets.navigationBars
   val density = LocalDensity.current
 
-  val navigationBarsPadding by remember {
-    mutableIntStateOf(navigationBars.getBottom(density))
+  var landscapeState by remember {
+    mutableStateOf(false)
   }
+
+  val navigationBarsPadding by remember(key1 = landscapeState) {
+    mutableIntStateOf(
+      if (landscapeState) 0
+      else navigationBars.getBottom(density)
+    )
+  }
+
+  val filesState by remember {
+    derivedStateOf {
+      model.value.files
+    }
+  }
+
+  val files: State<ImmutableList<FileDataUI>> = filesState.collectAsStateWithLifecycle()
 
   Column(
     modifier = modifier
@@ -125,7 +147,7 @@ private fun AnimatedContent(
     ) {
       AnimatedContent(
         targetState = openFile,
-        label = "SharedTransition",
+        label = "",
         modifier = Modifier
       ) {
         Content(
@@ -138,11 +160,24 @@ private fun AnimatedContent(
       }
     }
 
-    withNotNull(component) {
-      nativeAdCard(
-        size = NativeSize.Small,
-      )
+    if (!landscapeState) {
+      withNotNull(component) {
+        if (files.value.isNotEmpty()) {
+          nativeAdCard(
+            size = NativeSize.Small,
+          )
+        } else {
+          nativeAdCard(
+            size = NativeSize.Large,
+          )
+        }
+      }
     }
+  }
+
+  DisposableEffect(key1 = Unit) {
+    PlatformExp.setScreenOrientationListener { landscapeState = it }
+    onDispose { PlatformExp.setScreenOrientationListener(null) }
   }
 }
 
@@ -155,6 +190,8 @@ private fun Content(
   sharedTransitionScope: SharedTransitionScope? = null,
   animatedVisibilityScope: AnimatedVisibilityScope? = null,
 ) {
+  val scope = rememberCoroutineScope()
+
   val model = component?.model?.subscribeAsState()
 
   val selectedItemCount by remember {
@@ -181,12 +218,12 @@ private fun Content(
     }
   }
 
+  val files = filesState?.collectAsStateWithLifecycle()
+
   val filePickerState = rememberFilePickerState(
     initAction = PickerAction.Click,
     initMode = viewType,
   )
-
-  val files = filesState?.collectAsStateWithLifecycle()
 
   val mode by remember {
     filePickerState.action
@@ -354,10 +391,12 @@ private fun Content(
       BackHandler(
         backHandler = backHandler,
         onBack = {
-          PlatformExp.systemBars(show = true)
-//          screenOrientationState(landscape = false)
-//          delay(200)
-          component.action(HiddenFilesComponent.Action.CloseFilesOpener)
+          scope.launch {
+            PlatformExp.systemBars(show = true)
+            PlatformExp.screenOrientation(landscape = false)
+            delay(200)
+            component.action(HiddenFilesComponent.Action.CloseFilesOpener)
+          }
         },
       )
     }

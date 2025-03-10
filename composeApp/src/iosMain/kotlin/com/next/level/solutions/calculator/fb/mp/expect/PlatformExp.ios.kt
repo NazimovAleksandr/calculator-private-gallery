@@ -36,6 +36,10 @@ actual object PlatformExp {
     // TODO("Not yet implemented"):
   }
 
+  actual fun screenOrientation(landscape: Boolean?) {
+    // TODO("Not yet implemented"):
+  }
+
   actual fun openMarket() {
     // TODO("Not yet implemented"):
   }
@@ -56,11 +60,11 @@ actual object PlatformExp {
     // TODO("Not yet implemented"):
   }
 
-  actual fun toast(text: String) {
+  actual fun openFile(fileDataUI: FileDataUI) {
     // TODO("Not yet implemented"):
   }
 
-  actual fun openFile(fileDataUI: FileDataUI) {
+  actual fun setScreenOrientationListener(callback: ((Boolean) -> Unit)?) {
     // TODO("Not yet implemented"):
   }
 }

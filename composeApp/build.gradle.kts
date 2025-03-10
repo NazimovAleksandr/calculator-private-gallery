@@ -40,8 +40,10 @@ kotlin {
 
       implementation(libs.koin.android)
 
-      // mathParser
       implementation(libs.math.parser)
+
+      implementation(libs.media3.exoplayer)
+      implementation(libs.media3.ui)
     }
 
     commonMain.dependencies {
@@ -75,7 +77,6 @@ kotlin {
       implementation(libs.room.runtime)
       implementation(libs.sqlite.bundled)
 
-      implementation(libs.mediaplayer)
       implementation(libs.coil3.compose)
       implementation(libs.coil3.video)
 

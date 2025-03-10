@@ -21,6 +21,6 @@ val dataModule: Module = module {
       .build()
   }
 
-  singleOf(:: AppDatabase)
+  singleOf(::AppDatabase)
   singleOf(::AppDatastore)
 }

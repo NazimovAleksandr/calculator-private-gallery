@@ -11,8 +11,9 @@ expect object PlatformExp {
   fun shareLink(title: String?, link: String)
   fun openFile(fileDataUI: FileDataUI)
   fun systemBars(show: Boolean)
-  fun toast(text: String)
+  fun screenOrientation(landscape: Boolean?)
   fun openMarket()
   fun shareApp()
   fun collapse()
+  fun setScreenOrientationListener(callback: ((Boolean) -> Unit)?)
 }
