@@ -16,13 +16,15 @@ import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.NoteModelUI
+import com.next.level.solutions.calculator.fb.mp.entity.ui.PhotoModelUI
+import com.next.level.solutions.calculator.fb.mp.entity.ui.TrashModelUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.file.hider.FileHider
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
@@ -31,6 +33,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.createNotes
 import com.next.level.solutions.calculator.fb.mp.ui.root.fileHider
 import com.next.level.solutions.calculator.fb.mp.ui.root.lottie
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.dialog.ChooseDialogComponent
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -46,7 +49,7 @@ class HiddenFilesComponent(
   componentContext: ComponentContext,
   val adsManager: AdsManager,
   private val database: AppDatabase,
-  private val fileHider: FileHider,
+  private val fileVisibilityManager: FileVisibilityManager,
   private val navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
@@ -56,35 +59,32 @@ class HiddenFilesComponent(
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
   val model: Value<Model> get() = _model
 
-  private val hiddenFilesByDateAdded: StateFlow<ImmutableList<FileDataUI>> = database.getFormDatabaseByDateAdded(
-    fileType = handler.fileType,
-  )
-    .prepare()
-    .stateIn(
-      scope = coroutineScope(),
-      started = SharingStarted.Eagerly,
-      initialValue = persistentListOf(),
-    )
+  private val hiddenFilesByDateAdded: StateFlow<ImmutableList<FileDataUI>> by lazy {
+    database.fetchByDate(type = handler.fileType).prepare()
+      .stateIn(
+        scope = coroutineScope(),
+        started = SharingStarted.Eagerly,
+        initialValue = persistentListOf(),
+      )
+  }
 
-  private val hiddenFilesByFileSize: StateFlow<ImmutableList<FileDataUI>> = database.getFormDatabaseByFileSize(
-    fileType = handler.fileType,
-  )
-    .prepare()
-    .stateIn(
-      scope = coroutineScope(),
-      started = SharingStarted.Eagerly,
-      initialValue = persistentListOf(),
-    )
+  private val hiddenFilesByFileSize: StateFlow<ImmutableList<FileDataUI>> by lazy {
+    database.fetchBySize(type = handler.fileType).prepare()
+      .stateIn(
+        scope = coroutineScope(),
+        started = SharingStarted.Eagerly,
+        initialValue = persistentListOf(),
+      )
+  }
 
-  private val hiddenFilesByName: StateFlow<ImmutableList<FileDataUI>> = database.getFormDatabaseByName(
-    fileType = handler.fileType,
-  )
-    .prepare()
-    .stateIn(
-      scope = coroutineScope(),
-      started = SharingStarted.Eagerly,
-      initialValue = persistentListOf(),
-    )
+  private val hiddenFilesByName: StateFlow<ImmutableList<FileDataUI>> by lazy {
+    database.fetchByName(type = handler.fileType).prepare()
+      .stateIn(
+        scope = coroutineScope(),
+        started = SharingStarted.Eagerly,
+        initialValue = persistentListOf(),
+      )
+  }
 
   private var selectedFiles: List<FileDataUI> = emptyList()
 
@@ -159,8 +159,8 @@ class HiddenFilesComponent(
 
   private fun Action.OpenFilesOpener.update() {
     when (handler.fileType) {
-      FilePickerFileType.File -> PlatformExp.openFile(file)
-      FilePickerFileType.Note -> navigation.pushNew(Configuration.createNotes(file as NoteModelUI))
+      PickerType.File -> PlatformExp.openFile(file)
+      PickerType.Note -> navigation.pushNew(Configuration.createNotes(file as NoteModelUI))
 
       else -> _model.update { it.copy(openFile = file) }
     }
@@ -190,43 +190,54 @@ class HiddenFilesComponent(
 //    analytics.hiddenFiles.addButtonClick()
 
     when (handler.fileType) {
-      FilePickerFileType.Note -> navigation.pushNew(
+      PickerType.Note -> navigation.pushNew(
         configuration = Configuration.createNotes(null),
       )
 
-      FilePickerFileType.Photo -> dialogNavigation.activate(
+      PickerType.Photo -> dialogNavigation.activate(
         DialogConfiguration.chooseDialog(
-          fileType = FilePickerFileType.Photo,
+          fileType = PickerType.Photo,
           open = ::action
         )
       )
 
-      FilePickerFileType.Video -> dialogNavigation.activate(
+      PickerType.Video -> dialogNavigation.activate(
         DialogConfiguration.chooseDialog(
-          fileType = FilePickerFileType.Video,
+          fileType = PickerType.Video,
           open = ::action
         )
       )
 
-      FilePickerFileType.File -> navigation.pushNew(
+      PickerType.File -> navigation.pushNew(
         Configuration.fileHider(
           fileType = handler.fileType,
-          viewType = FilePickerViewType.Folder,
+          viewType = PickerMode.Folder,
         )
       )
 
-      FilePickerFileType.Trash -> {}
+      PickerType.Trash -> {}
     }
   }
 
   private fun gallery() {
 //    analytics.hiddenFiles.galleryOpen()
-    navigation.pushNew(Configuration.fileHider(fileType = handler.fileType, viewType = FilePickerViewType.Gallery))
+    toFileHider(viewType = PickerMode.Gallery)
   }
 
   private fun folder() {
 //    analytics.hiddenFiles.folderOpen()
-    navigation.pushNew(Configuration.fileHider(fileType = handler.fileType, viewType = FilePickerViewType.Folder))
+    toFileHider(viewType = PickerMode.Folder)
+  }
+
+  private fun toFileHider(
+    viewType: PickerMode,
+  ) {
+    navigation.pushNew(
+      Configuration.fileHider(
+        fileType = handler.fileType,
+        viewType = viewType,
+      )
+    )
   }
 
   private fun moveToVisibleFiles(files: List<FileDataUI>) {
@@ -235,11 +246,11 @@ class HiddenFilesComponent(
     launchIO {
       delay(500)
 
-      fileHider.moveToVisibleFiles(
+      fileVisibilityManager.moveToVisibleFiles(
         files = files,
-      ).let {
-        database.deleteFromDatabase(
-          fileType = handler.fileType,
+      ) {
+        database.delete(
+          type = handler.fileType,
           files = it,
         )
       }
@@ -254,11 +265,45 @@ class HiddenFilesComponent(
     launchIO {
       delay(500)
 
-      fileHider.restoreFiles(
-        files = files,
-      ).let {
-        database.restoreFiles(
-          files = it,
+      Logger.d(TAG, "restoreFiles.files: ${files.size}")
+
+      files.forEach {
+        Logger.d(TAG, "restoreFiles.file: $it")
+      }
+
+      fileVisibilityManager.restoreToInvisibleFiles(
+        files = files.filterIsInstance<TrashModelUI>(),
+      ) { invisibleFiles ->
+        Logger.d(TAG, "restoreToInvisibleFiles: ${invisibleFiles.size}")
+
+        invisibleFiles.forEach {
+          Logger.d(TAG, "file: $it")
+        }
+
+        val trashByType: Map<PickerType, List<TrashModelUI>> = invisibleFiles
+          .groupBy { it.fileType }
+        Logger.d(TAG, "trashByType: $trashByType")
+        //trashByType: {Trash=[TrashModelUI(path=/storage/emulated/0/IMG-20250306-WA0005.jpg, name=IMG-20250306-WA0005, folder=0, size=88057, dateAdded=1741356650, dateHidden=19_13_08_000, dateModified=1741271863, hiddenPath=/storage/emulated/0/Documents/.HiddenDirectory_Calculator/Photo/(19_13_08_000)IMG-20250306-WA0005.jpg)]}
+
+        trashByType[PickerType.File]
+          ?.map { it.toFileUI() }
+          ?.let { database.insert(type = PickerType.File, files = it) }
+
+        trashByType[PickerType.Note]
+          ?.map { it.toNoteUI() }
+          ?.let { database.insert(type = PickerType.Note, files = it) }
+
+        trashByType[PickerType.Photo]
+          ?.map { it.toPhotoUI() }
+          ?.let { database.insert(type = PickerType.Photo, files = it) }
+
+        trashByType[PickerType.Video]
+          ?.map { it.toVideoUI() }
+          ?.let { database.insert(type = PickerType.Video, files = it) }
+
+        database.delete(
+          type = PickerType.Trash,
+          files = invisibleFiles
         )
       }
     }
@@ -272,12 +317,19 @@ class HiddenFilesComponent(
     launchIO {
       delay(500)
 
-      fileHider.moveToDeletedFiles(
+      fileVisibilityManager.moveToDeletedFiles(
         fileType = handler.fileType,
         files = files,
-      ).let {
-        database.moveToTrashDB(
-          fileType = handler.fileType,
+      ) {
+        if (handler.fileType != PickerType.Trash) {
+          database.insert(
+            type = PickerType.Trash,
+            files = it,
+          )
+        }
+
+        database.delete(
+          type = handler.fileType,
           files = it,
         )
       }
@@ -288,14 +340,25 @@ class HiddenFilesComponent(
 
   private fun Flow<List<FileDataUI>>.prepare(): Flow<ImmutableList<FileDataUI>> = map {
     when (handler.fileType) {
-      FilePickerFileType.Note -> it
+      PickerType.Note -> it
 
       else -> {
-        val files = fileHider.hiddenFiles(fileType = handler.fileType)
+        val files = fileVisibilityManager.invisibleFiles(fileType = handler.fileType)
+
+        files.forEach {
+          Logger.d(TAG, "invisibleFiles: $it")
+        }
+
+        Logger.d(TAG, "DB_Size: ${it.size}")
 
         it.filter { fileDataUI ->
+          Logger.d(TAG, "fileDataUI: $fileDataUI")
           files.any { file ->
-            file.name.contains("(${fileDataUI.dateHidden})${fileDataUI.name}")
+            file.name.contains("(${fileDataUI.dateHidden})${fileDataUI.name}").apply {
+              when {
+                this && fileDataUI is PhotoModelUI && file is PhotoModelUI -> fileDataUI.url = file.url
+              }
+            }
           }
         }
       }
@@ -306,13 +369,13 @@ class HiddenFilesComponent(
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler(
-    val fileType: FilePickerFileType,
-    val viewType: FilePickerViewType,
+    val fileType: PickerType,
+    val viewType: PickerMode,
   ) : InstanceKeeper.Instance
 
   data class Model(
-    val fileType: FilePickerFileType,
-    val viewType: FilePickerViewType,
+    val fileType: PickerType,
+    val viewType: PickerMode,
     val files: StateFlow<ImmutableList<FileDataUI>>,
     val openFile: FileDataUI? = null,
     val selectedItemCount: Int = 0,

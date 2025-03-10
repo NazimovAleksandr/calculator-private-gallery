@@ -1,22 +1,26 @@
 package com.next.level.solutions.calculator.fb.mp.di
 
 import androidx.room.RoomDatabase
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
 import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
-import com.next.level.solutions.calculator.fb.mp.expect.getRoomDatabase
-import com.next.level.solutions.calculator.fb.mp.file.hider.getFileHider
+import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val dataModule = module {
+val dataModule: Module = module {
   single<MyDatabase> {
-    val databaseBuilder: RoomDatabase.Builder<MyDatabase> = getRoomDatabase()
+    val databaseBuilder: RoomDatabase.Builder<MyDatabase> = get()
 
     databaseBuilder
-//      .addMigrations(MyDatabase.MIGRATIONS)
+      .setDriver(BundledSQLiteDriver())
       .setQueryCoroutineContext(Dispatchers.IO)
       .build()
   }
 
-  single { getFileHider() }
+  singleOf(:: AppDatabase)
+  singleOf(::AppDatastore)
 }

@@ -17,7 +17,6 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
-import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.getDefaultLocaleLanguageCode
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.model.LanguageModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -78,7 +77,7 @@ class LanguageComponent(
   private fun initialModel(): Model {
 //    analytics.language.languageSelectionOpen()
 
-    val defaultLocaleLanguage = getDefaultLocaleLanguageCode()
+    val defaultLocaleLanguage = languageChanger.getDefaultLocaleLanguageCode()
     val languages = languages()
 
     val selected: LanguageModel = languages
@@ -140,7 +139,7 @@ class LanguageComponent(
   private fun languages(): ImmutableList<List<LanguageModel?>> {
     return languageModels
       .let { list ->
-        val language = getDefaultLocaleLanguageCode()
+        val language = languageChanger.getDefaultLocaleLanguageCode()
 
         val currentLocal = list.firstOrNull { pair ->
           pair.code == language

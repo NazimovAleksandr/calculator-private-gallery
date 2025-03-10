@@ -170,7 +170,7 @@ class BrowserComponent(
     val time = PlatformExp.currentTimeMillis()
 
     launchIO {
-      appDatabase.addBrowserHistory(
+      appDatabase.insert(
         item = BrowserHistoryUI(
           title = title ?: "",
           url = url ?: "",

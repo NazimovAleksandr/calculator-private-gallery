@@ -10,7 +10,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 
-actual fun adsManager(): AdsManager = object : AdsManager {
+class AdsManagerImpl : AdsManager {
   override val inter: AdsInter
     get() = object : AdsInter {
       override fun load() {

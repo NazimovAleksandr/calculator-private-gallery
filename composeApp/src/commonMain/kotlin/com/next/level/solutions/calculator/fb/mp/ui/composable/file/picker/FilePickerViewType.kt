@@ -3,6 +3,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -23,12 +24,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +47,7 @@ import calculator_fileblocking.composeapp.generated.resources.files
 import coil3.PlatformContext
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
+import coil3.compose.rememberAsyncImagePainter
 import coil3.toUri
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileModelUI
@@ -65,8 +69,12 @@ import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Folder
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Note
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
+import com.next.level.solutions.calculator.fb.mp.utils.getImageURL
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -75,7 +83,7 @@ internal fun Gallery(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
   contentPadding: PaddingValues,
-  currentMode: State<FilePickerMode>,
+  currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
   sharedTransitionScope: SharedTransitionScope?,
   animatedVisibilityScope: AnimatedVisibilityScope?,
@@ -114,11 +122,11 @@ fun GalleryContentPreview() {
     }
   }.toImmutableList()
 
-  GalleryContent (
+  GalleryContent(
     modifier = Modifier,
     files = remember { mutableStateOf(list) },
     contentPadding = PaddingValues(0.dp),
-    currentMode = remember { mutableStateOf(FilePickerMode.Select) },
+    currentMode = remember { mutableStateOf(PickerAction.Select) },
     selectedFiles = remember { mutableStateOf(listOf()) },
     onLongClick = {},
     onTap = {},
@@ -133,7 +141,7 @@ private fun GalleryContent(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
   contentPadding: PaddingValues,
-  currentMode: State<FilePickerMode>,
+  currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
   sharedTransitionScope: SharedTransitionScope?,
   animatedVisibilityScope: AnimatedVisibilityScope?,
@@ -162,15 +170,41 @@ private fun GalleryContent(
         items = filesList,
         key = { it.path }
       ) { file ->
+        var fileValue by remember {
+          mutableStateOf(file)
+        }
+
         GalleryCard(
-          file = file,
+          file = fileValue,
           mode = currentMode,
           sharedTransitionScope = sharedTransitionScope,
           animatedVisibilityScope = animatedVisibilityScope,
-          selected = selected.contains(file),
-          onLongClick = { onLongClick(file) },
-          onTap = { onTap(file) },
+          selected = selected.contains(fileValue),
+          onLongClick = { onLongClick(fileValue) },
+          onTap = { onTap(fileValue) },
         )
+
+        LaunchedEffect(key1 = Unit) {
+          val photoFile: PhotoModelUI? = fileValue as? PhotoModelUI
+
+          fun PhotoModelUI.updatePhotoFile(nsUrl: String) {
+            fileValue = copy(
+              path = nsUrl,
+            ).also {
+              it.url = nsUrl
+              it.asset = asset
+            }
+          }
+
+          launch(Dispatchers.IO) {
+            when {
+              photoFile?.asset != null -> getImageURL(
+                asset = photoFile.asset,
+                callback = { photoFile.updatePhotoFile(it) },
+              )
+            }
+          }
+        }
       }
     },
     modifier = modifier
@@ -181,7 +215,7 @@ private fun GalleryContent(
 @Composable
 private inline fun GalleryCard(
   file: FileDataUI,
-  mode: State<FilePickerMode>,
+  mode: State<PickerAction>,
   selected: Boolean,
   sharedTransitionScope: SharedTransitionScope?,
   animatedVisibilityScope: AnimatedVisibilityScope?,
@@ -190,6 +224,15 @@ private inline fun GalleryCard(
 ) {
   val platformContext: PlatformContext = LocalPlatformContext.current
   val scope = rememberCoroutineScope()
+
+  val url: Any? by remember(key1 = file) {
+    mutableStateOf(
+      when {
+        file is PhotoModelUI -> file.url
+        else -> null
+      }
+    )
+  }
 
   val imageRequest = remember {
     platformContext.imageRequest(
@@ -204,7 +247,7 @@ private inline fun GalleryCard(
 
   val selectMode by remember {
     derivedStateOf {
-      mode.value == FilePickerMode.Select
+      mode.value == PickerAction.Select
     }
   }
 
@@ -219,27 +262,45 @@ private inline fun GalleryCard(
         )
       }
   ) {
-    AsyncImage(
-      model = imageRequest,
-      contentDescription = null,
-      contentScale = ContentScale.Crop,
-      modifier = Modifier
-        .sharedElementExt(
-          key = file.hiddenPath ?: file.path,
-          sharedTransitionScope = sharedTransitionScope,
-          animatedVisibilityScope = animatedVisibilityScope,
-        )
-        .aspectRatio(ratio = 1f)
-        .background(color = MaterialTheme.colorScheme.background)
-        .background(color = Color.Gray.copy(alpha = 0.3f))
-    )
+    when {
+      url != null -> Image(
+        painter = rememberAsyncImagePainter(model = url),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+          .sharedElementExt(
+            key = file.hiddenPath ?: file.path,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedVisibilityScope = animatedVisibilityScope,
+          )
+          .aspectRatio(ratio = 1f)
+          .background(color = MaterialTheme.colorScheme.background)
+          .background(color = Color.Gray.copy(alpha = 0.3f))
+      )
 
-    CheckBox(
-      checked = selected,
-      visible = selectMode,
-    )
+      else -> AsyncImage(
+        model = imageRequest,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+          .sharedElementExt(
+            key = file.hiddenPath ?: file.path,
+            sharedTransitionScope = sharedTransitionScope,
+            animatedVisibilityScope = animatedVisibilityScope,
+          )
+          .aspectRatio(ratio = 1f)
+          .background(color = MaterialTheme.colorScheme.background)
+          .background(color = Color.Gray.copy(alpha = 0.3f))
+      )
+    }
 
-    if (file.fileType == FilePickerFileType.Video) {
+    if (selectMode) {
+      CheckBox(
+        checked = selected,
+      )
+    }
+
+    if (file.fileType == PickerType.Video) {
       Text(
         text = file.duration,
         style = TextStyleFactory.FS10.w400(),
@@ -259,7 +320,7 @@ internal fun Folder(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
   contentPadding: PaddingValues,
-  currentMode: State<FilePickerMode>,
+  currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
   onLongClick: (FileDataUI) -> Unit,
   onTap: (FileDataUI) -> Unit,
@@ -324,11 +385,11 @@ fun FolderContentPreview() {
     )
   }.toImmutableList()
 
-  FolderContent (
+  FolderContent(
     modifier = Modifier,
     files = remember { mutableStateOf(list) },
     contentPadding = PaddingValues(0.dp),
-    currentMode = remember { mutableStateOf(FilePickerMode.Select) },
+    currentMode = remember { mutableStateOf(PickerAction.Select) },
     selectedFiles = remember { mutableStateOf(listOf()) },
     onLongClick = {},
     onTap = {},
@@ -340,7 +401,7 @@ private fun FolderContent(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
   contentPadding: PaddingValues,
-  currentMode: State<FilePickerMode>,
+  currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
   onLongClick: (FileDataUI) -> Unit,
   onTap: (FileDataUI) -> Unit,
@@ -387,7 +448,7 @@ private fun FolderContent(
 @Composable
 private inline fun FolderCard(
   file: FileDataUI,
-  mode: State<FilePickerMode>,
+  mode: State<PickerAction>,
   dateModifiedFormat: DateFormat,
   selected: Boolean = false,
   crossinline onLongClick: () -> Unit,
@@ -395,7 +456,7 @@ private inline fun FolderCard(
 ) {
   val selectMode by remember {
     derivedStateOf {
-      mode.value == FilePickerMode.Select
+      mode.value == PickerAction.Select
     }
   }
 
@@ -459,17 +520,16 @@ private inline fun FolderCard(
         .height(height = 40.dp)
     )
 
-    when (file) {
-      is FolderModelUI -> Image(
+    when {
+      file is FolderModelUI -> Image(
         vector = MagicIcons.All.ArrowBack,
         modifier = Modifier
           .rotate(180f)
           .padding(all = 8.dp)
       )
 
-      else -> CheckBox(
+      selectMode -> CheckBox(
         checked = selected,
-        visible = selectMode,
       )
     }
   }

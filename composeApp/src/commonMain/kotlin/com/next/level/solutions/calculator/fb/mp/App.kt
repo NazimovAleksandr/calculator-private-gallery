@@ -12,19 +12,16 @@ import coil3.request.crossfade
 import com.arkivanov.decompose.ComponentContext
 import com.next.level.solutions.calculator.fb.mp.di.dataModule
 import com.next.level.solutions.calculator.fb.mp.di.decomposeModule
-import com.next.level.solutions.calculator.fb.mp.di.ecosystemModule
+import com.next.level.solutions.calculator.fb.mp.di.platformModule
 import com.next.level.solutions.calculator.fb.mp.di.rootModule
-import com.next.level.solutions.calculator.fb.mp.di.screenModule
 import com.next.level.solutions.calculator.fb.mp.ui.root.rootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.theme.AppTheme
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import okio.FileSystem
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.KoinApplication
 import org.koin.compose.getKoin
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
-import org.koin.ksp.generated.defaultModule
 
 @Composable
 @Preview
@@ -52,13 +49,8 @@ fun App(
       .build()
   }
 
-  KoinApplication(
-    application = { appModules() },
-    content = {
-      Content(
-        componentContext = componentContext,
-      )
-    },
+  Content(
+    componentContext = componentContext,
   )
 }
 
@@ -78,14 +70,12 @@ private fun Content(
   )
 }
 
-private fun KoinApplication.appModules() {
+fun KoinApplication.appModules() {
   this.modules(
     modules = listOf(
       rootModule,
-      defaultModule,
+      platformModule,
       decomposeModule,
-      ecosystemModule,
-      screenModule,
       dataModule,
     )
   )

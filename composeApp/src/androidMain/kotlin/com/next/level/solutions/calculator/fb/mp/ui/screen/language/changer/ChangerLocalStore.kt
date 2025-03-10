@@ -7,39 +7,39 @@ import java.util.Locale
 
 @Immutable
 class ChangerLocalStore(
-    private val sharedPreferences: SharedPreferences
+  private val sharedPreferences: SharedPreferences
 ) {
-    fun getLocale(): Locale {
-        val locale = sharedPreferences.getString(LOCALE, null)
+  fun getLocale(): Locale {
+    val locale = sharedPreferences.getString(LOCALE, null)
 
-        return when (locale.isNullOrBlank()) {
-            true -> Locale.getDefault()
+    return when (locale.isNullOrBlank()) {
+      true -> Locale.getDefault()
 
-            false -> {
-                val json = JSONObject(locale)
-                val language = json.getString(LANGUAGE)
-                val country = json.getString(COUNTRY)
-                val variant = json.getString(VARIANT)
+      false -> {
+        val json = JSONObject(locale)
+        val language = json.getString(LANGUAGE)
+        val country = json.getString(COUNTRY)
+        val variant = json.getString(VARIANT)
 
-                Locale(language, country, variant)
-            }
-        }
+        Locale(language, country, variant)
+      }
+    }
+  }
+
+  fun persistLocale(locale: Locale) {
+    val json = JSONObject().apply {
+      put(LANGUAGE, locale.language)
+      put(COUNTRY, locale.country)
+      put(VARIANT, locale.variant)
     }
 
-    fun persistLocale(locale: Locale) {
-        val json = JSONObject().apply {
-            put(LANGUAGE, locale.language)
-            put(COUNTRY, locale.country)
-            put(VARIANT, locale.variant)
-        }
+    sharedPreferences.edit().putString(LOCALE, json.toString()).apply()
+  }
 
-        sharedPreferences.edit().putString(LOCALE, json.toString()).apply()
-    }
-
-    companion object {
-        private const val LOCALE = "LOCALE"
-        private const val LANGUAGE = "LANGUAGE"
-        private const val COUNTRY = "COUNTRY"
-        private const val VARIANT = "VARIANT"
-    }
+  companion object {
+    private const val LOCALE = "LOCALE"
+    private const val LANGUAGE = "LANGUAGE"
+    private const val COUNTRY = "COUNTRY"
+    private const val VARIANT = "VARIANT"
+  }
 }

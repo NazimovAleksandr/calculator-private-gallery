@@ -1,3 +1,4 @@
+import com.google.devtools.ksp.KspExperimental
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,6 +9,7 @@ plugins {
   alias(libs.plugins.kotlin.compose.compiler)
   alias(libs.plugins.kotlin.serialization)
 
+  alias(libs.plugins.room)
   alias(libs.plugins.ksp)
 }
 
@@ -36,6 +38,8 @@ kotlin {
       implementation(libs.androidx.splashscreen)
       implementation(libs.bundles.admob)
 
+      implementation(libs.koin.android)
+
       // mathParser
       implementation(libs.math.parser)
     }
@@ -52,6 +56,8 @@ kotlin {
       implementation(libs.androidx.lifecycle.runtime.compose)
 
       // kotlinx
+//      implementation(libs.kotlin.stdlib)
+      implementation(libs.kotlinx.coroutines)
       implementation(libs.kotlinx.collections)
       implementation(libs.kotlinx.serialization)
 
@@ -63,11 +69,12 @@ kotlin {
       // koin
       implementation(libs.koin.core)
       implementation(libs.koin.compose)
-      api(libs.koin.annotations)
 
       implementation(libs.datastore)
 
       implementation(libs.room.runtime)
+      implementation(libs.sqlite.bundled)
+
       implementation(libs.mediaplayer)
       implementation(libs.coil3.compose)
       implementation(libs.coil3.video)
@@ -171,5 +178,10 @@ dependencies {
 }
 
 ksp {
-  arg("room.schemaLocation", "${projectDir}/schemas")
+  @OptIn(KspExperimental::class)
+  useKsp2 = true
+}
+
+room {
+  schemaDirectory("$projectDir/schemas")
 }

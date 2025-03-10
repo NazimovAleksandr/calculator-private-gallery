@@ -25,6 +25,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.browser_history.model
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class BrowserHistoryComponent(
@@ -63,7 +64,7 @@ class BrowserHistoryComponent(
 
   private fun initialModel(): Model {
     return Model(
-      items = appDatabase.getBrowserHistory().prepare(),
+      items = appDatabase.fetchBrowserHistory().prepare(),
     )
   }
 
@@ -89,7 +90,7 @@ class BrowserHistoryComponent(
     when (this) {
       is Action.Back -> dialogNavigation.dismiss()
       is Action.OpenItem -> handler.open(item.url)
-      is Action.DeleteItem -> launchIO { appDatabase.deleteBrowserHistoryItem(item) }
+      is Action.DeleteItem -> launchIO { appDatabase.delete(item) }
       is Action.DeleteAllDialog -> innerDialogNavigation.activate(DialogConfiguration.deleteAllDialog { deleteAllHistory() })
     }
 
@@ -98,7 +99,8 @@ class BrowserHistoryComponent(
 
   private fun deleteAllHistory() {
     launchIO {
-      appDatabase.deleteAllBrowserHistory()
+      val items: List<BrowserHistoryUI> = _model.value.items.first().mapNotNull { it.data }
+      appDatabase.delete(*items.toTypedArray())
       adsManager.inter.show { }
     }
   }

@@ -103,7 +103,7 @@
 
     <string name="okay">Okay</string>
     <string name="advertising">Advertising</string>
-    <string name="junk">Junk</string>
+    <string name="trash">Trash</string>
 
     <string name="re_enter_your_password">Re-enter your password to confirm and then press “=”</string>
     <string name="history">History</string>

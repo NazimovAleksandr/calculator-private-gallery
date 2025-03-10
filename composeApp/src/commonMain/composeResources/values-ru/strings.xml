@@ -103,7 +103,7 @@
 
     <string name="okay">Окей</string>
     <string name="advertising">Реклама</string>
-    <string name="junk">Мусор</string>
+    <string name="trash">Мусор</string>
 
     <string name="re_enter_your_password">Введите пароль повторно для подтверждения, затем нажмите "="</string>
     <string name="history">История</string>

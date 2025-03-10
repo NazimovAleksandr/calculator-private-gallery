@@ -3,6 +3,9 @@ package com.next.level.solutions.calculator.fb.mp.entity.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.next.level.solutions.calculator.fb.mp.entity.ui.TrashModelUI
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 
 @Entity(tableName = "trash_db")
 data class TrashModelDB(
@@ -16,4 +19,29 @@ data class TrashModelDB(
   @ColumnInfo(name = "date_modified") val dateModified: String,
   @ColumnInfo(name = "hidden_path") val hiddenPath: String?,
   @ColumnInfo(name = "duration") val duration: String = "",
-)
+) : FileDataDB {
+  override fun toUI(): TrashModelUI = TrashModelUI(
+    path = path,
+    name = name,
+    folder = folder,
+    size = size,
+    dateAdded = dateAdded,
+    dateHidden = dateHidden,
+    dateModified = dateModified,
+    hiddenPath = hiddenPath,
+  ).also {
+    Logger.d("TAG", "TrashModelDB.toUI.type: $type")
+
+    it.fileType = when (type) {
+      PickerType.File.name -> PickerType.File
+      PickerType.Note.name -> PickerType.Note
+      PickerType.Photo.name -> PickerType.Photo
+      PickerType.Trash.name -> PickerType.Trash
+      else -> PickerType.Video
+    }
+
+    Logger.d("TAG", "TrashModelDB.toUI.it.fileType: ${it.fileType}")
+
+    it.duration = duration
+  }
+}

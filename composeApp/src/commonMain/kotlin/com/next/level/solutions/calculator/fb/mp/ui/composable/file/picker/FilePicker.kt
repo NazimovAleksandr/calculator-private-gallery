@@ -21,19 +21,19 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.PhotoModelUI
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
-enum class FilePickerMode { Click, Select }
-enum class FilePickerViewType { Gallery, Folder }
-enum class FilePickerFileType { Trash, Photo, Video, File, Note }
+enum class PickerAction { Click, Select }
+enum class PickerMode { Folder, Gallery }
+enum class PickerType { File, Note, Photo, Trash, Video }
 
-class FilePickerState(
-  viewType: FilePickerViewType,
-  mode: FilePickerMode,
+class PickerState(
+  action: PickerAction,
+  mode: PickerMode,
 ) {
   internal val allSelectReloadState: MutableState<Int> = mutableIntStateOf(1)
   internal val allSelectState: MutableState<Boolean> = mutableStateOf(false)
 
-  val viewType: State<FilePickerViewType> = mutableStateOf(viewType)
-  val mode: State<FilePickerMode> = mutableStateOf(mode)
+  val mode: State<PickerMode> = mutableStateOf(mode)
+  val action: State<PickerAction> = mutableStateOf(action)
 
   fun allSelect(value: Boolean) {
     val reload = allSelectState.value == value
@@ -44,20 +44,20 @@ class FilePickerState(
     }
   }
 
-  fun setMode(value: FilePickerMode) {
-    (mode as MutableState).value = value
+  fun setAction(value: PickerAction) {
+    (this@PickerState.action as MutableState).value = value
   }
 }
 
 @Composable
 fun rememberFilePickerState(
-  viewType: FilePickerViewType = FilePickerViewType.Gallery,
-  initMode: FilePickerMode = FilePickerMode.Click,
-): FilePickerState {
+  initMode: PickerMode = PickerMode.Gallery,
+  initAction: PickerAction = PickerAction.Click,
+): PickerState {
   return remember {
-    FilePickerState(
-      viewType = viewType,
+    PickerState(
       mode = initMode,
+      action = initAction,
     )
   }
 }
@@ -65,7 +65,7 @@ fun rememberFilePickerState(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun FilePicker(
-  state: FilePickerState = rememberFilePickerState(),
+  state: PickerState = rememberFilePickerState(),
   files: State<ImmutableList<FileDataUI>>,
   modifier: Modifier = Modifier,
   contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -107,7 +107,7 @@ fun FilePickerPreview() {
 
   Content(
     state = rememberFilePickerState(
-      initMode = FilePickerMode.Select,
+      initAction = PickerAction.Select,
     ),
     files = remember { mutableStateOf(list) },
   )
@@ -118,15 +118,15 @@ fun FilePickerPreview() {
 private fun Content(
   files: State<ImmutableList<FileDataUI>>,
   modifier: Modifier = Modifier,
-  state: FilePickerState = rememberFilePickerState(),
+  state: PickerState = rememberFilePickerState(),
   contentPadding: PaddingValues = PaddingValues(0.dp),
   sharedTransitionScope: SharedTransitionScope? = null,
   animatedVisibilityScope: AnimatedVisibilityScope? = null,
   onClick: (FileDataUI) -> Unit = {},
   onSelect: (List<FileDataUI>) -> Unit = {},
 ) {
-  val currentViewType by remember { state.viewType }
-  val currentMode by remember { state.mode }
+  val currentViewType by remember { state.mode }
+  val currentMode by remember { state.action }
 
   val selectedFiles: MutableState<List<FileDataUI>> = remember { mutableStateOf(listOf()) }
 
@@ -136,10 +136,10 @@ private fun Content(
   val haptic = LocalHapticFeedback.current
 
   fun onLongClick(file: FileDataUI) {
-    if (currentMode != FilePickerMode.Select) {
+    if (currentMode != PickerAction.Select) {
       haptic.performHapticFeedback(HapticFeedbackType.LongPress)
 
-      (state.mode as MutableState).value = FilePickerMode.Select
+      (state.action as MutableState).value = PickerAction.Select
 
       val sFiles = selectedFiles.value + file
 
@@ -150,9 +150,9 @@ private fun Content(
 
   fun onTap(file: FileDataUI) {
     when (currentMode) {
-      FilePickerMode.Click -> onClick(file)
+      PickerAction.Click -> onClick(file)
 
-      FilePickerMode.Select -> {
+      PickerAction.Select -> {
         val selected = selectedFiles.value.contains(file)
 
         val sFiles = when (selected) {
@@ -167,11 +167,11 @@ private fun Content(
   }
 
   when (currentViewType) {
-    FilePickerViewType.Gallery -> Gallery(
+    PickerMode.Gallery -> Gallery(
       modifier = modifier,
       files = files,
       contentPadding = contentPadding,
-      currentMode = state.mode,
+      currentMode = state.action,
       selectedFiles = selectedFiles,
       sharedTransitionScope = sharedTransitionScope,
       animatedVisibilityScope = animatedVisibilityScope,
@@ -179,11 +179,11 @@ private fun Content(
       onTap = ::onTap,
     )
 
-    FilePickerViewType.Folder -> Folder(
+    PickerMode.Folder -> Folder(
       modifier = modifier,
       files = files,
       contentPadding = contentPadding,
-      currentMode = state.mode,
+      currentMode = state.action,
       selectedFiles = selectedFiles,
       onLongClick = ::onLongClick,
       onTap = ::onTap,
@@ -207,7 +207,7 @@ private fun Content(
   LaunchedEffect(
     key1 = currentMode,
   ) {
-    if (currentMode == FilePickerMode.Click) {
+    if (currentMode == PickerAction.Click) {
       selectedFiles.value = emptyList()
     }
   }

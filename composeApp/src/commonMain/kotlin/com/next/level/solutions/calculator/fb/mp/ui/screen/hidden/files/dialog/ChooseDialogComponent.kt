@@ -9,7 +9,7 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 
@@ -41,7 +41,7 @@ class ChooseDialogComponent(
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler(
-    private val fileType: FilePickerFileType,
+    private val fileType: PickerType,
     val open: (Action) -> Unit,
   ) : InstanceKeeper.Instance {
     fun toModel() = Model(
@@ -50,7 +50,7 @@ class ChooseDialogComponent(
   }
 
   data class Model(
-    val fileType: FilePickerFileType,
+    val fileType: PickerType,
   )
 
   sealed interface Action : RootComponent.Child.Action {

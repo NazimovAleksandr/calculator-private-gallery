@@ -17,9 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -41,7 +39,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.flow.flow
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -71,12 +68,8 @@ private fun Content(
 ) {
   val model = component?.model?.subscribeAsState()
 
-  val items by remember {
-    derivedStateOf { model?.value?.items ?: flow { } }
-  }
-
-  val itemsValue: State<ImmutableList<HistoryItem>?> = items.collectAsStateWithLifecycle(
-    initialValue = null,
+  val itemsValue: State<ImmutableList<HistoryItem>>? = model?.value?.items?.collectAsStateWithLifecycle(
+    initialValue = persistentListOf(),
   )
 
   Column(
@@ -94,7 +87,7 @@ private fun Content(
     )
 
     when {
-      itemsValue.value == null -> Box(
+      itemsValue?.value == null -> Box(
         contentAlignment = Alignment.Center,
         content = { LinearProgressIndicator() },
         modifier = Modifier
@@ -102,7 +95,7 @@ private fun Content(
           .fillMaxWidth()
       )
 
-      itemsValue.value?.isEmpty() == true -> {
+      itemsValue.value.isEmpty() -> {
         Box(
           contentAlignment = Alignment.Center,
           modifier = Modifier
@@ -132,19 +125,19 @@ private fun Content(
             .weight(weight = 1f)
         ) {
           items(
-            items = itemsValue.value ?: persistentListOf(),
-            key = { "${it.data?.id}" },
+            items = itemsValue.value,
+            key = { "${it.date}${it.data?.id}${it.data?.title}" },
           ) {
             HistoryCard(
               item = it,
               action = { action ->
                 when (action) {
                   is HistoryCard.Open -> {
-                    component?.action(BrowserHistoryComponent.Action.OpenItem(action.item))
-                    component?.action(BrowserHistoryComponent.Action.Back)
+                    component.action(BrowserHistoryComponent.Action.OpenItem(action.item))
+                    component.action(BrowserHistoryComponent.Action.Back)
                   }
 
-                  is HistoryCard.Delete -> component?.action(
+                  is HistoryCard.Delete -> component.action(
                     BrowserHistoryComponent.Action.DeleteItem(action.item)
                   )
                 }
@@ -158,7 +151,7 @@ private fun Content(
 
         ActionButton(
           text = stringResource(resource = Res.string.delete_all),
-          action = { component?.action(BrowserHistoryComponent.Action.DeleteAllDialog) },
+          action = { component.action(BrowserHistoryComponent.Action.DeleteAllDialog) },
           colors = ButtonColors.default(
             containerColor = MaterialTheme.colorScheme.error,
           ),

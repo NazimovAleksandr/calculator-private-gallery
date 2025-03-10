@@ -4,16 +4,16 @@ package com.next.level.solutions.calculator.fb.mp.ui.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.screen.file.hider.FileHiderComponent
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class FileHiderConfiguration(
-  private val fileType: FilePickerFileType,
-  private val viewType: FilePickerViewType,
+  private val fileType: PickerType,
+  private val viewType: PickerMode,
 ) : RootComponent.Configuration {
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return FileHiderComponent.Handler(
@@ -28,8 +28,8 @@ data class FileHiderConfiguration(
 }
 
 fun RootComponent.Configuration.Companion.fileHider(
-  fileType: FilePickerFileType,
-  viewType: FilePickerViewType,
+  fileType: PickerType,
+  viewType: PickerMode,
 ): FileHiderConfiguration {
   return FileHiderConfiguration(
     fileType = fileType,

@@ -48,9 +48,9 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.check.box.CheckBox
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePicker
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerMode
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
@@ -110,11 +110,11 @@ private fun Content(
 
   val dark = isSystemInDarkTheme()
 
-  val viewType: FilePickerViewType by remember {
+  val viewType: PickerMode by remember {
     derivedStateOf {
       model?.value?.viewType ?: when (dark) {
-        true -> FilePickerViewType.Gallery
-        else -> FilePickerViewType.Folder
+        true -> PickerMode.Gallery
+        else -> PickerMode.Folder
       }
     }
   }
@@ -151,13 +151,13 @@ private fun Content(
 
   val viewTypeGallery by remember {
     derivedStateOf {
-      viewType == FilePickerViewType.Gallery
+      viewType == PickerMode.Gallery
     }
   }
 
   val filePickerState = rememberFilePickerState(
-    initMode = FilePickerMode.Select,
-    viewType = viewType,
+    initAction = PickerAction.Select,
+    initMode = viewType,
   )
 
   Column(
@@ -171,7 +171,7 @@ private fun Content(
     Toolbar(
       title = {
         when (viewType) {
-          FilePickerViewType.Gallery -> Spinner(
+          PickerMode.Gallery -> Spinner(
             items = folders,
             selected = selectedFolder,
             onSelect = { folder ->
@@ -182,7 +182,7 @@ private fun Content(
             modifier = Modifier
           )
 
-          FilePickerViewType.Folder -> Text(
+          PickerMode.Folder -> Text(
             text = currentFolder?.name.toString(),
             style = TextStyleFactory.FS22.w400(),
             modifier = Modifier
@@ -193,23 +193,24 @@ private fun Content(
       },
       navAction = { component?.action(FileHiderComponent.Action.Back) },
       menu = {
-        CheckBox(
-          checked = allChecked,
-          visible = viewTypeGallery,
-          onClick = {
-            when (allChecked) {
-              true -> filePickerState.allSelect(false)
-              else -> filePickerState.allSelect(true)
-            }
-          },
-          modifier = Modifier
-            .clip(shape = MaterialTheme.shapes.small)
-            .graphicsLayer(alpha = if (allChecked) 1f else 0.4f)
-        )
+        if (viewTypeGallery) {
+          CheckBox(
+            checked = allChecked,
+            onClick = {
+              when (allChecked) {
+                true -> filePickerState.allSelect(false)
+                else -> filePickerState.allSelect(true)
+              }
+            },
+            modifier = Modifier
+              .clip(shape = MaterialTheme.shapes.small)
+              .graphicsLayer(alpha = if (allChecked) 1f else 0.4f)
+          )
+        }
       }
     )
 
-    if (viewType == FilePickerViewType.Folder) {
+    if (viewType == PickerMode.Folder) {
       val scrollState = rememberScrollState()
 
       Row(
@@ -271,8 +272,8 @@ private fun Content(
         .weight(weight = 1f)
         .padding(
           horizontal = when (viewType) {
-            FilePickerViewType.Gallery -> 16.dp
-            FilePickerViewType.Folder -> 0.dp
+            PickerMode.Gallery -> 16.dp
+            PickerMode.Folder -> 0.dp
           }
         )
     )
@@ -284,9 +285,9 @@ private fun Content(
         selectedItemCount == 0 -> {
           stringResource(
             resource = when (fileType) {
-              FilePickerFileType.Photo -> Res.string.no_photos_selected
-              FilePickerFileType.Video -> Res.string.no_videos_selected
-              FilePickerFileType.File -> Res.string.no_files_selected
+              PickerType.Photo -> Res.string.no_photos_selected
+              PickerType.Video -> Res.string.no_videos_selected
+              PickerType.File -> Res.string.no_files_selected
               else -> Res.string.no_photos_selected
             }
           )

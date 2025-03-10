@@ -11,5 +11,3 @@ interface AdsManager {
 
   fun init(onComplete: () -> Unit)
 }
-
-expect fun adsManager(): AdsManager

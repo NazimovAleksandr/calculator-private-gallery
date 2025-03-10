@@ -19,12 +19,13 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.toPath
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.file.hider.FileHider
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.lottie
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +36,7 @@ class FileHiderComponent(
   componentContext: ComponentContext,
   adsManager: AdsManager,
   private val database: AppDatabase,
-  private val fileHider: FileHider,
+  private val fileVisibilityManager: FileVisibilityManager,
   private val navigation: StackNavigation<Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
@@ -44,7 +45,7 @@ class FileHiderComponent(
 
   private val handler: Handler = instance<Handler>(componentContext)
 
-  private val visibleFiles: Map<String, List<FileDataUI>> = fileHider.visibleFiles(
+  private val visibleFiles: Map<String, List<FileDataUI>> = fileVisibilityManager.visibleFiles(
     fileType = handler.fileType,
     viewType = handler.viewType,
   ).toMap()
@@ -71,14 +72,14 @@ class FileHiderComponent(
     val allFiles: ImmutableList<FileDataUI> = visibleFiles.getAllFiles()
 
     val folders: ImmutableList<FileDataUI> = when (handler.viewType) {
-      FilePickerViewType.Gallery -> allFiles.getAllFolders()
-      FilePickerViewType.Folder -> listOf(visibleFiles.getParentFolder())
+      PickerMode.Gallery -> allFiles.getAllFolders()
+      PickerMode.Folder -> listOf(visibleFiles.getParentFolder())
     }.filterNotNull()
       .toImmutableList()
 
     val currentFolder = when (handler.viewType) {
-      FilePickerViewType.Gallery -> null
-      FilePickerViewType.Folder -> visibleFiles.getParentFolder()
+      PickerMode.Gallery -> null
+      PickerMode.Folder -> visibleFiles.getParentFolder()
     }
 
     return Model(
@@ -112,12 +113,12 @@ class FileHiderComponent(
   private fun Action.SelectFolder.update() {
     _model.update {
       when (handler.viewType) {
-        FilePickerViewType.Gallery -> it.copy(
+        PickerMode.Gallery -> it.copy(
           files = visibleFiles.getAllFiles(folder.name),
           selectedFolder = folder,
         )
 
-        FilePickerViewType.Folder -> if (it.currentFolder?.path != folder.path) {
+        PickerMode.Folder -> if (it.currentFolder?.path != folder.path) {
           action(Action.LoadFiles(path = folder.path))
           it.copy(selectedItemCount = 0)
         } else {
@@ -134,6 +135,10 @@ class FileHiderComponent(
       when (folder) {
         null -> {
           selectedFiles = files
+
+          selectedFiles.forEach {
+            Logger.d("FileHiderComponent", "Selected.update: $it")
+          }
 
           it.copy(
             selectedItemCount = files.size,
@@ -169,12 +174,12 @@ class FileHiderComponent(
     ) {
       delay(500)
 
-      fileHider.moveToHiddenFiles(
+      fileVisibilityManager.moveToInvisibleFiles(
         fileType = handler.fileType,
         files = selectedFiles,
-      ).let {
-        database.add(
-          fileType = handler.fileType,
+      ) {
+        database.insert(
+          type = handler.fileType,
           files = it,
         )
       }
@@ -185,7 +190,7 @@ class FileHiderComponent(
 
   private fun back() {
     when (handler.viewType) {
-      FilePickerViewType.Gallery -> launchMain { navigation.pop() }
+      PickerMode.Gallery -> launchMain { navigation.pop() }
 
       else -> {
         when (_model.value.currentFolder == visibleFiles.getParentFolder()) {
@@ -201,7 +206,7 @@ class FileHiderComponent(
 
   private fun Action.LoadFiles.load() {
     launchIO {
-      fileHider.visibleFiles(
+      fileVisibilityManager.visibleFiles(
         folder = path,
         fromParent = fromParent,
         fileType = handler.fileType,
@@ -299,13 +304,13 @@ class FileHiderComponent(
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   class Handler(
-    val fileType: FilePickerFileType,
-    val viewType: FilePickerViewType,
+    val fileType: PickerType,
+    val viewType: PickerMode,
   ) : InstanceKeeper.Instance
 
   data class Model(
-    val fileType: FilePickerFileType,
-    val viewType: FilePickerViewType,
+    val fileType: PickerType,
+    val viewType: PickerMode,
     val files: ImmutableList<FileDataUI>,
     val folders: ImmutableList<FileDataUI>,
     val selectedFolder: FileDataUI,

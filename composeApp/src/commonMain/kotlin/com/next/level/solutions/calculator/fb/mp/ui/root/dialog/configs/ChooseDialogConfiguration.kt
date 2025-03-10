@@ -4,7 +4,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.dialog.ChooseDialogComponent
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.dialog.ChooseDialogComponent.Action
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChooseDialogConfiguration(
-  private val fileType: FilePickerFileType,
+  private val fileType: PickerType,
   private val open: (Action) -> Unit,
 ) : RootComponent.DialogConfiguration {
   override fun instanceKeeper(): InstanceKeeper.Instance {
@@ -28,7 +28,7 @@ data class ChooseDialogConfiguration(
 }
 
 fun RootComponent.DialogConfiguration.Companion.chooseDialog(
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   open: (Action) -> Unit,
 ): ChooseDialogConfiguration {
   return ChooseDialogConfiguration(

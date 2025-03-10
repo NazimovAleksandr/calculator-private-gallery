@@ -3,8 +3,8 @@ package com.next.level.solutions.calculator.fb.mp.ui.preview
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.magiccalculatorlock.ui.screens.hidden.files.conposable.EmptyListPreview
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerMode
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.HiddenFilesContentPreview
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable.FilesPreview
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.dialog.ChooseDialogContentPreview
@@ -31,7 +31,7 @@ private fun ChooseDialogPreview() {
 private fun FilesClickPreview() {
   AppThemePreview {
     FilesPreview(
-      initMode = FilePickerMode.Click,
+      initMode = PickerAction.Click,
     )
   }
 }
@@ -41,7 +41,7 @@ private fun FilesClickPreview() {
 private fun FilesSelectPreview() {
   AppThemePreview {
     FilesPreview(
-      initMode = FilePickerMode.Select,
+      initMode = PickerAction.Select,
     )
   }
 }
@@ -51,7 +51,7 @@ private fun FilesSelectPreview() {
 private fun EmptyListPreviewPreview() {
   AppThemePreview {
     EmptyListPreview(
-      fileType = FilePickerFileType.Photo,
+      fileType = PickerType.Photo,
     )
   }
 }

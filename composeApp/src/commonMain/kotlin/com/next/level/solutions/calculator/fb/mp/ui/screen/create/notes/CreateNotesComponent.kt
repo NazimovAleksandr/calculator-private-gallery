@@ -14,7 +14,7 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.NoteModelUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.lottie
 
@@ -55,8 +55,8 @@ class CreateNotesComponent(
   private suspend fun Action.Create.doSomething() {
 //    analytics.createNotes.noteCreated()
 
-    appDatabase.add(
-      fileType = FilePickerFileType.Note,
+    appDatabase.insert(
+      type = PickerType.Note,
       files = listOf(
         _model.value.note?.copy(
           dateModified = PlatformExp.currentTimeMillis().toString(),

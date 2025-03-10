@@ -39,10 +39,10 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.Act
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ButtonColors
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePicker
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerMode
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerState
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerState
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Delete
@@ -58,8 +58,8 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun ColumnScope.Files(
-  filePickerState: FilePickerState,
-  fileType: FilePickerFileType,
+  pickerState: PickerState,
+  fileType: PickerType,
   files: State<ImmutableList<FileDataUI>>?,
   modifierEmptyList: Modifier = Modifier,
   modifierFilePicker: Modifier = Modifier,
@@ -68,7 +68,7 @@ internal fun ColumnScope.Files(
   action: (HiddenFilesComponent.Action) -> Unit,
 ) {
   Content(
-    filePickerState = filePickerState,
+    pickerState = pickerState,
     fileType = fileType,
     files = files,
     modifierEmptyList = modifierEmptyList,
@@ -83,7 +83,7 @@ internal fun ColumnScope.Files(
 @Composable
 fun FilesPreview(
   modifier: Modifier = Modifier,
-  initMode: FilePickerMode = FilePickerMode.Click,
+  initMode: PickerAction = PickerAction.Click,
 ) {
   val type = isSystemInDarkTheme()
 
@@ -116,8 +116,8 @@ fun FilesPreview(
     modifier = modifier
   ) {
     Content(
-      filePickerState = rememberFilePickerState(initMode = initMode),
-      fileType = FilePickerFileType.Note,
+      pickerState = rememberFilePickerState(initAction = initMode),
+      fileType = PickerType.Note,
       files = files,
     )
   }
@@ -126,8 +126,8 @@ fun FilesPreview(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun ColumnScope.Content(
-  filePickerState: FilePickerState,
-  fileType: FilePickerFileType,
+  pickerState: PickerState,
+  fileType: PickerType,
   files: State<ImmutableList<FileDataUI>>?,
   modifierEmptyList: Modifier = Modifier,
   modifierFilePicker: Modifier = Modifier,
@@ -137,16 +137,16 @@ private fun ColumnScope.Content(
 ) {
   when (files?.value?.isNotEmpty()) {
     true -> {
-      val mode by remember { filePickerState.mode }
+      val mode by remember { pickerState.action }
 
       FilePicker(
-        state = filePickerState,
+        state = pickerState,
         files = files,
         contentPadding = PaddingValues(top = 4.dp, bottom = 40.dp),
         onClick = { action(HiddenFilesComponent.Action.OpenFilesOpener(it)) },
         onSelect = {
           if (it.isEmpty()) {
-            filePickerState.setMode(FilePickerMode.Click)
+            pickerState.setAction(PickerAction.Click)
           }
 
           action(HiddenFilesComponent.Action.Selected(it))
@@ -156,16 +156,16 @@ private fun ColumnScope.Content(
         modifier = modifierFilePicker
           .weight(weight = 1f)
           .padding(
-            horizontal = when (filePickerState.viewType.value) {
-              FilePickerViewType.Gallery -> 16.dp
-              FilePickerViewType.Folder -> 0.dp
+            horizontal = when (pickerState.mode.value) {
+              PickerMode.Gallery -> 16.dp
+              PickerMode.Folder -> 0.dp
             },
           )
       )
 
       when (mode) {
-        FilePickerMode.Click -> AddButton(fileType = fileType, action = action)
-        FilePickerMode.Select -> StateButton(fileType = fileType, action = action)
+        PickerAction.Click -> AddButton(fileType = fileType, action = action)
+        PickerAction.Select -> StateButton(fileType = fileType, action = action)
       }
     }
 
@@ -174,27 +174,27 @@ private fun ColumnScope.Content(
       fileType = fileType,
       action = action,
     ).also {
-      filePickerState.setMode(FilePickerMode.Click)
+      pickerState.setAction(PickerAction.Click)
     }
   }
 }
 
 @Composable
 private fun AddButton(
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   action: (HiddenFilesComponent.Action) -> Unit,
 ) {
-  if (fileType != FilePickerFileType.Trash) {
+  if (fileType != PickerType.Trash) {
     HorizontalDivider()
 
     ActionButton(
       iconStart = MagicIcons.All.Plus,
       text = stringResource(
         resource = when (fileType) {
-          FilePickerFileType.Video -> Res.string.add_videos
-          FilePickerFileType.Photo -> Res.string.add_photo
-          FilePickerFileType.File -> Res.string.add_file
-          FilePickerFileType.Note -> Res.string.add_new_notes
+          PickerType.Video -> Res.string.add_videos
+          PickerType.Photo -> Res.string.add_photo
+          PickerType.File -> Res.string.add_file
+          PickerType.Note -> Res.string.add_new_notes
           else -> Res.string.empty
         }
       ),
@@ -212,7 +212,7 @@ private fun AddButton(
 
 @Composable
 private fun StateButton(
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   action: (HiddenFilesComponent.Action) -> Unit,
 ) {
   HorizontalDivider()
@@ -223,22 +223,22 @@ private fun StateButton(
     modifier = Modifier
       .padding(all = 16.dp)
   ) {
-    if (fileType != FilePickerFileType.Note) {
+    if (fileType != PickerType.Note) {
       ActionButton(
         iconStart = when (fileType) {
-          FilePickerFileType.Trash -> MagicIcons.All.Restore
+          PickerType.Trash -> MagicIcons.All.Restore
           else -> MagicIcons.All.Visible
         },
         text = stringResource(
           resource = when (fileType) {
-            FilePickerFileType.Trash -> Res.string.restore
+            PickerType.Trash -> Res.string.restore
             else -> Res.string.visible
           },
         ),
         action = {
           action(
             when (fileType) {
-              FilePickerFileType.Trash -> HiddenFilesComponent.Action.Restore
+              PickerType.Trash -> HiddenFilesComponent.Action.Restore
               else -> HiddenFilesComponent.Action.Visible
             }
           )

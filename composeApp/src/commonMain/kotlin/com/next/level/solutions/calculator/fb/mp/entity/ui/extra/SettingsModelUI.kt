@@ -1,4 +1,4 @@
-package com.next.level.solutions.calculator.fb.mp.entity.ui
+package com.next.level.solutions.calculator.fb.mp.entity.ui.extra
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import calculator_fileblocking.composeapp.generated.resources.Res

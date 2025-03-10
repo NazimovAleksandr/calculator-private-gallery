@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.date
@@ -44,9 +45,9 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
 import com.next.level.solutions.calculator.fb.mp.ui.composable.check.box.CheckBox
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerMode
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.composable.magic.menu.MagicMenu
@@ -72,7 +73,7 @@ fun HiddenFilesContent(
   LifecycleEventListener(
     onResume = {
       if (
-        component.model.value.fileType != FilePickerFileType.Note
+        component.model.value.fileType != PickerType.Note
         && !PlatformExp.externalStoragePermissionGranted()
       ) {
         component.action(HiddenFilesComponent.Action.Back)
@@ -164,13 +165,13 @@ private fun Content(
 
   val fileType by remember {
     derivedStateOf {
-      model?.value?.fileType ?: FilePickerFileType.File
+      model?.value?.fileType ?: PickerType.File
     }
   }
 
   val viewType by remember {
     derivedStateOf {
-      model?.value?.viewType ?: FilePickerViewType.Gallery
+      model?.value?.viewType ?: PickerMode.Gallery
     }
   }
 
@@ -181,14 +182,14 @@ private fun Content(
   }
 
   val filePickerState = rememberFilePickerState(
-    initMode = FilePickerMode.Click,
-    viewType = viewType,
+    initAction = PickerAction.Click,
+    initMode = viewType,
   )
 
   val files = filesState?.collectAsStateWithLifecycle()
 
   val mode by remember {
-    filePickerState.mode
+    filePickerState.action
   }
 
   val allChecked by remember {
@@ -199,7 +200,7 @@ private fun Content(
 
   val selectMode by remember {
     derivedStateOf {
-      mode == FilePickerMode.Select
+      mode == PickerAction.Select
     }
   }
 
@@ -213,26 +214,34 @@ private fun Content(
     }
   }
 
-  val menuItems = remember {
+  val menuItems = remember(key1 = fileType) {
     mutableStateOf(
-      persistentListOf(
-        MagicMenuItem(
-          text = Res.string.date,
-          action = { component?.action(HiddenFilesComponent.Action.SortByDateAdded) },
-        ),
-        MagicMenuItem(
-          text = Res.string.name,
-          action = { component?.action(HiddenFilesComponent.Action.SortByName) },
-        ),
-      ).apply {
-        if (fileType != FilePickerFileType.Note) {
-          add(
-            MagicMenuItem(
-              text = Res.string.size,
-              action = { component?.action(HiddenFilesComponent.Action.SortByFileSize) },
-            ),
-          )
-        }
+      if (fileType == PickerType.Note) {
+        persistentListOf(
+          MagicMenuItem(
+            text = Res.string.date,
+            action = { component?.action(HiddenFilesComponent.Action.SortByDateAdded) },
+          ),
+          MagicMenuItem(
+            text = Res.string.name,
+            action = { component?.action(HiddenFilesComponent.Action.SortByName) },
+          ),
+        )
+      } else {
+        persistentListOf(
+          MagicMenuItem(
+            text = Res.string.date,
+            action = { component?.action(HiddenFilesComponent.Action.SortByDateAdded) },
+          ),
+          MagicMenuItem(
+            text = Res.string.name,
+            action = { component?.action(HiddenFilesComponent.Action.SortByName) },
+          ),
+          MagicMenuItem(
+            text = Res.string.size,
+            action = { component?.action(HiddenFilesComponent.Action.SortByFileSize) },
+          ),
+        )
       }
     )
   }
@@ -249,11 +258,11 @@ private fun Content(
           Text(
             text = stringResource(
               resource = when (fileType) {
-                FilePickerFileType.File -> Res.string.file
-                FilePickerFileType.Photo -> Res.string.photos
-                FilePickerFileType.Trash -> Res.string.recycle_bin
-                FilePickerFileType.Video -> Res.string.videos
-                FilePickerFileType.Note -> Res.string.secret_notes
+                PickerType.File -> Res.string.file
+                PickerType.Photo -> Res.string.photos
+                PickerType.Trash -> Res.string.recycle_bin
+                PickerType.Video -> Res.string.videos
+                PickerType.Note -> Res.string.secret_notes
               }
             ),
             style = TextStyleFactory.FS22.w400(),
@@ -276,35 +285,40 @@ private fun Content(
           component?.action(HiddenFilesComponent.Action.Back)
         },
         menu = {
-          CheckBox(
-            checked = allChecked,
-            visible = selectMode,
-            onClick = {
-              when (allChecked) {
-                true -> filePickerState.allSelect(false)
-                else -> filePickerState.allSelect(true)
-              }
-            },
-            modifier = Modifier
-              .clip(shape = MaterialTheme.shapes.small)
-          )
+          if (selectMode) {
+            CheckBox(
+              checked = allChecked,
+              onClick = {
+                when (allChecked) {
+                  true -> filePickerState.allSelect(false)
+                  else -> filePickerState.allSelect(true)
+                }
+              },
+              modifier = Modifier
+                .clip(shape = MaterialTheme.shapes.small)
+            )
+          } else {
+            Text(
+              text = stringResource(resource = Res.string.sort_by),
+              style = TextStyleFactory.FS13.w600(),
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis,
+              modifier = Modifier
+                .padding(top = 6.dp)
+            )
 
-          Text(
-            text = stringResource(resource = Res.string.sort_by),
-            style = TextStyleFactory.FS13.w600(),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-          )
-
-          MagicMenu(
-            items = menuItems,
-            withSelected = true,
-          )
+            MagicMenu(
+              items = menuItems,
+              withSelected = true,
+              modifier = Modifier
+                .padding(top = 4.dp)
+            )
+          }
         }
       )
 
       Files(
-        filePickerState = filePickerState,
+        pickerState = filePickerState,
         fileType = fileType,
         files = files,
         action = { component?.action(it) },
@@ -319,7 +333,7 @@ private fun Content(
       BackHandler(
         backHandler = backHandler,
         isEnabled = selectMode,
-        onBack = { filePickerState.setMode(FilePickerMode.Click) },
+        onBack = { filePickerState.setAction(PickerAction.Click) },
       )
     }
   } else {

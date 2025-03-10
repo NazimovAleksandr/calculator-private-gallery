@@ -11,8 +11,8 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
@@ -85,34 +85,34 @@ class HomeComponent(
 
   private fun RootComponent.Child.Action.navigateOrShowInter() {
     when (this) {
-      is Action.Trash -> FilePickerFileType.Trash.navigateOrShowInter()
-      is Action.Photos -> FilePickerFileType.Photo.navigateOrShowInter()
-      is Action.Videos -> FilePickerFileType.Video.navigateOrShowInter()
-      is Action.Files -> FilePickerFileType.File.navigateOrShowInter()
-      is Action.Notes -> FilePickerFileType.Note.navigateOrShowInter()
+      is Action.Trash -> PickerType.Trash.navigateOrShowInter()
+      is Action.Photos -> PickerType.Photo.navigateOrShowInter()
+      is Action.Videos -> PickerType.Video.navigateOrShowInter()
+      is Action.Files -> PickerType.File.navigateOrShowInter()
+      is Action.Notes -> PickerType.Note.navigateOrShowInter()
       is Action.Browser -> navigateOrShowInter()
     }
   }
 
-  private fun FilePickerFileType.navigateOrShowInter() {
+  private fun PickerType.navigateOrShowInter() {
     val interOffCallback = {
       when (this) {
-        FilePickerFileType.Trash,
-        FilePickerFileType.Photo,
-        FilePickerFileType.Video,
+        PickerType.Trash,
+        PickerType.Photo,
+        PickerType.Video,
           -> navigation.pushNew(
           Configuration.hiddenFiles(
             fileType = this,
-            viewType = FilePickerViewType.Gallery
+            viewType = PickerMode.Gallery
           )
         )
 
-        FilePickerFileType.File,
-        FilePickerFileType.Note,
+        PickerType.File,
+        PickerType.Note,
           -> navigation.pushNew(
           Configuration.hiddenFiles(
             fileType = this,
-            viewType = FilePickerViewType.Folder
+            viewType = PickerMode.Folder
           )
         )
       }

@@ -50,7 +50,7 @@ import coil3.toUri
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.composable.sharedElementExt
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
@@ -65,7 +65,7 @@ import kotlinx.collections.immutable.persistentListOf
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun FilesOpener(
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   firstFile: FileDataUI,
   files: ImmutableList<FileDataUI>?,
   modifier: Modifier = Modifier,
@@ -91,7 +91,7 @@ fun FilesOpener(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun Content(
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   firstFile: FileDataUI,
   files: ImmutableList<FileDataUI>,
   modifier: Modifier = Modifier,
@@ -203,7 +203,7 @@ private fun Content(
                 }
             )
 
-            if (file.fileType == FilePickerFileType.Video) {
+            if (file.fileType == PickerType.Video) {
               Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -264,7 +264,7 @@ private fun ScreenToolbar(
   fullScreenState: State<Boolean>,
   alphaAnimationState: State<Boolean>,
   fileData: State<FileDataUI>,
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   action: (HiddenFilesComponent.Action) -> Unit,
 ) {
   val alphaAnimationStateValue by remember {
@@ -303,7 +303,7 @@ private fun ScreenToolbar(
   fun actionVisible() {
     action(
       when (fileType) {
-        FilePickerFileType.Trash -> HiddenFilesComponent.Action.RestoreFile(fileDataValue)
+        PickerType.Trash -> HiddenFilesComponent.Action.RestoreFile(fileDataValue)
         else -> HiddenFilesComponent.Action.VisibleFile(fileDataValue)
       }
     )

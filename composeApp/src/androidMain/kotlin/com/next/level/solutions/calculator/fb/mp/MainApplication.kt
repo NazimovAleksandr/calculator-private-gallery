@@ -10,7 +10,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.KoinApplication
+import org.koin.core.context.startKoin
 import org.koin.core.error.ClosedScopeException
+import org.koin.core.logger.Level
 
 class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
 
@@ -46,11 +51,7 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
   }
 
   override fun onActivityStopped(activity: Activity) {
-    try {
-      activity as MainActivity
-    } catch (e: Exception) {
-      return
-    }
+    if (activity !is MainActivity) return
 
     when (lastStartActivity is MainActivity) {
       true -> lastStartActivity = null
@@ -88,5 +89,19 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
         }
       }
     }
+
+    startKoin {
+      androidDebugLogger()
+      applicationContext()
+      appModules()
+    }
+  }
+
+  private fun KoinApplication.androidDebugLogger() {
+    androidLogger(level = if (BuildConfig.DEBUG) Level.DEBUG else Level.NONE)
+  }
+
+  private fun KoinApplication.applicationContext() {
+    androidContext(androidContext = this@MainApplication)
   }
 }

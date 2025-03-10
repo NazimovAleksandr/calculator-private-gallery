@@ -31,7 +31,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.But
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.bottom.sheet.BottomSheet
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Folder
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Photos
@@ -48,8 +48,8 @@ fun ChooseDialogContent(
   val titleRes by remember {
     derivedStateOf {
       when (model.fileType) {
-        FilePickerFileType.Photo -> Res.string.choose_images_from
-        FilePickerFileType.Video -> Res.string.choose_videos_from
+        PickerType.Photo -> Res.string.choose_images_from
+        PickerType.Video -> Res.string.choose_videos_from
         else -> Res.string.app_name
       }
     }

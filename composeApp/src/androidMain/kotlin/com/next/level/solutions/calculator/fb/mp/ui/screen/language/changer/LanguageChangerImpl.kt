@@ -1,33 +1,27 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.LocaleList
-import com.next.level.solutions.calculator.fb.mp.MainActivity
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.model.LanguageModel
 import java.util.Locale
 
-actual fun getLanguageChanger(): LanguageChanger {
-  return MainActivity.expect?.value?.languageChanger?.value ?: throw IllegalStateException("LanguageChanger is not initialized")
-}
-
-actual fun getDefaultLocaleLanguageCode(): String {
-  return Locale.getDefault().language ?: "en"
-}
-
 class LanguageChangerImpl(
-  private val activity: Activity,
+  private val context: Context,
   private val store: ChangerLocalStore,
 ) : LanguageChanger {
 
   init {
-    activity.updateLocale(store.getLocale())
+    context.updateLocale(store.getLocale())
+  }
+
+  override fun getDefaultLocaleLanguageCode(): String {
+    return Locale.getDefault().language ?: "en"
   }
 
   override fun updateLocale(languageModel: LanguageModel) {
     store.persistLocale(languageModel.toLocale())
-    activity.updateLocale(languageModel.toLocale())
+    context.updateLocale(languageModel.toLocale())
 //    activity.recreate()
   }
 

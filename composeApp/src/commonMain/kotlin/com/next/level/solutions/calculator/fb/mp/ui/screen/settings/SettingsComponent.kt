@@ -12,9 +12,9 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.constants.RESET_PASSWORD_CODE
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
-import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsModelUI
-import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsType
-import com.next.level.solutions.calculator.fb.mp.entity.ui.getSettingsItems
+import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsModelUI
+import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsType
+import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.getSettingsItems
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain

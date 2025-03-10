@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
-import com.next.level.solutions.calculator.fb.mp.entity.ui.SettingsType
+import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsType
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import org.jetbrains.compose.resources.stringResource
 

@@ -21,7 +21,7 @@ import calculator_fileblocking.composeapp.generated.resources.add_new_notes
 import calculator_fileblocking.composeapp.generated.resources.add_photo
 import calculator_fileblocking.composeapp.generated.resources.add_videos
 import calculator_fileblocking.composeapp.generated.resources.empty
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Plus
@@ -33,7 +33,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun ColumnScope.EmptyList(
   modifier: Modifier = Modifier,
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   action: (HiddenFilesComponent.Action) -> Unit,
 ) {
   Content(
@@ -45,7 +45,7 @@ internal fun ColumnScope.EmptyList(
 
 @Composable
 fun EmptyListPreview(
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   modifier: Modifier = Modifier,
 ) {
   Column(
@@ -62,7 +62,7 @@ fun EmptyListPreview(
 @Composable
 private fun ColumnScope.Content(
   modifier: Modifier = Modifier,
-  fileType: FilePickerFileType,
+  fileType: PickerType,
   action: (HiddenFilesComponent.Action) -> Unit = {},
 ) {
   Column(
@@ -76,14 +76,14 @@ private fun ColumnScope.Content(
 
     Image(
       vector = when (fileType) {
-        FilePickerFileType.Trash -> MagicIcons.All.Tick
+        PickerType.Trash -> MagicIcons.All.Tick
         else -> MagicIcons.All.Plus
       },
       modifier = Modifier
         .clip(shape = CircleShape)
         .background(color = Color(0xFF44ACAC))
         .clickable(
-          enabled = fileType != FilePickerFileType.Trash,
+          enabled = fileType != PickerType.Trash,
           onClick = { action(HiddenFilesComponent.Action.Add) },
         )
         .padding(all = 22.dp)
@@ -92,11 +92,11 @@ private fun ColumnScope.Content(
     Text(
       text = stringResource(
         resource = when (fileType) {
-          FilePickerFileType.Trash -> Res.string.empty
-          FilePickerFileType.Video -> Res.string.add_videos
-          FilePickerFileType.Photo -> Res.string.add_photo
-          FilePickerFileType.File -> Res.string.add_file
-          FilePickerFileType.Note -> Res.string.add_new_notes
+          PickerType.Trash -> Res.string.empty
+          PickerType.Video -> Res.string.add_videos
+          PickerType.Photo -> Res.string.add_photo
+          PickerType.File -> Res.string.add_file
+          PickerType.Note -> Res.string.add_new_notes
         }
       ),
       style = TextStyleFactory.FS20.w600(),

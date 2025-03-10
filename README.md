@@ -21,4 +21,6 @@ Calculator - File Blocking
   - [ ] MainActivity: After openFile DeactivateCollapseSecurity ?
   - [ ] FileVisibilityManager: removeFromFileData
 - [ ] iOS
+  - [ ] Language: Select default language
+  - [ ] FileVisibilityManager
 

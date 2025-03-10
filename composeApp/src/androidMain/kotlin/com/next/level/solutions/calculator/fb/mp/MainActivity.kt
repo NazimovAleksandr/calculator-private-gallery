@@ -10,7 +10,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -33,16 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.arkivanov.decompose.defaultComponentContext
-import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpenImpl
@@ -50,14 +47,13 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImp
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
-import com.next.level.solutions.calculator.fb.mp.file.hider.FileHiderImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
-import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okio.FileSystem
+import org.koin.compose.KoinContext
 import java.io.File
 import java.net.URLConnection
 
@@ -65,7 +61,6 @@ class MainActivity : ComponentActivity() {
   companion object {
     var expect: Lazy<Expect>? = null
     var adsManager: AdsManager? = null
-    var roomDatabase: (() -> RoomDatabase.Builder<MyDatabase>)? = null
     var appEventListeners: ((AppEvent) -> Unit)? = null
   }
 
@@ -81,7 +76,7 @@ class MainActivity : ComponentActivity() {
       val resources = context.resources
       val configuration = resources.configuration
 
-      val store = ChangerLocalStore(context.getSharedPreferences("Changer", Context.MODE_PRIVATE))
+      val store = ChangerLocalStore(context.getSharedPreferences("Changer", MODE_PRIVATE))
       val localeToSwitchTo = store.getLocale()
 
       configuration.setLocale(localeToSwitchTo)
@@ -104,9 +99,11 @@ class MainActivity : ComponentActivity() {
     val componentContext = defaultComponentContext()
 
     setContent {
-      App(
-        componentContext = componentContext,
-      )
+      KoinContext {
+        App(
+          componentContext = componentContext,
+        )
+      }
     }
   }
 
@@ -141,15 +138,6 @@ class MainActivity : ComponentActivity() {
       navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
     )
 
-    roomDatabase = {
-      val dbFile = applicationContext.getDatabasePath("my_room.db")
-
-      Room.databaseBuilder<MyDatabase>(
-        context = applicationContext,
-        name = dbFile.absolutePath
-      )
-    }
-
     adsManager = AdsManagerImpl(
       activity = this,
       inter = AdsInterImpl(this),
@@ -163,21 +151,19 @@ class MainActivity : ComponentActivity() {
   private fun initExpect() {
     expect = lazy {
       Expect(
-        toast = { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() },
-        producePath = { filesDir.resolve(it).absolutePath },
-        fileHider = { FileHiderImpl(this) },
-        languageChanger = lazy { languageChangerImpl() },
         externalStoragePermissionGranted = ::externalStoragePermissionGranted,
         requestExternalStoragePermission = ::requestExternalStoragePermission,
         saveBitmapToCache = ::saveBitmapToCache,
         showCustomView = ::showCustomView,
         hideCustomView = ::hideCustomView,
+        producePath = ::producePath,
         openMarket = ::openMarket,
         systemBars = ::systemBars,
         shareLink = ::shareLink,
         shareApp = ::shareApp,
         collapse = ::collapse,
         openFile = ::openFile,
+        toast = ::toast,
       )
     }
   }
@@ -193,29 +179,27 @@ class MainActivity : ComponentActivity() {
 
   private fun openFile(fileDataUI: FileDataUI) {
     try {
-      Logger.d("_TAG", "openFile 1")
       val file = File(
         /* pathname = */ fileDataUI.hiddenPath ?: fileDataUI.path,
       )
-      Logger.d("_TAG", "openFile 2")
+
       val mimeType = URLConnection.guessContentTypeFromName(
         /* fname = */ file.absolutePath,
       )
-      Logger.d("_TAG", "openFile 3")
+
       val uri = FileProvider.getUriForFile(
         /* context = */ this,
         /* authority = */ applicationContext.packageName + ".provider",
         /* file = */ file,
       )
-      Logger.d("_TAG", "openFile 4")
+
       val intent = Intent(Intent.ACTION_VIEW).apply {
         setDataAndType(uri, mimeType)
         setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
       }
-      Logger.d("_TAG", "openFile 5")
+
       startActivity(intent)
-      Logger.d("_TAG", "openFile 6")
     } catch (e: ActivityNotFoundException) {
       Toast.makeText(this, getString(R.string.app_not_found), Toast.LENGTH_SHORT).show()
       Logger.e("TAG", "error = $e")
@@ -267,21 +251,21 @@ class MainActivity : ComponentActivity() {
 
     val goToMarket = Intent().apply {
       action = Intent.ACTION_VIEW
-      data = Uri.parse("$storeLink$packageName")
+      data = "$storeLink$packageName".toUri()
       setPackage("com.android.vending")
     }
 
     try {
       startActivity(goToMarket)
-    } catch (e: ActivityNotFoundException) {
+    } catch (_: ActivityNotFoundException) {
       try {
         startActivity(
           Intent().apply {
             action = Intent.ACTION_VIEW
-            data = Uri.parse("$storeLink$packageName")
+            data = "$storeLink$packageName".toUri()
           }
         )
-      } catch (ignore: Exception) {
+      } catch (_: Exception) {
       }
     }
   }
@@ -346,11 +330,12 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-  private fun languageChangerImpl(): LanguageChangerImpl {
-    return LanguageChangerImpl(
-      activity = this,
-      store = ChangerLocalStore(getSharedPreferences("Changer", Context.MODE_PRIVATE))
-    )
+  private fun producePath(name: String): String {
+    return filesDir.resolve(name).absolutePath
+  }
+
+  private fun toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
   }
 
   private fun externalStoragePermissionGranted(): Boolean {
@@ -379,11 +364,11 @@ class MainActivity : ComponentActivity() {
       try {
         val intent = Intent(
           Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-          Uri.parse("package:$packageName"),
+          "package:$packageName".toUri(),
         )
 
         startActivity(intent)
-      } catch (e: Exception) {
+      } catch (_: Exception) {
         val intent = Intent(
           Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION,
         )
@@ -408,13 +393,12 @@ class MainActivity : ComponentActivity() {
   private fun Context.startActivityTry(intent: Intent, onError: (() -> Unit)? = null) {
     try {
       startActivity(intent)
-    } catch (ignore: Exception) {
+    } catch (_: Exception) {
       onError?.invoke()
     }
   }
 
   class Expect(
-    val languageChanger: Lazy<LanguageChangerImpl>,
     val producePath: (String) -> String,
     val externalStoragePermissionGranted: () -> Boolean,
     val requestExternalStoragePermission: () -> Unit,
@@ -422,7 +406,6 @@ class MainActivity : ComponentActivity() {
     val openMarket: () -> Unit,
     val shareApp: () -> Unit,
     val systemBars: (Boolean) -> Unit,
-    val fileHider: () -> FileHiderImpl,
     val showCustomView: (View?) -> Unit,
     val hideCustomView: () -> Unit,
     val saveBitmapToCache: (Bitmap?, String, Int) -> Unit,

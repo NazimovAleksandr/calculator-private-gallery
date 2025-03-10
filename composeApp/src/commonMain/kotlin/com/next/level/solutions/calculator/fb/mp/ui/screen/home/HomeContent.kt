@@ -25,9 +25,9 @@ import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.browser
 import calculator_fileblocking.composeapp.generated.resources.calculator_lock
 import calculator_fileblocking.composeapp.generated.resources.file
-import calculator_fileblocking.composeapp.generated.resources.junk
 import calculator_fileblocking.composeapp.generated.resources.notes
 import calculator_fileblocking.composeapp.generated.resources.photos
+import calculator_fileblocking.composeapp.generated.resources.trash
 import calculator_fileblocking.composeapp.generated.resources.videos
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
@@ -163,7 +163,7 @@ private fun Content(
 
       RowCard(
         icon = MagicIcons.All.Trash,
-        text = Res.string.junk,
+        text = Res.string.trash,
         action = { component?.action(HomeComponent.Action.Trash) }
       )
     }

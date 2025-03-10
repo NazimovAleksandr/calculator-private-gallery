@@ -11,12 +11,9 @@ import com.next.level.solutions.calculator.fb.mp.ui.icons.all.CheckOn
 @Composable
 fun CheckBox(
   checked: Boolean,
-  visible: Boolean,
   modifier: Modifier = Modifier,
   onClick: (() -> Unit)? = null,
 ) {
-  if (!visible) return
-
   Image(
     vector = if (checked) MagicIcons.All.CheckOn else MagicIcons.All.CheckOff,
     modifier = onClick?.let { modifier.clickable(onClick = it) } ?: modifier

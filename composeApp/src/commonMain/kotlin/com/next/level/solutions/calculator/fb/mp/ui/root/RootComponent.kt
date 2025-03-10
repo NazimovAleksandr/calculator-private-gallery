@@ -192,8 +192,11 @@ class RootComponent(
 
     abstract fun action(action: Action)
 
+    @Suppress("PropertyName", "MemberVisibilityCanBePrivate")
+    val TAG: String = this::class.simpleName.toString()
+
     init {
-      Logger.w("${this::class.simpleName}", "init: hex = ${this.hexString()}")
+      Logger.w(TAG, "init: hex = ${this.hexString()}")
     }
 
     @Composable

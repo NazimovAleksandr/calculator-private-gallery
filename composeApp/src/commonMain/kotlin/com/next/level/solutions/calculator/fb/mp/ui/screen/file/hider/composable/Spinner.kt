@@ -31,7 +31,7 @@ import calculator_fileblocking.composeapp.generated.resources.all_videos
 import com.next.level.solutions.calculator.fb.mp.constants.ALL_FILES
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.ParentFolderModelUI
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
@@ -91,10 +91,10 @@ private fun Content(
       Text(
         text = when (selectedItem?.name) {
           ALL_FILES -> when (selectedItem?.fileType) {
-            FilePickerFileType.Photo -> stringResource(Res.string.all_images)
-            FilePickerFileType.Video -> stringResource(Res.string.all_videos)
-            FilePickerFileType.File -> stringResource(Res.string.all_images)
-            FilePickerFileType.Trash -> stringResource(Res.string.all_images)
+            PickerType.Photo -> stringResource(Res.string.all_images)
+            PickerType.Video -> stringResource(Res.string.all_videos)
+            PickerType.File -> stringResource(Res.string.all_images)
+            PickerType.Trash -> stringResource(Res.string.all_images)
             else -> stringResource(Res.string.all_images)
           }
 
@@ -124,11 +124,11 @@ private fun Content(
               Text(
                 text = when (item.name) {
                   ALL_FILES -> when (item.fileType) {
-                    FilePickerFileType.Photo -> stringResource(Res.string.all_images)
-                    FilePickerFileType.Video -> stringResource(Res.string.all_videos)
-                    FilePickerFileType.File -> stringResource(Res.string.all_images)
-                    FilePickerFileType.Trash -> stringResource(Res.string.all_images)
-                    FilePickerFileType.Note -> stringResource(Res.string.all_images)
+                    PickerType.Photo -> stringResource(Res.string.all_images)
+                    PickerType.Video -> stringResource(Res.string.all_videos)
+                    PickerType.File -> stringResource(Res.string.all_images)
+                    PickerType.Trash -> stringResource(Res.string.all_images)
+                    PickerType.Note -> stringResource(Res.string.all_images)
                   }
 
                   else -> item.name

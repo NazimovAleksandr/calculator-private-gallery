@@ -1,4 +1,4 @@
-package com.next.level.solutions.calculator.fb.mp.file.hider
+package com.next.level.solutions.calculator.fb.mp.file.visibility.manager
 
 import android.content.Context
 import android.database.Cursor
@@ -8,8 +8,6 @@ import android.os.Environment.DIRECTORY_DOCUMENTS
 import android.os.Environment.getExternalStorageDirectory
 import android.os.Environment.getExternalStoragePublicDirectory
 import android.provider.MediaStore
-import android.util.Log
-import com.next.level.solutions.calculator.fb.mp.MainActivity
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FolderModelUI
@@ -18,8 +16,9 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.PhotoModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.TrashModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.VideoModelUI
 import com.next.level.solutions.calculator.fb.mp.extensions.core.uppercaseFirstChar
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerFileType
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePickerViewType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.delay
 import java.io.File
 import java.io.IOException
@@ -32,10 +31,6 @@ import java.util.concurrent.TimeUnit
 import kotlin.reflect.KFunction8
 import kotlin.time.measureTime
 
-actual fun getFileHider(): FileHider {
-  return MainActivity.expect?.value?.fileHider?.invoke() ?: throw IllegalStateException("FileHider not initialized")
-}
-
 enum class FileData(val field: String) {
   Path(field = MediaStore.MediaColumns.DATA),
   Name(field = MediaStore.MediaColumns.TITLE),
@@ -46,38 +41,42 @@ enum class FileData(val field: String) {
   Duration(field = MediaStore.MediaColumns.DURATION),
 }
 
-class FileHiderImpl(
+class FileVisibilityManagerImpl(
   private val context: Context,
-) : FileHider {
-  companion object {
-    private const val TAG = "TAG_FILE_HIDER"
-    const val FILES_DATA_FILE_NAME = "filesData.txt"
-  }
+) : FileVisibilityManager {
+  @Suppress("PrivatePropertyName")
+  private val TAG = this::class.simpleName.toString()
+
+  private val fileData = "file_data.ms"
+  private val hiddenDirectory = ".HiddenDirectory_Calculator"
 
   private val documents: File? = getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS)
   private val externalStorage: String = getExternalStorageDirectory().absolutePath ?: ""
 
   private val dateFormat: SimpleDateFormat = SimpleDateFormat(
-    "HH_mm_ss_SSS",
-    Locale.getDefault(),
+    /* pattern = */ "HH_mm_ss_SSS",
+    /* locale = */ Locale.getDefault(),
   )
 
   private val dateModifiedFormat: SimpleDateFormat = SimpleDateFormat(
-    "MMM dd, yyyy",
-    Locale.getDefault(),
+    /* pattern = */ "MMM dd, yyyy",
+    /* locale = */ Locale.getDefault(),
   )
 
   private val dateHidden: String get() = dateFormat.format(System.currentTimeMillis())
 
-  override fun hiddenFiles(
-    fileType: FilePickerFileType,
+  override fun invisibleFiles(
+    fileType: PickerType,
   ): List<FileDataUI> {
-    val apps = File(documents, ".apps").create()
+    val apps = File(documents, hiddenDirectory).create()
     val folder = File(apps, fileType.name).create()
+
+    val constructor = fileType.constructor()
+
     return folder
       .files(withHidden = true)
       .map { file ->
-        fileType.constructor().invoke(
+        constructor.invoke(
           /* path = */ file.absolutePath,
           /* name = */ file.name,
           /* folder = */ file.folder(),
@@ -91,18 +90,18 @@ class FileHiderImpl(
   }
 
   override fun visibleFiles(
-    fileType: FilePickerFileType,
-    viewType: FilePickerViewType,
+    fileType: PickerType,
+    viewType: PickerMode,
   ): List<FileDataUI> {
-    Log.d(TAG, "visibleFiles: ")
+    Logger.d(TAG, "visibleFiles: ")
 
     return when (viewType) {
-      FilePickerViewType.Gallery -> fileType
+      PickerMode.Gallery -> fileType
         .loadVisibleFiles(
           context = context,
         )
 
-      FilePickerViewType.Folder -> fileType
+      PickerMode.Folder -> fileType
         .loadVisibleFilesFormFolder(
           folder = externalStorage,
         )
@@ -112,7 +111,7 @@ class FileHiderImpl(
   override fun visibleFiles(
     folder: String?,
     fromParent: Boolean,
-    fileType: FilePickerFileType,
+    fileType: PickerType,
     callBack: (List<FileDataUI>) -> Unit,
   ) {
     val folderPath = when {
@@ -126,59 +125,42 @@ class FileHiderImpl(
     )
   }
 
-  override suspend fun moveToHiddenFiles(
-    fileType: FilePickerFileType,
+  override suspend fun moveToInvisibleFiles(
+    fileType: PickerType,
     files: List<FileDataUI>,
-  ): List<FileDataUI> {
-    return files.hide(
+    callBack: suspend (List<FileDataUI>) -> Unit,
+  ) {
+    files.hide(
       fileType = fileType,
-      constructor = fileType.constructor(),
+      callBack = callBack,
     )
-  }
-
-  override suspend fun restoreFiles(
-    files: List<FileDataUI>,
-  ): List<FileDataUI> {
-    return files.restore()
   }
 
   override suspend fun moveToVisibleFiles(
     files: List<FileDataUI>,
-  ): List<FileDataUI> {
-    return files.moveToVisible()
+    callBack: suspend (List<FileDataUI>) -> Unit,
+  ) {
+    callBack(files.moveToVisible())
   }
 
   override suspend fun moveToDeletedFiles(
-    fileType: FilePickerFileType,
+    fileType: PickerType,
     files: List<FileDataUI>,
-  ): List<FileDataUI> {
-    return when (fileType) {
-      FilePickerFileType.Note -> files
-
-      FilePickerFileType.Trash,
-      FilePickerFileType.File,
-        -> {
-        files.forEach {
-          try {
-            File(it.hiddenPath ?: it.path).delete()
-          } catch (ignore: Exception) {
-          }
-        }
-
-        files
-      }
-
-      else -> files.moveToDeletedFiles(
-        fileType = fileType,
-        constructor = fileType.constructor(),
-      )
+    callBack: suspend (List<FileDataUI>) -> Unit,
+  ) {
+    val list = when (fileType) {
+      PickerType.Trash -> files.delete()
+      else -> files.moveToDeletedFiles(fileType)
     }
+
+    callBack(list)
   }
 
-  override fun constructorForFileType(
-    fileType: FilePickerFileType,
-  ): KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI> {
-    return fileType.constructor()
+  override suspend fun restoreToInvisibleFiles(
+    files: List<TrashModelUI>,
+    callBack: suspend (List<TrashModelUI>) -> Unit,
+  ) {
+    callBack(files.restoreToInvisibleFiles())
   }
 
   private fun File.create(): File {
@@ -186,7 +168,7 @@ class FileHiderImpl(
   }
 
   private fun File.files(
-    fileType: FilePickerFileType? = null,
+    fileType: PickerType? = null,
     withHidden: Boolean = false,
     sorted: Boolean = false,
   ): List<File> {
@@ -200,8 +182,8 @@ class FileHiderImpl(
 
       else -> list.filter { file ->
         when (fileType) {
-          FilePickerFileType.Photo -> file.isImage()
-          FilePickerFileType.Video -> file.isVideo()
+          PickerType.Photo -> file.isImage()
+          PickerType.Video -> file.isVideo()
           else -> true
         }
       }
@@ -221,7 +203,7 @@ class FileHiderImpl(
     return list
   }
 
-  private fun FilePickerFileType.loadVisibleFiles(
+  private fun PickerType.loadVisibleFiles(
     context: Context,
   ): List<FileDataUI> {
     var files: List<FileDataUI>
@@ -233,13 +215,13 @@ class FileHiderImpl(
         ?: emptyList()
     }
 
-    Log.d(TAG, "loadVisibleFiles: files = ${files.size}")
-    Log.d(TAG, "loadVisibleFiles: time = $time")
+    Logger.d(TAG, "loadVisibleFiles: files = ${files.size}")
+    Logger.d(TAG, "loadVisibleFiles: time = $time")
 
     return files
   }
 
-  private fun FilePickerFileType.loadVisibleFilesFormFolder(
+  private fun PickerType.loadVisibleFilesFormFolder(
     folder: String,
     callBack: (List<FileDataUI>) -> Unit = {},
   ): List<FileDataUI> {
@@ -261,13 +243,12 @@ class FileHiderImpl(
           .files(fileType = this, sorted = true)
           .loadVisibleFiles(
             fileType = this,
-            constructor = constructor(),
             callBack = { callBack(files + it) },
           )
       )
     }
 
-    Log.d(
+    Logger.d(
       TAG,
       """
         loadVisibleFilesFormFolder:
@@ -283,14 +264,14 @@ class FileHiderImpl(
     return files
   }
 
-  private fun FilePickerFileType.uri(): Uri? {
+  private fun PickerType.uri(): Uri? {
     return when (this) {
-      FilePickerFileType.Photo -> when (Build.VERSION.SDK_INT >= 29) {
+      PickerType.Photo -> when (Build.VERSION.SDK_INT >= 29) {
         true -> MediaStore.Images.Media.getContentUri("external_primary")
         else -> MediaStore.Images.Media.EXTERNAL_CONTENT_URI
       }
 
-      FilePickerFileType.Video -> when (Build.VERSION.SDK_INT >= 29) {
+      PickerType.Video -> when (Build.VERSION.SDK_INT >= 29) {
         true -> MediaStore.Video.Media.getContentUri("external_primary")
         else -> MediaStore.Video.Media.EXTERNAL_CONTENT_URI
       }
@@ -299,23 +280,23 @@ class FileHiderImpl(
     }
   }
 
-  private fun FilePickerFileType.constructor(): KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI> {
+  private fun PickerType.constructor(): KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI> {
     return when (this) {
-      FilePickerFileType.Photo -> ::PhotoModelUI
-      FilePickerFileType.Video -> ::VideoModelUI
-      FilePickerFileType.File -> ::FileModelUI
-      FilePickerFileType.Trash -> ::TrashModelUI
-      FilePickerFileType.Note -> ::TrashModelUI
+      PickerType.Photo -> ::PhotoModelUI
+      PickerType.Video -> ::VideoModelUI
+      PickerType.File -> ::FileModelUI
+      PickerType.Trash -> ::TrashModelUI
+      PickerType.Note -> ::TrashModelUI
     }
   }
 
   private fun Uri.cursor(
     context: Context,
-    fileType: FilePickerFileType,
+    fileType: PickerType,
   ): Cursor? {
     val projection = FileData.entries.toMutableList()
 
-    if (fileType != FilePickerFileType.Video) {
+    if (fileType != PickerType.Video) {
       projection.remove(FileData.Duration)
     }
 
@@ -365,8 +346,8 @@ class FileHiderImpl(
   }
 
   private fun List<File>.loadVisibleFiles(
-    fileType: FilePickerFileType,
-    constructor: KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI>,
+    fileType: PickerType,
+    constructor: KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI> = fileType.constructor(),
     callBack: (List<FileDataUI>) -> Unit,
   ): List<FileDataUI> {
     val list: MutableList<FileDataUI> = mutableListOf()
@@ -410,9 +391,10 @@ class FileHiderImpl(
   }
 
   private suspend fun List<FileDataUI>.hide(
-    fileType: FilePickerFileType,
-    constructor: KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI>,
-  ): List<FileDataUI> {
+    fileType: PickerType,
+    constructor: KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI> = fileType.constructor(),
+    callBack: suspend (List<FileDataUI>) -> Unit,
+  ) {
     delay(10)
 
     val list = mutableListOf<FileDataUI>()
@@ -420,7 +402,7 @@ class FileHiderImpl(
     forEach { file ->
       try {
         val source = File(file.path)
-        val target = File(documents, ".apps/${fileType.name}/(${file.dateHidden})${source.name}")
+        val target = File(documents, "$hiddenDirectory/${fileType.name}/(${file.dateHidden})${source.name}")
 
         move(
           source = source,
@@ -450,11 +432,11 @@ class FileHiderImpl(
 
         list.add(newFile)
       } catch (e: Exception) {
-        Log.e(TAG, "hideFiles: $e")
+        Logger.e(TAG, "hideFiles: $e")
       }
     }
 
-    return list
+    callBack(list)
   }
 
   private suspend fun List<FileDataUI>.moveToVisible(): List<FileDataUI> {
@@ -473,7 +455,7 @@ class FileHiderImpl(
             target = target,
           )
 
-//          removeFromFilesData(
+//          removeFromFileData(
 //            fileType = file.fileType,
 //            source = source,
 //            target = target,
@@ -482,7 +464,7 @@ class FileHiderImpl(
           list.add(file)
         }
       } catch (e: Exception) {
-        Log.e(TAG, "moveToVisible: $e")
+        Logger.e(TAG, "moveToVisible: $e")
       }
     }
 
@@ -490,12 +472,16 @@ class FileHiderImpl(
   }
 
   private suspend fun List<FileDataUI>.moveToDeletedFiles(
-    fileType: FilePickerFileType,
-    constructor: KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI>,
+    fileType: PickerType,
+    constructor: KFunction8<String, String, String, Long, String, String, String, String?, FileDataUI> = fileType.constructor(),
   ): List<FileDataUI> {
+    if (fileType == PickerType.Note) return this
+
     delay(10)
 
     val list = mutableListOf<FileDataUI>()
+
+    File(documents, "$hiddenDirectory/${PickerType.Trash.name}").create()
 
     forEach { file ->
       try {
@@ -504,8 +490,8 @@ class FileHiderImpl(
 
           val target = File(
             hiddenPath.replace(
-              ".apps/${fileType.name}",
-              ".apps/${FilePickerFileType.Trash.name}",
+              "$hiddenDirectory/${fileType.name}",
+              "$hiddenDirectory/${PickerType.Trash.name}",
             )
           )
 
@@ -515,12 +501,12 @@ class FileHiderImpl(
           )
 
           addToFilesData(
-            fileType = FilePickerFileType.Trash,
+            fileType = PickerType.Trash,
             sourcePath = source.absolutePath,
             targetPath = target.absolutePath,
           )
 
-//          removeFromFilesData(
+//          removeFromFileData(
 //            fileType = file.fileType,
 //            source = source,
 //            target = target,
@@ -544,17 +530,17 @@ class FileHiderImpl(
           list.add(newFile)
         }
       } catch (e: Exception) {
-        Log.e(TAG, "moveToDeletedFiles: $e")
+        Logger.e(TAG, "moveToDeletedFiles: $e")
       }
     }
 
     return list
   }
 
-  private suspend fun List<FileDataUI>.restore(): List<FileDataUI> {
+  private suspend fun List<TrashModelUI>.restoreToInvisibleFiles(): List<TrashModelUI> {
     delay(10)
 
-    val list = mutableListOf<FileDataUI>()
+    val list = mutableListOf<TrashModelUI>()
 
     forEach { file ->
       try {
@@ -563,8 +549,8 @@ class FileHiderImpl(
 
           val target = File(
             hiddenPath.replace(
-              ".apps/${FilePickerFileType.Trash.name}",
-              ".apps/${file.fileType.name}",
+              "$hiddenDirectory/${PickerType.Trash.name}",
+              "$hiddenDirectory/${file.fileType.name}",
             )
           )
 
@@ -579,35 +565,40 @@ class FileHiderImpl(
             targetPath = target.absolutePath,
           )
 
-//          removeFromFilesData(
-//            fileType = FilePickerFileType.RecycleBin,
+//          removeFromFileData(
+//            fileType = PickerType.RecycleBin,
 //            source = source,
 //            target = target,
 //          )
 
-          val newFile = file.fileType.constructor().invoke(
-            /*path =*/ file.path,
-            /*name =*/ file.name,
-            /*folder =*/ file.folder,
-            /*size =*/ file.size,
-            /*dateAdded =*/ file.dateAdded,
-            /*dateHidden =*/ file.dateHidden,
-            /*dateModified =*/ file.dateModified,
-            /*hiddenPath =*/ target.absolutePath,
+          val newFile = file.copy(
+            hiddenPath = target.absolutePath,
           )
 
-          if (newFile is VideoModelUI) {
-            newFile.duration = file.duration
-          }
+          newFile.fileType = file.fileType
+          newFile.duration = file.duration
 
           list.add(newFile)
         }
       } catch (e: Exception) {
-        Log.e(TAG, "restore: $e")
+        Logger.e(TAG, "restore: $e")
       }
     }
 
     return list
+  }
+
+  private suspend fun List<FileDataUI>.delete(): List<FileDataUI> {
+    delay(10)
+
+    forEach {
+      try {
+        File(it.hiddenPath ?: it.path).delete()
+      } catch (_: Exception) {
+      }
+    }
+
+    return this
   }
 
   private fun move(
@@ -633,23 +624,23 @@ class FileHiderImpl(
   }
 
   private fun addToFilesData(
-    fileType: FilePickerFileType,
+    fileType: PickerType,
     sourcePath: String,
     targetPath: String,
   ) {
-    val filesData = File(documents, ".apps/${fileType.name}/${FILES_DATA_FILE_NAME}")
+    val filesData = File(documents, "$hiddenDirectory/${fileType.name}/$fileData")
 
     if (!filesData.exists()) filesData.createNewFile()
 
     filesData.appendText("${sourcePath}:${targetPath}\n\n")
   }
 
-//  private fun removeFromFilesData(
-//    fileType: FilePickerFileType,
+//  private fun removeFromFileData( todo
+//    fileType: PickerType,
 //    source: File,
 //    target: File,
 //  ) {
-//    val filesData = File(documents, ".apps/${fileType.name}/${FILES_DATA_FILE_NAME}")
+//    val filesData = File(documents, "$HIDDEN_DIRECTORY/${fileType.name}/$fileData")
 //
 //    if (!filesData.exists()) return
 //

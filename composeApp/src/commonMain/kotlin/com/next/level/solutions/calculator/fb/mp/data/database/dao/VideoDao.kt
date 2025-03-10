@@ -5,11 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.next.level.solutions.calculator.fb.mp.entity.db.FileDataDB
+import com.next.level.solutions.calculator.fb.mp.entity.db.PhotoModelDB
 import com.next.level.solutions.calculator.fb.mp.entity.db.VideoModelDB
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface VideoDao {
+interface VideoDao : DaoDB {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insert(vararg item: VideoModelDB)
 
@@ -24,4 +26,24 @@ interface VideoDao {
 
   @Delete
   suspend fun delete(vararg item: VideoModelDB)
+
+  override suspend fun insert(vararg item: FileDataDB) {
+    insert(*item.mapNotNull { it as? VideoModelDB }.toTypedArray())
+  }
+
+  override suspend fun delete(vararg item: FileDataDB) {
+    delete(*item.mapNotNull { it as? VideoModelDB }.toTypedArray())
+  }
+
+  override fun byDate(): Flow<List<FileDataDB>> {
+    return getByDateAdded()
+  }
+
+  override fun bySize(): Flow<List<FileDataDB>> {
+    return getByFileSize()
+  }
+
+  override fun byName(): Flow<List<FileDataDB>> {
+    return getByName()
+  }
 }
