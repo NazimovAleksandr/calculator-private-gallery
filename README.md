@@ -17,7 +17,7 @@ Calculator - File Blocking
     - [x] FilesOpener: Landscape and FullScreen
   - [ ] Browser
     - [ ] BrowserView: multipleWindows ?
-    - [ ] BrowserComponent: validUrl
+    - [x] BrowserComponent: validUrl
 - [ ] Android
   - [ ] MainActivity: onComplete init Ads ?
   - [ ] MainActivity: After openFile DeactivateCollapseSecurity ?

@@ -34,6 +34,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.browserHistory
 import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.browser.BrowserViewState
 import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.toolbar.BrowserToolbarState
 import io.ktor.http.Url
+import io.ktor.http.isAbsolutePath
 import kotlin.random.Random
 
 class BrowserComponent(
@@ -183,17 +184,10 @@ class BrowserComponent(
 
   private fun String.validUrl(): String {
     return try {
-      Url(this)
+      if (!Url(this).isAbsolutePath) throw Exception()
       this
     } catch (_: Exception) {
-      try {
-        val url = "https://$this/"
-
-        Url(url)
-        url
-      } catch (_: Exception) {
-        "https://www.google.com/search?q=$this"
-      }
+      "https://www.google.com/search?q=$this"
     }
   }
 
