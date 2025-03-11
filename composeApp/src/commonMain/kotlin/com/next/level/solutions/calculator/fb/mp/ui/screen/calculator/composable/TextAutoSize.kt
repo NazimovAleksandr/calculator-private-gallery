@@ -51,6 +51,6 @@ fun TextAutoSize(
       .height(height = style.lineHeight.value.dp)
       .wrapContentHeight()
       .drawWithContent { if (readyToDraw) drawContent() }
-      .graphicsLayer { alpha = if (text.isEmpty()) 0.6f else 1f }
+      .graphicsLayer { alpha = if (text.isEmpty()) 0.3f else 1f }
   )
 }

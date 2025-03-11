@@ -16,4 +16,6 @@ class LanguageChangerImpl : LanguageChanger {
       forKey = "AppleLanguages",
     )
   }
+
+  override fun updateLocale() {}
 }

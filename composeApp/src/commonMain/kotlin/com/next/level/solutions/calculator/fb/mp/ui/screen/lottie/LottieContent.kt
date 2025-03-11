@@ -2,6 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.lottie
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -63,9 +65,16 @@ private fun Content(
 ) {
   var speed by remember { mutableFloatStateOf(1f) }
 
+  val dark = isSystemInDarkTheme()
+
   val composition by rememberLottieComposition {
     LottieCompositionSpec.JsonString(
-      jsonString = Res.readBytes("files/lottie_locked_folder.json").decodeToString()
+      jsonString = Res.readBytes(
+        path = when (dark) {
+          true -> "files/lottie_hide_restore_night.json"
+          else -> "files/lottie_hide_restore.json"
+        }
+      ).decodeToString()
     )
   }
 
@@ -97,14 +106,15 @@ private fun Content(
       .pointerInput(key1 = Unit) {}
   ) {
     Image(
-      rememberLottiePainter(
+      painter = rememberLottiePainter(
         composition = composition,
         progress = { progress },
       ),
-      null,
+      contentDescription = null,
+      contentScale = ContentScale.FillWidth,
       modifier = Modifier
         .fillMaxWidth()
-        .padding(horizontal = 60.dp)
+        .padding(horizontal = 45.dp)
     )
   }
 

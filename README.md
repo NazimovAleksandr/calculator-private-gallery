@@ -5,11 +5,12 @@ Calculator - File Blocking
 
 - [ ] Common
   - [ ] App Name 
-  - [ ] App Icon 
+  - [x] App Icon 
   - [ ] Privacy Policy
   - [ ] Terms of service
   - [ ] Firebase 
-  - [ ] Lottie json 
+  - [ ] Lottie json for Inter
+  - [ ] DarkMode
   - [ ] Splash
     - [ ] Increment progress time if (!consentState(), !adState())
   - [ ] Browser
