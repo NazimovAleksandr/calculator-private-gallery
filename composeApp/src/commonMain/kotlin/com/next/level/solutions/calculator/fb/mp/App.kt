@@ -12,6 +12,7 @@ import coil3.request.crossfade
 import com.arkivanov.decompose.ComponentContext
 import com.next.level.solutions.calculator.fb.mp.di.dataModule
 import com.next.level.solutions.calculator.fb.mp.di.decomposeModule
+import com.next.level.solutions.calculator.fb.mp.di.ecosystemModule
 import com.next.level.solutions.calculator.fb.mp.di.platformModule
 import com.next.level.solutions.calculator.fb.mp.di.rootModule
 import com.next.level.solutions.calculator.fb.mp.ui.root.rootComponent
@@ -76,6 +77,7 @@ fun KoinApplication.appModules() {
       rootModule,
       platformModule,
       decomposeModule,
+      ecosystemModule,
       dataModule,
     )
   )

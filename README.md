@@ -8,7 +8,10 @@ Calculator - File Blocking
   - [x] ~~App Icon~~ 
   - [ ] Privacy Policy
   - [ ] Terms of service
-  - [ ] Firebase 
+  - [x] ~~Firebase Analytics~~
+  - [x] ~~Firebase Crashlytics~~
+  - [ ] Firebase Config
+  - [ ] AppAnalytics 
   - [ ] Lottie json for Inter
   - [ ] DarkMode
   - [ ] Splash

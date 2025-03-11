@@ -53,6 +53,11 @@ ad-admob = "24.0.0"
 #ad-mediation-applovin = "13.0.1.0"
 #ad-mediation-mintegral = "16.8.61.0"
 
+firebase-crashlytics = "3.0.3"
+google-services = "4.4.2"
+#firebaseBom = "33.10.0"
+gitlive-sdk = "2.1.0"
+
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
@@ -118,6 +123,15 @@ ad-core = { module = "com.google.android.gms:play-services-ads", version.ref = "
 #ad-mediation-applovin = { module = "com.google.ads.mediation:applovin", version.ref = "ad-mediation-applovin" }
 #ad-mediation-mintegral = { module = "com.google.ads.mediation:mintegral", version.ref = "ad-mediation-mintegral" }
 
+#firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+#firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+#firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
+#firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
+
+gitlive-firebase-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "gitlive-sdk" }
+gitlive-firebase-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "gitlive-sdk" }
+gitlive-firebase-config = { module = "dev.gitlive:firebase-config", version.ref = "gitlive-sdk" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -127,6 +141,9 @@ compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-m
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 
 room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -1,4 +1,5 @@
 import com.google.devtools.ksp.KspExperimental
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,6 +9,9 @@ plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.kotlin.compose.compiler)
   alias(libs.plugins.kotlin.serialization)
+
+  alias(libs.plugins.google.services)
+  alias(libs.plugins.firebase.crashlytics)
 
   alias(libs.plugins.room)
   alias(libs.plugins.ksp)
@@ -44,6 +48,11 @@ kotlin {
 
       implementation(libs.media3.exoplayer)
       implementation(libs.media3.ui)
+
+//      implementation(project.dependencies.platform(libs.firebase.bom))
+//      implementation(libs.firebase.crashlytics)
+//      implementation(libs.firebase.analytics)
+//      implementation(libs.firebase.config)
     }
 
     commonMain.dependencies {
@@ -85,6 +94,10 @@ kotlin {
       implementation(libs.ktor.client.core)
 //      implementation(libs.ktor.client.okhttp)
 //      implementation(libs.ktor.client.darwin)
+
+      api(libs.gitlive.firebase.crashlytics)
+      api(libs.gitlive.firebase.analytics)
+//      api(libs.gitlive.firebase.config)
     }
 
     // KSP Common sourceSet
