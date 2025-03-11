@@ -7,6 +7,7 @@ import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.Pro
 import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePathImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
+import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
@@ -47,6 +48,10 @@ actual val platformModule: Module
 
     single<ProducePath> {
       ProducePathImpl()
+    }
+
+    single<AppEventListener> {
+      AppEventListener()
     }
 
     factory<MathParser> {

@@ -41,37 +41,38 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.lifecycle.lifecycleScope
+import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.defaultComponentContext
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpenImpl
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInterImpl
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
-import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
+import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okio.FileSystem
-import org.koin.compose.KoinContext
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.compose.KoinApplication
+import org.koin.core.logger.Level
 import java.io.File
 import java.net.URLConnection
 
 class MainActivity : ComponentActivity() {
   companion object {
     var expect: Lazy<Expect>? = null
-    var adsManager: AdsManager? = null
-    var appEventListeners: ((AppEvent) -> Unit)? = null
   }
+
+  private val languageChanger: LanguageChanger by inject()
+
+  private var fullScreenView: View? = null
 
   private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
     contract = RequestMultiplePermissions(),
     callback = {},
   )
-
-  private var fullScreenView: View? = null
 
   override fun attachBaseContext(newBase: Context?) {
     val newBaseContext = newBase?.let { context ->
@@ -93,19 +94,26 @@ class MainActivity : ComponentActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    prepareWindow()
     installSplashScreen()
+
     super.onCreate(savedInstanceState)
 
-    init()
-
-    val componentContext = defaultComponentContext()
+    val componentContext: DefaultComponentContext = defaultComponentContext()
 
     setContent {
-      KoinContext {
-        App(
-          componentContext = componentContext,
-        )
-      }
+      KoinApplication(
+        application = {
+          androidLogger(level = if (BuildConfig.DEBUG) Level.DEBUG else Level.NONE)
+          androidContext(androidContext = this@MainActivity)
+          appModules()
+        },
+        content = {
+          App(
+            componentContext = componentContext,
+          )
+        },
+      )
     }
   }
 
@@ -121,12 +129,13 @@ class MainActivity : ComponentActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    adsManager?.native?.destroy()
-    adsManager = null
+    inject<AdsManager>().value.native.destroy()
   }
 
   override fun onConfigurationChanged(newConfig: Configuration) {
     super.onConfigurationChanged(newConfig)
+
+    languageChanger.updateLocale()
 
     when (newConfig.orientation) {
       ORIENTATION_LANDSCAPE -> expect?.value?.screenOrientationListener?.invoke(true)
@@ -134,7 +143,7 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-  private fun init() {
+  private fun prepareWindow() {
     val color = when (true) {
       true -> Color.Black.copy(alpha = 0.01f)
       else -> Color.White.copy(alpha = 0.01f)
@@ -148,15 +157,6 @@ class MainActivity : ComponentActivity() {
       statusBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
       navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
     )
-
-    adsManager = AdsManagerImpl(
-      activity = this,
-      inter = AdsInterImpl(this),
-      native = AdsNativeImpl(this),
-      appOpen = AdsAppOpenImpl(this),
-    )
-
-    adsManager?.init {}
   }
 
   private fun initExpect() {

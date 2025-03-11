@@ -5,55 +5,31 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdValue
 import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.appopen.AppOpenAd
+import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.utils.loadAd
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 
 class AdsAppOpenImpl(
   private val activity: Activity,
+  private val analytics: AppAnalytics,
 ) : FullScreenContentCallback(), OnPaidEventListener, AdsAppOpen {
 
   private var ad: AppOpenAd? = null
   private var adTemp: AppOpenAd? = null
   private var callback: (() -> Unit)? = null
 
-  private var sdkErrorCount: Int = 0
-  private var sdkErrorMaxCount: Int = 2
+  private var adLoadErrorCount: Int = 0
+  private var maxAdLoadErrors: Int = 2
 
   private var adUnitId: String = "ca-app-pub-3940256099942544/9257395921"
 
   private var isShown: Boolean = false
 
-  override fun onPaidEvent(p0: AdValue) {
-//    val adInfo = adTemp?.responseInfo?.loadedAdapterResponseInfo
-//    val network = adInfo?.adSourceName
-//    val placementId = adInfo?.adSourceId.toString()
-//
-//    val manualAdRevenue = ManualAdRevenue(
-//      valueMicros = adValue.valueMicros,
-//      currencyCode = adValue.currencyCode,
-//      placementId = placementId,
-//      adUnitId = adTemp?.adUnitId.toString(),
-//      network = network.toString(),
-//    )
-//
-//    analytics.appMetrica.reportExternalAdRevenue(AdType.OTHER, manualAdRevenue)
-//
-//    analytics.ads.paidImpression(
-//      adUnitId = adUnitId,
-//      valueMicros = adValue.valueMicros,
-//      precision = adValue.precisionType,
-//      currency = adValue.currencyCode,
-//      network = network,
-//      type = type,
-//    )
-//
-//    adTemp = null
-  }
+  override fun onPaidEvent(p0: AdValue) {}
 
-//  override fun onAdClicked() {
-//    super.onAdClicked()
-//    analytics.ads.click(adUnitId, type)
-//  }
+  override fun onAdClicked() {}
 
   override fun onAdDismissedFullScreenContent() {
     isShown = false
@@ -68,19 +44,11 @@ class AdsAppOpenImpl(
   }
 
   override fun onAdShowedFullScreenContent() {
-//    analytics.ads.impression(adUnitId, type)
-    load()
+    activity.loadAd(::loadAd)
   }
 
   override fun load() {
-//    analytics.ads.loading(adUnitId, type)
-
-    AppOpenAd.load(
-      activity,
-      adUnitId,
-      AdRequest.Builder().build(),
-      loadCallback()
-    )
+    activity.loadAd(::loadAd)
   }
 
   override fun state(): Boolean {
@@ -92,44 +60,40 @@ class AdsAppOpenImpl(
   }
 
   override fun show(closeCallback: () -> Unit) {
-//    analytics.ads.showScheduled(adUnitId, type)
-
-    when {
-      ad == null && sdkErrorCount < sdkErrorMaxCount -> {
-//        analytics.ads.waitError(adUnitId, type)
-      }
+    if (ad == null) {
+      closeCallback.invoke()
+      return
     }
 
-    when {
-      ad == null -> {
-        closeCallback.invoke()
-      }
+    adTemp = ad
+    isShown = true
+    callback = closeCallback
 
-      else -> {
-        isShown = true
-        callback = closeCallback
-        ad?.show(activity)
+    ad?.show(activity)
+    ad = null
+  }
 
-        adTemp = ad
-        ad = null
-      }
-    }
+  private fun loadAd() {
+    AppOpenAd.load(
+      activity,
+      adUnitId,
+      AdRequest.Builder().build(),
+      loadCallback()
+    )
   }
 
   private fun loadCallback() = object : AppOpenAd.AppOpenAdLoadCallback() {
-//    override fun onAdFailedToLoad(adError: LoadAdError) {
-//      sdkErrorCount++
-//
-//      if (sdkErrorCount < sdkErrorMaxCount) {
-//        reload(sdkErrorCount, ::load)
-//        return
-//      }
-//
-////      analytics.ads.sdkError(adUnitId, adError.message, adError.code, type)
-//    }
+    override fun onAdFailedToLoad(adError: LoadAdError) {
+      adLoadErrorCount++
+
+      if (adLoadErrorCount < maxAdLoadErrors) {
+        activity.loadAd(::loadAd)
+        return
+      }
+    }
 
     override fun onAdLoaded(appOpenAd: AppOpenAd) {
-//      sdkErrorCount = 0
+      adLoadErrorCount = 0
 
       ad = appOpenAd
       ad?.onPaidEventListener = this@AdsAppOpenImpl

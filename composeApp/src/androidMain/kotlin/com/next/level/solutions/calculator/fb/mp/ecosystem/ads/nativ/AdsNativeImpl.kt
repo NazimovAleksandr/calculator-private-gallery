@@ -9,66 +9,38 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdValue
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
+import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.utils.loadAd
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class AdsNativeImpl(
   private val context: Context,
+  private val analytics: AppAnalytics,
 ) : AdsNative, NativeAd.OnNativeAdLoadedListener, OnPaidEventListener {
 
   private var adLoader: AdLoader? = null
   private val ad: MutableStateFlow<NativeAd?> = MutableStateFlow(null)
 
-  private var sdkErrorCount: Int = 0
-  private var sdkErrorMaxCount: Int = 2
+  private var adLoadErrorCount: Int = 0
+  private var maxAdLoadErrors: Int = 2
 
   private var adUnitId: String = "ca-app-pub-3940256099942544/2247696110"
 
   override fun onNativeAdLoaded(nativeAd: NativeAd) {
-    when (adLoader?.isLoading) {
-      // The AdLoader is still loading ads.
-      // Expect more adLoaded or onAdFailedToLoad callbacks.
-      true -> {}
+    if (adLoader?.isLoading != false) return
 
-      // The AdLoader has finished loading ads.
-      false -> {
-        sdkErrorCount = 0
+    adLoadErrorCount = 0
 
-        ad.value?.destroy()
-        ad.value = nativeAd
-        ad.value?.setOnPaidEventListener(this)
-      }
-
-      else -> {}
-    }
+    ad.value?.destroy()
+    ad.value = nativeAd
+    ad.value?.setOnPaidEventListener(this)
   }
 
-  override fun onPaidEvent(p0: AdValue) {
-//    val adInfo = ad.value?.responseInfo?.loadedAdapterResponseInfo
-//    val network = adInfo?.adSourceName
-//    val placementId = adInfo?.adSourceId.toString()
-//
-//    val manualAdRevenue = ManualAdRevenue(
-//      valueMicros = adValue.valueMicros,
-//      currencyCode = adValue.currencyCode,
-//      placementId = placementId,
-//      adUnitId = adUnitId,
-//      network = network.toString(),
-//    )
-//
-//    analytics.appMetrica.reportExternalAdRevenue(AdType.NATIVE, manualAdRevenue)
-//
-//    analytics.ads.paidImpression(
-//      adUnitId = adUnitId,
-//      valueMicros = adValue.valueMicros,
-//      precision = adValue.precisionType,
-//      currency = adValue.currencyCode,
-//      network = network,
-//      type = type,
-//    )
-  }
+  override fun onPaidEvent(p0: AdValue) {}
 
   override fun init() {
     adLoader = AdLoader.Builder(context, adUnitId)
@@ -77,7 +49,7 @@ class AdsNativeImpl(
       .withNativeAdOptions(NativeAdOptions.Builder().build())
       .build()
 
-    load()
+    context.loadAd(::loadAd)
   }
 
   override fun isInit(): Boolean {
@@ -85,10 +57,7 @@ class AdsNativeImpl(
   }
 
   override fun load() {
-    if (adLoader?.isLoading == false && sdkErrorCount < sdkErrorMaxCount) {
-//      analytics.ads.loading(adUnitId, type)
-      adLoader?.loadAd(AdRequest.Builder().build())
-    }
+    context.loadAd(::loadAd)
   }
 
   override fun destroy() {
@@ -116,33 +85,23 @@ class AdsNativeImpl(
     }
   }
 
+  private fun loadAd() {
+    if (adLoader?.isLoading == false && adLoadErrorCount < maxAdLoadErrors) {
+      adLoader?.loadAd(AdRequest.Builder().build())
+    }
+  }
+
   private fun loadCallback() = object : AdListener() {
-//    private var onAdImpressionCount = 0
+    override fun onAdFailedToLoad(adError: LoadAdError) {
+      adLoadErrorCount++
 
-//    override fun onAdClicked() {
-//      super.onAdClicked()
-//      analytics.ads.click(adUnitId, type)
+      if (adLoadErrorCount < maxAdLoadErrors) {
+        context.loadAd(::loadAd)
+        return
+      }
+    }
 
-//      when (screen) {
-//        "tabs_empty" -> analytics.ads.click(adUnitId, type, "tabs")
-//        else -> analytics.ads.click(adUnitId, type, screen)
-//      }
-//    }
-
-//    override fun onAdFailedToLoad(adError: LoadAdError) {
-//      sdkErrorCount++
-//
-//      if (sdkErrorCount < sdkErrorMaxCount) {
-//        reload(sdkErrorCount, ::load)
-//        return
-//      }
-
-//      analytics.ads.sdkError(adUnitId, adError.message, adError.code, type)
-//    }
-
-//    override fun onAdImpression() {
-//      super.onAdImpression()
-//      analytics.ads.impression(adUnitId, type)
-//    }
+    override fun onAdImpression() {}
+    override fun onAdClicked() {}
   }
 }

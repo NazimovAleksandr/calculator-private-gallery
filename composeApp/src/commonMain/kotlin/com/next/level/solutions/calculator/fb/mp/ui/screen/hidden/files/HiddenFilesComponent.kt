@@ -23,8 +23,8 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
@@ -33,7 +33,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.createNotes
 import com.next.level.solutions.calculator.fb.mp.ui.root.fileHider
 import com.next.level.solutions.calculator.fb.mp.ui.root.lottie
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.dialog.ChooseDialogComponent
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -265,25 +264,11 @@ class HiddenFilesComponent(
     launchIO {
       delay(500)
 
-      Logger.d(TAG, "restoreFiles.files: ${files.size}")
-
-      files.forEach {
-        Logger.d(TAG, "restoreFiles.file: $it")
-      }
-
       fileVisibilityManager.restoreToInvisibleFiles(
         files = files.filterIsInstance<TrashModelUI>(),
       ) { invisibleFiles ->
-        Logger.d(TAG, "restoreToInvisibleFiles: ${invisibleFiles.size}")
-
-        invisibleFiles.forEach {
-          Logger.d(TAG, "file: $it")
-        }
-
-        val trashByType: Map<PickerType, List<TrashModelUI>> = invisibleFiles
-          .groupBy { it.fileType }
-        Logger.d(TAG, "trashByType: $trashByType")
-        //trashByType: {Trash=[TrashModelUI(path=/storage/emulated/0/IMG-20250306-WA0005.jpg, name=IMG-20250306-WA0005, folder=0, size=88057, dateAdded=1741356650, dateHidden=19_13_08_000, dateModified=1741271863, hiddenPath=/storage/emulated/0/Documents/.HiddenDirectory_Calculator/Photo/(19_13_08_000)IMG-20250306-WA0005.jpg)]}
+        val trashByType: Map<PickerType, List<TrashModelUI>> =
+          invisibleFiles.groupBy { it.fileType }
 
         trashByType[PickerType.File]
           ?.map { it.toFileUI() }
@@ -345,18 +330,12 @@ class HiddenFilesComponent(
       else -> {
         val files = fileVisibilityManager.invisibleFiles(fileType = handler.fileType)
 
-        files.forEach {
-          Logger.d(TAG, "invisibleFiles: $it")
-        }
-
-        Logger.d(TAG, "DB_Size: ${it.size}")
-
         it.filter { fileDataUI ->
-          Logger.d(TAG, "fileDataUI: $fileDataUI")
           files.any { file ->
             file.name.contains("(${fileDataUI.dateHidden})${fileDataUI.name}").apply {
               when {
-                this && fileDataUI is PhotoModelUI && file is PhotoModelUI -> fileDataUI.url = file.url
+                this && fileDataUI is PhotoModelUI && file is PhotoModelUI -> fileDataUI.url =
+                  file.url
               }
             }
           }

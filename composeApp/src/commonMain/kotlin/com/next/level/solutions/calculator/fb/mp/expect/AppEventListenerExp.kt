@@ -5,4 +5,6 @@ sealed interface AppEvent{
   object AppLock: AppEvent
 }
 
-expect fun setAppEventListeners(callback: (AppEvent) -> Unit)
+expect class AppEventListener {
+  fun set(callback: (AppEvent) -> Unit)
+}

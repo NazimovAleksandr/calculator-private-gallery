@@ -20,6 +20,8 @@ import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
+import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
+import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
 import com.next.level.solutions.calculator.fb.mp.extensions.core.hexString
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
@@ -34,10 +36,22 @@ class RootComponent(
   private val appDatastore: AppDatastore,
   private val adsManager: AdsManager,
   private val factory: KoinFactory,
+  appEventListener: AppEventListener,
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
 
   init {
     Logger.w("RootComponent", "init: hex = ${this.hexString()}")
+
+    adsManager.init {
+      Logger.w("RootComponent", "adsManager.init")
+    }
+
+    appEventListener.set {
+      when (it) {
+        is AppEvent.AppOpen -> action(Action.AppOpen)
+        is AppEvent.AppLock -> action(Action.LockOn)
+      }
+    }
   }
 
   val stack: Value<ChildStack<*, Child>> = childStack(

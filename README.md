@@ -5,7 +5,7 @@ Calculator - File Blocking
 
 - [ ] Common
   - [ ] App Name 
-  - [x] App Icon 
+  - [x] ~~App Icon~~ 
   - [ ] Privacy Policy
   - [ ] Terms of service
   - [ ] Firebase 
@@ -15,7 +15,7 @@ Calculator - File Blocking
     - [ ] Increment progress time if (!consentState(), !adState())
   - [ ] Browser
     - [ ] BrowserView: multipleWindows ?
-    - [x] BrowserComponent: validUrl
+    - [x] ~~BrowserComponent: validUrl~~
 - [ ] Android
   - [ ] MainActivity: onComplete init Ads ?
   - [ ] MainActivity: After openFile DeactivateCollapseSecurity ?
@@ -24,6 +24,7 @@ Calculator - File Blocking
   - [ ] Browser
   - [ ] VideoPlayer
   - [ ] PlatformExp
-  - [x] Language: Select default language
+  - [x] ~~Language: Select default language~~
   - [ ] FileVisibilityManager
+  - [ ] AppEventListener
 
