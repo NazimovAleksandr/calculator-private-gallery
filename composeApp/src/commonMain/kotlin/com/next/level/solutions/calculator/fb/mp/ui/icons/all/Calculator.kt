@@ -2,6 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.icons.all
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
@@ -16,98 +17,106 @@ val MagicIcons.All.Calculator: ImageVector
     _Calculator = ImageVector.Builder(
       name = "All.Calculator",
       defaultWidth = 90.dp,
-      defaultHeight = 91.dp,
+      defaultHeight = 90.dp,
       viewportWidth = 90f,
-      viewportHeight = 91f
+      viewportHeight = 90f
     ).apply {
-      path(fill = SolidColor(Color(0xFFD4D4D2))) {
-        moveTo(20.039f, 0.029f)
-        lineTo(69.961f, 0.029f)
-        arcTo(20.039f, 20.039f, 0f, isMoreThanHalf = false, isPositiveArc = true, 90f, 20.068f)
-        lineTo(90f, 69.99f)
-        arcTo(20.039f, 20.039f, 0f, isMoreThanHalf = false, isPositiveArc = true, 69.961f, 90.029f)
-        lineTo(20.039f, 90.029f)
-        arcTo(20.039f, 20.039f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, 69.99f)
-        lineTo(0f, 20.068f)
-        arcTo(20.039f, 20.039f, 0f, isMoreThanHalf = false, isPositiveArc = true, 20.039f, 0.029f)
+      path(fill = SolidColor(Color(0xFF000000))) {
+        moveTo(24f, 0f)
+        lineTo(66f, 0f)
+        arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 90f, 24f)
+        lineTo(90f, 66f)
+        arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 66f, 90f)
+        lineTo(24f, 90f)
+        arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, 66f)
+        lineTo(0f, 24f)
+        arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 24f, 0f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF1C1C1C))) {
-        moveTo(27.246f, 11.631f)
-        lineTo(62.754f, 11.631f)
-        arcTo(5.273f, 5.273f, 0f, isMoreThanHalf = false, isPositiveArc = true, 68.027f, 16.904f)
-        lineTo(68.027f, 73.154f)
-        arcTo(5.273f, 5.273f, 0f, isMoreThanHalf = false, isPositiveArc = true, 62.754f, 78.428f)
-        lineTo(27.246f, 78.428f)
-        arcTo(5.273f, 5.273f, 0f, isMoreThanHalf = false, isPositiveArc = true, 21.973f, 73.154f)
-        lineTo(21.973f, 16.904f)
-        arcTo(5.273f, 5.273f, 0f, isMoreThanHalf = false, isPositiveArc = true, 27.246f, 11.631f)
+      path(fill = SolidColor(Color(0xFF333333))) {
+        moveTo(25f, 25f)
+        moveToRelative(-18f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
+      }
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+        moveTo(20.759f, 18.743f)
+        lineToRelative(10.395f, 10.354f)
+        lineToRelative(-2.106f, 2.114f)
+        lineToRelative(-10.395f, -10.354f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF505050))) {
-        moveTo(28.828f, 15.85f)
-        lineTo(61.172f, 15.85f)
-        arcTo(2.637f, 2.637f, 0f, isMoreThanHalf = false, isPositiveArc = true, 63.809f, 18.486f)
-        lineTo(63.809f, 29.033f)
-        arcTo(2.637f, 2.637f, 0f, isMoreThanHalf = false, isPositiveArc = true, 61.172f, 31.67f)
-        lineTo(28.828f, 31.67f)
-        arcTo(2.637f, 2.637f, 0f, isMoreThanHalf = false, isPositiveArc = true, 26.191f, 29.033f)
-        lineTo(26.191f, 18.486f)
-        arcTo(2.637f, 2.637f, 0f, isMoreThanHalf = false, isPositiveArc = true, 28.828f, 15.85f)
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+        moveTo(31.125f, 20.813f)
+        lineToRelative(-10.321f, 10.428f)
+        lineToRelative(-2.121f, -2.099f)
+        lineToRelative(10.321f, -10.428f)
         close()
       }
-      path(fill = SolidColor(Color(0xFFC4C4C4))) {
-        moveTo(30.762f, 41.162f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
+      path(fill = SolidColor(Color(0xFF333333))) {
+        moveTo(25f, 65f)
+        moveToRelative(-18f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
-      path(fill = SolidColor(Color(0xFFC4C4C4))) {
-        moveTo(30.762f, 55.225f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+        moveTo(26.381f, 57.638f)
+        lineToRelative(0.029f, 14.672f)
+        lineToRelative(-2.984f, 0.006f)
+        lineToRelative(-0.029f, -14.672f)
+        close()
       }
-      path(fill = SolidColor(Color(0xFFC4C4C4))) {
-        moveTo(45f, 41.162f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+        moveTo(32.248f, 66.431f)
+        lineToRelative(-14.672f, 0.076f)
+        lineToRelative(-0.015f, -2.984f)
+        lineToRelative(14.672f, -0.076f)
+        close()
       }
-      path(fill = SolidColor(Color(0xFFC4C4C4))) {
-        moveTo(45f, 55.225f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
+      path(fill = SolidColor(Color(0xFF333333))) {
+        moveTo(65f, 65f)
+        moveToRelative(-18f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
-      path(fill = SolidColor(Color(0xFFF09200))) {
-        moveTo(59.238f, 41.162f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
-      }
-      path(fill = SolidColor(Color(0xFFF09200))) {
-        moveTo(59.238f, 55.225f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+        moveTo(72.248f, 66.431f)
+        lineToRelative(-14.672f, 0.076f)
+        lineToRelative(-0.015f, -2.984f)
+        lineToRelative(14.672f, -0.076f)
+        close()
       }
       path(fill = SolidColor(Color(0xFFF09200))) {
-        moveTo(59.238f, 69.287f)
-        moveToRelative(-4.57f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, 9.141f, 0f)
-        arcToRelative(4.57f, 4.57f, 0f, isMoreThanHalf = true, isPositiveArc = true, -9.141f, 0f)
+        moveTo(65f, 25f)
+        moveToRelative(-18f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
+        arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
-      path(fill = SolidColor(Color(0xFFC4C4C4))) {
-        moveTo(30.762f, 64.893f)
-        lineTo(45f, 64.893f)
-        arcTo(4.57f, 4.57f, 0f, isMoreThanHalf = false, isPositiveArc = true, 49.57f, 69.463f)
-        lineTo(49.57f, 69.463f)
-        arcTo(4.57f, 4.57f, 0f, isMoreThanHalf = false, isPositiveArc = true, 45f, 74.033f)
-        lineTo(30.762f, 74.033f)
-        arcTo(4.57f, 4.57f, 0f, isMoreThanHalf = false, isPositiveArc = true, 26.191f, 69.463f)
-        lineTo(26.191f, 69.463f)
-        arcTo(4.57f, 4.57f, 0f, isMoreThanHalf = false, isPositiveArc = true, 30.762f, 64.893f)
+      path(
+        stroke = SolidColor(Color(0xFF000000)),
+        strokeLineWidth = 2f,
+        strokeLineCap = StrokeCap.Round
+      ) {
+        moveTo(60.862f, 23.444f)
+        verticalLineTo(18.958f)
+        curveTo(60.862f, 16.772f, 62.715f, 15f, 65f, 15f)
+        curveTo(67.285f, 15f, 69.138f, 16.772f, 69.138f, 18.958f)
+        verticalLineTo(23.444f)
+        moveTo(59.207f, 34f)
+        horizontalLineTo(70.793f)
+        curveTo(72.012f, 34f, 73f, 33.055f, 73f, 31.889f)
+        verticalLineTo(25.556f)
+        curveTo(73f, 24.39f, 72.012f, 23.444f, 70.793f, 23.444f)
+        horizontalLineTo(59.207f)
+        curveTo(57.988f, 23.444f, 57f, 24.39f, 57f, 25.556f)
+        verticalLineTo(31.889f)
+        curveTo(57f, 33.055f, 57.988f, 34f, 59.207f, 34f)
+        close()
+        moveTo(67.483f, 28.722f)
+        curveTo(67.483f, 29.888f, 66.495f, 30.833f, 65.276f, 30.833f)
+        curveTo(64.057f, 30.833f, 63.069f, 29.888f, 63.069f, 28.722f)
+        curveTo(63.069f, 27.556f, 64.057f, 26.611f, 65.276f, 26.611f)
+        curveTo(66.495f, 26.611f, 67.483f, 27.556f, 67.483f, 28.722f)
         close()
       }
     }.build()
