@@ -3,7 +3,6 @@ package com.next.level.solutions.calculator.fb.mp.ecosystem.ads
 import android.app.Activity
 import android.telephony.TelephonyManager
 import androidx.core.content.getSystemService
-import com.google.android.gms.ads.MobileAds
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpen
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInter
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
@@ -39,15 +38,15 @@ class AdsManagerImpl(
 //    mintegral(activity)
 //    appLovin(activity)
 
-    MobileAds.initialize(activity.application) {
+//    MobileAds.initialize(activity.application) {
 //      unity3d(activity)
 //      vungle()
 
-      inter.load()
-      native.init()
-      appOpen.load()
+//      inter.load()
+//      native.init()
+//      appOpen.load()
       onComplete.invoke()
-    }
+//    }
 
     init = true
   }
