@@ -33,7 +33,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.to
 import io.ktor.http.Url
 
 @Composable
-//@Suppress("NOTHING_TO_INLINE") // for fix recompositions
+@Suppress("NOTHING_TO_INLINE") // for fix recompositions
 internal inline fun BrowserToolbar(
   state: State<BrowserToolbarState?>,
   webViewState: WebViewState,

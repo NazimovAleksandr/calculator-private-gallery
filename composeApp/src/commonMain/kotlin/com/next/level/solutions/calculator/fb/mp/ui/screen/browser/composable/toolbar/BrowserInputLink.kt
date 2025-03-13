@@ -74,7 +74,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-//@Suppress("NOTHING_TO_INLINE") // for fix recompositions
+@Suppress("NOTHING_TO_INLINE") // for fix recompositions
 inline fun BrowserInputLink(
   title: String?,
   url: String?,
@@ -96,7 +96,7 @@ inline fun BrowserInputLink(
 }
 
 @Composable
-//@Suppress("NOTHING_TO_INLINE") // for fix recompositions
+@Suppress("NOTHING_TO_INLINE") // for fix recompositions
 inline fun InputLink(
   title: String?,
   url: String?,

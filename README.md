@@ -13,7 +13,7 @@ Calculator - File Blocking
   - [ ] Firebase Config
   - [ ] AppAnalytics 
   - [ ] Lottie json for Inter
-  - [ ] DarkMode
+  - [ ] LightMode
   - [ ] Splash
     - [ ] Increment progress time if (!consentState(), !adState())
   - [ ] Browser
@@ -30,4 +30,5 @@ Calculator - File Blocking
   - [x] ~~Language: Select default language~~
   - [ ] FileVisibilityManager
   - [ ] AppEventListener
+  - [ ] NetworkManager
 

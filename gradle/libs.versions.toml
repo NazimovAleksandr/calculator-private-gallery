@@ -3,8 +3,8 @@ android-compileSdk = "35"
 android-targetSdk = "35"
 android-minSdk = "24"
 
-kotlin = "2.1.0"
-ksp = "2.1.0-1.0.29"
+kotlin = "2.1.10"
+ksp = "2.1.10-1.0.31"
 agp = "8.9.0"
 
 compose-multiplatform = "1.7.0"

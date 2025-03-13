@@ -13,8 +13,11 @@ import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVis
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
+import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSExpression
@@ -24,6 +27,14 @@ import platform.Foundation.NSUserDomainMask
 
 actual val platformModule: Module
   get() = module {
+    singleOf<FileVisibilityManager>(::FileVisibilityManagerImpl)
+    singleOf<LanguageChanger>(::LanguageChangerImpl)
+    singleOf<ProducePath>(::ProducePathImpl)
+
+    singleOf<AdsManager>(::AdsManagerImpl)
+
+    singleOf(::AppEventListener)
+
     @OptIn(ExperimentalForeignApi::class)
     single<RoomDatabase.Builder<MyDatabase>> {
       val documentDirectory = NSFileManager.defaultManager.URLForDirectory(
@@ -38,21 +49,7 @@ actual val platformModule: Module
       Room.databaseBuilder<MyDatabase>(name = dbFilePath)
     }
 
-    single<FileVisibilityManager> {
-      FileVisibilityManagerImpl()
-    }
-
-    single<AdsManager> {
-      AdsManagerImpl()
-    }
-
-    single<ProducePath> {
-      ProducePathImpl()
-    }
-
-    single<AppEventListener> {
-      AppEventListener()
-    }
+    factoryOf(::NetworkManager)
 
     factory<MathParser> {
       object : MathParser {
@@ -62,9 +59,5 @@ actual val platformModule: Module
           return result?.doubleValue ?: 0.0
         }
       }
-    }
-
-    factory<LanguageChanger> {
-      LanguageChangerImpl()
     }
   }

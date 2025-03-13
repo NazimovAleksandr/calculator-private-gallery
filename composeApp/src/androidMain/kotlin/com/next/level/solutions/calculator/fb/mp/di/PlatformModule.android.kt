@@ -23,7 +23,9 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parse
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
+import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.mariuszgromada.math.mxparser.Expression
@@ -32,13 +34,12 @@ actual val platformModule: Module
   get() = module {
     singleOf<FileVisibilityManager, Context>(::FileVisibilityManagerImpl)
     singleOf<LanguageChanger, Context, ChangerLocalStore>(::LanguageChangerImpl)
-
-    singleOf<AdsManager, Activity, AdsInter, AdsNative, AdsAppOpen>(::AdsManagerImpl)
-    singleOf<AdsInter, Activity, AppAnalytics>(::AdsInterImpl)
-    singleOf<AdsAppOpen, Activity, AppAnalytics>(::AdsAppOpenImpl)
-    singleOf<AdsNative, Context, AppAnalytics>(::AdsNativeImpl)
-
     singleOf<ProducePath, Context>(::ProducePathImpl)
+
+    singleOf<AdsManager, AdsInter, AdsNative, AdsAppOpen, Activity, NetworkManager>(::AdsManagerImpl)
+    singleOf<AdsInter, Activity, AppAnalytics, NetworkManager>(::AdsInterImpl)
+    singleOf<AdsAppOpen, Activity, AppAnalytics, NetworkManager>(::AdsAppOpenImpl)
+    singleOf<AdsNative, Context, AppAnalytics, NetworkManager>(::AdsNativeImpl)
 
     singleOf(::AppEventListener)
 
@@ -55,6 +56,8 @@ actual val platformModule: Module
     single<Activity> {
       get<Context>() as Activity
     }
+
+    factoryOf(::NetworkManager)
 
     factory<MathParser> {
       object : MathParser {

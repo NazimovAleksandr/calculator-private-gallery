@@ -48,11 +48,6 @@ kotlin {
 
       implementation(libs.media3.exoplayer)
       implementation(libs.media3.ui)
-
-//      implementation(project.dependencies.platform(libs.firebase.bom))
-//      implementation(libs.firebase.crashlytics)
-//      implementation(libs.firebase.analytics)
-//      implementation(libs.firebase.config)
     }
 
     commonMain.dependencies {
@@ -67,7 +62,6 @@ kotlin {
       implementation(libs.androidx.lifecycle.runtime.compose)
 
       // kotlinx
-//      implementation(libs.kotlin.stdlib)
       implementation(libs.kotlinx.coroutines)
       implementation(libs.kotlinx.collections)
       implementation(libs.kotlinx.serialization)
@@ -92,8 +86,6 @@ kotlin {
       implementation(libs.compottie)
       implementation(libs.webview.multiplatform)
       implementation(libs.ktor.client.core)
-//      implementation(libs.ktor.client.okhttp)
-//      implementation(libs.ktor.client.darwin)
 
       api(libs.gitlive.firebase.crashlytics)
       api(libs.gitlive.firebase.analytics)
@@ -142,11 +134,11 @@ android {
     }
   }
 
-//  bundle {
-//    language {
-//      enableSplit = false
-//    }
-//  }
+  bundle {
+    language {
+      enableSplit = false
+    }
+  }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11

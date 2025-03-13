@@ -253,7 +253,7 @@ class CalculatorComponent(
     }
   }
 
-  private fun <E : Char> List<E>.asString(): String {
+  private fun List<Char>.asString(): String {
     return joinToString("")
   }
 
@@ -283,7 +283,7 @@ class CalculatorComponent(
     }
   }
 
-  private fun <E : Char> List<E>.isPassword(): Boolean {
+  private fun List<Char>.isPassword(): Boolean {
     return (asString() == handler.password)
       .also {
         if (size == 4) {
@@ -326,7 +326,7 @@ class CalculatorComponent(
     launchMain { dialogNavigation.activate(DialogConfiguration.resetPasswordCode()) }
   }
 
-  private fun <E : Char> List<E>.isResetPassword(): Boolean {
+  private fun List<Char>.isResetPassword(): Boolean {
     return (asString() == RESET_PASSWORD_CODE)
 //      .also { if (it) analytics.calculator.resetCodeEntered() }
   }
