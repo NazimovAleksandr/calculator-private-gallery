@@ -10,8 +10,7 @@ Calculator - File Blocking
   - [ ] Terms of service
   - [x] ~~Firebase Analytics~~
   - [x] ~~Firebase Crashlytics~~
-  - [ ] Firebase Config
-  - [ ] AppAnalytics 
+  - [x] ~~Firebase Config~~
   - [ ] Lottie json for Inter
   - [ ] LightMode
   - [ ] Splash

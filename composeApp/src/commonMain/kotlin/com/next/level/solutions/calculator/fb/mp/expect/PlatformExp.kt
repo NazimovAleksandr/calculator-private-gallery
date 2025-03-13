@@ -4,6 +4,8 @@ import coil3.Bitmap
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 
 expect object PlatformExp {
+  val isDebug: Boolean
+  val isIOS: Boolean
   fun currentTimeMillis(): Long
   fun externalStoragePermissionGranted(): Boolean
   fun requestExternalStoragePermission()

@@ -1,5 +1,5 @@
 package com.next.level.solutions.calculator.fb.mp.utils
 
 expect class NetworkManager {
-  fun runAfterNetworkConnection(block: () -> Unit)
+  fun runAfterNetworkConnection(@Suppress("unused") block: () -> Unit)
 }

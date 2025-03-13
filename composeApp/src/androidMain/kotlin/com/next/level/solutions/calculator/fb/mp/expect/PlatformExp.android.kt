@@ -1,10 +1,14 @@
 package com.next.level.solutions.calculator.fb.mp.expect
 
 import android.graphics.Bitmap
+import com.next.level.solutions.calculator.fb.mp.BuildConfig
 import com.next.level.solutions.calculator.fb.mp.MainActivity
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 
 actual object PlatformExp {
+  actual val isDebug: Boolean get() = BuildConfig.DEBUG
+  actual val isIOS: Boolean get() = false
+
   actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
   actual fun externalStoragePermissionGranted(): Boolean {

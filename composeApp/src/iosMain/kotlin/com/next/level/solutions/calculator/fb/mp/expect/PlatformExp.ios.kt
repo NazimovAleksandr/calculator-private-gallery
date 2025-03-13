@@ -10,8 +10,12 @@ import platform.Photos.PHAuthorizationStatusLimited
 import platform.Photos.PHAuthorizationStatusNotDetermined
 import platform.Photos.PHAuthorizationStatusRestricted
 import platform.Photos.PHPhotoLibrary
+import kotlin.experimental.ExperimentalNativeApi
 
 actual object PlatformExp {
+  @OptIn(ExperimentalNativeApi::class)
+  actual val isDebug: Boolean get() = Platform.isDebugBinary
+  actual val isIOS: Boolean get() = true
 
   actual fun currentTimeMillis(): Long = (NSDate().timeIntervalSince1970 * 1000).toLong()
 

@@ -20,7 +20,7 @@ plugins {
 kotlin {
   androidTarget {
     compilerOptions {
-      jvmTarget.set(JvmTarget.JVM_11)
+      jvmTarget.set(JvmTarget.JVM_17)
     }
   }
 
@@ -89,7 +89,7 @@ kotlin {
 
       api(libs.gitlive.firebase.crashlytics)
       api(libs.gitlive.firebase.analytics)
-//      api(libs.gitlive.firebase.config)
+      api(libs.gitlive.firebase.config)
     }
 
     // KSP Common sourceSet
@@ -141,8 +141,9 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    isCoreLibraryDesugaringEnabled = true
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
 
   packaging {
@@ -153,33 +154,11 @@ android {
 }
 
 dependencies {
-//  implementation(libs.androidx.foundation.layout.android)
-
-  // Koin KSP Tasks
-  listOf(
-    "kspCommonMainMetadata",
-    "kspAndroid",
-    "kspIosX64",
-    "kspIosArm64",
-    "kspIosSimulatorArm64",
-  ).forEach {
-    add(it, libs.koin.ksp.compiler)
-  }
-
-  // Room KSP Tasks
-  listOf(
-    "kspCommonMainMetadata",
-    "kspAndroid",
-    "kspIosX64",
-    "kspIosArm64",
-    "kspIosSimulatorArm64",
-  ).forEach {
-    add(it, libs.room.compiler)
-  }
-
+  coreLibraryDesugaring(libs.desugar.jdk.libs)
   implementation(libs.androidx.appcompat)
   debugImplementation(compose.uiTooling)
 
+  ksp(libs.koin.ksp.compiler)
   ksp(libs.room.compiler)
 }
 
