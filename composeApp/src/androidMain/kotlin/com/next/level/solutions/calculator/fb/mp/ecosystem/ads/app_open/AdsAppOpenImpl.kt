@@ -8,12 +8,13 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.utils.loadAd
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 
 class AdsAppOpenImpl(
   private val activity: Activity,
   private val analytics: AppAnalytics,
+  private val networkManager: NetworkManager,
 ) : FullScreenContentCallback(), OnPaidEventListener, AdsAppOpen {
 
   private var ad: AppOpenAd? = null
@@ -44,11 +45,11 @@ class AdsAppOpenImpl(
   }
 
   override fun onAdShowedFullScreenContent() {
-    activity.loadAd(::loadAd)
+    networkManager.runAfterNetworkConnection(::loadAd)
   }
 
   override fun load() {
-    activity.loadAd(::loadAd)
+    networkManager.runAfterNetworkConnection(::loadAd)
   }
 
   override fun state(): Boolean {
@@ -87,7 +88,7 @@ class AdsAppOpenImpl(
       adLoadErrorCount++
 
       if (adLoadErrorCount < maxAdLoadErrors) {
-        activity.loadAd(::loadAd)
+        networkManager.runAfterNetworkConnection(::loadAd)
         return
       }
     }

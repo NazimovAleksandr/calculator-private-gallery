@@ -13,13 +13,14 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.utils.loadAd
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class AdsNativeImpl(
   private val context: Context,
   private val analytics: AppAnalytics,
+  private val networkManager: NetworkManager,
 ) : AdsNative, NativeAd.OnNativeAdLoadedListener, OnPaidEventListener {
 
   private var adLoader: AdLoader? = null
@@ -49,7 +50,7 @@ class AdsNativeImpl(
       .withNativeAdOptions(NativeAdOptions.Builder().build())
       .build()
 
-    context.loadAd(::loadAd)
+    networkManager.runAfterNetworkConnection(::loadAd)
   }
 
   override fun isInit(): Boolean {
@@ -57,7 +58,7 @@ class AdsNativeImpl(
   }
 
   override fun load() {
-    context.loadAd(::loadAd)
+    networkManager.runAfterNetworkConnection(::loadAd)
   }
 
   override fun destroy() {
@@ -96,7 +97,7 @@ class AdsNativeImpl(
       adLoadErrorCount++
 
       if (adLoadErrorCount < maxAdLoadErrors) {
-        context.loadAd(::loadAd)
+        networkManager.runAfterNetworkConnection(::loadAd)
         return
       }
     }

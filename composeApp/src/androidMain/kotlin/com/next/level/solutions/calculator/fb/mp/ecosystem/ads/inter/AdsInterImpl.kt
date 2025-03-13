@@ -9,12 +9,13 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.utils.loadAd
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 
 class AdsInterImpl(
   private val activity: Activity,
   private val analytics: AppAnalytics,
+  private val networkManager: NetworkManager,
 ) : FullScreenContentCallback(), OnPaidEventListener, AdsInter {
 
   private var ad: InterstitialAd? = null
@@ -41,11 +42,11 @@ class AdsInterImpl(
   }
 
   override fun onAdShowedFullScreenContent() {
-    activity.loadAd(::loadAd)
+    networkManager.runAfterNetworkConnection(::loadAd)
   }
 
   override fun load() {
-    activity.loadAd(::loadAd)
+    networkManager.runAfterNetworkConnection(::loadAd)
   }
 
   override fun state(): Boolean {
@@ -80,7 +81,7 @@ class AdsInterImpl(
       adLoadErrorCount++
 
       if (adLoadErrorCount < maxAdLoadErrors) {
-        activity.loadAd(::loadAd)
+        networkManager.runAfterNetworkConnection(::loadAd)
         return
       }
     }
