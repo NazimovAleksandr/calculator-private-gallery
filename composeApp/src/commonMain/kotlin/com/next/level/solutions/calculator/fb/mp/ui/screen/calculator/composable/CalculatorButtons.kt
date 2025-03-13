@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -23,6 +24,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.operation
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
@@ -143,7 +145,6 @@ private fun Button(
     text = type.text(),
     color = MaterialTheme.colorScheme.onSecondary,
     style = when {
-      type == '/' -> TextStyleFactory.FS36.w400()
       type.operation() -> TextStyleFactory.FS36.w400()
       else -> TextStyleFactory.FS32.w400()
     },
@@ -159,6 +160,12 @@ private fun Button(
       .background(color = backgroundColor)
       .clickable(onClick = action)
       .wrapContentSize()
+      .let {
+        when {
+          type.operation() && PlatformExp.isIOS -> it.padding(bottom = 5.dp)
+          else -> it
+        }
+      }
   )
 }
 
@@ -166,7 +173,7 @@ private fun Char.text(): String {
   return when (this) {
     '*' -> "×"
     '/' -> "÷"
-    'd' -> "   ⌫    "
+    'd' -> "⌫"
     else -> this.toString()
   }
 }
