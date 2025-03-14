@@ -1,7 +1,11 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -15,7 +19,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,19 +35,23 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Bu
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.operation
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun CalculatorButtons(
   buttons: ImmutableList<ImmutableList<Char>>,
-  creatingPassword: State<Boolean>,
-  enteredNumberLength: State<Boolean>,
+  enteredNumberLength: State<Int>,
   modifier: Modifier = Modifier,
   space: Dp = 10.dp,
   action: (Char) -> Unit,
 ) {
   Content(
     buttons = buttons,
-    creatingPassword = creatingPassword,
     enteredNumberLength = enteredNumberLength,
     modifier = modifier,
     action = action,
@@ -51,15 +61,12 @@ internal fun CalculatorButtons(
 
 @Composable
 internal fun CalculatorButtonsPreview(
-  creatingPassword: State<Boolean>,
-  enteredNumberLength: State<Boolean>,
   modifier: Modifier = Modifier,
   space: Dp = 10.dp,
 ) {
   Content(
     buttons = Buttons().getButtons(),
-    creatingPassword = creatingPassword,
-    enteredNumberLength = enteredNumberLength,
+    enteredNumberLength = remember { mutableStateOf(0) },
     modifier = modifier,
     space = space,
   )
@@ -68,8 +75,7 @@ internal fun CalculatorButtonsPreview(
 @Composable
 private fun Content(
   buttons: ImmutableList<ImmutableList<Char>>,
-  creatingPassword: State<Boolean>,
-  enteredNumberLength: State<Boolean>,
+  enteredNumberLength: State<Int>,
   modifier: Modifier = Modifier,
   space: Dp = 10.dp,
   action: (Char) -> Unit = {},
@@ -94,22 +100,16 @@ private fun Content(
         modifier = Modifier
       ) {
         buttons.forEach { buttonType ->
-          val creating = when {
-            buttonType.operation() -> creatingPassword
-            else -> null
-          }
-
-          val enteredNumber = when {
-            buttonType.operation() -> enteredNumberLength
+          val enteredNumberLengthState = when {
+            buttonType == 'd' -> enteredNumberLength
             else -> null
           }
 
           Button(
             type = buttonType,
-            creatingPassword = creating,
-            enteredNumberLength = enteredNumber,
+            enteredNumberLength = enteredNumberLengthState,
             action = {
-              haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+              haptic.performHapticFeedback(it)
               action(buttonType)
             },
           )
@@ -122,23 +122,55 @@ private fun Content(
 @Composable
 private fun Button(
   type: Char,
-  creatingPassword: State<Boolean>?,
-  enteredNumberLength: State<Boolean>?,
+  enteredNumberLength: State<Int>?,
   modifier: Modifier = Modifier,
-  action: () -> Unit,
+  action: (HapticFeedbackType) -> Unit,
 ) {
-  val creatingPasswordValue = remember(creatingPassword) {
-    creatingPassword
-  }
-
-  val enteredNumberLengthValue = remember(enteredNumberLength) {
-    enteredNumberLength
-  }
-
   val backgroundColor = when {
-    creatingPasswordValue?.value == false -> MaterialTheme.colorScheme.primary
-    type == '=' && enteredNumberLengthValue?.value == true -> MaterialTheme.colorScheme.primary
+    type.operation() -> MaterialTheme.colorScheme.primary
     else -> MaterialTheme.colorScheme.secondary
+  }
+
+  val localIndication = LocalIndication.current
+  val interactionSource = remember {
+    MutableInteractionSource()
+  }
+
+  LaunchedEffect(key1 = interactionSource) {
+    var longPressJob: Job? = null
+
+    interactionSource.interactions.onEach { interaction: Interaction ->
+      when (interaction) {
+        is PressInteraction.Press -> {
+          longPressJob?.cancel()
+          longPressJob = launch {
+            if (type == 'd') {
+              delay(500)
+
+              if (isActive) {
+                launch {
+                  while (isActive && (enteredNumberLength?.value ?: 0) > 0) {
+                    action(HapticFeedbackType.LongPress)
+                    delay(120)
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        is PressInteraction.Release -> {
+          longPressJob?.cancel()
+          longPressJob = null
+        }
+
+        is PressInteraction.Cancel -> {
+          longPressJob?.cancel()
+          longPressJob = null
+        }
+      }
+    }
+      .launchIn(this)
   }
 
   Text(
@@ -158,7 +190,11 @@ private fun Button(
       }
       .clip(shape = CircleShape)
       .background(color = backgroundColor)
-      .clickable(onClick = action)
+      .clickable(
+        interactionSource = interactionSource,
+        indication = localIndication,
+        onClick = { action(HapticFeedbackType.TextHandleMove) },
+      )
       .wrapContentSize()
       .let {
         when {

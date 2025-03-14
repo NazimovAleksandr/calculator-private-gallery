@@ -72,15 +72,9 @@ private fun Content(
     }
   }
 
-  val creatingPassword = remember {
+  val creatingPassword by remember {
     derivedStateOf {
       model?.value?.creatingPassword == true
-    }
-  }
-
-  val creatingPassword2 = remember {
-    derivedStateOf {
-      false
     }
   }
 
@@ -102,15 +96,9 @@ private fun Content(
     }
   }
 
-  /*val enteredNumberLength = remember(state) {
-    derivedStateOf {
-      state.value.enteredNumber.length >= 4
-    }
-  }*/
-
   val enteredNumberLength2 = remember {
     derivedStateOf {
-      true
+      model?.value?.enteredNumber?.length ?: 0
     }
   }
 
@@ -131,7 +119,7 @@ private fun Content(
   ) {
     Spacer(modifier = Modifier.height(height = 16.dp))
 
-    if (creatingPassword.value) {
+    if (creatingPassword) {
       CreatingPassword(
         isConfirmPassword = isConfirmPassword,
         modifier = Modifier
@@ -166,7 +154,6 @@ private fun Content(
 
     CalculatorButtons(
       buttons = buttons,
-      creatingPassword = creatingPassword2,
       enteredNumberLength = enteredNumberLength2,
       action = { component?.action(CalculatorComponent.Action.CalculatorButtonClick(it)) },
       modifier = Modifier
