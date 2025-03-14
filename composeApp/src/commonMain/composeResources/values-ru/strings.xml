@@ -100,7 +100,7 @@
 
     <string name="next">Далее</string>
     <string name="ob_1">Создайте 4-значный пароль</string>
-    <string name="ob_2">Введите '11223344=' если забыли пароль</string>
+    <string name="ob_2">Введите '%1$s=' если забыли пароль</string>
     <string name="ob_3">Начните защищать свои фото и видео</string>
 
     <string name="okay">Окей</string>

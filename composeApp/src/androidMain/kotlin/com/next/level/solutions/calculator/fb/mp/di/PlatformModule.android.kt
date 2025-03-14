@@ -29,7 +29,6 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.mariuszgromada.math.mxparser.Expression
 
 actual val platformModule: Module
   get() = module {

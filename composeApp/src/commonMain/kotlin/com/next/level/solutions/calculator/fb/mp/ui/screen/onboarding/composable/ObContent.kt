@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.continue_
 import calculator_fileblocking.composeapp.generated.resources.skip
+import com.next.level.solutions.calculator.fb.mp.constants.RESET_PASSWORD_CODE
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.screen.onboarding.OnboardingComponent
@@ -196,7 +197,7 @@ private fun Card(
     )
 
     Text(
-      text = stringResource(resource = state.title),
+      text = stringResource(resource = state.title).replace("%1\$s", RESET_PASSWORD_CODE),
       style = TextStyleFactory.FS28.w700(),
       textAlign = TextAlign.Center,
       modifier = Modifier

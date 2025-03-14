@@ -34,7 +34,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.TextAutoSize
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
-import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun CalculatorContent(

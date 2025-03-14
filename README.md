@@ -13,14 +13,13 @@ Calculator - File Blocking
   - [x] ~~Firebase Config~~
   - [ ] Lottie json for Inter
   - [ ] LightMode
-  - [x] Splash
-    - [x] Increment progress time if (!consentState(), !adState())
   - [ ] Browser
     - [ ] BrowserView: multipleWindows ?
     - [x] ~~BrowserComponent: validUrl~~
 - [ ] Android
   - [ ] FileVisibilityManager: removeFromFileData
   - [ ] Ads: reload ?
+  - [ ] SplashScreenApi
 - [ ] iOS
   - [ ] Browser
   - [ ] VideoPlayer

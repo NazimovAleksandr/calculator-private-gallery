@@ -225,6 +225,6 @@ private fun String.text(): String {
     "*" -> "×"
     "/" -> "÷"
     "d" -> "⌫"
-    else -> this.toString()
+    else -> this
   }
 }

@@ -7,7 +7,7 @@
     <string name="enter_four_digit">Enter a 4-digit password and then Press “=”</string>
     <string name="reset">Reset</string>
     <string name="password_do_not_match">Password do not match</string>
-    <string name="cant_enter_more_15">"Can't enter more than 15 digits.</string>
+    <string name="cant_enter_more_15">Can't enter more than 15 digits.</string>
 
     <string name="select_language">Select Language</string>
     <string name="done">Done</string>
@@ -100,7 +100,7 @@
 
     <string name="next">Next</string>
     <string name="ob_1">Create a 4-digit password</string>
-    <string name="ob_2">"Enter '11223344=' if you forget your password</string>
+    <string name="ob_2">Enter '%1$s=' if you forget your password</string>
     <string name="ob_3">Start securing your photos and videos</string>
 
     <string name="okay">Okay</string>
