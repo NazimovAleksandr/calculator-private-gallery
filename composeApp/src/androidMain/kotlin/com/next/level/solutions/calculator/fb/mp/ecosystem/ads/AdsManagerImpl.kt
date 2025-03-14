@@ -51,6 +51,10 @@ class AdsManagerImpl(
     init = true
   }
 
+  override fun consentState(): Boolean {
+    return getConsentInformation(activity).canRequestAds()
+  }
+
   private fun initAds(onComplete: () -> Unit) {
     consentInfoUpdate(activity) {
 //      mintegral(activity)

@@ -10,4 +10,5 @@ interface AdsManager {
   val appOpen: AdsAppOpen
 
   fun init(onComplete: () -> Unit)
+  fun consentState(): Boolean
 }

@@ -86,4 +86,9 @@ class AdsManagerImpl : AdsManager {
     onComplete()
     // TODO("Not yet implemented")
   }
+
+  override fun consentState(): Boolean {
+    // TODO("Not yet implemented")
+    return true
+  }
 }

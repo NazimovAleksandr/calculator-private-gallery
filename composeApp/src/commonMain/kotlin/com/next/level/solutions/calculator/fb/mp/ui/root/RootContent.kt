@@ -8,7 +8,6 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import kotlinx.coroutines.delay
 
 @Composable
 fun RootContent(
@@ -23,7 +22,6 @@ fun RootContent(
   )
 
   LaunchedEffect(key1 = Unit) {
-    delay(200)
     component.action(RootComponent.Action.InitAppConfig)
   }
 }

@@ -13,15 +13,14 @@ Calculator - File Blocking
   - [x] ~~Firebase Config~~
   - [ ] Lottie json for Inter
   - [ ] LightMode
-  - [ ] Splash
-    - [ ] Increment progress time if (!consentState(), !adState())
+  - [x] Splash
+    - [x] Increment progress time if (!consentState(), !adState())
   - [ ] Browser
     - [ ] BrowserView: multipleWindows ?
     - [x] ~~BrowserComponent: validUrl~~
 - [ ] Android
-  - [ ] MainActivity: onComplete init Ads ?
-  - [ ] MainActivity: After openFile DeactivateCollapseSecurity ?
   - [ ] FileVisibilityManager: removeFromFileData
+  - [ ] Ads: reload ?
 - [ ] iOS
   - [ ] Browser
   - [ ] VideoPlayer

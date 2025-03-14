@@ -9,6 +9,7 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
+import com.next.level.solutions.calculator.fb.mp.ecosystem.config.AppConfig
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
@@ -22,6 +23,7 @@ class SplashComponent(
   private val adsManager: AdsManager,
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<Configuration>,
+  private val appConfig: AppConfig,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   private val _progress: MutableValue<Float> by lazy { MutableValue(0f) }
@@ -41,9 +43,9 @@ class SplashComponent(
   private suspend fun runProgress() {
     when {
       progress.value >= 1f -> adsManager.inter.show(::interOff)
-//      progress.value > 0.7f && !consentState() -> incrementProgress(1000)
-//      progress.value > 0.9f && !adState() -> incrementProgress(55)
-      else -> incrementProgress(2)
+      progress.value > 0.7f -> incrementProgress(incrementTime())
+      progress.value > 0.9f -> incrementProgress(incrementTime())
+      else -> incrementProgress(appConfig.splashConfig.incrementTime)
     }
   }
 
@@ -67,6 +69,14 @@ class SplashComponent(
       navigation.replaceCurrent(configuration)
     }
   }
+
+  private fun incrementTime(): Long = when {
+    waitingAdOnSplash() && !adsManager.consentState() -> 1000
+    waitingAdOnSplash() && !adsManager.inter.state() -> 55
+    else -> appConfig.splashConfig.incrementTime
+  }
+
+  private fun waitingAdOnSplash(): Boolean = appConfig.adsConfig.waitingOnSplash
 
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
