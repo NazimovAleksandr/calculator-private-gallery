@@ -20,6 +20,7 @@ import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParserImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChangerImpl
@@ -58,14 +59,7 @@ actual val platformModule: Module
     }
 
     factoryOf(::NetworkManager)
-
-    factory<MathParser> {
-      object : MathParser {
-        override fun calculate(expression: String): Double {
-          return Expression(expression).calculate()
-        }
-      }
-    }
+    factoryOf<MathParser>(::MathParserImpl)
 
     factory {
       ChangerLocalStore(get<Context>().getSharedPreferences("Changer", Context.MODE_PRIVATE))

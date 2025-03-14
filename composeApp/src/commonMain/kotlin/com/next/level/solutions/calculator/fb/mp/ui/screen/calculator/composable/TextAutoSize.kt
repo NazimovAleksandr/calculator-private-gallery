@@ -12,8 +12,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.math.min
 
 @Composable
@@ -24,12 +28,28 @@ fun TextAutoSize(
 ) {
   var scaledTextStyle by remember(text) { mutableStateOf(style) }
   var readyToDraw by remember(text) { mutableStateOf(false) }
+  
+  val annotatedText = buildAnnotatedString {
+    text.forEach { 
+      if (it == '*') {
+        withStyle(style = SpanStyle(
+          color = style.color.copy(alpha = 0.3f),
+          letterSpacing = 4.sp
+        )) {
+          append(it)
+        }
+      } else {
+        append(it)
+      }
+    }
+    
+    if (text.isEmpty()) {
+      append("0")
+    }
+  }
 
   Text(
-    text = when {
-      text.isEmpty() -> "0"
-      else -> text
-    },
+    text = annotatedText,
     style = scaledTextStyle,
     softWrap = false,
     onTextLayout = { textLayoutResult ->

@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +30,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.adamglin.composeshadow.dropShadow
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.operation
@@ -44,47 +45,51 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun CalculatorButtons(
-  buttons: ImmutableList<ImmutableList<Char>>,
+  buttons: ImmutableList<ImmutableList<String>>,
   enteredNumberLength: State<Int>,
   modifier: Modifier = Modifier,
-  space: Dp = 10.dp,
-  action: (Char) -> Unit,
+  contentSpace: Dp = 15.dp,
+  contentPadding: PaddingValues = PaddingValues(0.dp),
+  action: (String) -> Unit,
 ) {
   Content(
     buttons = buttons,
     enteredNumberLength = enteredNumberLength,
     modifier = modifier,
     action = action,
-    space = space,
+    contentSpace = contentSpace,
+    contentPadding = contentPadding,
   )
 }
 
 @Composable
 internal fun CalculatorButtonsPreview(
   modifier: Modifier = Modifier,
-  space: Dp = 10.dp,
+  contentSpace: Dp = 15.dp,
 ) {
   Content(
     buttons = Buttons().getButtons(),
     enteredNumberLength = remember { mutableStateOf(0) },
     modifier = modifier,
-    space = space,
+    contentSpace = contentSpace,
   )
 }
 
 @Composable
 private fun Content(
-  buttons: ImmutableList<ImmutableList<Char>>,
+  buttons: ImmutableList<ImmutableList<String>>,
   enteredNumberLength: State<Int>,
   modifier: Modifier = Modifier,
-  space: Dp = 10.dp,
-  action: (Char) -> Unit = {},
+  contentSpace: Dp = 15.dp,
+  contentPadding: PaddingValues = PaddingValues(0.dp),
+  action: (String) -> Unit = {},
 ) {
   val haptic = LocalHapticFeedback.current
 
   LazyVerticalGrid(
-    verticalArrangement = Arrangement.spacedBy(space = space),
-    horizontalArrangement = Arrangement.spacedBy(space = space),
+    verticalArrangement = Arrangement.spacedBy(space = contentSpace),
+    horizontalArrangement = Arrangement.spacedBy(space = contentSpace),
+    contentPadding = contentPadding,
     columns = GridCells.Fixed(4),
     userScrollEnabled = false,
     reverseLayout = true,
@@ -95,13 +100,13 @@ private fun Content(
       key = { it.toString() }
     ) { buttons ->
       Column(
-        verticalArrangement = Arrangement.spacedBy(space = space),
+        verticalArrangement = Arrangement.spacedBy(space = contentSpace),
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
       ) {
         buttons.forEach { buttonType ->
           val enteredNumberLengthState = when {
-            buttonType == 'd' -> enteredNumberLength
+            buttonType == "d" -> enteredNumberLength
             else -> null
           }
 
@@ -121,7 +126,7 @@ private fun Content(
 
 @Composable
 private fun Button(
-  type: Char,
+  type: String,
   enteredNumberLength: State<Int>?,
   modifier: Modifier = Modifier,
   action: (HapticFeedbackType) -> Unit,
@@ -129,6 +134,11 @@ private fun Button(
   val backgroundColor = when {
     type.operation() -> MaterialTheme.colorScheme.primary
     else -> MaterialTheme.colorScheme.secondary
+  }
+
+  val textColor = when {
+    type.operation() -> MaterialTheme.colorScheme.onPrimary
+    else -> MaterialTheme.colorScheme.onSecondary
   }
 
   val localIndication = LocalIndication.current
@@ -144,7 +154,7 @@ private fun Button(
         is PressInteraction.Press -> {
           longPressJob?.cancel()
           longPressJob = launch {
-            if (type == 'd') {
+            if (type == "d") {
               delay(500)
 
               if (isActive) {
@@ -175,7 +185,7 @@ private fun Button(
 
   Text(
     text = type.text(),
-    color = MaterialTheme.colorScheme.onSecondary,
+    color = textColor,
     style = when {
       type.operation() -> TextStyleFactory.FS36.w400()
       else -> TextStyleFactory.FS32.w400()
@@ -184,11 +194,16 @@ private fun Button(
       .fillMaxWidth()
       .let {
         when (type.operation()) {
-          true -> it.aspectRatio(ratio = 3 / 2.33f)
+//          true -> it.aspectRatio(ratio = 3 / 2.30f)
           else -> it.aspectRatio(ratio = 1f)
         }
       }
-      .clip(shape = CircleShape)
+      .dropShadow(
+        shape = MaterialTheme.shapes.medium,
+        offsetX = 3.dp,
+        offsetY = 3.dp,
+      )
+      .clip(shape = MaterialTheme.shapes.medium)
       .background(color = backgroundColor)
       .clickable(
         interactionSource = interactionSource,
@@ -205,11 +220,11 @@ private fun Button(
   )
 }
 
-private fun Char.text(): String {
+private fun String.text(): String {
   return when (this) {
-    '*' -> "×"
-    '/' -> "÷"
-    'd' -> "⌫"
+    "*" -> "×"
+    "/" -> "÷"
+    "d" -> "⌫"
     else -> this.toString()
   }
 }

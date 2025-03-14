@@ -3,12 +3,14 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.calculator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +28,7 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CalculatorButtons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CreatingPassword
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.TextAutoSize
@@ -68,7 +72,7 @@ private fun Content(
 
   val buttons by remember {
     derivedStateOf {
-      model?.value?.buttons ?: persistentListOf()
+      model?.value?.buttons ?: Buttons().getButtons()
     }
   }
 
@@ -98,7 +102,7 @@ private fun Content(
 
   val enteredNumberLength2 = remember {
     derivedStateOf {
-      model?.value?.enteredNumber?.length ?: 0
+      model?.value?.enteredNumber?.filter { it.isDigit() }?.length ?: 0
     }
   }
 
@@ -112,9 +116,8 @@ private fun Content(
     verticalArrangement = Arrangement.Bottom,
     horizontalAlignment = Alignment.End,
     modifier = modifier
-      .background(color = MaterialTheme.colorScheme.background)
+      .background(color = MaterialTheme.colorScheme.surface)
       .statusBarsPadding()
-      .navigationBarsPadding()
       .pointerInput(key1 = Unit) {}
   ) {
     Spacer(modifier = Modifier.height(height = 16.dp))
@@ -152,20 +155,27 @@ private fun Content(
 
     Spacer(modifier = Modifier.height(height = 24.dp))
 
-    CalculatorButtons(
-      buttons = buttons,
-      enteredNumberLength = enteredNumberLength2,
-      action = { component?.action(CalculatorComponent.Action.CalculatorButtonClick(it)) },
+    Column(
       modifier = Modifier
-        .padding(horizontal = 18.dp)
-    )
+        .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+        .background(color = MaterialTheme.colorScheme.background)
+        .navigationBarsPadding()
+    ) {
+      Spacer(modifier = Modifier.height(height = 16.dp))
 
-    Spacer(modifier = Modifier.height(height = 24.dp))
-
-    withNotNull(component) {
-      nativeAdCard(
-        size = NativeSize.Small,
+      CalculatorButtons(
+        buttons = buttons,
+        enteredNumberLength = enteredNumberLength2,
+        contentPadding = PaddingValues(horizontal = 18.dp, vertical = 24.dp),
+        action = { component?.action(CalculatorComponent.Action.CalculatorButtonClick(it)) },
+        modifier = Modifier
       )
+
+      withNotNull(component) {
+        nativeAdCard(
+          size = NativeSize.Small,
+        )
+      }
     }
   }
 }
