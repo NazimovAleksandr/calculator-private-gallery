@@ -2,8 +2,10 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.calculator
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
@@ -20,8 +22,10 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launch
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
+import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Child
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
+import com.next.level.solutions.calculator.fb.mp.ui.root.SecureQuestionDialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.calculator
 import com.next.level.solutions.calculator.fb.mp.ui.root.home
 import com.next.level.solutions.calculator.fb.mp.ui.root.resetPasswordCode
@@ -29,6 +33,8 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestion
 import com.next.level.solutions.calculator.fb.mp.ui.root.secureQuestionDialog
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.operation
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.reset.code.ResetCodeDialogComponent
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.secure.question.SecureQuestionDialogComponent
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import kotlinx.collections.immutable.ImmutableList
@@ -40,13 +46,15 @@ class CalculatorComponent(
   private val mathParser: MathParser,
   private val navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
-) : RootComponent.Child(adsManager), ComponentContext by componentContext {
+) : Child(adsManager), ComponentContext by componentContext {
 
   private val rootComponent: RootComponent = getRootComponent()
   private val handler: Handler = instance<Handler>(componentContext)
 
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
   val model: Value<Model> get() = _model
+
+  private val innerDialogNavigation: SlotNavigation<DialogConfiguration> = SlotNavigation()
 
   private val enteredNumberRaw: MutableList<String> = mutableListOf()
   private val allNumberRaw: MutableList<String> = mutableListOf()
@@ -56,6 +64,13 @@ class CalculatorComponent(
   private var secureAnswer: String = ""
 
   private val buttons = Buttons()
+
+  val dialog: Value<ChildSlot<*, Child>> = childSlot(
+    source = innerDialogNavigation,
+    serializer = DialogConfiguration.serializer(),
+    handleBackButton = true,
+    childFactory = ::child,
+  )
 
   init {
     launch {
@@ -74,7 +89,7 @@ class CalculatorComponent(
     CalculatorContent(component = this)
   }
 
-  override fun action(action: RootComponent.Child.Action) {
+  override fun action(action: Child.Action) {
     action.updateModel()
 
     launchMain {
@@ -97,7 +112,34 @@ class CalculatorComponent(
     )
   }
 
-  private fun RootComponent.Child.Action.updateModel() {
+  private fun child(
+    configuration: DialogConfiguration,
+    componentContext: ComponentContext,
+  ): Child = configuration.toChild(
+    componentContext = componentContext,
+  )
+
+  private fun DialogConfiguration.toChild(
+    componentContext: ComponentContext,
+  ): Child {
+    componentContext.instanceKeeper.put(componentContext, instanceKeeper())
+
+    return when (this) {
+      is SecureQuestionDialogConfiguration -> SecureQuestionDialogComponent(
+        componentContext = componentContext,
+        adsManager = adsManager,
+        dialogNavigation = innerDialogNavigation,
+      )
+
+      else -> ResetCodeDialogComponent(
+        componentContext = componentContext,
+        adsManager = adsManager,
+        dialogNavigation = innerDialogNavigation,
+      )
+    }
+  }
+
+  private fun Child.Action.updateModel() {
     when (this) {
       is Action.CalculatorButtonClick -> update()
       is Action.SecureQuestion -> update()
@@ -106,7 +148,7 @@ class CalculatorComponent(
     }
   }
 
-  private fun RootComponent.Child.Action.doSomething(): Action? {
+  private fun Child.Action.doSomething(): Action? {
     when (this) {
       is Action.SecureAnswer -> doSomething()
     }
@@ -374,7 +416,12 @@ class CalculatorComponent(
       true -> {
 //        analytics.calculator.secretQuestionPrompt()
         launchMain {
-          dialogNavigation.activate(
+          val nav = when {
+            handler.lockMode -> innerDialogNavigation
+            else -> dialogNavigation
+          }
+
+          nav.activate(
             DialogConfiguration.secureQuestionDialog(_model.value.secureQuestion) {
               action(Action.SecureAnswer(it))
             }
@@ -390,7 +437,14 @@ class CalculatorComponent(
   }
 
   private fun resetPasswordCode() {
-    launchMain { dialogNavigation.activate(DialogConfiguration.resetPasswordCode()) }
+    launchMain {
+      val nav = when {
+        handler.lockMode -> innerDialogNavigation
+        else -> dialogNavigation
+      }
+
+      nav.activate(DialogConfiguration.resetPasswordCode())
+    }
   }
 
   private fun List<String>.isResetPassword(): Boolean {
@@ -492,7 +546,7 @@ class CalculatorComponent(
     val buttons: ImmutableList<ImmutableList<String>>,
   )
 
-  sealed interface Action : RootComponent.Child.Action {
+  sealed interface Action : Child.Action {
     class CalculatorButtonClick(val type: String) : Action
     class SetPassword(val password: String) : Action
 

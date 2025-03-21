@@ -40,10 +40,14 @@ fun CalculatorContent(
   component: CalculatorComponent,
   modifier: Modifier = Modifier,
 ) {
+  val dialog by component.dialog.subscribeAsState()
+
   Content(
     component = component,
     modifier = modifier,
   )
+
+  dialog.child?.instance?.content()
 
   BackHandler(
     backHandler = component.backHandler,
