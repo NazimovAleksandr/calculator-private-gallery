@@ -1,31 +1,15 @@
 # Calculator - File Blocking
-Calculator - File Blocking
+This is a project that provides users with the ability to hide their files behind the calculator functionality.
 
-### Todo list
+# Technology stack
+* Kotlin Multiplatform
+* Jetpack Compose Multiplatform
+* Decompose
+* MVI
+* Koin
+* Room
+* Data store
+* Coroutines
+* Firebase (Analytics, Crashlytics, RemoteConfig)
 
-- [ ] Common
-  - [ ] App Name 
-  - [x] ~~App Icon~~ 
-  - [ ] Privacy Policy
-  - [ ] Terms of service
-  - [x] ~~Firebase Analytics~~
-  - [x] ~~Firebase Crashlytics~~
-  - [x] ~~Firebase Config~~
-  - [ ] Lottie json for Inter
-  - [ ] LightMode
-  - [ ] Browser
-    - [ ] BrowserView: multipleWindows ?
-    - [x] ~~BrowserComponent: validUrl~~
-- [ ] Android
-  - [ ] FileVisibilityManager: removeFromFileData
-  - [ ] Ads: reload ?
-  - [ ] SplashScreenApi
-- [ ] iOS
-  - [ ] Browser
-  - [ ] VideoPlayer
-  - [ ] PlatformExp
-  - [x] ~~Language: Select default language~~
-  - [ ] FileVisibilityManager
-  - [ ] AppEventListener
-  - [ ] NetworkManager
-
+# Screenshot

@@ -15,11 +15,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.HorizontalDivider
@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.hide
 import calculator_fileblocking.composeapp.generated.resources.no_files_selected
@@ -214,26 +215,29 @@ private fun Content(
       val scrollState = rememberScrollState()
 
       Row(
-        horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(space = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
           .align(alignment = Alignment.Start)
           .horizontalScroll(state = scrollState)
           .padding(start = 16.dp, end = 40.dp)
+          .padding(bottom = 8.dp)
       ) {
         folders.forEach { folder ->
           Row(
             horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-              .clip(shape = CircleShape)
+              .clip(shape = MaterialTheme.shapes.small)
               .clickable { component?.action(FileHiderComponent.Action.SelectFolder(folder = folder)) }
-              .padding(vertical = 8.dp)
+              .padding(all = 4.dp)
           ) {
             Text(
               text = folder.name,
               style = TextStyleFactory.FS12.w400(),
               modifier = Modifier
+                .zIndex(zIndex = 99f)
+                .offset(x = 4.dp)
                 .alpha(alpha = 0.9f)
             )
 
@@ -265,17 +269,17 @@ private fun Content(
     FilePicker(
       state = filePickerState,
       files = files,
-      contentPadding = PaddingValues(top = 4.dp, bottom = 40.dp),
+      contentPadding = PaddingValues(bottom = 40.dp),
       onClick = {},
       onSelect = { component?.action(FileHiderComponent.Action.Selected(it)) },
       modifier = Modifier
         .weight(weight = 1f)
-        .padding(
-          horizontal = when (viewType) {
-            PickerMode.Gallery -> 16.dp
-            PickerMode.Folder -> 0.dp
-          }
-        )
+//        .padding(
+//          horizontal = when (viewType) {
+//            PickerMode.Gallery -> 0.dp
+//            PickerMode.Folder -> 0.dp
+//          }
+//        )
     )
 
     HorizontalDivider()

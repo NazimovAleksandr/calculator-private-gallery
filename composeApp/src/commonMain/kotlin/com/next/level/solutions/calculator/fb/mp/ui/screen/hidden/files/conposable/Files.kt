@@ -42,7 +42,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FileP
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerState
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Delete
@@ -142,7 +141,7 @@ private fun ColumnScope.Content(
       FilePicker(
         state = pickerState,
         files = files,
-        contentPadding = PaddingValues(top = 4.dp, bottom = 40.dp),
+        contentPadding = PaddingValues(bottom = 40.dp),
         onClick = { action(HiddenFilesComponent.Action.OpenFilesOpener(it)) },
         onSelect = {
           if (it.isEmpty()) {
@@ -155,12 +154,12 @@ private fun ColumnScope.Content(
         animatedVisibilityScope = animatedVisibilityScope,
         modifier = modifierFilePicker
           .weight(weight = 1f)
-          .padding(
-            horizontal = when (pickerState.mode.value) {
-              PickerMode.Gallery -> 16.dp
-              PickerMode.Folder -> 0.dp
-            },
-          )
+//          .padding(
+//            horizontal = when (pickerState.mode.value) {
+//              PickerMode.Gallery -> 16.dp
+//              PickerMode.Folder -> 0.dp
+//            },
+//          )
       )
 
       when (mode) {
@@ -201,7 +200,7 @@ private fun AddButton(
       action = { action(HiddenFilesComponent.Action.Add) },
       iconStartSize = IconSize(size = 20.dp),
       colors = ButtonColors.default(
-        containerColor = MaterialTheme.colorScheme.tertiary,
+        containerColor = MaterialTheme.colorScheme.primary,
       ),
       modifier = Modifier
         .fillMaxWidth()
@@ -244,7 +243,7 @@ private fun StateButton(
           )
         },
         colors = ButtonColors.default(
-          containerColor = MaterialTheme.colorScheme.secondary,
+          containerColor = MaterialTheme.colorScheme.onSecondary,
         ),
         modifier = Modifier
           .weight(weight = 1f)

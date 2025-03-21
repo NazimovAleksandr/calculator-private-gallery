@@ -37,6 +37,7 @@
     <string name="tip_to_reset_password">Совет по сбросу пароля</string>
     <string name="i_got_it">Понял</string>
 
+    <string name="home">Дом</string>
     <string name="calculator_lock">Блокировка калькулятора</string>
     <string name="private_web_browser">Приватный веб-браузер</string>
     <string name="browser">Браузер</string>

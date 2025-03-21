@@ -119,8 +119,8 @@ private fun Content(
 
       else -> {
         LazyColumn(
-          verticalArrangement = Arrangement.spacedBy(space = 4.dp),
-          contentPadding = PaddingValues(top = 8.dp, bottom = 104.dp),
+          verticalArrangement = Arrangement.spacedBy(space = 2.dp),
+          contentPadding = PaddingValues(top = 0.dp, bottom = 104.dp),
           modifier = Modifier
             .weight(weight = 1f)
         ) {

@@ -93,7 +93,7 @@ fun ChooseDialogContentPreview(
     verticalArrangement = Arrangement.Top,
     horizontalAlignment = Alignment.Start,
     modifier = modifier
-      .background(color = MaterialTheme.colorScheme.secondaryContainer)
+      .background(color = MaterialTheme.colorScheme.surface)
   ) {
     Content()
   }
@@ -128,7 +128,7 @@ private fun Content(
       iconTopSize = IconSize(0.dp),
       iconType = IconType.Image,
       colors = ButtonColors.default(
-        containerColor = MaterialTheme.colorScheme.secondary,
+//        containerColor = MaterialTheme.colorScheme.secondary,
       ),
       action = actionGallery,
       modifier = Modifier
@@ -141,7 +141,7 @@ private fun Content(
       iconTopSize = IconSize(0.dp),
       iconType = IconType.Image,
       colors = ButtonColors.default(
-        containerColor = MaterialTheme.colorScheme.secondary,
+//        containerColor = MaterialTheme.colorScheme.secondary,
       ),
       action = actionFolder,
       modifier = Modifier

@@ -25,7 +25,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -34,9 +33,6 @@ import calculator_fileblocking.composeapp.generated.resources.done
 import calculator_fileblocking.composeapp.generated.resources.select_language
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
-import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
-import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
-import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Tick
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 import org.jetbrains.compose.resources.stringResource
@@ -58,11 +54,11 @@ fun LanguageContentPreview(
   component: LanguageComponent? = null,
   model: LanguageComponent.Model? = null,
 ) {
-    Content(
-      component = component,
-      modelPreview = model,
-      modifier = modifier,
-    )
+  Content(
+    component = component,
+    modelPreview = model,
+    modifier = modifier,
+  )
 }
 
 @Composable
@@ -202,12 +198,6 @@ private fun RowScope.LanguageCard(
         maxLines = 1,
         modifier = Modifier
           .weight(weight = 1f)
-      )
-
-      Image(
-        vector = MagicIcons.All.Tick,
-        modifier = Modifier
-          .alpha(alpha = if (selected) 1f else 0f)
       )
     }
 

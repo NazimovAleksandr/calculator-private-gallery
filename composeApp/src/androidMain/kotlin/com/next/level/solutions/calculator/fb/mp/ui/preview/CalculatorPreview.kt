@@ -56,7 +56,7 @@ private fun ResetPasswordCodeDialog_Preview() {
   AppThemePreview {
     ResetCodeDialogContentPreview(
       modifier = Modifier
-        .background(color = MaterialTheme.colorScheme.secondary)
+        .background(color = MaterialTheme.colorScheme.surface)
     )
   }
 }
@@ -67,7 +67,7 @@ private fun SecureQuestionDialog_Preview() {
   AppThemePreview {
     SecureQuestionDialogContentPreview(
       modifier = Modifier
-        .background(color = MaterialTheme.colorScheme.secondary)
+        .background(color = MaterialTheme.colorScheme.surface)
     )
   }
 }

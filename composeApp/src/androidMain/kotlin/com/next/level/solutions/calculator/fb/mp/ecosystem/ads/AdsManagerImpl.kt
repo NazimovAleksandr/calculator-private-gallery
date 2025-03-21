@@ -66,9 +66,9 @@ class AdsManagerImpl(
 //        unity3d(activity)
 //        vungle()
 
-//        inter.load()
-//        native.init()
-//        appOpen.load()
+        inter.load()
+        native.init()
+        appOpen.load()
       }
 
       MobileAds.initialize(

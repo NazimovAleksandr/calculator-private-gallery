@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.adamglin.composeshadow.dropShadow
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 
@@ -42,7 +43,7 @@ fun ActionButton(
   enabled: Boolean = true,
   style: TextStyle = TextStyleFactory.FS20.w600(),
   colors: ButtonColors = ButtonColors.default(),
-  shape: Shape = RoundedCornerShape(size = 16.dp),
+  shape: Shape = MaterialTheme.shapes.large,
   iconStartSize: IconSize = IconSize(size = 24.dp),
   iconTopSize: IconSize = IconSize(size = 24.dp),
   iconEndSize: IconSize = IconSize(size = 24.dp),
@@ -130,7 +131,7 @@ private fun Content(
   enabled: Boolean = true,
   style: TextStyle = TextStyleFactory.FS20.w600(),
   colors: ButtonColors = ButtonColors.default(),
-  shape: Shape = RoundedCornerShape(size = 16.dp),
+  shape: Shape = MaterialTheme.shapes.large,
   iconStartSize: IconSize = IconSize(size = 24.dp),
   iconTopSize: IconSize = IconSize(size = 24.dp),
   iconEndSize: IconSize = IconSize(size = 24.dp),
@@ -150,6 +151,11 @@ private fun Content(
 
   val textM = remember(key1 = enabled) {
     modifier
+      .dropShadow(
+        shape = shape,
+        offsetX = 3.dp,
+        offsetY = 3.dp,
+      )
       .clip(shape = shape)
       .background(
         color = when (enabled) {
@@ -519,8 +525,8 @@ data class ButtonColors(
     fun default(
       contentColor: Color = MaterialTheme.colorScheme.onPrimary,
       containerColor: Color = MaterialTheme.colorScheme.primary,
-      disabledContentColor: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
-      disabledContainerColor: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.27f),
+      disabledContentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
+      disabledContainerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
     ): ButtonColors = ButtonColors(
       contentColor = contentColor,
       containerColor = containerColor,

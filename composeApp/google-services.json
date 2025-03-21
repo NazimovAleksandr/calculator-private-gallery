@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "524753660288",
+    "project_id": "calculator-demo-66de6",
+    "storage_bucket": "calculator-demo-66de6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524753660288:android:dea13a2b5bc0bc8f5bf965",
+        "android_client_info": {
+          "package_name": "com.next.level.solutions.calculator.fb.mp.demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUXItlhTpdulk8sscNmFJUbty2mJiX6BM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

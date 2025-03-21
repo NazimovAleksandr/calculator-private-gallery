@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.adamglin.composeshadow.dropShadow
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import org.jetbrains.compose.resources.StringResource
@@ -33,8 +34,13 @@ internal fun RowScope.RowCard(
     modifier = Modifier
       .weight(weight = 1f)
       .aspectRatio(ratio = 1f)
+      .dropShadow(
+        shape = MaterialTheme.shapes.extraLarge,
+        offsetX = 3.dp,
+        offsetY = 3.dp,
+      )
       .clip(shape = MaterialTheme.shapes.extraLarge)
-      .background(color = MaterialTheme.colorScheme.secondaryContainer)
+      .background(color = MaterialTheme.colorScheme.onSecondary)
       .clickable(onClick = action)
       .padding(horizontal = 8.dp)
   ) {

@@ -23,7 +23,7 @@ val MagicIcons.All.CheckOn: ImageVector
     ).apply {
       group {
         path(
-          fill = SolidColor(Color(0xFFF09200)),
+          fill = SolidColor(Color(0xFF3C6E71)),
           stroke = SolidColor(Color(0xFFFFFFFF)),
           strokeLineWidth = 2f
         ) {

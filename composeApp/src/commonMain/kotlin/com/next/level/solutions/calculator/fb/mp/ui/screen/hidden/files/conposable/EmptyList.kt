@@ -21,6 +21,7 @@ import calculator_fileblocking.composeapp.generated.resources.add_new_notes
 import calculator_fileblocking.composeapp.generated.resources.add_photo
 import calculator_fileblocking.composeapp.generated.resources.add_videos
 import calculator_fileblocking.composeapp.generated.resources.empty
+import com.adamglin.composeshadow.dropShadow
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
@@ -80,6 +81,11 @@ private fun ColumnScope.Content(
         else -> MagicIcons.All.Plus
       },
       modifier = Modifier
+        .dropShadow(
+          shape = CircleShape,
+          offsetX = 3.dp,
+          offsetY = 3.dp,
+        )
         .clip(shape = CircleShape)
         .background(color = Color(0xFF44ACAC))
         .clickable(

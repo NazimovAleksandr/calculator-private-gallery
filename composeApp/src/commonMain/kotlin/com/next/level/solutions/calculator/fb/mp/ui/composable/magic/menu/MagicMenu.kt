@@ -2,6 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.composable.magic.menu
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.DropdownMenu
@@ -49,6 +50,7 @@ fun MagicMenu(
   modifier: Modifier = Modifier,
   menuModifier: Modifier = Modifier,
   itemModifier: Modifier = Modifier,
+  title: @Composable (() -> Unit)? = null,
 ) {
   Content(
     items = items,
@@ -58,7 +60,8 @@ fun MagicMenu(
     offset = offset,
     modifier = modifier,
     menuModifier = menuModifier,
-    itemModifier = itemModifier
+    itemModifier = itemModifier,
+    title = title,
   )
 }
 
@@ -72,6 +75,7 @@ private fun Content(
   modifier: Modifier = Modifier,
   menuModifier: Modifier = Modifier,
   itemModifier: Modifier = Modifier,
+  title: @Composable (() -> Unit)? = null,
 ) {
   val itemsValue by items
 
@@ -103,34 +107,50 @@ private fun Content(
     contentAlignment = Alignment.TopStart,
     modifier = Modifier
   ) {
-    when (isWithSelected && selected != null) {
-      true -> Text(
-        text = stringResource(resource = selected?.text ?: Res.string.next),
-        style = TextStyleFactory.FS15.w600(),
-        color = textColor,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        modifier = modifier
-          .clip(shape = MaterialTheme.shapes.small)
-          .clickable(onClick = { expanded = true })
-          .padding(vertical = 8.dp)
-          .padding(end = 8.dp)
-      )
+    Row(
+      verticalAlignment = Alignment.CenterVertically,
+      modifier = Modifier.let {
+        if (title == null) it
+        else modifier
+            .clip(shape = MaterialTheme.shapes.small)
+            .clickable(onClick = { expanded = true })
+            .padding(all = 8.dp)
+      }
+    ) {
+      title?.invoke()
 
-      else -> Image(
-        vector = MagicIcons.All.Menu,
-        colorFilter = MaterialTheme.colorScheme.onBackground,
-        modifier = modifier
-          .clip(shape = MaterialTheme.shapes.small)
-          .clickable(onClick = { expanded = true })
-          .padding(all = 8.dp)
-      )
+      when (isWithSelected && selected != null) {
+        true -> Text(
+          text = stringResource(resource = selected?.text ?: Res.string.next),
+          style = TextStyleFactory.FS15.w600(),
+          color = textColor,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          modifier = Modifier.let {
+            if (title != null) it
+            else modifier
+              .clip(shape = MaterialTheme.shapes.small)
+              .clickable(onClick = { expanded = true })
+              .padding(all = 8.dp)
+          }
+        )
+
+        else -> Image(
+          vector = MagicIcons.All.Menu,
+          colorFilter = MaterialTheme.colorScheme.onBackground,
+          modifier = modifier
+            .clip(shape = MaterialTheme.shapes.small)
+            .clickable(onClick = { expanded = true })
+            .padding(all = 8.dp)
+        )
+      }
     }
 
     DropdownMenu(
       expanded = expanded,
       offset = offset,
       onDismissRequest = { expanded = false },
+      containerColor = MaterialTheme.colorScheme.surface,
       modifier = menuModifier,
     ) {
       itemsValue.forEachIndexed { _, item ->

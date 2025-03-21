@@ -21,7 +21,7 @@ val MagicIcons.All.Calculator: ImageVector
       viewportWidth = 90f,
       viewportHeight = 90f
     ).apply {
-      path(fill = SolidColor(Color(0xFF000000))) {
+      path(fill = SolidColor(Color(0xFF3D6063))) {
         moveTo(24f, 0f)
         lineTo(66f, 0f)
         arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 90f, 24f)
@@ -33,7 +33,7 @@ val MagicIcons.All.Calculator: ImageVector
         arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 24f, 0f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF333333))) {
+      path(fill = SolidColor(Color(0xFF353535))) {
         moveTo(25f, 25f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
@@ -53,7 +53,7 @@ val MagicIcons.All.Calculator: ImageVector
         lineToRelative(10.321f, -10.428f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF333333))) {
+      path(fill = SolidColor(Color(0xFF353535))) {
         moveTo(25f, 65f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
@@ -73,7 +73,7 @@ val MagicIcons.All.Calculator: ImageVector
         lineToRelative(14.672f, -0.076f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF333333))) {
+      path(fill = SolidColor(Color(0xFF353535))) {
         moveTo(65f, 65f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
@@ -86,14 +86,14 @@ val MagicIcons.All.Calculator: ImageVector
         lineToRelative(14.672f, -0.076f)
         close()
       }
-      path(fill = SolidColor(Color(0xFFF09200))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(65f, 25f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
       path(
-        stroke = SolidColor(Color(0xFF000000)),
+        stroke = SolidColor(Color(0xFFFFFFFF)),
         strokeLineWidth = 2f,
         strokeLineCap = StrokeCap.Round
       ) {

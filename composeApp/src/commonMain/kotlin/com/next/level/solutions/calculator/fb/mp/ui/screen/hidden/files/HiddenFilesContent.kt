@@ -335,21 +335,21 @@ private fun Content(
                 .clip(shape = MaterialTheme.shapes.small)
             )
           } else {
-            Text(
-              text = stringResource(resource = Res.string.sort_by),
-              style = TextStyleFactory.FS13.w600(),
-              maxLines = 1,
-              overflow = TextOverflow.Ellipsis,
-              modifier = Modifier
-                .padding(top = 6.dp)
-            )
-
             MagicMenu(
               items = menuItems,
               withSelected = true,
               modifier = Modifier
                 .padding(top = 4.dp)
-            )
+            ) {
+              Text(
+                text = stringResource(resource = Res.string.sort_by),
+                style = TextStyleFactory.FS13.w600(),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                  .padding(top = 2.dp, end = 6.dp)
+              )
+            }
           }
         }
       )

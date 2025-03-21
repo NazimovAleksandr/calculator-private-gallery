@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.PhotoModelUI
@@ -68,6 +69,7 @@ fun FilePicker(
   state: PickerState = rememberFilePickerState(),
   files: State<ImmutableList<FileDataUI>>,
   modifier: Modifier = Modifier,
+  contentSpace: Dp = 2.dp,
   contentPadding: PaddingValues = PaddingValues(0.dp),
   sharedTransitionScope: SharedTransitionScope? = null,
   animatedVisibilityScope: AnimatedVisibilityScope? = null,
@@ -81,6 +83,7 @@ fun FilePicker(
     sharedTransitionScope = sharedTransitionScope,
     animatedVisibilityScope = animatedVisibilityScope,
     contentPadding = contentPadding,
+    contentSpace = contentSpace,
     onClick = onClick,
     onSelect = onSelect,
   )
@@ -119,6 +122,7 @@ private fun Content(
   files: State<ImmutableList<FileDataUI>>,
   modifier: Modifier = Modifier,
   state: PickerState = rememberFilePickerState(),
+  contentSpace: Dp = 2.dp,
   contentPadding: PaddingValues = PaddingValues(0.dp),
   sharedTransitionScope: SharedTransitionScope? = null,
   animatedVisibilityScope: AnimatedVisibilityScope? = null,
@@ -170,6 +174,7 @@ private fun Content(
     PickerMode.Gallery -> Gallery(
       modifier = modifier,
       files = files,
+      contentSpace = contentSpace,
       contentPadding = contentPadding,
       currentMode = state.action,
       selectedFiles = selectedFiles,
@@ -182,6 +187,7 @@ private fun Content(
     PickerMode.Folder -> Folder(
       modifier = modifier,
       files = files,
+      contentSpace = contentSpace,
       contentPadding = contentPadding,
       currentMode = state.action,
       selectedFiles = selectedFiles,

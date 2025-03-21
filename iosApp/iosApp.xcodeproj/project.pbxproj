@@ -12,7 +12,7 @@
 		1F7E16D02D8079AA00541B6A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E16CF2D8079AA00541B6A /* FirebaseAnalytics */; };
 		1F7E16D22D8079AA00541B6A /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E16D12D8079AA00541B6A /* FirebaseCrashlytics */; };
 		1F7E16D42D8079AA00541B6A /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E16D32D8079AA00541B6A /* FirebaseRemoteConfig */; };
-		1F7E16D82D808B8C00541B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F7E16D72D808B8C00541B6A /* GoogleService-Info.plist */; };
+		1FB63C102D829BCB004A0B84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FB63C0F2D829BCB004A0B84 /* GoogleService-Info.plist */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1F7E16D72D808B8C00541B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1FB63C0F2D829BCB004A0B84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* Calculator - File Blocking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calculator - File Blocking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				1F7E16D72D808B8C00541B6A /* GoogleService-Info.plist */,
+				1FB63C0F2D829BCB004A0B84 /* GoogleService-Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -166,7 +166,7 @@
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
-				1F7E16D82D808B8C00541B6A /* GoogleService-Info.plist in Resources */,
+				1FB63C102D829BCB004A0B84 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

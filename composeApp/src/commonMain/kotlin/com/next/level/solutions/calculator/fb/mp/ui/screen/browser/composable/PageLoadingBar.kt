@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -32,6 +33,7 @@ internal fun PageLoadingBar(
 
   LinearProgressIndicator(
     progress = { progressValue },
+    color = MaterialTheme.colorScheme.onPrimary,
     trackColor = Color.Transparent,
     drawStopIndicator = {},
     modifier = modifier

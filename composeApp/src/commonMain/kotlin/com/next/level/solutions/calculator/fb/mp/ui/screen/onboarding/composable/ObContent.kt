@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -215,6 +216,7 @@ private fun ColumnScope.ButtonSkip(
     color = MaterialTheme.colorScheme.onSecondary,
     style = TextStyleFactory.FS15.w600(),
     modifier = Modifier
+      .alpha(alpha = 0.3f)
       .padding(end = 16.dp)
       .clip(shape = CircleShape)
       .background(color = MaterialTheme.colorScheme.secondary)

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.ob_2
 import calculator_fileblocking.composeapp.generated.resources.okay
+import com.next.level.solutions.calculator.fb.mp.constants.RESET_PASSWORD_CODE
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.bottom.sheet.BottomSheet
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
@@ -34,7 +34,6 @@ fun ResetCodeDialogContent(
 
   BottomSheet(
     onDismissRequest = ::hide,
-    containerColor = MaterialTheme.colorScheme.secondary,
     content = {
       Content(
         ok = it::dismiss,
@@ -63,7 +62,7 @@ private fun ColumnScope.Content(
   Spacer(modifier = Modifier.height(height = 32.dp))
 
   Text(
-    text = stringResource(resource = Res.string.ob_2),
+    text = stringResource(resource = Res.string.ob_2, RESET_PASSWORD_CODE),
     style = TextStyleFactory.FS28.w700(),
     modifier = Modifier
       .align(alignment = Alignment.CenterHorizontally)

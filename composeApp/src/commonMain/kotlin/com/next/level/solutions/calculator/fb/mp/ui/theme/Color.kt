@@ -4,19 +4,24 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-val DarkBackground = Color(0xFF0F0F0F)
+val DarkBackground = Color(0xFF3D6063)
 val DarkOnBackground = Color(0xFFFFFFFF)
-val DarkPrimary = Color(0xFFF09200)
-val DarkOnPrimary = DarkOnBackground
-val DarkSecondary = Color(0xFF333333)
-val DarkOnSecondary = DarkOnBackground
-val DarkSecondaryContainer = Color(0xFF1D1D1D)
-val DarkOnSecondaryContainer = DarkOnBackground
-val DarkTertiary = Color(0xFF44ACAC)
+//val DarkPrimary = Color(0xFF3C6E71)
+val DarkPrimary = Color(0xFF3A898E)
+//val DarkTertiary = Color(0xFF44ACAC)
+val DarkOnPrimary = Color(0xFFFAFAFA)
+val DarkSecondary = DarkOnPrimary
+val DarkOnSecondary = Color(0xFF353535)
+
+val DarkSecondaryContainer = Color(0xFFC0C0C0)
+val DarkOnSecondaryContainer = Color(0xFFFFFFFF)
+
+val DarkSurface = Color(0xFF6F9395)
+val DarkOnSurface = DarkOnPrimary
+
 val DarkError = Color(0xFFE53935)
 val DarkScrim = Color.Black.copy(alpha = 0.7f)
-val DarkSurface = Color(0xFF505050)
-val DarkSurfaceContainer = DarkSecondary
+val DarkSurfaceContainer = Color(0xFF333333)
 
 val DarkColorScheme = darkColorScheme(
     background = DarkBackground,
@@ -33,11 +38,12 @@ val DarkColorScheme = darkColorScheme(
     secondaryContainer = DarkSecondaryContainer,
     onSecondaryContainer = DarkOnSecondaryContainer,
 
-    tertiary = DarkTertiary,
+    surface = DarkSurface,
+    onSurface = DarkOnSurface,
+
     error = DarkError,
 
     scrim = DarkScrim,
-    surface = DarkSurface,
     surfaceContainer = DarkSurfaceContainer,
 
     outlineVariant = DarkOnBackground.copy(alpha = 0.1f),
@@ -51,7 +57,6 @@ val LightSecondary = Color(0xFF9B9B9B)
 val LightOnSecondary = LightBackground
 val LightSecondaryContainer = Color(0xFFCBCBCB)
 val LightOnSecondaryContainer = LightOnBackground
-val LightTertiary = DarkTertiary
 val LightError = DarkError
 val LightScrim = DarkScrim
 val LightSurface = DarkSurface
@@ -72,7 +77,6 @@ val LightColorScheme = lightColorScheme(
     secondaryContainer = LightSecondaryContainer,
     onSecondaryContainer = LightOnSecondaryContainer,
 
-    tertiary = LightTertiary,
     error = LightError,
 
     scrim = LightScrim,

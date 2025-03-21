@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.files
@@ -82,6 +83,7 @@ import org.jetbrains.compose.resources.stringResource
 internal fun Gallery(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
+  contentSpace: Dp,
   contentPadding: PaddingValues,
   currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
@@ -93,6 +95,7 @@ internal fun Gallery(
   GalleryContent(
     modifier = modifier,
     files = files,
+    contentSpace = contentSpace,
     contentPadding = contentPadding,
     currentMode = currentMode,
     selectedFiles = selectedFiles,
@@ -125,6 +128,7 @@ fun GalleryContentPreview() {
   GalleryContent(
     modifier = Modifier,
     files = remember { mutableStateOf(list) },
+    contentSpace = 2.dp,
     contentPadding = PaddingValues(0.dp),
     currentMode = remember { mutableStateOf(PickerAction.Select) },
     selectedFiles = remember { mutableStateOf(listOf()) },
@@ -140,6 +144,7 @@ fun GalleryContentPreview() {
 private fun GalleryContent(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
+  contentSpace: Dp,
   contentPadding: PaddingValues,
   currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
@@ -162,8 +167,8 @@ private fun GalleryContent(
 
   LazyVerticalGrid(
     columns = GridCells.Fixed(3),
-    verticalArrangement = Arrangement.spacedBy(space = 4.dp),
-    horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+    verticalArrangement = Arrangement.spacedBy(space = contentSpace),
+    horizontalArrangement = Arrangement.spacedBy(space = contentSpace),
     contentPadding = contentPadding,
     content = {
       items(
@@ -319,6 +324,7 @@ private inline fun GalleryCard(
 internal fun Folder(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
+  contentSpace: Dp,
   contentPadding: PaddingValues,
   currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
@@ -328,6 +334,7 @@ internal fun Folder(
   FolderContent(
     modifier = modifier,
     files = files,
+    contentSpace = contentSpace,
     contentPadding = contentPadding,
     currentMode = currentMode,
     selectedFiles = selectedFiles,
@@ -388,6 +395,7 @@ fun FolderContentPreview() {
   FolderContent(
     modifier = Modifier,
     files = remember { mutableStateOf(list) },
+    contentSpace = 2.dp,
     contentPadding = PaddingValues(0.dp),
     currentMode = remember { mutableStateOf(PickerAction.Select) },
     selectedFiles = remember { mutableStateOf(listOf()) },
@@ -400,6 +408,7 @@ fun FolderContentPreview() {
 private fun FolderContent(
   modifier: Modifier,
   files: State<ImmutableList<FileDataUI>>,
+  contentSpace: Dp,
   contentPadding: PaddingValues,
   currentMode: State<PickerAction>,
   selectedFiles: State<List<FileDataUI>>,
@@ -423,7 +432,7 @@ private fun FolderContent(
   }
 
   LazyColumn(
-    verticalArrangement = Arrangement.spacedBy(space = 4.dp),
+    verticalArrangement = Arrangement.spacedBy(space = contentSpace),
     horizontalAlignment = Alignment.Start,
     contentPadding = contentPadding,
     modifier = modifier,
@@ -464,7 +473,7 @@ private inline fun FolderCard(
     horizontalArrangement = Arrangement.Start,
     verticalAlignment = Alignment.CenterVertically,
     modifier = Modifier
-      .background(color = MaterialTheme.colorScheme.secondaryContainer)
+      .background(color = MaterialTheme.colorScheme.surface)
       .padding(vertical = 14.dp)
       .padding(start = 16.dp, end = 8.dp)
       .pointerInput(Unit) {

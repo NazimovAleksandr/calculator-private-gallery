@@ -63,7 +63,6 @@ fun SecureQuestionDialogContent(
 
   BottomSheet(
     onDismissRequest = ::hide,
-    containerColor = MaterialTheme.colorScheme.secondary,
     content = {
       Content(
         question = secureQuestion,

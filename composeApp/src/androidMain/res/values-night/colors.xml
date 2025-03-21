@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary">#FF3A898E</color>
     <color name="ad_body">#FFFFFFFF</color>
-    <color name="window_bg">#FF0F0F0F</color>
+    <color name="window_bg">#FF3D6063</color>
 </resources>

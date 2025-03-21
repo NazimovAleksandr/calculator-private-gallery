@@ -149,7 +149,7 @@ private fun Content(
             style = TextStyleFactory.FS17.w400(),
             contentSpace = ContentSpace(horizontal = 10.dp),
             paddingValues = PaddingValues(start = 16.dp, top = 10.dp, end = 4.dp, bottom = 10.dp),
-            colors = ButtonColors.default(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+            colors = ButtonColors.default(containerColor = MaterialTheme.colorScheme.surface),
             action = { component?.action(SettingsComponent.Action.Item(settingsModelUI)) },
             textModifier = Modifier.weight(weight = 1f),
             modifier = Modifier.fillMaxWidth(),

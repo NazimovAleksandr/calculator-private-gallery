@@ -42,7 +42,7 @@ fun DeleteAllDialogContent(
 
   BottomSheet(
     onDismissRequest = ::hide,
-    containerColor = MaterialTheme.colorScheme.secondary,
+    containerColor = MaterialTheme.colorScheme.background,
     content = {
       Content(
         actionDismiss = it::dismiss,
@@ -61,7 +61,7 @@ fun DeleteAllDialogPreview() {
     verticalArrangement = Arrangement.Top,
     horizontalAlignment = Alignment.Start,
     modifier = Modifier
-      .background(color = MaterialTheme.colorScheme.secondary)
+      .background(color = MaterialTheme.colorScheme.background)
   ) {
     Content()
   }

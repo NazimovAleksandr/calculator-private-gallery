@@ -133,11 +133,13 @@ private fun Button(
 ) {
   val backgroundColor = when {
     type.operation() -> MaterialTheme.colorScheme.primary
+    type.extra() -> MaterialTheme.colorScheme.onSecondary
     else -> MaterialTheme.colorScheme.secondary
   }
 
   val textColor = when {
     type.operation() -> MaterialTheme.colorScheme.onPrimary
+    type.extra() -> MaterialTheme.colorScheme.onPrimary
     else -> MaterialTheme.colorScheme.onSecondary
   }
 
@@ -227,4 +229,10 @@ private fun String.text(): String {
     "d" -> "⌫"
     else -> this
   }
+}
+
+private fun String.extra(): Boolean {
+  return this == "AC"
+      || this == "%"
+      || this == "d"
 }

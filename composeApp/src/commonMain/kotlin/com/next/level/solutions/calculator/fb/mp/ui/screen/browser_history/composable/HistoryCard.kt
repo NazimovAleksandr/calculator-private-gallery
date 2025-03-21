@@ -128,7 +128,7 @@ private fun Content(
     horizontalArrangement = Arrangement.spacedBy(space = 10.dp),
     verticalAlignment = Alignment.CenterVertically,
     modifier = modifier
-      .background(color = MaterialTheme.colorScheme.secondaryContainer)
+      .background(color = MaterialTheme.colorScheme.surface)
       .clickable(onClick = ::onOpenUrl)
       .padding(vertical = 10.dp)
       .padding(start = 16.dp)

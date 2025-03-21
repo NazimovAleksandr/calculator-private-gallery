@@ -115,21 +115,32 @@ class CalculatorComponent(
   }
 
   private fun Action.CalculatorButtonClick.update() {
+    if (type == buttons.doubleZero) {
+      action(Action.CalculatorButtonClick(buttons.zero))
+      action(Action.CalculatorButtonClick(buttons.zero))
+
+      return
+    }
+
+    val creatingPassword = _model.value.creatingPassword
+    val enteredNumberRawSize = enteredNumberRaw.size
+
     if (
-      _model.value.creatingPassword
+      creatingPassword
       && !type.forPassword()
     ) return
 
     if (
-      _model.value.creatingPassword
-      && enteredNumberRaw.size < 4
+      creatingPassword
+      && enteredNumberRawSize < 4
       && type == buttons.equal
     ) return
 
     if (
-      _model.value.creatingPassword
-      && enteredNumberRaw.size >= 4
+      creatingPassword
+      && enteredNumberRawSize >= 4
       && type != buttons.delete
+      && type != buttons.clear
       && type != buttons.equal
     ) return
 
@@ -150,16 +161,10 @@ class CalculatorComponent(
         }
       }
 
-      buttons.doubleZero -> when {
-        enteredRaw.isEmpty() -> enteredRaw + "0" to allRaw
-        enteredRaw.contains(buttons.point) -> enteredRaw + "0" + "0" to allRaw
-        enteredRaw.firstOrNull().isNotZero() -> enteredRaw + "0" + "0" to allRaw
-        else -> enteredRaw/* + type*/ to allRaw
-      }
-
       buttons.zero -> when {
         enteredRaw.contains(buttons.point) -> enteredRaw + type to allRaw
-        enteredRaw.firstOrNull().isNotZero() -> enteredRaw + type to allRaw
+        enteredRaw.firstOrNull().isNotNullAndZero() && creatingPassword -> enteredRaw + type to allRaw
+        enteredRaw.firstOrNull().isNotZero() && !creatingPassword -> enteredRaw + type to allRaw
         else -> enteredRaw/* + type*/ to allRaw
       }
 
@@ -169,7 +174,7 @@ class CalculatorComponent(
       }
 
       buttons.equal -> when {
-        _model.value.creatingPassword -> allRaw to allRaw.also { checkPassword() }
+        creatingPassword -> allRaw to allRaw.also { checkPassword() }
         allRaw.isEmpty() && enteredRaw.isPassword() -> emptyList<String>() to allRaw.also { toHome() }
         allRaw.isEmpty() && enteredRaw.isResetPassword() -> enteredRaw to allRaw.also { resetPassword() }
         else -> allRaw + enteredRaw to emptyList()
@@ -455,12 +460,17 @@ class CalculatorComponent(
     return this != buttons.zero
   }
 
+  private fun String?.isNotNullAndZero(): Boolean {
+    return this!= null && this != buttons.zero
+  }
+
   private fun String?.forPassword(): Boolean {
     return this != buttons.point
         && this != buttons.plus
         && this != buttons.minus
         && this != buttons.divide
         && this != buttons.multiply
+        && this != buttons.percent
   }
 
   /**

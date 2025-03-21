@@ -28,7 +28,7 @@ fun BottomSheet(
   onDismissRequest: () -> Unit,
   sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
   shape: Shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-  containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+  containerColor: Color = MaterialTheme.colorScheme.background,
   dragHandle: @Composable () -> Unit = {
     Box(
       modifier = Modifier

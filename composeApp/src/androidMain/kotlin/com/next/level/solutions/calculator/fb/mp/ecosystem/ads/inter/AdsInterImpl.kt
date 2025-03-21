@@ -11,6 +11,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AdsInterImpl(
   private val activity: Activity,
@@ -68,12 +71,14 @@ class AdsInterImpl(
   }
 
   private fun loadAd() {
-    InterstitialAd.load(
-      /* context = */ activity,
-      /* adUnitId = */ adUnitId,
-      /* adRequest = */ AdRequest.Builder().build(),
-      /* loadCallback = */ adLoadListener()
-    )
+    CoroutineScope(Dispatchers.Main).launch {
+      InterstitialAd.load(
+        /* context = */ activity,
+        /* adUnitId = */ adUnitId,
+        /* adRequest = */ AdRequest.Builder().build(),
+        /* loadCallback = */ adLoadListener()
+      )
+    }
   }
 
   private fun adLoadListener() = object : InterstitialAdLoadCallback() {

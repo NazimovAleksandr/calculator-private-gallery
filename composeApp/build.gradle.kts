@@ -40,6 +40,7 @@ kotlin {
       implementation(compose.preview)
       implementation(libs.androidx.activity.compose)
       implementation(libs.androidx.splashscreen)
+      implementation(libs.androidx.cardview)
       implementation(libs.bundles.admob)
 
       implementation(libs.koin.android)
@@ -57,6 +58,8 @@ kotlin {
       implementation(compose.ui)
       implementation(compose.components.resources)
       implementation(compose.components.uiToolingPreview)
+
+      implementation(libs.compose.shadow)
 
       implementation(libs.androidx.lifecycle.viewmodel)
       implementation(libs.androidx.lifecycle.runtime.compose)
@@ -136,6 +139,7 @@ android {
 
   bundle {
     language {
+      @Suppress("UnstableApiUsage")
       enableSplit = false
     }
   }

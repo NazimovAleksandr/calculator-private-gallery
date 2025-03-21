@@ -10,6 +10,9 @@ import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AdsAppOpenImpl(
   private val activity: Activity,
@@ -75,12 +78,14 @@ class AdsAppOpenImpl(
   }
 
   private fun loadAd() {
-    AppOpenAd.load(
-      activity,
-      adUnitId,
-      AdRequest.Builder().build(),
-      loadCallback()
-    )
+    CoroutineScope(Dispatchers.Main).launch {
+      AppOpenAd.load(
+        activity,
+        adUnitId,
+        AdRequest.Builder().build(),
+        loadCallback()
+      )
+    }
   }
 
   private fun loadCallback() = object : AppOpenAd.AppOpenAdLoadCallback() {
