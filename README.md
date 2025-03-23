@@ -26,18 +26,19 @@ functionality.
 
 <img src="./screenshot/Screenshot_20250321_192448.png" width="240" alt=""/>
 
-### Features
+### Features (Photos, Videos, Files)
 
-<img src="./screenshot/Screenshot_20250321_192401.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250321_192438.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250321_192434.png" width="240" alt=""/>
-<img src="./screenshot/Screenshot_20250321_192416.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250321_192445.png" width="240" alt=""/> 
+<img src="./screenshot/Screenshot_20250321_192401.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250323_185453.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250321_192438.png" width="240" alt=""/>
+<img src="./screenshot/Screenshot_20250321_192434.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250321_192445.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250323_191049.png" width="240" alt=""/> 
+<img src="./screenshot/Screenshot_20250323_191123.png" width="240" alt=""/> 
 
 ### Notes
 
-<img src="./screenshot/Screenshot_20250321_192410.png" width="240" alt=""/>
+<img src="./screenshot/Screenshot_20250323_190700.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250323_190726.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250321_192410.png" width="240" alt=""/>
 
 ### Browser
 
-<img src="./screenshot/Screenshot_20250321_192421.png" width="240" alt=""/>
+<img src="./screenshot/Screenshot_20250321_192421.png" width="240" alt=""/> <img src="./screenshot/Screenshot_20250323_191312.png" width="240" alt=""/>
 
 ### Settings
 

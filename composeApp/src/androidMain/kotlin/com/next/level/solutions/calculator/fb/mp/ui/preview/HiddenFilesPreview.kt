@@ -2,7 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.magiccalculatorlock.ui.screens.hidden.files.conposable.EmptyListPreview
+import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable.EmptyListPreview
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.HiddenFilesContentPreview

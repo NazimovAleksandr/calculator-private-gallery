@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.settings
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.magiccalculatorlock.ui.screens.settings.composable.SettingsSection
+import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.SettingsSection
 import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.TipToResetPassword
 import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton

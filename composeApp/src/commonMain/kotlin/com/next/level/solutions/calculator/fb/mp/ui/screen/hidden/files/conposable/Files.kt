@@ -24,24 +24,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.add_file
+import calculator_fileblocking.composeapp.generated.resources.add_files
 import calculator_fileblocking.composeapp.generated.resources.add_new_notes
-import calculator_fileblocking.composeapp.generated.resources.add_photo
+import calculator_fileblocking.composeapp.generated.resources.add_photos
 import calculator_fileblocking.composeapp.generated.resources.add_videos
 import calculator_fileblocking.composeapp.generated.resources.delete
 import calculator_fileblocking.composeapp.generated.resources.empty
 import calculator_fileblocking.composeapp.generated.resources.restore
 import calculator_fileblocking.composeapp.generated.resources.visible
-import com.magiccalculatorlock.ui.screens.hidden.files.conposable.EmptyList
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.PhotoModelUI
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ButtonColors
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.FilePicker
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerAction
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerState
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.rememberFilePickerState
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Delete
@@ -191,8 +190,8 @@ private fun AddButton(
       text = stringResource(
         resource = when (fileType) {
           PickerType.Video -> Res.string.add_videos
-          PickerType.Photo -> Res.string.add_photo
-          PickerType.File -> Res.string.add_file
+          PickerType.Photo -> Res.string.add_photos
+          PickerType.File -> Res.string.add_files
           PickerType.Note -> Res.string.add_new_notes
           else -> Res.string.empty
         }

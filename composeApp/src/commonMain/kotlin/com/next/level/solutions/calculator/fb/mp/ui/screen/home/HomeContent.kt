@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.browser
 import calculator_fileblocking.composeapp.generated.resources.calculator_lock
-import calculator_fileblocking.composeapp.generated.resources.file
+import calculator_fileblocking.composeapp.generated.resources.files
 import calculator_fileblocking.composeapp.generated.resources.notes
 import calculator_fileblocking.composeapp.generated.resources.photos
 import calculator_fileblocking.composeapp.generated.resources.trash
@@ -136,7 +136,7 @@ private fun Content(
 
       RowCard(
         icon = MagicIcons.All.Folder,
-        text = Res.string.file,
+        text = Res.string.files,
         action = { component?.action(HomeComponent.Action.Files) }
       )
     }

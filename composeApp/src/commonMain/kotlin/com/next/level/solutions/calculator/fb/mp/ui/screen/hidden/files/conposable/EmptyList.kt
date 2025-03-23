@@ -1,4 +1,4 @@
-package com.magiccalculatorlock.ui.screens.hidden.files.conposable
+package com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,9 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.add_file
+import calculator_fileblocking.composeapp.generated.resources.add_files
 import calculator_fileblocking.composeapp.generated.resources.add_new_notes
-import calculator_fileblocking.composeapp.generated.resources.add_photo
+import calculator_fileblocking.composeapp.generated.resources.add_photos
 import calculator_fileblocking.composeapp.generated.resources.add_videos
 import calculator_fileblocking.composeapp.generated.resources.empty
 import com.adamglin.composeshadow.dropShadow
@@ -100,8 +100,8 @@ private fun ColumnScope.Content(
         resource = when (fileType) {
           PickerType.Trash -> Res.string.empty
           PickerType.Video -> Res.string.add_videos
-          PickerType.Photo -> Res.string.add_photo
-          PickerType.File -> Res.string.add_file
+          PickerType.Photo -> Res.string.add_photos
+          PickerType.File -> Res.string.add_files
           PickerType.Note -> Res.string.add_new_notes
         }
       ),

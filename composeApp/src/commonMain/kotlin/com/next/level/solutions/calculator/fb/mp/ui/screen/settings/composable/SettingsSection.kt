@@ -1,4 +1,4 @@
-package com.magiccalculatorlock.ui.screens.settings.composable
+package com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import calculator_fileblocking.composeapp.generated.resources.Res
 import calculator_fileblocking.composeapp.generated.resources.date
-import calculator_fileblocking.composeapp.generated.resources.file
+import calculator_fileblocking.composeapp.generated.resources.files
 import calculator_fileblocking.composeapp.generated.resources.name
 import calculator_fileblocking.composeapp.generated.resources.photos
 import calculator_fileblocking.composeapp.generated.resources.recycle_bin
@@ -295,7 +295,7 @@ private fun Content(
           Text(
             text = stringResource(
               resource = when (fileType) {
-                PickerType.File -> Res.string.file
+                PickerType.File -> Res.string.files
                 PickerType.Photo -> Res.string.photos
                 PickerType.Trash -> Res.string.recycle_bin
                 PickerType.Video -> Res.string.videos

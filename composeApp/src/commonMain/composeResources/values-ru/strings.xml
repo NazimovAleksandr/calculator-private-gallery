@@ -43,13 +43,13 @@
     <string name="browser">Браузер</string>
     <string name="photos">Фото</string>
     <string name="videos">Видео</string>
-    <string name="file">Файл</string>
+    <string name="files">Файлы</string>
     <string name="notes">Заметки</string>
     <string name="recycle_bin">Корзина</string>
 
-    <string name="add_photo">Добавить фото</string>
+    <string name="add_photos">Добавить фото</string>
     <string name="add_videos">Добавить видео</string>
-    <string name="add_file">Добавить файл</string>
+    <string name="add_files">Добавить файлы</string>
     <string name="empty">Пусто</string>
     <string name="choose_images_from">Выберите изображения из</string>
     <string name="choose_videos_from">Выберите видео из</string>
@@ -66,7 +66,6 @@
     <string name="visible">Видимый</string>
     <string name="restore">Восстановить</string>
     <string name="delete">Удалить</string>
-    <string name="files">файлы</string>
     <string name="application_not_found">Приложение не найдено</string>
 
     <string name="secret_notes">Секретные заметки</string>

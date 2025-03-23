@@ -43,13 +43,13 @@
     <string name="browser">Browser</string>
     <string name="photos">Photos</string>
     <string name="videos">Videos</string>
-    <string name="file">File</string>
+    <string name="files">Files</string>
     <string name="notes">Notes</string>
     <string name="recycle_bin">Recycle Bin</string>
 
-    <string name="add_photo">Add Photo</string>
+    <string name="add_photos">Add Photos</string>
     <string name="add_videos">Add Videos</string>
-    <string name="add_file">Add File</string>
+    <string name="add_files">Add Files</string>
     <string name="empty">Empty</string>
     <string name="choose_images_from">Choose Images From</string>
     <string name="choose_videos_from">Choose Videos From</string>
@@ -66,7 +66,6 @@
     <string name="visible">Visible</string>
     <string name="restore">Restore</string>
     <string name="delete">Delete</string>
-    <string name="files">files</string>
     <string name="application_not_found">Application Not Found</string>
 
     <string name="secret_notes">Secret Notes</string>
