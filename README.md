@@ -21,11 +21,8 @@ This is a project that provides users with the ability to hide their files behin
 <img src="./screenshot/Screenshot_20250321_192448.png" width="240" alt="">
 
 ### Features
-<img src="./screenshot/Screenshot_20250321_192401.png" width="240" alt="">
-<img src="./screenshot/Screenshot_20250321_192438.png" width="240" alt="">
-<img src="./screenshot/Screenshot_20250321_192434.png" width="240" alt="">
-<img src="./screenshot/Screenshot_20250321_192416.png" width="240" alt="">
-<img src="./screenshot/Screenshot_20250321_192445.png" width="240" alt="">
+<img src="./screenshot/Screenshot_20250321_192401.png" width="240" alt=""><img src="./screenshot/Screenshot_20250321_192438.png" width="240" alt=""><img src="./screenshot/Screenshot_20250321_192434.png" width="240" alt="">
+<img src="./screenshot/Screenshot_20250321_192416.png" width="240" alt=""><img src="./screenshot/Screenshot_20250321_192445.png" width="240" alt="">
 
 ### Notes
 <img src="./screenshot/Screenshot_20250321_192410.png" width="240" alt="">
