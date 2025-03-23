@@ -4,7 +4,6 @@ Calculator - File Blocking
 ### Todo list
 
 - [ ] Common
-  - [ ] Dialog after AppLock ломает блокировку  
   - [ ] App Name 
   - [ ] Privacy Policy
   - [ ] Terms of service
@@ -16,7 +15,6 @@ Calculator - File Blocking
   - [ ] FileVisibilityManager: use fileData
   - [ ] FileVisibilityManager: removeFromFileData
   - [ ] Ads: reload
-  - [ ] SplashScreenApi
 - [ ] iOS
   - [ ] Browser
   - [ ] VideoPlayer
