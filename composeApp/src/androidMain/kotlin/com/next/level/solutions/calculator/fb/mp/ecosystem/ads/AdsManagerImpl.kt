@@ -45,7 +45,7 @@ class AdsManagerImpl(
     }
 
     networkManager.runAfterNetworkConnection {
-      initAds(onComplete)
+//      initAds(onComplete)
     }
 
     init = true

@@ -4,9 +4,6 @@ Calculator - File Blocking
 ### Todo list
 
 - [ ] Common
-  - [ ] App Name 
-  - [ ] Privacy Policy
-  - [ ] Terms of service
   - [ ] Lottie json for Inter
   - [ ] LightMode
   - [ ] Browser

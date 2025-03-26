@@ -58,8 +58,8 @@ private fun Content(
 
   val webViewState = rememberWebViewState(
     url = when (tos) {
-      true -> "https://www.google.com/search?q=${"Terms of service"}"
-      else -> "https://www.google.com/search?q=${"Privacy policy"}"
+      true -> "https://www.freeprivacypolicy.com/live/fc847603-f386-48ff-8eba-8ec01998433e"
+      else -> "https://www.freeprivacypolicy.com/live/da3b9a34-859c-4028-a2bb-fb02fdf10c6f"
     },
   )
 
