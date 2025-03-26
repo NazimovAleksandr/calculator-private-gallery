@@ -21,7 +21,7 @@ val MagicIcons.All.Calculator: ImageVector
       viewportWidth = 90f,
       viewportHeight = 90f
     ).apply {
-      path(fill = SolidColor(Color(0xFF3D6063))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(24f, 0f)
         lineTo(66f, 0f)
         arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 90f, 24f)
@@ -33,67 +33,67 @@ val MagicIcons.All.Calculator: ImageVector
         arcTo(24f, 24f, 0f, isMoreThanHalf = false, isPositiveArc = true, 24f, 0f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF353535))) {
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
         moveTo(25f, 25f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
-      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(20.759f, 18.743f)
         lineToRelative(10.395f, 10.354f)
         lineToRelative(-2.106f, 2.114f)
         lineToRelative(-10.395f, -10.354f)
         close()
       }
-      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(31.125f, 20.813f)
         lineToRelative(-10.321f, 10.428f)
         lineToRelative(-2.121f, -2.099f)
         lineToRelative(10.321f, -10.428f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF353535))) {
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
         moveTo(25f, 65f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
-      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(26.381f, 57.638f)
         lineToRelative(0.029f, 14.672f)
         lineToRelative(-2.984f, 0.006f)
         lineToRelative(-0.029f, -14.672f)
         close()
       }
-      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(32.248f, 66.431f)
         lineToRelative(-14.672f, 0.076f)
         lineToRelative(-0.015f, -2.984f)
         lineToRelative(14.672f, -0.076f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF353535))) {
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
         moveTo(65f, 65f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
-      path(fill = SolidColor(Color(0xFFFFFFFF))) {
+      path(fill = SolidColor(Color(0xFF3A898E))) {
         moveTo(72.248f, 66.431f)
         lineToRelative(-14.672f, 0.076f)
         lineToRelative(-0.015f, -2.984f)
         lineToRelative(14.672f, -0.076f)
         close()
       }
-      path(fill = SolidColor(Color(0xFF3A898E))) {
+      path(fill = SolidColor(Color(0xFFFFFFFF))) {
         moveTo(65f, 25f)
         moveToRelative(-18f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, 36f, 0f)
         arcToRelative(18f, 18f, 0f, isMoreThanHalf = true, isPositiveArc = true, -36f, 0f)
       }
       path(
-        stroke = SolidColor(Color(0xFFFFFFFF)),
+        stroke = SolidColor(Color(0xFF3A898E)),
         strokeLineWidth = 2f,
         strokeLineCap = StrokeCap.Round
       ) {

@@ -22,8 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import calculator_fileblocking.composeapp.generated.resources.Res
+import calculator_fileblocking.composeapp.generated.resources.app_name
 import calculator_fileblocking.composeapp.generated.resources.browser
-import calculator_fileblocking.composeapp.generated.resources.calculator_lock
 import calculator_fileblocking.composeapp.generated.resources.files
 import calculator_fileblocking.composeapp.generated.resources.notes
 import calculator_fileblocking.composeapp.generated.resources.photos
@@ -87,8 +87,8 @@ private fun Content(
         .fillMaxWidth()
     ) {
       Text(
-        text = stringResource(resource = Res.string.calculator_lock),
-        style = TextStyleFactory.FS28.w700(),
+        text = stringResource(resource = Res.string.app_name),
+        style = TextStyleFactory.FS22.w700(),
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         modifier = Modifier
