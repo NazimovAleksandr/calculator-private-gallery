@@ -40,10 +40,19 @@ class AppConfig(
 
       config.fetchAndActivate()
 
-      adsConfig = Json.decodeFromString(config["ads"])
-      splashConfig = Json.decodeFromString(config["splash"])
+      adsConfig = formJson(config["ads"], ::AdsConfig)
+      splashConfig = formJson(config["splash"], ::SplashConfig)
 
       Logger.d("AppConfig", "fetched")
+    }
+  }
+
+  private inline fun <reified T> formJson(json: String?, constructor: () -> T): T {
+    return try {
+      json ?: throw Exception()
+      Json.decodeFromString(json)
+    } catch (_: Exception) {
+      constructor()
     }
   }
 }
