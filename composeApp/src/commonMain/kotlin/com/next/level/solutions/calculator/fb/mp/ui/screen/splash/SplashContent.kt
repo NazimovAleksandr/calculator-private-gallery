@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.app_name
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.app_name
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons

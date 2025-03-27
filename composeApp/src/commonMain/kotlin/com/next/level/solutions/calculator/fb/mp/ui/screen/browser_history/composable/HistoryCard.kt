@@ -20,8 +20,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.ic_placeholder_icon
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.ic_placeholder_icon
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.CachePolicy

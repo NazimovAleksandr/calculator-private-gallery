@@ -25,9 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.all_images
-import calculator_fileblocking.composeapp.generated.resources.all_videos
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.all_images
+import calculator_privategallery.composeapp.generated.resources.all_videos
 import com.next.level.solutions.calculator.fb.mp.constants.ALL_FILES
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.ParentFolderModelUI

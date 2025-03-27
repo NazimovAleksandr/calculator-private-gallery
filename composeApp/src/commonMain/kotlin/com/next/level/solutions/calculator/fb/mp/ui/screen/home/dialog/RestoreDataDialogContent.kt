@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.restoring_previously_hidden_files
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.restoring_previously_hidden_files
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import org.jetbrains.compose.resources.stringResource
 

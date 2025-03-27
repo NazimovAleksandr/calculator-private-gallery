@@ -17,10 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.are_you_sure_you_want
-import calculator_fileblocking.composeapp.generated.resources.cancel
-import calculator_fileblocking.composeapp.generated.resources.delete_all
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.are_you_sure_you_want
+import calculator_privategallery.composeapp.generated.resources.cancel
+import calculator_privategallery.composeapp.generated.resources.delete_all
 import com.next.level.solutions.calculator.fb.mp.extensions.core.uppercaseFirstChar
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ButtonColors

@@ -1,4 +1,4 @@
-# Calculator - File Blocking
+# Calculator - Private Gallery
 
 This is a project that provides users with the ability to hide their files behind the calculator
 functionality.

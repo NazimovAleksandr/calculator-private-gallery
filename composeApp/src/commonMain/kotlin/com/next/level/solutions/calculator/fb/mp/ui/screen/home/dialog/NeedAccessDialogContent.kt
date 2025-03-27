@@ -15,11 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.allow
-import calculator_fileblocking.composeapp.generated.resources.allow_access_to
-import calculator_fileblocking.composeapp.generated.resources.cancel
-import calculator_fileblocking.composeapp.generated.resources.need_access
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.allow
+import calculator_privategallery.composeapp.generated.resources.allow_access_to
+import calculator_privategallery.composeapp.generated.resources.cancel
+import calculator_privategallery.composeapp.generated.resources.need_access
 import com.next.level.solutions.calculator.fb.mp.extensions.core.uppercaseFirstChar
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ButtonColors

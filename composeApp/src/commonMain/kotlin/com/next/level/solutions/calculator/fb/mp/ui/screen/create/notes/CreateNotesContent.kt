@@ -25,11 +25,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.create_notes
-import calculator_fileblocking.composeapp.generated.resources.enter_title
-import calculator_fileblocking.composeapp.generated.resources.notes
-import calculator_fileblocking.composeapp.generated.resources.type_your_secret_note
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.create_notes
+import calculator_privategallery.composeapp.generated.resources.enter_title
+import calculator_privategallery.composeapp.generated.resources.notes
+import calculator_privategallery.composeapp.generated.resources.type_your_secret_note
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image

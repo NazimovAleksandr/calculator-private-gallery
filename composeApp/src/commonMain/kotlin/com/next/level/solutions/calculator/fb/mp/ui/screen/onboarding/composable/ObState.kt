@@ -1,9 +1,9 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.onboarding.composable
 
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.ob_1
-import calculator_fileblocking.composeapp.generated.resources.ob_2
-import calculator_fileblocking.composeapp.generated.resources.ob_3
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.ob_1
+import calculator_privategallery.composeapp.generated.resources.ob_2
+import calculator_privategallery.composeapp.generated.resources.ob_3
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 

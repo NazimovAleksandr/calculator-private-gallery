@@ -38,11 +38,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.hide
-import calculator_fileblocking.composeapp.generated.resources.no_files_selected
-import calculator_fileblocking.composeapp.generated.resources.no_photos_selected
-import calculator_fileblocking.composeapp.generated.resources.no_videos_selected
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.hide
+import calculator_privategallery.composeapp.generated.resources.no_files_selected
+import calculator_privategallery.composeapp.generated.resources.no_photos_selected
+import calculator_privategallery.composeapp.generated.resources.no_videos_selected
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI

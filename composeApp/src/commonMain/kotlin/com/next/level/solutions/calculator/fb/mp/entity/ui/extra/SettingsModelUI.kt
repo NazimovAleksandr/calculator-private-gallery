@@ -1,16 +1,16 @@
 package com.next.level.solutions.calculator.fb.mp.entity.ui.extra
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.change_password
-import calculator_fileblocking.composeapp.generated.resources.change_security_question
-import calculator_fileblocking.composeapp.generated.resources.language
-import calculator_fileblocking.composeapp.generated.resources.more
-import calculator_fileblocking.composeapp.generated.resources.privacy_policy
-import calculator_fileblocking.composeapp.generated.resources.rate_5_stars
-import calculator_fileblocking.composeapp.generated.resources.security
-import calculator_fileblocking.composeapp.generated.resources.share_with_friends
-import calculator_fileblocking.composeapp.generated.resources.tos
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.change_password
+import calculator_privategallery.composeapp.generated.resources.change_security_question
+import calculator_privategallery.composeapp.generated.resources.language
+import calculator_privategallery.composeapp.generated.resources.more
+import calculator_privategallery.composeapp.generated.resources.privacy_policy
+import calculator_privategallery.composeapp.generated.resources.rate_5_stars
+import calculator_privategallery.composeapp.generated.resources.security
+import calculator_privategallery.composeapp.generated.resources.share_with_friends
+import calculator_privategallery.composeapp.generated.resources.tos
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.ChangePassword
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.ChangeSecurityQuestion

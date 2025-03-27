@@ -14,9 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.ob_2
-import calculator_fileblocking.composeapp.generated.resources.okay
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.ob_2
+import calculator_privategallery.composeapp.generated.resources.okay
 import com.next.level.solutions.calculator.fb.mp.constants.RESET_PASSWORD_CODE
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.bottom.sheet.BottomSheet

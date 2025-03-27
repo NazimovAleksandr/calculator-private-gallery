@@ -33,10 +33,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.continue_
-import calculator_fileblocking.composeapp.generated.resources.enter_secret_word
-import calculator_fileblocking.composeapp.generated.resources.security_question
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.continue_
+import calculator_privategallery.composeapp.generated.resources.enter_secret_word
+import calculator_privategallery.composeapp.generated.resources.security_question
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton

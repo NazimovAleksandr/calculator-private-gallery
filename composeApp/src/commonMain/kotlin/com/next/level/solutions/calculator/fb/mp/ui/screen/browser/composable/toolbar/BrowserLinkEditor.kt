@@ -37,9 +37,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.ic_placeholder_icon
-import calculator_fileblocking.composeapp.generated.resources.link_copied
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.ic_placeholder_icon
+import calculator_privategallery.composeapp.generated.resources.link_copied
 import coil3.Bitmap
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage

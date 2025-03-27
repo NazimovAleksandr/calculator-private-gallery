@@ -35,9 +35,9 @@ import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.continue_
-import calculator_fileblocking.composeapp.generated.resources.skip
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.continue_
+import calculator_privategallery.composeapp.generated.resources.skip
 import com.next.level.solutions.calculator.fb.mp.constants.RESET_PASSWORD_CODE
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image

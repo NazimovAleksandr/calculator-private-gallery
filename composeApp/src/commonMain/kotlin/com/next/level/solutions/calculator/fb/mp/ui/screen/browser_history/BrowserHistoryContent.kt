@@ -24,10 +24,10 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import calculator_fileblocking.composeapp.generated.resources.Res
-import calculator_fileblocking.composeapp.generated.resources.delete_all
-import calculator_fileblocking.composeapp.generated.resources.history
-import calculator_fileblocking.composeapp.generated.resources.your_history_is_empty
+import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.delete_all
+import calculator_privategallery.composeapp.generated.resources.history
+import calculator_privategallery.composeapp.generated.resources.your_history_is_empty
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
