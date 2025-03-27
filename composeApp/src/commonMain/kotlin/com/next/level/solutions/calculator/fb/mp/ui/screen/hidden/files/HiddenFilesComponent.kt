@@ -246,6 +246,7 @@ class HiddenFilesComponent(
       delay(500)
 
       fileVisibilityManager.moveToVisibleFiles(
+        fileType = handler.fileType,
         files = files,
       ) {
         database.delete(

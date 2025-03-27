@@ -23,7 +23,8 @@ class AppDatastore(
 
   private val policyState: Preferences.Key<Boolean> = booleanPreferencesKey("policy")
   private val languageState: Preferences.Key<Boolean> = booleanPreferencesKey("language")
-  private val tipToResetPassword: Preferences.Key<Boolean> = booleanPreferencesKey("language")
+  private val tipToResetPassword: Preferences.Key<Boolean> = booleanPreferencesKey("tipToResetPassword")
+  private val checkedOldFilesState: Preferences.Key<Boolean> = booleanPreferencesKey("checkedOldFiles")
 
   private val passwordState: Preferences.Key<String> = stringPreferencesKey("password")
   private val secureQuestionState: Preferences.Key<String> = stringPreferencesKey("secureQuestion")
@@ -31,32 +32,39 @@ class AppDatastore(
 
   private val languageName: Preferences.Key<String> = stringPreferencesKey("languageName")
 
-  suspend fun policyStateOnce(): Boolean = policyState.get().first() == true
+  suspend fun policyStateOnce(): Boolean = policyState.getOrDef(false).first()
   suspend fun policyState(value: Boolean): Unit = policyState.set(value)
 
-  suspend fun languageStateOnce(): Boolean = languageState.get().first() == true
+  suspend fun languageStateOnce(): Boolean = languageState.getOrDef(false).first()
   suspend fun languageState(value: Boolean): Unit = languageState.set(value)
 
-  fun tipToResetPassword(): Flow<Boolean?> = tipToResetPassword.get()
+  suspend fun checkedOldFilesStateOnce(): Boolean = checkedOldFilesState.getOrDef(false).first()
+  suspend fun checkedOldFilesState(value: Boolean): Unit = checkedOldFilesState.set(value)
+
+  fun tipToResetPassword(): Flow<Boolean> = tipToResetPassword.getOrDef(true)
   suspend fun tipToResetPassword(value: Boolean): Unit = tipToResetPassword.set(value)
 
-  fun languageName(): Flow<String?> = languageName.get()
+  fun languageName(): Flow<String?> = languageName.getOrDef("en")
   suspend fun languageName(value: String): Unit = languageName.set(value)
 
-  suspend fun passwordStateOnce(): String = passwordState.get().first() ?: ""
+  suspend fun passwordStateOnce(): String = passwordState.getOrDef("").first()
   suspend fun passwordState(value: String): Unit = passwordState.set(value)
 
-  suspend fun secureQuestionStateOnce(): String? = secureQuestionState.get().first()
+  suspend fun secureQuestionStateOnce(): String? = secureQuestionState.getOrNull().first()
   suspend fun secureQuestionState(value: String): Unit = secureQuestionState.set(value)
 
-  suspend fun secureAnswerStateOnce(): String? = secureAnswerState.get().first()
+  suspend fun secureAnswerStateOnce(): String? = secureAnswerState.getOrNull().first()
   suspend fun secureAnswerState(value: String): Unit = secureAnswerState.set(value)
 
   private suspend fun <V> Preferences.Key<V>.set(value: V) {
     dataStore.edit { it[this] = value }
   }
 
-  private fun <V> Preferences.Key<V>.get(): Flow<V?> {
+  private fun <V> Preferences.Key<V>.getOrDef(default: V): Flow<V> {
+    return dataStore.data.map { it[this] ?: default }
+  }
+
+  private fun <V> Preferences.Key<V>.getOrNull(): Flow<V?> {
     return dataStore.data.map { it[this] }
   }
 }

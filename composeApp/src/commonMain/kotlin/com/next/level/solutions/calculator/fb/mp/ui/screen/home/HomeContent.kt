@@ -31,6 +31,7 @@ import calculator_fileblocking.composeapp.generated.resources.trash
 import calculator_fileblocking.composeapp.generated.resources.videos
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
+import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Browser
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Folder
@@ -52,6 +53,10 @@ fun HomeContent(
   Content(
     component = component,
     modifier = modifier,
+  )
+
+  LifecycleEventListener(
+    onStart = { component.action(HomeComponent.Action.OnStart) },
   )
 }
 

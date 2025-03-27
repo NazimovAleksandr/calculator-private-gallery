@@ -116,4 +116,6 @@
     <string name="need_access">Требуется доступ</string>
     <string name="allow_access_to">Разрешите доступ к фото и видео для управления медиафайлами.</string>
     <string name="allow">Разрешить</string>
+
+    <string name="restoring_previously_hidden_files">Восстановление ранее скрытых файлов</string>
 </resources>

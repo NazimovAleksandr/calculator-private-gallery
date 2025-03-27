@@ -117,4 +117,5 @@
     <string name="allow_access_to">Allow access to your photos and videos to manage your media files.</string>
     <string name="allow">Allow</string>
 
+    <string name="restoring_previously_hidden_files">Restoring previously hidden files</string>
 </resources>

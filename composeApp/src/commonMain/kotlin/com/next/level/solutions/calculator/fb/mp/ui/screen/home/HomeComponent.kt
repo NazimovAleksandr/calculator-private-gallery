@@ -5,21 +5,32 @@ import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.slot.activate
+import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
+import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
+import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
+import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
-import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
+import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
+import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.browser
 import com.next.level.solutions.calculator.fb.mp.ui.root.hiddenFiles
 import com.next.level.solutions.calculator.fb.mp.ui.root.needAccessDialog
+import com.next.level.solutions.calculator.fb.mp.ui.root.restoreDataDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.settings
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.measureTime
 
 @Stable
 class HomeComponent(
@@ -27,6 +38,9 @@ class HomeComponent(
   private val adsManager: AdsManager,
   private val navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
+  private val appDatabase: AppDatabase,
+  private val appDatastore: AppDatastore,
+  private val fileVisibilityManager: FileVisibilityManager,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   init {
@@ -50,12 +64,21 @@ class HomeComponent(
 
     when (this) {
       is Action.Ad -> adsManager.inter.show {}
-//      is Action.SetAdState -> adState = event.state
-//      is Action.OnStart -> checkFiles(event.context)
       is Action.Settings -> navigation.pushNew(Configuration.settings())
+      is Action.OnStart -> launchIO { restoreOldHiddenFiles() }
+      is Action.RestoreDataOn -> restoreDataOn()
+      is Action.RestoreDataOff -> restoreDataOff()
 
       else -> navigateOrShowInter()
     }
+  }
+
+  private fun restoreDataOn() {
+    dialogNavigation.activate(DialogConfiguration.restoreDataDialog())
+  }
+
+  private fun restoreDataOff() {
+    dialogNavigation.dismiss()
   }
 
   private fun RootComponent.Child.Action.checkExternalStorage(): Boolean? {
@@ -136,6 +159,39 @@ class HomeComponent(
     }
   }
 
+  private suspend fun restoreOldHiddenFiles() {
+    if (!PlatformExp.externalStoragePermissionGranted()) return
+    if (appDatastore.checkedOldFilesStateOnce()) return
+
+    appDatastore.checkedOldFilesState(true)
+
+    if (!fileVisibilityManager.checkInvisibleFiles()) return
+
+    action(Action.RestoreDataOn)
+
+    val time = measureTime {
+      PickerType.entries.forEach { fileType ->
+        val files: List<FileDataUI> = fileVisibilityManager.invisibleFiles(
+          fileType = fileType,
+          forRestore = true,
+        )
+
+        if (files.isEmpty()) return@forEach
+
+        appDatabase.insert(
+          type = fileType,
+          files = files,
+        )
+      }
+    }
+
+    Logger.d(TAG, "restoreOldHiddenFiles: time = $time")
+
+    if (time < 1.seconds) delay(1.seconds - time)
+
+    action(Action.RestoreDataOff)
+  }
+
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
@@ -150,7 +206,8 @@ class HomeComponent(
     object Photos : Action
     object Videos : Action
     object Files : Action
-//    object OnStart : Action
-//    class SetAdState(val state: AdState) : Action
+    object OnStart : Action
+    object RestoreDataOn : Action
+    object RestoreDataOff : Action
   }
 }

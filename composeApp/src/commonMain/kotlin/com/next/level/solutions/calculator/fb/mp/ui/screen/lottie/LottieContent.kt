@@ -81,7 +81,7 @@ private fun Content(
   val progress by animateLottieCompositionAsState(
     composition = composition,
     speed = speed,
-    iterations = 3,
+    iterations = 2,
   )
 
   if (progress == 1.0f) {

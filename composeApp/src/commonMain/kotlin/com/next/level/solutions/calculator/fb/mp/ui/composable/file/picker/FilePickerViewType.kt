@@ -312,7 +312,7 @@ private inline fun GalleryCard(
         modifier = Modifier
           .padding(all = 4.dp)
           .clip(shape = MaterialTheme.shapes.small)
-          .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f))
+          .background(color = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.4f))
           .padding(all = 4.dp)
           .align(alignment = Alignment.BottomEnd)
       )
