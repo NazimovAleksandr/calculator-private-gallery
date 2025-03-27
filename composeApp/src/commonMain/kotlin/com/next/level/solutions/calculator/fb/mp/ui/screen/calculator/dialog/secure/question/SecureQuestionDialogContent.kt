@@ -115,6 +115,7 @@ private fun ColumnScope.Content(
     style = TextStyleFactory.FS28.w700(),
     modifier = Modifier
       .align(alignment = Alignment.CenterHorizontally)
+      .padding(horizontal = 50.dp)
   )
 
   Spacer(modifier = Modifier.height(height = 17.dp))

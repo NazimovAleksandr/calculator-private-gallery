@@ -127,9 +127,8 @@ private fun Content(
         .padding(top = 2.dp, bottom = 36.dp)
     ) {
       modelValue?.languages?.forEach { items ->
-        Row(
-          horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
-          verticalAlignment = Alignment.Top,
+        Column(
+          verticalArrangement = Arrangement.spacedBy(space = 12.dp),
           modifier = Modifier
         ) {
           val firstLanguage = items[0]
@@ -170,7 +169,7 @@ private fun Content(
 }
 
 @Composable
-private fun RowScope.LanguageCard(
+private fun LanguageCard(
   language: String?,
   selected: Boolean,
   onClick: () -> Unit,
@@ -185,16 +184,16 @@ private fun RowScope.LanguageCard(
       horizontalArrangement = Arrangement.Start,
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier
-        .weight(weight = 1f)
+        .fillMaxWidth()
         .clip(shape = MaterialTheme.shapes.large)
         .background(color = backgroundColor)
         .clickable(onClick = onClick)
-        .padding(all = 16.dp)
+        .padding(all = 24.dp)
     ) {
       Text(
         text = language,
         color = MaterialTheme.colorScheme.onSecondary,
-        style = TextStyleFactory.FS14.w600(),
+        style = TextStyleFactory.FS16.w600(),
         maxLines = 1,
         modifier = Modifier
           .weight(weight = 1f)
@@ -203,7 +202,7 @@ private fun RowScope.LanguageCard(
 
     else -> Box(
       modifier = Modifier
-        .weight(weight = 1f)
+        .fillMaxWidth()
     )
   }
 

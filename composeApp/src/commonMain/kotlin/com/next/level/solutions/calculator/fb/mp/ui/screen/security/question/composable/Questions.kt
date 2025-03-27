@@ -104,6 +104,7 @@ internal inline fun Questions(
 
       Image(
         vector = MagicIcons.All.ArrowDown,
+        colorFilter = MaterialTheme.colorScheme.primary,
         modifier = Modifier
       )
     }

@@ -34,7 +34,7 @@ fun TextAutoSize(
       if (it == '*') {
         withStyle(style = SpanStyle(
           color = style.color.copy(alpha = 0.3f),
-          letterSpacing = 4.sp
+          letterSpacing = 12.sp
         )) {
           append(it)
         }

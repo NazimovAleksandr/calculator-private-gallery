@@ -45,7 +45,6 @@ fun NeedAccessDialogContent(
 
   BottomSheet(
     onDismissRequest = ::hide,
-    containerColor = MaterialTheme.colorScheme.secondary,
   ) {
     Content(
       actionDismiss = it::dismiss,

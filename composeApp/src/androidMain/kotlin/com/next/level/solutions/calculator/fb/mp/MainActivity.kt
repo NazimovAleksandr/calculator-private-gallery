@@ -127,11 +127,6 @@ class MainActivity : ComponentActivity() {
     expect = null
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    inject<AdsManager>().value.native.destroy()
-  }
-
   override fun onConfigurationChanged(newConfig: Configuration) {
     super.onConfigurationChanged(newConfig)
 
@@ -351,7 +346,7 @@ class MainActivity : ComponentActivity() {
 
   private fun requestExternalStoragePermission() {
     lifecycleScope.launch(Dispatchers.Main) {
-      while (expect?.value?.externalStoragePermissionGranted?.invoke() == false) {
+      while (!externalStoragePermissionGranted()) {
         delay(300)
       }
 
