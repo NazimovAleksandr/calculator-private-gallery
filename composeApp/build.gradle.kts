@@ -86,6 +86,8 @@ kotlin {
       implementation(libs.coil3.compose)
       implementation(libs.coil3.video)
 
+      implementation(libs.gson)
+
       implementation(libs.compottie)
       implementation(libs.webview.multiplatform)
       implementation(libs.ktor.client.core)
@@ -115,12 +117,15 @@ android {
   compileSdk = libs.versions.android.compileSdk.get().toInt()
 
   defaultConfig {
-    applicationId = "com.next.level.solutions.calculator.fb.mp.demo"
+    val appId = "com.next.level.solutions.calculator.fb.mp.demo"
+    fun demo() = appId.contains("demo")
+
+    applicationId = appId
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
 
     versionCode = libs.versions.android.versionCode.get().toInt()
-    versionName = libs.versions.android.versionName.get()
+    versionName = libs.versions.android.versionName.get() + if (demo()) ".demo" else ""
 
     manifestPlaceholders.apply {
       set("resizeableActivity", false)

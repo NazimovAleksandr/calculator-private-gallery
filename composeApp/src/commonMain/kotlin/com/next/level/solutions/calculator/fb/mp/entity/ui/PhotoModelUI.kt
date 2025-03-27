@@ -3,7 +3,6 @@ package com.next.level.solutions.calculator.fb.mp.entity.ui
 import com.next.level.solutions.calculator.fb.mp.entity.db.PhotoModelDB
 import com.next.level.solutions.calculator.fb.mp.entity.db.TrashModelDB
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 
 data class PhotoModelUI(
   override val path: String,
@@ -45,7 +44,5 @@ data class PhotoModelUI(
     dateHidden = dateHidden,
     dateModified = dateModified,
     hiddenPath = hiddenPath,
-  ).apply {
-    Logger.d("TAG", "PhotoModelUI.toTrashDB.type: $type")
-  }
+  )
 }

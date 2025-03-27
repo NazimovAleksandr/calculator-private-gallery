@@ -65,8 +65,14 @@ class FileVisibilityManagerImpl : FileVisibilityManager {
       date = NSDate.dateWithTimeIntervalSince1970(currentTimeMillis() / 1000.0),
     )
 
+  override fun checkInvisibleFiles(): Boolean {
+    // TODO("Not yet implemented")
+    return false
+  }
+
   override fun invisibleFiles(
     fileType: PickerType,
+    forRestore: Boolean,
   ): List<FileDataUI> {
     NSFileManager.defaultManager.createHiddenDirectory(fileType)
     return fileType.loadHiddenFiles()
@@ -109,6 +115,7 @@ class FileVisibilityManagerImpl : FileVisibilityManager {
   }
 
   override suspend fun moveToVisibleFiles(
+    fileType: PickerType,
     files: List<FileDataUI>,
     callBack: suspend (List<FileDataUI>) -> Unit,
   ) {

@@ -9,8 +9,6 @@ Calculator - File Blocking
   - [ ] Browser
     - [ ] BrowserView: multipleWindows
 - [ ] Android
-  - [ ] FileVisibilityManager: use fileData
-  - [ ] FileVisibilityManager: removeFromFileData
   - [ ] Ads: reload
 - [ ] iOS
   - [ ] App Name

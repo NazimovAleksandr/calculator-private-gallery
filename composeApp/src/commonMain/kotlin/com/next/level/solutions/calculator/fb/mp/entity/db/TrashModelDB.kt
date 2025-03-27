@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.next.level.solutions.calculator.fb.mp.entity.ui.TrashModelUI
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerType
-import com.next.level.solutions.calculator.fb.mp.utils.Logger
 
 @Entity(tableName = "trash_db")
 data class TrashModelDB(
@@ -30,8 +29,6 @@ data class TrashModelDB(
     dateModified = dateModified,
     hiddenPath = hiddenPath,
   ).also {
-    Logger.d("TAG", "TrashModelDB.toUI.type: $type")
-
     it.fileType = when (type) {
       PickerType.File.name -> PickerType.File
       PickerType.Note.name -> PickerType.Note
@@ -39,8 +36,6 @@ data class TrashModelDB(
       PickerType.Trash.name -> PickerType.Trash
       else -> PickerType.Video
     }
-
-    Logger.d("TAG", "TrashModelDB.toUI.it.fileType: ${it.fileType}")
 
     it.duration = duration
   }

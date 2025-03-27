@@ -48,6 +48,7 @@ media3-ui = "1.5.1"
 compottie = "2.0.0-rc04"
 webview-multiplatform = "1.9.40"
 ktor = "3.1.0"
+gson = "2.12.1"
 
 ad-admob = "24.1.0"
 #ad-mediation-vungle = "7.4.2.0"
@@ -111,6 +112,8 @@ media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3-ui" }
 
 coil3-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil3-video = { module = "io.coil-kt.coil3:coil-video", version.ref = "coil3" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
 #compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }

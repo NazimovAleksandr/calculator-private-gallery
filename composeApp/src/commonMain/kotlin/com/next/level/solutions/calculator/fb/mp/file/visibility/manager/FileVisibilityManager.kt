@@ -6,8 +6,11 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.Picke
 import com.next.level.solutions.calculator.fb.mp.ui.composable.file.picker.PickerMode
 
 interface FileVisibilityManager {
+  fun checkInvisibleFiles(): Boolean
+
   fun invisibleFiles(
     fileType: PickerType,
+    forRestore: Boolean = false,
   ): List<FileDataUI>
 
   fun visibleFiles(
@@ -29,6 +32,7 @@ interface FileVisibilityManager {
   )
 
   suspend fun moveToVisibleFiles(
+    fileType: PickerType,
     files: List<FileDataUI>,
     callBack: suspend (List<FileDataUI>) -> Unit,
   )
