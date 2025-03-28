@@ -118,4 +118,7 @@
     <string name="allow">Allow</string>
 
     <string name="restoring_previously_hidden_files">Restoring previously hidden files</string>
+    <string name="thank_you_for_helping">Thank you for your help in the development of the project</string>
+    <string name="ads">Watch the ADS, support the project</string>
+    <string name="ad_will_be_shown">Ad will be shown</string>
 </resources>

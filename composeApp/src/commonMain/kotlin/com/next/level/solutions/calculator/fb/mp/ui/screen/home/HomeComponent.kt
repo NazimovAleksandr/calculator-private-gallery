@@ -24,6 +24,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configura
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.browser
 import com.next.level.solutions.calculator.fb.mp.ui.root.hiddenFiles
+import com.next.level.solutions.calculator.fb.mp.ui.root.interDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.needAccessDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.restoreDataDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.settings
@@ -35,7 +36,7 @@ import kotlin.time.measureTime
 @Stable
 class HomeComponent(
   componentContext: ComponentContext,
-  private val adsManager: AdsManager,
+  val adsManager: AdsManager,
   private val navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
   private val appDatabase: AppDatabase,
@@ -63,7 +64,7 @@ class HomeComponent(
     checkExternalStorage() ?: return
 
     when (this) {
-      is Action.Ad -> adsManager.inter.show {}
+      is Action.Ad -> dialogNavigation.activate(DialogConfiguration.interDialog())
       is Action.Settings -> navigation.pushNew(Configuration.settings())
       is Action.OnStart -> launchIO { restoreOldHiddenFiles() }
       is Action.RestoreDataOn -> restoreDataOn()

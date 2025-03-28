@@ -5,6 +5,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInter
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
 
 interface AdsManager {
+  val state: Boolean
   val inter: AdsInter
   val native: AdsNative
   val appOpen: AdsAppOpen

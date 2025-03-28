@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,12 +17,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import calculator_privategallery.composeapp.generated.resources.Res
+import calculator_privategallery.composeapp.generated.resources.ads
 import calculator_privategallery.composeapp.generated.resources.app_name
 import calculator_privategallery.composeapp.generated.resources.browser
 import calculator_privategallery.composeapp.generated.resources.files
@@ -30,9 +34,14 @@ import calculator_privategallery.composeapp.generated.resources.photos
 import calculator_privategallery.composeapp.generated.resources.trash
 import calculator_privategallery.composeapp.generated.resources.videos
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
+import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
+import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ContentSpace
+import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconSize
+import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
+import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Ads
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Browser
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Folder
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Notes
@@ -120,6 +129,30 @@ private fun Content(
     }
 
     Spacer(modifier = Modifier.height(height = 10.dp))
+
+    if (component?.adsManager?.state == true) {
+      val interState by remember {
+        component.adsManager.inter.state()
+      }
+
+      ActionButton(
+        enabled = interState,
+        text = stringResource(resource = Res.string.ads),
+        textMaxLines = Int.MAX_VALUE,
+        style = TextStyleFactory.FS16.w600(),
+        iconStart = MagicIcons.All.Ads,
+        iconType = IconType.Image,
+        iconStartSize = IconSize(size = 44.dp),
+        contentSpace = ContentSpace(horizontal = 36.dp),
+        paddingValues = PaddingValues(vertical = 20.dp, horizontal = 32.dp),
+        action = { component.action(HomeComponent.Action.Ad) },
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(horizontal = 16.dp)
+      )
+
+      Spacer(modifier = Modifier.height(height = 10.dp))
+    }
 
     Row(
       horizontalArrangement = Arrangement.spacedBy(space = 12.dp),

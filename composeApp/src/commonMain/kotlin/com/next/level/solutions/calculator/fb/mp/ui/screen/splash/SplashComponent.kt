@@ -72,7 +72,7 @@ class SplashComponent(
 
   private fun incrementTime(): Long = when {
     waitingAdOnSplash() && !adsManager.consentState() -> 1000
-    waitingAdOnSplash() && !adsManager.inter.state() -> 55
+    waitingAdOnSplash() && !adsManager.inter.state().value -> 55
     else -> appConfig.splashConfig.incrementTime
   }
 

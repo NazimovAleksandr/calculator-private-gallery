@@ -22,10 +22,11 @@ class AdsManagerImpl(
   private val activity: Activity,
   private val networkManager: NetworkManager,
 ) : AdsManager {
-  private var init: Boolean = false
+  override var state: Boolean = false
+    private set
 
   override fun init(onComplete: () -> Unit) {
-    if (init) {
+    if (state) {
 //      analytics
 
 //      appOpen.reload()
@@ -45,10 +46,10 @@ class AdsManagerImpl(
     }
 
     networkManager.runAfterNetworkConnection {
-//      initAds(onComplete)
+      initAds(onComplete)
     }
 
-    init = true
+    state = true
   }
 
   override fun consentState(): Boolean {

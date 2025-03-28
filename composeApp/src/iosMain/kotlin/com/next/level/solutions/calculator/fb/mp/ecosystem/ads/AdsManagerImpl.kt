@@ -2,6 +2,8 @@ package com.next.level.solutions.calculator.fb.mp.ecosystem.ads
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOpen
@@ -11,15 +13,17 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 
 class AdsManagerImpl : AdsManager {
+  override val state: Boolean = true
+
   override val inter: AdsInter
     get() = object : AdsInter {
       override fun load() {
         // TODO("Not yet implemented")
       }
 
-      override fun state(): Boolean {
+      override fun state(): State<Boolean> {
         // TODO("Not yet implemented")
-        return false
+        return mutableStateOf(false)
       }
 
       override fun show(closeCallback: () -> Unit) {

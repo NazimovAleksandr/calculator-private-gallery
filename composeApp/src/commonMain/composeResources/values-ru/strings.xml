@@ -118,4 +118,7 @@
     <string name="allow">Разрешить</string>
 
     <string name="restoring_previously_hidden_files">Восстановление ранее скрытых файлов</string>
+    <string name="thank_you_for_helping">Спасибо вам за помощь в развитии проекта</string>
+    <string name="ads">Посмотрите рекламу, поддержите проект</string>
+    <string name="ad_will_be_shown">Реклама будет показана</string>
 </resources>

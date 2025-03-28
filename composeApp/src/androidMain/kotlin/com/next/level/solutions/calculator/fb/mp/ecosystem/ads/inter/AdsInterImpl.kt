@@ -1,6 +1,8 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter
 
 import android.app.Activity
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdValue
@@ -30,6 +32,8 @@ class AdsInterImpl(
   private var maxAdLoadErrors: Int = 2
 
   private var adUnitId: String = "ca-app-pub-3940256099942544/1033173712"
+
+  private val state = mutableStateOf(false)
 
   @Suppress("PrivatePropertyName")
   private val TAG = this::class.simpleName.toString()
@@ -66,12 +70,11 @@ class AdsInterImpl(
     networkManager.runAfterNetworkConnection(::loadAd)
   }
 
-  override fun state(): Boolean {
-    return ad != null
+  override fun state(): State<Boolean> {
+    return state
   }
 
   override fun show(closeCallback: () -> Unit) {
-
     if (ad == null) {
       closeCallback.invoke()
       return
@@ -80,6 +83,7 @@ class AdsInterImpl(
     adTemp = ad
     callback = closeCallback
 
+    state.value = false
     ad?.show(activity)
     ad = null
   }
@@ -111,6 +115,8 @@ class AdsInterImpl(
       Logger.d(TAG, "onAdLoaded")
 
       adLoadErrorCount = 0
+
+      state.value = true
 
       ad = interAd
       ad?.onPaidEventListener = this@AdsInterImpl

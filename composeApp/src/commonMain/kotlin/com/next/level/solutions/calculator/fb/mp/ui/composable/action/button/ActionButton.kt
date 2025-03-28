@@ -36,6 +36,7 @@ fun ActionButton(
   modifier: Modifier = Modifier,
   textModifier: Modifier = Modifier,
   text: String? = "ActionButton",
+  textMaxLines: Int = 1,
   iconStart: ImageVector? = null,
   iconTop: ImageVector? = null,
   iconEnd: ImageVector? = null,
@@ -57,6 +58,7 @@ fun ActionButton(
     modifier = modifier,
     textModifier = textModifier,
     text = text,
+    textMaxLines = textMaxLines,
     iconStart = iconStart,
     iconTop = iconTop,
     iconEnd = iconEnd,
@@ -81,6 +83,7 @@ fun ActionButtonPreview(
   modifier: Modifier = Modifier,
   textModifier: Modifier = Modifier,
   text: String? = "ActionButton",
+  textMaxLines: Int = 1,
   iconStart: ImageVector? = null,
   iconTop: ImageVector? = null,
   iconEnd: ImageVector? = null,
@@ -101,6 +104,7 @@ fun ActionButtonPreview(
     modifier = modifier,
     textModifier = textModifier,
     text = text,
+    textMaxLines = textMaxLines,
     iconStart = iconStart,
     iconTop = iconTop,
     iconEnd = iconEnd,
@@ -124,6 +128,7 @@ private fun Content(
   modifier: Modifier = Modifier,
   textModifier: Modifier = Modifier,
   text: String? = "ActionButton",
+  textMaxLines: Int = 1,
   iconStart: ImageVector? = null,
   iconTop: ImageVector? = null,
   iconEnd: ImageVector? = null,
@@ -183,6 +188,7 @@ private fun Content(
 
     onlyText -> text?.Draw(
       style = style,
+      maxLines = textMaxLines,
       color = when (enabled) {
         true -> colorsValue.contentColor
         else -> colorsValue.disabledContentColor
@@ -223,6 +229,7 @@ private fun Content(
 
     raw && column -> All(
       text = text,
+      textMaxLines = textMaxLines,
       iconStart = iconStart,
       iconTop = iconTop,
       iconEnd = iconEnd,
@@ -244,6 +251,7 @@ private fun Content(
 
     column -> Column(
       text = text,
+      textMaxLines = textMaxLines,
       iconTop = iconTop,
       iconBottom = iconBottom,
       style = style,
@@ -261,6 +269,7 @@ private fun Content(
 
     raw -> Row(
       text = text,
+      textMaxLines = textMaxLines,
       iconStart = iconStart,
       iconEnd = iconEnd,
       style = style,
@@ -306,12 +315,13 @@ private fun ImageVector.Draw(
 private fun String.Draw(
   color: Color,
   style: TextStyle,
+  maxLines: Int,
   modifier: Modifier = Modifier,
 ) {
   Text(
     text = this,
     style = style,
-    maxLines = 1,
+    maxLines = maxLines,
     modifier = modifier,
     color = color,
   )
@@ -320,6 +330,7 @@ private fun String.Draw(
 @Composable
 private fun Row(
   text: String?,
+  textMaxLines: Int,
   iconStart: ImageVector?,
   iconEnd: ImageVector?,
   style: TextStyle,
@@ -349,6 +360,7 @@ private fun Row(
     text?.Draw(
       style = style,
       color = color,
+      maxLines = textMaxLines,
       modifier = textModifier,
     )
 
@@ -367,6 +379,7 @@ private fun Row(
 @Composable
 private fun Column(
   text: String?,
+  textMaxLines: Int,
   iconTop: ImageVector?,
   iconBottom: ImageVector?,
   style: TextStyle,
@@ -396,6 +409,7 @@ private fun Column(
     text?.Draw(
       style = style,
       color = color,
+      maxLines = textMaxLines,
       modifier = textModifier,
     )
 
@@ -414,6 +428,7 @@ private fun Column(
 @Composable
 private fun All(
   text: String?,
+  textMaxLines: Int,
   iconStart: ImageVector?,
   iconTop: ImageVector?,
   iconEnd: ImageVector?,
@@ -462,6 +477,7 @@ private fun All(
       text?.Draw(
         style = style,
         color = color,
+        maxLines = textMaxLines,
         modifier = textModifier,
       )
 
