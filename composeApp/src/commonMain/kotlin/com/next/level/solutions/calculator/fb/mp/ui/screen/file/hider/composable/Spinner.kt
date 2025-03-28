@@ -117,6 +117,7 @@ private fun Content(
       expanded = expanded,
       offset = DpOffset(x = 24.dp, y = 8.dp),
       onDismissRequest = { expanded = false },
+      containerColor = MaterialTheme.colorScheme.surface,
       content = {
         items.forEach { item ->
           DropdownMenuItem(

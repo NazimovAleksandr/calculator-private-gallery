@@ -7,9 +7,11 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -18,7 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -61,7 +64,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposab
 import com.next.level.solutions.calculator.fb.mp.ui.screen.hidden.files.conposable.FilesOpener
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -128,22 +130,19 @@ private fun AnimatedContent(
     )
   }
 
-  val filesState by remember {
-    derivedStateOf {
-      model.value.files
-    }
+  val paddingBottom: MutableIntState = remember {
+    mutableIntStateOf(0)
   }
 
-  val files: State<ImmutableList<FileDataUI>> = filesState.collectAsStateWithLifecycle()
-
-  Column(
+  Box(
+    contentAlignment = Alignment.BottomCenter,
     modifier = modifier
       .background(color = MaterialTheme.colorScheme.background)
-      .padding(bottom = with(density) { navigationBarsPadding.toDp() })
+      .fillMaxSize()
   ) {
     SharedTransitionLayout(
       modifier = Modifier
-        .weight(weight = 1f)
+//        .weight(weight = 1f)
     ) {
       AnimatedContent(
         targetState = openFile,
@@ -153,7 +152,7 @@ private fun AnimatedContent(
         Content(
           component = component,
           openFile = it,
-          modifier = Modifier,
+          paddingBottom = paddingBottom,
           animatedVisibilityScope = this,
           sharedTransitionScope = this@SharedTransitionLayout,
         )
@@ -161,14 +160,23 @@ private fun AnimatedContent(
     }
 
     if (!landscapeState) {
-      withNotNull(component) {
-        if (files.value.isNotEmpty()) {
+      Column(
+        modifier = Modifier
+          .let {
+            when (paddingBottom.value == 0) {
+              true -> it.onGloballyPositioned { coordinates ->
+                paddingBottom.value = coordinates.size.height
+              }
+
+              else -> it
+            }
+          }
+          .padding(bottom = with(density) { navigationBarsPadding.toDp() })
+          .background(color = MaterialTheme.colorScheme.background)
+      ) {
+        withNotNull(component) {
           nativeAdCard(
             size = NativeSize.Small,
-          )
-        } else {
-          nativeAdCard(
-            size = NativeSize.Large,
           )
         }
       }
@@ -186,10 +194,13 @@ private fun AnimatedContent(
 private fun Content(
   component: HiddenFilesComponent?,
   modifier: Modifier = Modifier,
+  paddingBottom: MutableIntState = mutableIntStateOf(1),
   openFile: FileDataUI? = null,
   sharedTransitionScope: SharedTransitionScope? = null,
   animatedVisibilityScope: AnimatedVisibilityScope? = null,
 ) {
+  val density = LocalDensity.current
+
   val scope = rememberCoroutineScope()
 
   val model = component?.model?.subscribeAsState()
@@ -283,12 +294,19 @@ private fun Content(
     )
   }
 
+  val paddingBottomValue by remember {
+    derivedStateOf { paddingBottom.value }
+  }
+
   if (openFile == null) {
+    if (paddingBottomValue == 0) return
+
     Column(
       verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.Start,
       modifier = modifier
         .statusBarsPadding()
+        .padding(bottom = with(density) { paddingBottomValue.toDp() })
     ) {
       Toolbar(
         title = {
@@ -319,7 +337,10 @@ private fun Content(
           Spacer(modifier = Modifier.weight(weight = 1f))
         },
         navAction = {
-          component?.action(HiddenFilesComponent.Action.Back)
+          when (selectMode) {
+            true -> filePickerState.setAction(PickerAction.Click)
+            else -> component?.action(HiddenFilesComponent.Action.Back)
+          }
         },
         menu = {
           if (selectMode) {
