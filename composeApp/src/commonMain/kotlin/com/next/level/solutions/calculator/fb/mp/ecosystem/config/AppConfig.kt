@@ -31,14 +31,17 @@ class AppConfig(
 
   private fun fetch() {
     CoroutineScope(Dispatchers.IO).launch {
-      config.settings {
-        minimumFetchInterval = when (PlatformExp.isDebug) {
-          true -> 10.seconds
-          false -> 12.hours
+      try {
+        config.settings {
+          minimumFetchInterval = when (PlatformExp.isDebug) {
+            true -> 10.seconds
+            false -> 12.hours
+          }
         }
-      }
 
-      config.fetchAndActivate()
+        config.fetchAndActivate()
+      } catch (_: Exception) {
+      }
 
       adsConfig = formJson(config["ads"], ::AdsConfig)
       splashConfig = formJson(config["splash"], ::SplashConfig)
