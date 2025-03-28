@@ -46,10 +46,10 @@ class AdsManagerImpl(
     }
 
     networkManager.runAfterNetworkConnection {
-      initAds(onComplete)
+//      initAds(onComplete)
     }
 
-    state = true
+//    state = true
   }
 
   override fun consentState(): Boolean {
