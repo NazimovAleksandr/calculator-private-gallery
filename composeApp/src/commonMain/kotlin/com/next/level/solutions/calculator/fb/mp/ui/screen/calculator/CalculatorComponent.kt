@@ -494,15 +494,15 @@ class CalculatorComponent(
   }
 
   private fun toHome() {
-    adsManager.inter.show {
-      when (handler.lockMode) {
-        true -> {
-          rootComponent.action(RootComponent.Action.LockOff)
-          dialogNavigation.dismiss()
-        }
-
-        else -> navigation.replaceCurrent(Configuration.home())
+//    adsManager.inter.show {
+//    }
+    when (handler.lockMode) {
+      true -> {
+        rootComponent.action(RootComponent.Action.LockOff)
+        dialogNavigation.dismiss()
       }
+
+      else -> navigation.replaceCurrent(Configuration.home())
     }
   }
 

@@ -42,7 +42,7 @@ class SplashComponent(
 
   private suspend fun runProgress() {
     when {
-      progress.value >= 1f -> adsManager.inter.show(::interOff)
+      progress.value >= 1f -> interOff()//adsManager.inter.show(::interOff)
       progress.value > 0.7f -> incrementProgress(incrementTime())
       progress.value > 0.9f -> incrementProgress(incrementTime())
       else -> incrementProgress(appConfig.splashConfig.incrementTime)

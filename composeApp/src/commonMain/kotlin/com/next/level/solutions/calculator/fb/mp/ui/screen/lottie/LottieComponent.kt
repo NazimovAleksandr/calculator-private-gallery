@@ -45,7 +45,7 @@ class LottieComponent(
 
   private fun RootComponent.Child.Action.doSomething(): Action? {
     when (this) {
-      is Action.EndAnimation -> adsManager.inter.show { navigation.pop() }
+      is Action.EndAnimation -> navigation.pop()//adsManager.inter.show {  }
     }
 
     return null

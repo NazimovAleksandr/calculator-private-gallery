@@ -83,11 +83,11 @@ class SecureQuestionComponent(
 
   private fun skip() {
 //    analytics.securityQuestion.secretQuestionSkipped()
-    adsManager.inter.show {
-      when (handler.changeMode) {
-        true -> navigation.pop()
-        else -> navigation.replaceCurrent(Configuration.home())
-      }
+//    adsManager.inter.show {
+//    }
+    when (handler.changeMode) {
+      true -> navigation.pop()
+      else -> navigation.replaceCurrent(Configuration.home())
     }
   }
 
