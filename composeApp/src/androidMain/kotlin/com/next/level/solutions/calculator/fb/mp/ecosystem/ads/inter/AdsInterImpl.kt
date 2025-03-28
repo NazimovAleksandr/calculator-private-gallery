@@ -10,6 +10,7 @@ import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,21 +31,34 @@ class AdsInterImpl(
 
   private var adUnitId: String = "ca-app-pub-3940256099942544/1033173712"
 
-  override fun onPaidEvent(p0: AdValue) {}
+  @Suppress("PrivatePropertyName")
+  private val TAG = this::class.simpleName.toString()
 
-  override fun onAdClicked() {}
+  override fun onPaidEvent(p0: AdValue) {
+    Logger.d(TAG, "onPaidEvent")
+  }
+
+  override fun onAdClicked() {
+    Logger.d(TAG, "onAdClicked")
+  }
 
   override fun onAdDismissedFullScreenContent() {
+    Logger.d(TAG, "onAdDismissedFullScreenContent")
+
     callback?.invoke()
     callback = null
   }
 
   override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+    Logger.d(TAG, "onAdFailedToShowFullScreenContent")
+
     callback?.invoke()
     callback = null
   }
 
   override fun onAdShowedFullScreenContent() {
+    Logger.d(TAG, "onAdShowedFullScreenContent")
+
     networkManager.runAfterNetworkConnection(::loadAd)
   }
 
@@ -83,6 +97,8 @@ class AdsInterImpl(
 
   private fun adLoadListener() = object : InterstitialAdLoadCallback() {
     override fun onAdFailedToLoad(adError: LoadAdError) {
+      Logger.e(TAG, "onAdFailedToLoad: ${adError.message}")
+
       adLoadErrorCount++
 
       if (adLoadErrorCount < maxAdLoadErrors) {
@@ -92,6 +108,8 @@ class AdsInterImpl(
     }
 
     override fun onAdLoaded(interAd: InterstitialAd) {
+      Logger.d(TAG, "onAdLoaded")
+
       adLoadErrorCount = 0
 
       ad = interAd

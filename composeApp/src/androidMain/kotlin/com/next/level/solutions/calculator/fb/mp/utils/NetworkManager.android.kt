@@ -17,7 +17,6 @@ actual class NetworkManager(context: Context) : ConnectivityManager.NetworkCallb
 
   override fun onAvailable(network: Network) {
     super.onAvailable(network)
-    Logger.d("NetworkManager", "onAvailable")
     onAvailableCallback?.invoke()
     onAvailableCallback = null
     connectivityManager?.unregisterNetworkCallback(this)

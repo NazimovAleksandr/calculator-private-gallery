@@ -9,6 +9,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,25 +30,38 @@ class AdsAppOpenImpl(
 
   private var adUnitId: String = "ca-app-pub-3940256099942544/9257395921"
 
+  @Suppress("PrivatePropertyName")
+  private val TAG = this::class.simpleName.toString()
+
   private var isShown: Boolean = false
 
-  override fun onPaidEvent(p0: AdValue) {}
+  override fun onPaidEvent(p0: AdValue) {
+    Logger.d(TAG, "onPaidEvent")
+  }
 
-  override fun onAdClicked() {}
+  override fun onAdClicked() {
+    Logger.d(TAG, "onAdClicked")
+  }
 
   override fun onAdDismissedFullScreenContent() {
+    Logger.d(TAG, "onAdDismissedFullScreenContent")
+
     isShown = false
     callback?.invoke()
     callback = null
   }
 
   override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+    Logger.d(TAG, "onAdFailedToShowFullScreenContent")
+
     isShown = false
     callback?.invoke()
     callback = null
   }
 
   override fun onAdShowedFullScreenContent() {
+    Logger.d(TAG, "onAdShowedFullScreenContent")
+
     networkManager.runAfterNetworkConnection(::loadAd)
   }
 
@@ -90,6 +104,8 @@ class AdsAppOpenImpl(
 
   private fun loadCallback() = object : AppOpenAd.AppOpenAdLoadCallback() {
     override fun onAdFailedToLoad(adError: LoadAdError) {
+      Logger.e(TAG, "onAdFailedToLoad: ${adError.message}")
+
       adLoadErrorCount++
 
       if (adLoadErrorCount < maxAdLoadErrors) {
@@ -99,6 +115,8 @@ class AdsAppOpenImpl(
     }
 
     override fun onAdLoaded(appOpenAd: AppOpenAd) {
+      Logger.d(TAG, "onAdLoaded")
+
       adLoadErrorCount = 0
 
       ad = appOpenAd

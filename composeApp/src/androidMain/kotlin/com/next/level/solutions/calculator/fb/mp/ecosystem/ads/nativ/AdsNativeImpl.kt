@@ -14,6 +14,7 @@ import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -31,8 +32,12 @@ class AdsNativeImpl(
 
   private var adUnitId: String = "ca-app-pub-3940256099942544/2247696110"
 
+  @Suppress("PrivatePropertyName")
+  private val TAG = this::class.simpleName.toString()
+
   override fun onNativeAdLoaded(nativeAd: NativeAd) {
     if (adLoader?.isLoading != false) return
+    Logger.d(TAG, "onNativeAdLoaded")
 
     adLoadErrorCount = 0
 
@@ -41,7 +46,9 @@ class AdsNativeImpl(
     ad.value?.setOnPaidEventListener(this)
   }
 
-  override fun onPaidEvent(p0: AdValue) {}
+  override fun onPaidEvent(p0: AdValue) {
+    Logger.d(TAG, "onPaidEvent")
+  }
 
   override fun init() {
     adLoader = AdLoader.Builder(context, adUnitId)
@@ -94,6 +101,8 @@ class AdsNativeImpl(
 
   private fun loadCallback() = object : AdListener() {
     override fun onAdFailedToLoad(adError: LoadAdError) {
+      Logger.e(TAG, "onAdFailedToLoad: ${adError.message}")
+
       adLoadErrorCount++
 
       if (adLoadErrorCount < maxAdLoadErrors) {
@@ -102,7 +111,12 @@ class AdsNativeImpl(
       }
     }
 
-    override fun onAdImpression() {}
-    override fun onAdClicked() {}
+    override fun onAdImpression() {
+      Logger.d(TAG, "onAdImpression")
+    }
+
+    override fun onAdClicked() {
+      Logger.d(TAG, "onAdClicked")
+    }
   }
 }

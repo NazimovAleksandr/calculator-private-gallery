@@ -119,7 +119,7 @@ private fun Ad(
           loadNative = loadNative,
           size = size,
           loadAtDispose = loadAtDispose,
-          nativeAd = nativeAd,
+          nativeAdState = nativeAdState,
         )
       }
     }
@@ -159,7 +159,7 @@ private fun AdCard(
   loadNative: () -> Unit,
   size: NativeSize = NativeSize.Large,
   loadAtDispose: Boolean = true,
-  nativeAd: NativeAd?,
+  nativeAdState: State<NativeAd?>?,
 ) {
   if (loadAtDispose) {
     DisposableEffect(
@@ -174,6 +174,10 @@ private fun AdCard(
       NativeSize.Large -> R.layout.native_ad_large
       NativeSize.Adaptive -> R.layout.native_ad_adaptive
     }
+  }
+
+  val nativeAd: NativeAd? by remember {
+    derivedStateOf { nativeAdState?.value }
   }
 
   AndroidView(
