@@ -395,7 +395,7 @@ class FileVisibilityManagerImpl(
 
         val file = constructor.invoke(
           path,
-          name,
+          name.checkName(),
           folder,
           size,
           dateAdded,
@@ -438,7 +438,7 @@ class FileVisibilityManagerImpl(
         else -> {
           constructor.invoke(
             /* path = */ file.absolutePath,
-            /* name = */ file.name,
+            /* name = */ file.name.checkName(),
             /* folder = */ file.folder(),
             /* size = */ file.length(),
             /* dateAdded = */ file.dateAdded().toString(),
@@ -458,6 +458,16 @@ class FileVisibilityManagerImpl(
     }
 
     return list
+  }
+
+  private fun String.checkName(): String {
+    val reservedChars = "?:\"*|/\\<>\u0000"
+
+    return filter { char -> reservedChars.indexOf(char) == -1 }
+      .filterIndexed { index, _ -> index < 20 }
+      .replace("\n", "")
+      .trimIndent()
+      .trim()
   }
 
   private suspend fun List<FileDataUI>.toInvisibleFiles(

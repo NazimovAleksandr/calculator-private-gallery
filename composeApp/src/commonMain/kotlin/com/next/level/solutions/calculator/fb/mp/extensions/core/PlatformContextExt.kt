@@ -23,17 +23,27 @@ fun PlatformContext.imageRequest(
 ): ImageRequest = ImageRequest.Builder(this)
   .data(data)
   .diskCachePolicy(CachePolicy.ENABLED)
-  .diskCacheKey(cacheParams?.key)
+  .diskCacheKey(cacheParams?.key?.checkKey())
   .crossfade(true)
   .listener { _, result ->
     cacheParams?.apply {
       scope.launch(Dispatchers.IO) {
         PlatformExp.saveToCache(
           icon = result.image.toBitmap(),
-          name = key,
+          name = key.checkKey(),
           quality = fileQuality,
         )
       }
     }
   }
   .build()
+
+private fun String.checkKey(): String {
+  val reservedChars = "?:\"*|/\\<>\u0000"
+
+  return filter { char -> reservedChars.indexOf(char) == -1 }
+    .filterIndexed { index, _ -> index < 20 }
+    .replace("\n", "")
+    .trimIndent()
+    .trim()
+}
