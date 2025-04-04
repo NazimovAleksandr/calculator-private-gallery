@@ -116,6 +116,15 @@ android {
   namespace = "com.next.level.solutions.calculator.fb.mp"
   compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+  signingConfigs {
+    create("release") {
+      storeFile = file("next-level-solutions.keystore")
+      storePassword = "dfkjh522wer294nv"
+      keyAlias = "next-level-solutions-alias"
+      keyPassword = "dfkjh522wer294nv"
+    }
+  }
+
   defaultConfig {
     val appId = "com.next.level.solutions.calculator.fb.mp.demo"
     fun demo() = appId.contains("demo")
@@ -139,7 +148,9 @@ android {
 
   buildTypes {
     getByName("release") {
-      isMinifyEnabled = false
+      isMinifyEnabled = true
+      isShrinkResources = true
+      signingConfig = signingConfigs.getByName("release")
     }
   }
 
