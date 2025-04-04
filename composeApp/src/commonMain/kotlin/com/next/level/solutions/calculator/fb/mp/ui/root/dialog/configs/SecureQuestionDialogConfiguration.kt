@@ -8,15 +8,16 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.dialog.sec
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import kotlinx.serialization.Serializable
 
+private var answerHandler: (answer: String) -> Unit = {}
+
 @Serializable
 data class SecureQuestionDialogConfiguration(
   private val secureQuestion: String,
-  private val answer: (String) -> Unit,
 ) : RootComponent.DialogConfiguration {
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return SecureQuestionDialogComponent.Handler(
       secureQuestion = secureQuestion,
-      answer = answer,
+      answer = answerHandler,
     )
   }
 
@@ -29,8 +30,9 @@ fun RootComponent.DialogConfiguration.Companion.secureQuestionDialog(
   secureQuestion: String,
   answer: (String) -> Unit,
 ): SecureQuestionDialogConfiguration {
+  answerHandler = answer
+
   return SecureQuestionDialogConfiguration(
     secureQuestion = secureQuestion,
-    answer = answer,
   )
 }

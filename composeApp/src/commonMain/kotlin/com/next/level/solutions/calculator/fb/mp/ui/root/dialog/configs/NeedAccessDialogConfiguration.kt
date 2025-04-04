@@ -8,13 +8,13 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.home.dialog.NeedAcces
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
 import kotlinx.serialization.Serializable
 
+private var agreedHandler: () -> Unit = {}
+
 @Serializable
-data class NeedAccessDialogConfiguration(
-  private val agreed: () -> Unit,
-) : RootComponent.DialogConfiguration {
+object NeedAccessDialogConfiguration : RootComponent.DialogConfiguration {
   override fun instanceKeeper(): InstanceKeeper.Instance {
     return NeedAccessDialogComponent.Handler(
-      agreed = agreed,
+      agreed = agreedHandler,
     )
   }
 
@@ -26,7 +26,6 @@ data class NeedAccessDialogConfiguration(
 fun RootComponent.DialogConfiguration.Companion.needAccessDialog(
   agreed: () -> Unit,
 ): NeedAccessDialogConfiguration {
-  return NeedAccessDialogConfiguration(
-    agreed = agreed,
-  )
+  agreedHandler = agreed
+  return NeedAccessDialogConfiguration
 }
