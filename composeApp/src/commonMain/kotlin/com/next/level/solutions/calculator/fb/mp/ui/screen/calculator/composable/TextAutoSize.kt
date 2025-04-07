@@ -18,6 +18,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import kotlin.math.min
 
 @Composable
@@ -34,7 +35,7 @@ fun TextAutoSize(
       if (it == '*') {
         withStyle(style = SpanStyle(
           color = style.color.copy(alpha = 0.3f),
-          letterSpacing = 12.sp
+          letterSpacing = if (PlatformExp.isIOS) (-3).sp else 12.sp
         )) {
           append(it)
         }
