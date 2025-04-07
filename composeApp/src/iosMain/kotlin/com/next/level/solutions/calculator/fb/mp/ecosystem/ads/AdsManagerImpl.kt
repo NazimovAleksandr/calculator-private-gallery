@@ -13,7 +13,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 
 class AdsManagerImpl : AdsManager {
-  override val state: Boolean = true
+  override val state: Boolean = false
 
   override val inter: AdsInter
     get() = object : AdsInter {

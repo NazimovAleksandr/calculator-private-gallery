@@ -3,7 +3,6 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.onboarding.composabl
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,9 +29,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerEvent
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import calculator_privategallery.composeapp.generated.resources.Res
@@ -88,24 +84,6 @@ private fun Content(
       state = pagerState,
       modifier = Modifier
         .weight(weight = 1f)
-        .pointerInput(key1 = Unit) {
-          awaitEachGesture {
-            do {
-              val event: PointerEvent = awaitPointerEvent(
-                pass = PointerEventPass.Initial
-              )
-
-              event.changes.forEach {
-                val diffX = it.position.x - it.previousPosition.x
-
-                if (diffX > 0) {
-                  it.consume()
-                }
-              }
-
-            } while (event.changes.any { it.pressed })
-          }
-        }
     ) {
       Card(
         state = ObState.entries[it],
