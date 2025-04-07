@@ -4,7 +4,6 @@ Calculator - File Blocking
 ### Todo list
 
 - [ ] Common
-  - [ ] Lottie json for Inter
   - [ ] LightMode
   - [ ] Browser
     - [ ] BrowserView: multipleWindows

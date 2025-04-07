@@ -75,7 +75,7 @@ private fun Content(
   var visibleState by remember { mutableStateOf(true) }
 
   Column(
-    verticalArrangement = Arrangement.spacedBy(space = 28.dp),
+    verticalArrangement = Arrangement.spacedBy(space = 40.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .width(width = 250.dp)
@@ -84,7 +84,7 @@ private fun Content(
         shape = MaterialTheme.shapes.extraLarge,
       )
       .padding(horizontal = 24.dp)
-      .padding(vertical = 40.dp)
+      .padding(vertical = 60.dp)
   ) {
     Text(
       text = stringResource(resource = Res.string.ad_will_be_shown),

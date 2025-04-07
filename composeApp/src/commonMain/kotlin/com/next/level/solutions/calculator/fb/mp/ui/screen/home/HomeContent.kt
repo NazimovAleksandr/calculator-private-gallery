@@ -42,6 +42,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.lifecycle.event.listener.LifecycleEventListener
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Ads
+import com.next.level.solutions.calculator.fb.mp.ui.icons.all.AdsOff
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Browser
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Folder
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Notes
@@ -140,7 +141,7 @@ private fun Content(
         text = stringResource(resource = Res.string.ads),
         textMaxLines = Int.MAX_VALUE,
         style = TextStyleFactory.FS16.w600(),
-        iconStart = MagicIcons.All.Ads,
+        iconStart = if (interState) MagicIcons.All.Ads else MagicIcons.All.AdsOff,
         iconType = IconType.Image,
         iconStartSize = IconSize(size = 44.dp),
         contentSpace = ContentSpace(horizontal = 36.dp),
