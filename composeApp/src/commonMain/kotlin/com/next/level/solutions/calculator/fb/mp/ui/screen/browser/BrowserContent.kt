@@ -3,6 +3,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.browser
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -193,6 +194,7 @@ private fun Content(
       webViewState = webViewState,
       navigator = navigator,
       modifier = Modifier
+        .fillMaxWidth()
         .weight(weight = 1f)
     ) {
       val action: Action = when (it) {

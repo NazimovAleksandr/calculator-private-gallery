@@ -11,7 +11,6 @@ Calculator - File Blocking
   - [ ] Ads: reload
 - [ ] iOS
   - [ ] App Name
-  - [ ] Browser
   - [ ] VideoPlayer
   - [ ] PlatformExp
   - [ ] FileVisibilityManager
