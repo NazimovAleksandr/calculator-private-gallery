@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Калькулятор - Частная галерея</string>
+    <string name="app_name_demo">Демо Калькулятор - Частная галерея</string>
+    <string name="share">Поделиться</string>
+    <string name="app_not_found">Приложение не найдено</string>
+    <string name="let_me_recommend">Позвольте мне порекомендовать вам это приложение</string>
 </resources>

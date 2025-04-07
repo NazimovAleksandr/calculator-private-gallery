@@ -2,6 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.expect
 
 import coil3.Bitmap
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
+import platform.Foundation.NSBundle
 import platform.Foundation.NSDate
 import platform.Foundation.timeIntervalSince1970
 import platform.Photos.PHAuthorizationStatusAuthorized
@@ -16,6 +17,7 @@ actual object PlatformExp {
   @OptIn(ExperimentalNativeApi::class)
   actual val isDebug: Boolean get() = Platform.isDebugBinary
   actual val isIOS: Boolean get() = true
+  actual val appVersion: String get() = NSBundle.mainBundle.objectForInfoDictionaryKey("CFBundleShortVersionString").toString()
 
   actual fun currentTimeMillis(): Long = (NSDate().timeIntervalSince1970 * 1000).toLong()
 

@@ -8,6 +8,7 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 actual object PlatformExp {
   actual val isDebug: Boolean get() = BuildConfig.DEBUG
   actual val isIOS: Boolean get() = false
+  actual val appVersion: String get() = BuildConfig.VERSION_NAME
 
   actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 

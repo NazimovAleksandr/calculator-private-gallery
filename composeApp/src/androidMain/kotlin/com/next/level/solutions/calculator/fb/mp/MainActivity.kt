@@ -152,6 +152,8 @@ class MainActivity : ComponentActivity() {
       statusBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
       navigationBarStyle = SystemBarStyle.auto(lightScrim = color, darkScrim = color),
     )
+
+    screenOrientationPortrait()
   }
 
   private fun initExpect() {

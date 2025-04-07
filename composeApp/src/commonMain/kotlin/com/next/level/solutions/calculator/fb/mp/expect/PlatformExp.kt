@@ -7,6 +7,7 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
 expect object PlatformExp {
   val isDebug: Boolean
   val isIOS: Boolean
+  val appVersion: String
   fun currentTimeMillis(): Long
   fun externalStoragePermissionGranted(): Boolean
   fun requestExternalStoragePermission()

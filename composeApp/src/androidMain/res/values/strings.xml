@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Calculator - Private Gallery</string>
+    <string name="app_name_demo">Demo Calculator - Private Gallery</string>
     <string name="share">Share</string>
-    <string name="app_not_found">Application Not Found</string>
+    <string name="app_not_found">The application was not found</string>
     <string name="let_me_recommend">Let me recommend you this application</string>
 </resources>

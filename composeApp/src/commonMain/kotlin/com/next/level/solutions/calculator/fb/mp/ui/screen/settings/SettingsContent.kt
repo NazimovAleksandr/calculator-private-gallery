@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -20,13 +21,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import calculator_privategallery.composeapp.generated.resources.Res
 import calculator_privategallery.composeapp.generated.resources.settings
+import calculator_privategallery.composeapp.generated.resources.version
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.SettingsSection
 import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.TipToResetPassword
 import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsType
+import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ButtonColors
 import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ContentSpace
@@ -110,7 +115,6 @@ private fun Content(
       modifier = Modifier
         .verticalScroll(state = rememberScrollState())
         .weight(weight = 1f)
-        .padding(top = 4.dp, bottom = 40.dp)
         .padding(horizontal = 16.dp)
     ) {
       if (tipToResetPassword?.value == true) {
@@ -156,6 +160,16 @@ private fun Content(
           )
         }
       }
+
+      Text(
+        text = stringResource(resource = Res.string.version) + " " + PlatformExp.appVersion,
+        style = TextStyleFactory.FS12.w400(),
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+          .padding(top = 20.dp)
+          .fillMaxWidth()
+          .alpha(alpha = 0.5f)
+      )
     }
   }
 }

@@ -127,16 +127,22 @@ android {
 
   defaultConfig {
     val appId = "com.next.level.solutions.calculator.fb.mp.demo"
-    fun demo() = appId.contains("demo")
+    val demo = appId.contains("demo")
 
     applicationId = appId
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
 
     versionCode = libs.versions.android.versionCode.get().toInt()
-    versionName = libs.versions.android.versionName.get() + if (demo()) ".demo" else ""
+    versionName = libs.versions.android.versionName.get() + if (demo) ".demo" else ""
 
     manifestPlaceholders.apply {
+      val appName = when {
+        demo -> "@string/app_name_demo"
+        else -> "@string/app_name"
+      }
+
+      set("appName", appName)
       set("resizeableActivity", false)
     }
   }
@@ -151,6 +157,7 @@ android {
       isMinifyEnabled = true
       isShrinkResources = true
       signingConfig = signingConfigs.getByName("release")
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
   }
 
