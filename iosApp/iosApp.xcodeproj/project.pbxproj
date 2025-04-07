@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		1F0452782DA3FD7E00D4AE5B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F0452762DA3FD7E00D4AE5B /* InfoPlist.strings */; };
 		1F7E16D02D8079AA00541B6A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E16CF2D8079AA00541B6A /* FirebaseAnalytics */; };
 		1F7E16D22D8079AA00541B6A /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E16D12D8079AA00541B6A /* FirebaseCrashlytics */; };
 		1F7E16D42D8079AA00541B6A /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E16D32D8079AA00541B6A /* FirebaseRemoteConfig */; };
@@ -20,9 +21,11 @@
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1F0452772DA3FD7E00D4AE5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1F0452792DA3FDFA00D4AE5B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1FB63C0F2D829BCB004A0B84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		7555FF7B242A565900829871 /* Calculator - File Blocking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calculator - File Blocking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7555FF7B242A565900829871 /* Calculator - Private Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calculator - Private Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				1F0452762DA3FD7E00D4AE5B /* InfoPlist.strings */,
 				AB1DB47929225F7C00F7AF9C /* Configuration */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
@@ -70,7 +74,7 @@
 		7555FF7C242A565900829871 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF7B242A565900829871 /* Calculator - File Blocking.app */,
+				7555FF7B242A565900829871 /* Calculator - Private Gallery.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,7 +123,7 @@
 				1F7E16D32D8079AA00541B6A /* FirebaseRemoteConfig */,
 			);
 			productName = iosApp;
-			productReference = 7555FF7B242A565900829871 /* Calculator - File Blocking.app */;
+			productReference = 7555FF7B242A565900829871 /* Calculator - Private Gallery.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -145,6 +149,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
@@ -165,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
+				1F0452782DA3FD7E00D4AE5B /* InfoPlist.strings in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 				1FB63C102D829BCB004A0B84 /* GoogleService-Info.plist in Resources */,
 			);
@@ -205,12 +211,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		1F0452762DA3FD7E00D4AE5B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F0452772DA3FD7E00D4AE5B /* en */,
+				1F0452792DA3FDFA00D4AE5B /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB3632DC29227652001CCB65 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -274,6 +293,7 @@
 			baseConfigurationReference = AB3632DC29227652001CCB65 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -346,7 +366,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.next.level.solutions.calculator.fb.mp.demo.Calculator-FileBlocking";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.next.level.solutions.calculator.fb.mp.demo.Calculator-PrivateGallery";
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -374,7 +394,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.next.level.solutions.calculator.fb.mp.Calculator-FileBlocking";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "com.next.level.solutions.calculator.fb.mp.Calculator-PrivateGallery";
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

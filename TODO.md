@@ -1,5 +1,5 @@
-# Calculator - File Blocking
-Calculator - File Blocking
+# Calculator - Private Gallery
+Calculator - Private Gallery
 
 ### Todo list
 
@@ -10,10 +10,10 @@ Calculator - File Blocking
 - [ ] Android
   - [ ] Ads: reload
 - [ ] iOS
-  - [ ] App Name
   - [ ] VideoPlayer
   - [ ] PlatformExp
   - [ ] FileVisibilityManager
   - [ ] AppEventListener
   - [ ] NetworkManager
+  - [ ] Calculator: percent
 

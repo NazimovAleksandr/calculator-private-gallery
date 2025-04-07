@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  iosApp
+
+  Created by Александр on 07/04/25.
+  Copyright © 2025 orgName. All rights reserved.
+*/
+"CFBundleDisplayName" = "Calculator - Private Gallery";
+"CFBundleName" = "Calculator - Private Gallery";
