@@ -138,8 +138,8 @@ private fun Button(
   }
 
   val textColor = when {
-    type.operation() -> MaterialTheme.colorScheme.onPrimary
-    type.extra() -> MaterialTheme.colorScheme.onPrimary
+    type.operation() -> MaterialTheme.colorScheme.secondary
+    type.extra() -> MaterialTheme.colorScheme.secondary
     else -> MaterialTheme.colorScheme.onSecondary
   }
 

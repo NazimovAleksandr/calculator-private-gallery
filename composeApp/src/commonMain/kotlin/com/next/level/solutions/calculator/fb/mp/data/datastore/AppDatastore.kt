@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences.Key
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.next.level.solutions.calculator.fb.mp.data.datastore.local.store.LocalStore
 import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePath
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,7 @@ import okio.Path.Companion.toPath
 @OptIn(InternalCoroutinesApi::class)
 class AppDatastore(
   producePath: ProducePath,
+  val localStore: LocalStore,
 ) {
   private companion object {
     private var instance: DataStore<Preferences>? = null

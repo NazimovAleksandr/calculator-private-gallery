@@ -2,9 +2,12 @@ package com.next.level.solutions.calculator.fb.mp.di
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
+import com.next.level.solutions.calculator.fb.mp.data.datastore.local.store.LocalStore
+import com.next.level.solutions.calculator.fb.mp.data.datastore.local.store.LocalStoreImpl
 import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePath
 import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePathImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
@@ -35,6 +38,7 @@ actual val platformModule: Module
     singleOf<FileVisibilityManager, Context>(::FileVisibilityManagerImpl)
     singleOf<LanguageChanger, Context, ChangerLocalStore>(::LanguageChangerImpl)
     singleOf<ProducePath, Context>(::ProducePathImpl)
+    singleOf<LocalStore, SharedPreferences>(::LocalStoreImpl)
 
     singleOf<AdsManager, AdsInter, AdsNative, AdsAppOpen, Activity, NetworkManager>(::AdsManagerImpl)
     singleOf<AdsInter, Activity, AppAnalytics, NetworkManager>(::AdsInterImpl)
@@ -57,10 +61,11 @@ actual val platformModule: Module
       get<Context>() as Activity
     }
 
-    factoryOf(::NetworkManager)
-    factoryOf<MathParser>(::MathParserImpl)
-
-    factory {
-      ChangerLocalStore(get<Context>().getSharedPreferences("Changer", Context.MODE_PRIVATE))
+    single<SharedPreferences> {
+      get<Context>().getSharedPreferences("Changer", Context.MODE_PRIVATE)
     }
+
+    factoryOf(::NetworkManager)
+    factoryOf(::ChangerLocalStore)
+    factoryOf<MathParser>(::MathParserImpl)
   }

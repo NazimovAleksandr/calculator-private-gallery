@@ -8,6 +8,7 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.extensions.core.getRootComponent
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
@@ -15,11 +16,12 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 
 class LottieComponent(
   componentContext: ComponentContext,
-  private val adsManager: AdsManager,
+  adsManager: AdsManager,
+  private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<RootComponent.Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
-  private val _model: MutableValue<Model> by lazy { MutableValue(Model()) }
+  private val _model: MutableValue<Model> by lazy { MutableValue(initModel()) }
   val model: Value<Model> get() = _model
 
   init {
@@ -43,6 +45,12 @@ class LottieComponent(
     }
   }
 
+  private fun initModel(): Model {
+    return Model(
+      darkTheme = appDatastore.localStore.darkTheme
+    )
+  }
+
   private fun RootComponent.Child.Action.doSomething(): Action? {
     when (this) {
       is Action.EndAnimation -> navigation.pop()//adsManager.inter.show {  }
@@ -57,6 +65,7 @@ class LottieComponent(
   class Handler : InstanceKeeper.Instance
 
   data class Model(
+    val darkTheme: Boolean,
     val appLocked: Boolean = false,
   )
 

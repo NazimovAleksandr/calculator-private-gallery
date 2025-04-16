@@ -2,7 +2,6 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.lottie
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -63,9 +62,15 @@ private fun Content(
   component: LottieComponent?,
   modifier: Modifier = Modifier,
 ) {
+  val model = component?.model?.subscribeAsState()
+
   var speed by remember { mutableFloatStateOf(1f) }
 
-  val dark = isSystemInDarkTheme()
+  val dark by remember {
+    derivedStateOf {
+      model?.value?.darkTheme
+    }
+  }
 
   val composition by rememberLottieComposition {
     LottieCompositionSpec.JsonString(
@@ -87,8 +92,6 @@ private fun Content(
   if (progress == 1.0f) {
     component?.action(LottieComponent.Action.EndAnimation)
   }
-
-  val model = component?.model?.subscribeAsState()
 
   val appLocked by remember {
     derivedStateOf {

@@ -306,7 +306,7 @@ class MainActivity : ComponentActivity() {
       val rootView = window?.decorView as? ViewGroup
       rootView?.addView(view, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
 
-      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
       systemBars(false)
 
       view.requestFocus()

@@ -1,7 +1,9 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.calculator
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,6 +32,10 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
+import com.next.level.solutions.calculator.fb.mp.ui.composable.toggle.button.ToggleButton
+import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
+import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Dark
+import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Light
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CalculatorButtons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CreatingPassword
@@ -72,6 +80,7 @@ private fun Content(
   modifier: Modifier = Modifier,
 ) {
   val model = component?.model?.subscribeAsState()
+  val rootModel = model?.value?.rootModel?.subscribeAsState()
 
   val buttons by remember {
     derivedStateOf {
@@ -115,6 +124,12 @@ private fun Content(
     }
   }
 
+  val darkTheme by remember {
+    derivedStateOf {
+      rootModel?.value?.darkTheme ?: true
+    }
+  }
+
   Column(
     verticalArrangement = Arrangement.Bottom,
     horizontalAlignment = Alignment.End,
@@ -134,20 +149,45 @@ private fun Content(
 
       Spacer(modifier = Modifier.weight(weight = 1f))
     } else {
-      Text(
-        text = allNumber,
-        overflow = TextOverflow.Ellipsis,
-        style = TextStyleFactory.FS36.w400(),
-        textAlign = TextAlign.End,
+      Box(
         modifier = Modifier
           .fillMaxWidth()
           .padding(horizontal = 20.dp)
           .weight(weight = 1f)
-      )
+      ) {
+        Text(
+          text = allNumber,
+          overflow = TextOverflow.Ellipsis,
+          style = TextStyleFactory.FS36.w400(),
+          textAlign = TextAlign.End,
+          modifier = Modifier
+        )
+
+        ToggleButton(
+          initChecked = darkTheme,
+          thumb = {
+            Image(
+              imageVector = if (darkTheme) MagicIcons.All.Dark else MagicIcons.All.Light,
+              contentDescription = null,
+              modifier = Modifier
+                .height(height = 24.dp)
+                .width(width = 30.dp)
+                .clip(shape = CircleShape)
+                .background(color = MaterialTheme.colorScheme.surface)
+                .padding(start = if (darkTheme) 1.8.dp else 0.dp)
+                .padding(vertical = 3.dp, horizontal = 6.dp)
+            )
+          },
+          onCheckedChange = {
+            component?.action(CalculatorComponent.Action.ChangeTheme(darkTheme = it))
+          }
+        )
+      }
     }
 
     TextAutoSize(
       text = enteredNumber,
+      darkTheme = darkTheme,
       style = TextStyleFactory.FS90.w300(
         textAlign = TextAlign.End,
       ),

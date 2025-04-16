@@ -3,6 +3,8 @@ package com.next.level.solutions.calculator.fb.mp.di
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.next.level.solutions.calculator.fb.mp.data.database.MyDatabase
+import com.next.level.solutions.calculator.fb.mp.data.datastore.local.store.LocalStore
+import com.next.level.solutions.calculator.fb.mp.data.datastore.local.store.LocalStoreImpl
 import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePath
 import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.ProducePathImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
@@ -30,6 +32,7 @@ actual val platformModule: Module
     singleOf<FileVisibilityManager>(::FileVisibilityManagerImpl)
     singleOf<LanguageChanger>(::LanguageChangerImpl)
     singleOf<ProducePath>(::ProducePathImpl)
+    singleOf<LocalStore>(::LocalStoreImpl)
 
     singleOf<AdsManager>(::AdsManagerImpl)
 

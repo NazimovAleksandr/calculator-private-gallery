@@ -24,10 +24,11 @@ import kotlin.math.min
 @Composable
 fun TextAutoSize(
   text: String,
+  darkTheme: Boolean,
   modifier: Modifier = Modifier,
   style: TextStyle = LocalTextStyle.current,
 ) {
-  var scaledTextStyle by remember(text) { mutableStateOf(style) }
+  var scaledTextStyle by remember(text, darkTheme) { mutableStateOf(style) }
   var readyToDraw by remember(text) { mutableStateOf(false) }
   
   val annotatedText = buildAnnotatedString {

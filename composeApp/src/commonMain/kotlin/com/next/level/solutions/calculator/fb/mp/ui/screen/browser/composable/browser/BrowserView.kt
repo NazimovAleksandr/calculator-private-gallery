@@ -18,6 +18,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.screen.browser.composable.br
 inline fun BrowserView(
   webViewState: WebViewState,
   navigator: WebViewNavigator,
+  darkTheme: Boolean,
   modifier: Modifier = Modifier,
   crossinline actions: (BrowserViewActions) -> Unit,
 ) {
@@ -54,7 +55,7 @@ inline fun BrowserView(
     webViewState.webSettings.apply {
       androidWebSettings.apply {
         domStorageEnabled = true
-        isAlgorithmicDarkeningAllowed = true
+        isAlgorithmicDarkeningAllowed = darkTheme
       }
     }
     onDispose { }

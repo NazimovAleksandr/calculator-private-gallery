@@ -2,5 +2,5 @@
 <resources>
     <color name="primary">#FFF09200</color>
     <color name="ad_body">#FF000000</color>
-    <color name="window_bg">#FFFFFFFF</color>
+    <color name="window_bg">#FF3D6063</color>
 </resources>

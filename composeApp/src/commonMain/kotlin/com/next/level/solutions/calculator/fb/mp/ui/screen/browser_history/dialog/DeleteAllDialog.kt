@@ -112,7 +112,8 @@ private fun ColumnScope.Content(
     ActionButton(
       text = stringResource(Res.string.cancel),
       colors = ButtonColors.default(
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = MaterialTheme.colorScheme.secondary,
+        contentColor = MaterialTheme.colorScheme.onSecondary,
       ),
       action = actionDismiss,
       modifier = Modifier

@@ -73,7 +73,7 @@ class RootComponent(
     childFactory = ::child,
   )
 
-  private val _model: MutableValue<Model> by lazy { MutableValue(Model()) }
+  private val _model: MutableValue<Model> by lazy { MutableValue(initModel()) }
   val model: Value<Model> get() = _model
 
   @Composable
@@ -92,12 +92,19 @@ class RootComponent(
     }
   }
 
+  private fun initModel(): Model {
+    return Model(
+      darkTheme = appDatastore.localStore.darkTheme
+    )
+  }
+
   private fun Child.Action.updateModel() {
     when (this) {
       is Action.LockOn -> update()
       is Action.LockOff -> update()
       is Action.ActivateCollapseSecurity -> update()
       is Action.DeactivateCollapseSecurity -> update()
+      is Action.ChangeTheme -> update()
     }
   }
 
@@ -183,15 +190,26 @@ class RootComponent(
     }
   }
 
+  private fun Action.ChangeTheme.update() {
+    appDatastore.localStore.darkTheme = darkTheme
+
+    _model.update {
+      it.copy(darkTheme = darkTheme)
+    }
+  }
+
   /**
    * Component contract - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    */
   data class Model(
+    val darkTheme: Boolean,
     val collapseSecurity: Boolean = false,
     val appLocked: Boolean = false,
   )
 
   sealed interface Action : Child.Action {
+    class ChangeTheme(val darkTheme: Boolean) : Action
+
     object LockOn : Action
     object LockOff : Action
     object AppOpen : Action

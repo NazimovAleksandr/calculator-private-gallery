@@ -105,6 +105,7 @@ class CalculatorComponent(
     val creatingPassword = handler.password.isEmpty() || handler.changeMode
 
     return Model(
+      rootModel = rootComponent.model,
       buttons = buttons.getButtons(),
       creatingPassword = creatingPassword,
       backHandlerEnabled = !handler.changeMode || handler.lockMode,
@@ -151,6 +152,7 @@ class CalculatorComponent(
   private fun Child.Action.doSomething(): Action? {
     when (this) {
       is Action.SecureAnswer -> doSomething()
+      is Action.ChangeTheme -> doSomething()
     }
 
     return null
@@ -334,6 +336,10 @@ class CalculatorComponent(
         resetPasswordCode()
       }
     }
+  }
+
+  private fun Action.ChangeTheme.doSomething() {
+    rootComponent.action(RootComponent.Action.ChangeTheme(darkTheme = darkTheme))
   }
 
   private fun prepare(newValue: String): String {
@@ -537,6 +543,7 @@ class CalculatorComponent(
   ) : InstanceKeeper.Instance
 
   data class Model(
+    val rootModel: Value<RootComponent.Model>,
     val creatingPassword: Boolean,
     val backHandlerEnabled: Boolean = true,
     val enteredNumber: String = "",
@@ -547,6 +554,8 @@ class CalculatorComponent(
   )
 
   sealed interface Action : Child.Action {
+    class ChangeTheme(val darkTheme: Boolean) : Action
+
     class CalculatorButtonClick(val type: String) : Action
     class SetPassword(val password: String) : Action
 

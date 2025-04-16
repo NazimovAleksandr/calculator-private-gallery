@@ -17,6 +17,7 @@ import com.arkivanov.decompose.value.update
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.multiplatform.webview.web.NativeWebView
 import com.next.level.solutions.calculator.fb.mp.data.database.AppDatabase
+import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.entity.ui.BrowserHistoryUI
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
@@ -41,6 +42,7 @@ class BrowserComponent(
   componentContext: ComponentContext,
   adsManager: AdsManager,
   private val appDatabase: AppDatabase,
+  private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<Configuration>,
   private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
@@ -77,6 +79,7 @@ class BrowserComponent(
     }
 
     return Model(
+      darkTheme = appDatastore.localStore.darkTheme,
       browserViewState = BrowserViewState(
         initUrl = initUrl,
         loadUrl = initUrl,
@@ -199,6 +202,7 @@ class BrowserComponent(
   ) : InstanceKeeper.Instance
 
   data class Model(
+    val darkTheme: Boolean,
     val browserViewState: BrowserViewState,
     val toolbarState: BrowserToolbarState = BrowserToolbarState(),
   )

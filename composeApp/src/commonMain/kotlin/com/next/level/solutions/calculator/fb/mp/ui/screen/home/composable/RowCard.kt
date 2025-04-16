@@ -55,7 +55,7 @@ internal fun RowScope.RowCard(
 
     Text(
       text = stringResource(resource = text),
-      color = MaterialTheme.colorScheme.onSecondaryContainer,
+      color = MaterialTheme.colorScheme.onPrimary,
       style = TextStyleFactory.FS16.w600(),
       overflow = TextOverflow.Ellipsis,
       textAlign = TextAlign.Center,

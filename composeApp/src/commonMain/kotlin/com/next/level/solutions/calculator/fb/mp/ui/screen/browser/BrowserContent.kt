@@ -85,6 +85,12 @@ private fun Content(
     }
   }
 
+  val darkTheme by remember {
+    derivedStateOf {
+      model?.value?.darkTheme ?: true
+    }
+  }
+
   var toolbarHeight by remember {
     mutableIntStateOf(0)
   }
@@ -193,6 +199,7 @@ private fun Content(
     BrowserView(
       webViewState = webViewState,
       navigator = navigator,
+      darkTheme = darkTheme,
       modifier = Modifier
         .fillMaxWidth()
         .weight(weight = 1f)

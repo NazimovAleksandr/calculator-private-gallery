@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -180,6 +181,8 @@ private fun AdCard(
     derivedStateOf { nativeAdState?.value }
   }
 
+  val textColor = MaterialTheme.colorScheme.onBackground
+
   AndroidView(
     factory = { context ->
       LayoutInflater
@@ -187,12 +190,17 @@ private fun AdCard(
         .inflate(layout, null) as NativeAdView
     },
     update = { adView ->
+      val adLabel = adView.findViewById<TextView>(R.id.ad_label)
       val adIconView = adView.findViewById<ImageView>(R.id.ad_app_icon)
       val adHeadlineView = adView.findViewById<TextView>(R.id.ad_headline)
       val adBodyView = adView.findViewById<TextView>(R.id.ad_body)
       val adCallToActionView = adView.findViewById<TextView>(R.id.ad_call_to_action)
       val adAdvertiserView = adView.findViewById<TextView>(R.id.ad_advertiser)
       val adMediaView = adView.findViewById<MediaView>(R.id.ad_media)
+
+      adLabel?.setTextColor(textColor.toArgb())
+      adHeadlineView?.setTextColor(textColor.toArgb())
+      adBodyView?.setTextColor(textColor.toArgb())
 
       adView.headlineView = adHeadlineView
       adView.bodyView = adBodyView

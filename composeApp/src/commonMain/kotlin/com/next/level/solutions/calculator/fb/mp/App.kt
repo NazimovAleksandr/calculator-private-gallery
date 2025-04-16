@@ -1,6 +1,8 @@
 package com.next.level.solutions.calculator.fb.mp
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import coil3.ImageLoader
 import coil3.SingletonImageLoader
@@ -10,6 +12,7 @@ import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
 import coil3.request.crossfade
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.di.dataModule
 import com.next.level.solutions.calculator.fb.mp.di.decomposeModule
 import com.next.level.solutions.calculator.fb.mp.di.ecosystemModule
@@ -65,8 +68,16 @@ private fun Content(
     koin.get<KoinFactory>().rootComponent(componentContext)
   }
 
+  val roomModel by rootComponent.model.subscribeAsState()
+
+  val darkTheme by remember {
+    derivedStateOf {
+      roomModel.darkTheme
+    }
+  }
+
   AppTheme(
-    darkTheme = true,
+    darkTheme = darkTheme,
     content = { rootComponent.content() },
   )
 }

@@ -4,7 +4,6 @@ Calculator - Private Gallery
 ### Todo list
 
 - [ ] Common
-  - [ ] LightMode
   - [ ] Browser
     - [ ] BrowserView: multipleWindows
 - [ ] Android
@@ -15,5 +14,6 @@ Calculator - Private Gallery
   - [ ] FileVisibilityManager
   - [ ] AppEventListener
   - [ ] NetworkManager
+  - [ ] LocalStore
   - [ ] Calculator: percent
 
