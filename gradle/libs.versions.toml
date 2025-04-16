@@ -3,8 +3,8 @@ android-compileSdk = "35"
 android-targetSdk = "35"
 android-minSdk = "24"
 
-android-versionCode = "8"
-android-versionName = "1.0.7"
+android-versionCode = "9"
+android-versionName = "1.1.0"
 
 kotlin = "2.1.10"
 ksp = "2.1.10-1.0.31"
