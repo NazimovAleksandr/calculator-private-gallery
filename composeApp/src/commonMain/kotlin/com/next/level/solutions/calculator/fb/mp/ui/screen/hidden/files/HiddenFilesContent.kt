@@ -126,7 +126,7 @@ private fun AnimatedContent(
   val navigationBarsPadding by remember(key1 = landscapeState) {
     mutableIntStateOf(
       if (landscapeState) 0
-      else navigationBars.getBottom(density)
+      else navigationBars.getBottom(density).let { if (it == 0) 1 else it }
     )
   }
 
