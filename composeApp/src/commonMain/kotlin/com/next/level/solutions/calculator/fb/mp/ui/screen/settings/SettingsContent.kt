@@ -3,7 +3,6 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,19 +27,14 @@ import calculator_privategallery.composeapp.generated.resources.Res
 import calculator_privategallery.composeapp.generated.resources.settings
 import calculator_privategallery.composeapp.generated.resources.version
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.SettingsSection
-import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.TipToResetPassword
+import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsType
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
-import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ActionButton
-import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ButtonColors
-import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.ContentSpace
-import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconSize
-import com.next.level.solutions.calculator.fb.mp.ui.composable.action.button.IconType
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toolbar.Toolbar
-import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
-import com.next.level.solutions.calculator.fb.mp.ui.icons.all.ArrowForward
-import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Language
+import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.SettingsItemButton
+import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.SettingsSection
+import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.ThemeButton
+import com.next.level.solutions.calculator.fb.mp.ui.screen.settings.composable.TipToResetPassword
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import kotlinx.collections.immutable.persistentMapOf
 import org.jetbrains.compose.resources.stringResource
@@ -88,8 +82,6 @@ private fun Content(
 
   val tipToResetPassword = model?.value?.tipToResetPassword?.collectAsState(true)
 
-  val language = model?.value?.language?.collectAsState("")
-
   val items by remember {
     derivedStateOf {
       model?.value?.items ?: persistentMapOf()
@@ -126,7 +118,9 @@ private fun Content(
       }
 
       SettingsType.entries.forEach {
-        items[it]?.forEachIndexed { index, settingsModelUI ->
+        items[it]?.forEachIndexed { index, settingsModelUI: SettingsModelUI ->
+          Spacer(modifier = Modifier.height(height = 4.dp))
+
           if (index == 0) {
             SettingsSection(
               item = it,
@@ -134,33 +128,14 @@ private fun Content(
             )
           }
 
-          Spacer(modifier = Modifier.height(height = 4.dp))
-
-          val icon = settingsModelUI.icon
-
-          val text = when (icon) {
-            MagicIcons.All.Language -> language?.value.toString()
-            else -> stringResource(resource = settingsModelUI.title)
+          if (settingsModelUI == SettingsModelUI.Theme) {
+            ThemeButton(component = component)
+          } else {
+            SettingsItemButton(
+              component = component,
+              settingsModelUI = settingsModelUI,
+            )
           }
-
-          ActionButton(
-            iconStart = icon,
-            iconStartSize = IconSize(height = icon.defaultHeight, width = icon.defaultWidth),
-            text = text,
-            iconEnd = MagicIcons.All.ArrowForward,
-            iconEndSize = IconSize(size = 48.dp),
-            iconType = IconType.Image,
-            style = TextStyleFactory.FS17.w400(),
-            contentSpace = ContentSpace(horizontal = 10.dp),
-            paddingValues = PaddingValues(start = 16.dp, top = 10.dp, end = 4.dp, bottom = 10.dp),
-            colors = ButtonColors.default(
-              containerColor = MaterialTheme.colorScheme.secondary,
-              contentColor = MaterialTheme.colorScheme.onSecondary,
-            ),
-            action = { component?.action(SettingsComponent.Action.Item(settingsModelUI)) },
-            textModifier = Modifier.weight(weight = 1f),
-            modifier = Modifier.fillMaxWidth(),
-          )
         }
       }
 

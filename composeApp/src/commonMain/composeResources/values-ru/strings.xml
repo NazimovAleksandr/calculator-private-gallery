@@ -76,6 +76,8 @@
     <string name="type_your_secret_note">Введите вашу секретную заметку…</string>
 
     <string name="settings">Настройки</string>
+    <string name="social">Социальное</string>
+    <string name="theme">Тема</string>
     <string name="security">Безопасность</string>
     <string name="change_password">Изменить пароль</string>
     <string name="change_security_question">Изменить контрольный вопрос</string>

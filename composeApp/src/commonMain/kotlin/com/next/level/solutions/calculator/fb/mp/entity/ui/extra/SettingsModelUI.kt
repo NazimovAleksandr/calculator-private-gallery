@@ -10,11 +10,13 @@ import calculator_privategallery.composeapp.generated.resources.privacy_policy
 import calculator_privategallery.composeapp.generated.resources.rate_5_stars
 import calculator_privategallery.composeapp.generated.resources.security
 import calculator_privategallery.composeapp.generated.resources.share_with_friends
+import calculator_privategallery.composeapp.generated.resources.social
 import calculator_privategallery.composeapp.generated.resources.tos
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.ChangePassword
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.ChangeSecurityQuestion
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Language
+import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Light
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Rate5Stars
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Share
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Privacy
@@ -25,6 +27,7 @@ import kotlinx.collections.immutable.toImmutableMap
 import org.jetbrains.compose.resources.StringResource
 
 enum class SettingsType(val title: StringResource) {
+  Social(title = Res.string.social),
   Security(title = Res.string.security),
   Language(title = Res.string.language),
   More(title = Res.string.more),
@@ -35,6 +38,20 @@ enum class SettingsModelUI(
   val icon: ImageVector,
   val title: StringResource,
 ) {
+  /**
+   * Social
+   */
+  Rate5Stars(
+    type = SettingsType.Social,
+    icon = MagicIcons.All.Rate5Stars,
+    title = Res.string.rate_5_stars,
+  ),
+  Share(
+    type = SettingsType.Social,
+    icon = MagicIcons.All.Share,
+    title = Res.string.share_with_friends,
+  ),
+
   /**
    * Security
    */
@@ -61,15 +78,10 @@ enum class SettingsModelUI(
   /**
    * More
    */
-  Rate5Stars(
+  Theme(
     type = SettingsType.More,
-    icon = MagicIcons.All.Rate5Stars,
-    title = Res.string.rate_5_stars,
-  ),
-  Share(
-    type = SettingsType.More,
-    icon = MagicIcons.All.Share,
-    title = Res.string.share_with_friends,
+    icon = MagicIcons.All.Light,
+    title = Res.string.privacy_policy,
   ),
   Privacy(
     type = SettingsType.More,

@@ -20,7 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
@@ -30,6 +33,9 @@ fun ToggleButton(
   initChecked: Boolean,
   thumb: @Composable BoxScope.() -> Unit,
   modifier: Modifier = Modifier,
+  backgroundColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+  size: DpSize = DpSize(width = 70.dp, height = 30.dp),
+  shape: Shape = CircleShape,
   onCheckedChange: (Boolean) -> Unit = {},
 ) {
   var checked by remember { mutableStateOf(initChecked) }
@@ -54,9 +60,9 @@ fun ToggleButton(
   Box(
     contentAlignment = Alignment.CenterStart,
     modifier = modifier
-      .size(width = 70.dp, height = 30.dp)
-      .clip(shape = CircleShape)
-      .background(color = MaterialTheme.colorScheme.surfaceContainer)
+      .size(size = size)
+      .clip(shape = shape)
+      .background(color = backgroundColor)
       .clickable(
         onClick = {
           onCheckedChange(!checked)
@@ -68,7 +74,7 @@ fun ToggleButton(
       .drawWithContent {
         thumbOffset = calculateThumbOffset(
           start = with(density) { 4.dp.toPx() },
-          stop = size.width - with(density) { 34.dp.toPx() },
+          stop = this.size.width - with(density) { 34.dp.toPx() },
           fraction = thumbPosition
         )
 

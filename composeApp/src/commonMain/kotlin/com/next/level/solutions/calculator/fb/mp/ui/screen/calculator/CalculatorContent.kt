@@ -1,6 +1,5 @@
 package com.next.level.solutions.calculator.fb.mp.ui.screen.calculator
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +31,7 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.ui.composable.back.handler.BackHandler
+import com.next.level.solutions.calculator.fb.mp.ui.composable.image.Image
 import com.next.level.solutions.calculator.fb.mp.ui.composable.toggle.button.ToggleButton
 import com.next.level.solutions.calculator.fb.mp.ui.icons.MagicIcons
 import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Dark
@@ -167,8 +167,7 @@ private fun Content(
           initChecked = darkTheme,
           thumb = {
             Image(
-              imageVector = if (darkTheme) MagicIcons.All.Dark else MagicIcons.All.Light,
-              contentDescription = null,
+              vector = if (darkTheme) MagicIcons.All.Dark else MagicIcons.All.Light,
               modifier = Modifier
                 .height(height = 24.dp)
                 .width(width = 30.dp)

@@ -16,6 +16,7 @@ import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsModelUI
 import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.SettingsType
 import com.next.level.solutions.calculator.fb.mp.entity.ui.extra.getSettingsItems
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
+import com.next.level.solutions.calculator.fb.mp.extensions.core.getRootComponent
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
@@ -34,6 +35,8 @@ class SettingsComponent(
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<RootComponent.Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
+
+  private val rootComponent: RootComponent = getRootComponent()
 
   private val _model: MutableValue<Model> by lazy { MutableValue(initialModel()) }
   val model: Value<Model> get() = _model
@@ -55,6 +58,7 @@ class SettingsComponent(
 //    analytics.settings.screenOpen()
 
     return Model(
+      rootModel = rootComponent.model,
       items = getSettingsItems(),
       language = appDatastore.languageName(),
       tipToResetPassword = appDatastore.tipToResetPassword(),
@@ -66,6 +70,7 @@ class SettingsComponent(
       is Action.Back -> navigation.pop()
       is Action.HideTipToResetPassword -> launchIO { appDatastore.tipToResetPassword(false) }
       is Action.Item -> doSomething()
+      is Action.ChangeTheme -> doSomething()
     }
 
     return null
@@ -93,7 +98,12 @@ class SettingsComponent(
       SettingsModelUI.Tos -> navigation.pushNew(RootComponent.Configuration.policyTos(tos = true))
       SettingsModelUI.Rate5Stars -> PlatformExp.openMarket()
       SettingsModelUI.Share -> PlatformExp.shareApp()
+      SettingsModelUI.Theme -> {}
     }
+  }
+
+  private fun Action.ChangeTheme.doSomething() {
+    rootComponent.action(RootComponent.Action.ChangeTheme(darkTheme = darkTheme))
   }
 
   /**
@@ -102,6 +112,7 @@ class SettingsComponent(
   class Handler : InstanceKeeper.Instance
 
   data class Model(
+    val rootModel: Value<RootComponent.Model>,
     val items: ImmutableMap<SettingsType, ImmutableList<SettingsModelUI>>,
     val language: Flow<String?>,
     val tipToResetPassword: Flow<Boolean?>,
@@ -112,6 +123,7 @@ class SettingsComponent(
     object Back : Action
     object HideTipToResetPassword : Action
     class Item(val item: SettingsModelUI) : Action
+    class ChangeTheme(val darkTheme: Boolean) : Action
   }
 //
 //  sealed interface Signal : Store.Signal {

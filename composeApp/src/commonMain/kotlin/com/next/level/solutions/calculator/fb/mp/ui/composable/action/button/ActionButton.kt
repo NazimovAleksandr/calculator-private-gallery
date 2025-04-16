@@ -200,29 +200,29 @@ private fun Content(
     onlyIcon -> iconStart?.Draw(
       type = iconType,
       tint = when (enabled) {
-        true -> colorsValue.contentColor
-        else -> colorsValue.disabledContentColor
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
       modifier = textM.size(size = iconStartSizeValue)
     ) ?: iconTop?.Draw(
       type = iconType,
       tint = when (enabled) {
-        true -> colorsValue.contentColor
-        else -> colorsValue.disabledContentColor
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
       modifier = textM.size(size = iconTopSizeValue)
     ) ?: iconEnd?.Draw(
       type = iconType,
       tint = when (enabled) {
-        true -> colorsValue.contentColor
-        else -> colorsValue.disabledContentColor
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
       modifier = textM.size(size = iconEndSizeValue)
     ) ?: iconBottom?.Draw(
       type = iconType,
       tint = when (enabled) {
-        true -> colorsValue.contentColor
-        else -> colorsValue.disabledContentColor
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
       modifier = textM.size(size = iconBottomSizeValue)
     )
@@ -243,9 +243,13 @@ private fun Content(
       contentSpace = contentSpaceValue,
       modifier = textM,
       textModifier = textModifier,
-      color = when (enabled) {
+      textColor = when (enabled) {
         true -> colorsValue.contentColor
         else -> colorsValue.disabledContentColor
+      },
+      iconColor = when (enabled) {
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
     )
 
@@ -261,9 +265,13 @@ private fun Content(
       contentSpace = contentSpaceValue.vertical,
       modifier = textM,
       textModifier = textModifier,
-      color = when (enabled) {
+      textColor = when (enabled) {
         true -> colorsValue.contentColor
         else -> colorsValue.disabledContentColor
+      },
+      iconColor = when (enabled) {
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
     )
 
@@ -279,9 +287,13 @@ private fun Content(
       contentSpace = contentSpaceValue.horizontal,
       modifier = textM,
       textModifier = textModifier,
-      color = when (enabled) {
+      textColor = when (enabled) {
         true -> colorsValue.contentColor
         else -> colorsValue.disabledContentColor
+      },
+      iconColor = when (enabled) {
+        true -> colorsValue.iconColor
+        else -> colorsValue.disabledIconColor
       },
     )
   }
@@ -337,7 +349,8 @@ private fun Row(
   iconStartSize: IconSize,
   iconEndSize: IconSize,
   iconType: IconType,
-  color: Color,
+  textColor: Color,
+  iconColor: Color,
   contentSpace: Dp,
   modifier: Modifier = Modifier,
   textModifier: Modifier = Modifier,
@@ -350,7 +363,7 @@ private fun Row(
     iconStart?.let {
       iconStart.Draw(
         type = iconType,
-        tint = color,
+        tint = iconColor,
         modifier = Modifier.size(size = iconStartSize)
       )
 
@@ -359,7 +372,7 @@ private fun Row(
 
     text?.Draw(
       style = style,
-      color = color,
+      color = textColor,
       maxLines = textMaxLines,
       modifier = textModifier,
     )
@@ -369,7 +382,7 @@ private fun Row(
 
       iconEnd.Draw(
         type = iconType,
-        tint = color,
+        tint = iconColor,
         modifier = Modifier.size(size = iconEndSize)
       )
     }
@@ -386,7 +399,8 @@ private fun Column(
   iconTopSize: IconSize,
   iconBottomSize: IconSize,
   iconType: IconType,
-  color: Color,
+  textColor: Color,
+  iconColor: Color,
   contentSpace: Dp,
   modifier: Modifier = Modifier,
   textModifier: Modifier = Modifier,
@@ -399,7 +413,7 @@ private fun Column(
     iconTop?.let {
       iconTop.Draw(
         type = iconType,
-        tint = color,
+        tint = iconColor,
         modifier = Modifier.size(size = iconTopSize)
       )
 
@@ -408,7 +422,7 @@ private fun Column(
 
     text?.Draw(
       style = style,
-      color = color,
+      color = textColor,
       maxLines = textMaxLines,
       modifier = textModifier,
     )
@@ -418,7 +432,7 @@ private fun Column(
 
       iconBottom.Draw(
         type = iconType,
-        tint = color,
+        tint = iconColor,
         modifier = Modifier.size(size = iconBottomSize)
       )
     }
@@ -439,7 +453,8 @@ private fun All(
   iconEndSize: IconSize,
   iconBottomSize: IconSize,
   iconType: IconType,
-  color: Color,
+  textColor: Color,
+  iconColor: Color,
   contentSpace: ContentSpace,
   modifier: Modifier = Modifier,
   textModifier: Modifier = Modifier,
@@ -452,7 +467,7 @@ private fun All(
     iconTop?.let {
       iconTop.Draw(
         type = iconType,
-        tint = color,
+        tint = iconColor,
         modifier = Modifier.size(size = iconTopSize)
       )
 
@@ -467,7 +482,7 @@ private fun All(
       iconStart?.let {
         iconStart.Draw(
           type = iconType,
-          tint = color,
+          tint = iconColor,
           modifier = Modifier.size(size = iconStartSize)
         )
 
@@ -476,7 +491,7 @@ private fun All(
 
       text?.Draw(
         style = style,
-        color = color,
+        color = textColor,
         maxLines = textMaxLines,
         modifier = textModifier,
       )
@@ -486,7 +501,7 @@ private fun All(
 
         iconEnd.Draw(
           type = iconType,
-          tint = color,
+          tint = iconColor,
           modifier = Modifier.size(size = iconEndSize)
         )
       }
@@ -497,7 +512,7 @@ private fun All(
 
       iconBottom.Draw(
         type = iconType,
-        tint = color,
+        tint = iconColor,
         modifier = Modifier.size(size = iconBottomSize)
       )
     }
@@ -531,8 +546,10 @@ data class ContentSpace(
 
 @Stable
 data class ButtonColors(
+  val iconColor: Color,
   val contentColor: Color,
   val containerColor: Color,
+  val disabledIconColor: Color,
   val disabledContentColor: Color,
   val disabledContainerColor: Color,
 ) {
@@ -541,11 +558,15 @@ data class ButtonColors(
     fun default(
       contentColor: Color = MaterialTheme.colorScheme.onPrimary,
       containerColor: Color = MaterialTheme.colorScheme.primary,
+      iconColor: Color = contentColor,
       disabledContentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
       disabledContainerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+      disabledIconColor: Color = disabledContentColor,
     ): ButtonColors = ButtonColors(
+      iconColor = iconColor,
       contentColor = contentColor,
       containerColor = containerColor,
+      disabledIconColor = disabledIconColor,
       disabledContentColor = disabledContentColor,
       disabledContainerColor = disabledContainerColor,
     )
