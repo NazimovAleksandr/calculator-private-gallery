@@ -1,10 +1,8 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.config
 
-import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.entity.config.AdsConfig
 import com.next.level.solutions.calculator.fb.mp.entity.config.ApplicationConfig
 import com.next.level.solutions.calculator.fb.mp.entity.config.SplashConfig
-import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager

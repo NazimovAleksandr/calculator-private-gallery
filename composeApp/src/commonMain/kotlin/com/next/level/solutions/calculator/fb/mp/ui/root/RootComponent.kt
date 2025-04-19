@@ -115,12 +115,13 @@ class RootComponent(
   private fun Child.Action.doSomething(): Action? {
     when (this) {
       is Action.AppOpen -> adsManager.appOpen.show {}
-      is Action.InitAppConfig -> appConfig.init { action(Action.CheckAppUpdate) }
 
-      is Action.CheckAppUpdate -> appUpdate.checkAppUpdate(
-        result =  { appAnalytics.logEvent("app_update", "result" to it) },
-        type = appConfig.app.appUpdateType,
-      )
+      is Action.InitAppConfig -> appConfig.init {
+        appUpdate.checkAppUpdate(
+          result =  { appAnalytics.logEvent("app_update", "result" to it) },
+          type = appConfig.app.appUpdateType,
+        )
+      }
     }
 
     return null
@@ -225,7 +226,6 @@ class RootComponent(
     object ActivateCollapseSecurity : Action
     object DeactivateCollapseSecurity : Action
     object InitAppConfig : Action
-    object CheckAppUpdate : Action
   }
 
   abstract class Child(
