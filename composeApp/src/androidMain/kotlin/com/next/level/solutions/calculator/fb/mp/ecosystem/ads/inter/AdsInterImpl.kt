@@ -11,9 +11,11 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
+import io.appmetrica.analytics.AdType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,8 +40,22 @@ class AdsInterImpl(
   @Suppress("PrivatePropertyName")
   private val TAG = this::class.simpleName.toString()
 
-  override fun onPaidEvent(p0: AdValue) {
+  override fun onPaidEvent(adValue: AdValue) {
     Logger.d(TAG, "onPaidEvent")
+
+    val adInfo = adTemp?.responseInfo?.loadedAdapterResponseInfo
+    val network = adInfo?.adSourceName
+    val placementId = adInfo?.adSourceId.toString()
+
+    val appAdRevenue = AppAdRevenue(
+      valueMicros = adValue.valueMicros,
+      currencyCode = adValue.currencyCode,
+      placementId = placementId,
+      adUnitId = adUnitId,
+      network = network.toString(),
+    )
+
+    analytics.reportAdRevenue(AdType.INTERSTITIAL.name, appAdRevenue)
   }
 
   override fun onAdClicked() {
