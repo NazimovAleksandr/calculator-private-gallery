@@ -29,6 +29,8 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -44,6 +46,7 @@ import androidx.lifecycle.lifecycleScope
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.defaultComponentContext
 import com.next.level.solutions.calculator.fb.mp.entity.ui.FileDataUI
+import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.ChangerLocalStore
 import com.next.level.solutions.calculator.fb.mp.ui.screen.language.changer.LanguageChanger
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
@@ -71,6 +74,13 @@ class MainActivity : ComponentActivity() {
   private val launcher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
     contract = RequestMultiplePermissions(),
     callback = {},
+  )
+
+  private val appUpdate: AppUpdate by inject()
+
+  private val intentSender: ActivityResultLauncher<IntentSenderRequest> = registerForActivityResult(
+    contract = StartIntentSenderForResult(),
+    callback = { appUpdate.result(it.resultCode == RESULT_OK) },
   )
 
   override fun attachBaseContext(newBase: Context?) {
@@ -114,6 +124,8 @@ class MainActivity : ComponentActivity() {
         },
       )
     }
+
+    appUpdate.setIntentSender(intentSender)
   }
 
   override fun onStart() {

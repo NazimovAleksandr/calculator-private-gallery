@@ -1,6 +1,7 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.config
 
 import com.next.level.solutions.calculator.fb.mp.entity.config.AdsConfig
+import com.next.level.solutions.calculator.fb.mp.entity.config.ApplicationConfig
 import com.next.level.solutions.calculator.fb.mp.entity.config.SplashConfig
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
@@ -19,6 +20,9 @@ class AppConfig(
   private val config: FirebaseRemoteConfig,
   private val networkManager: NetworkManager,
 ) {
+  var app: ApplicationConfig = ApplicationConfig()
+    private set
+
   var adsConfig: AdsConfig = AdsConfig()
     private set
 
@@ -44,6 +48,7 @@ class AppConfig(
       }
 
       adsConfig = formJson(config["ads"], ::AdsConfig)
+      app = formJson(config["app"], ::ApplicationConfig)
       splashConfig = formJson(config["splash"], ::SplashConfig)
 
       Logger.d("AppConfig", "fetched")

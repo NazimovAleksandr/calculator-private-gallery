@@ -8,6 +8,7 @@ Calculator - Private Gallery
     - [ ] BrowserView: multipleWindows
 - [ ] Android
   - [ ] Ads: reload
+  - [ ] Subscription
 - [ ] iOS
   - [ ] VideoPlayer
   - [ ] PlatformExp
@@ -16,4 +17,6 @@ Calculator - Private Gallery
   - [ ] NetworkManager
   - [ ] LocalStore
   - [ ] Calculator: percent
+  - [ ] AppUpdate
+  - [ ] AppMetrica
 

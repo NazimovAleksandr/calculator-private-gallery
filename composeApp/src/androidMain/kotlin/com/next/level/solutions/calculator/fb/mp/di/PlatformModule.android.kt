@@ -20,6 +20,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
+import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.math.parser.MathParser
@@ -46,6 +47,7 @@ actual val platformModule: Module
     singleOf<AdsNative, Context, AppAnalytics, NetworkManager>(::AdsNativeImpl)
 
     singleOf(::AppEventListener)
+    singleOf(::AppUpdate)
 
     single<RoomDatabase.Builder<MyDatabase>> {
       val applicationContext = get<Context>().applicationContext

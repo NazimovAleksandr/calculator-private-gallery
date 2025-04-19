@@ -10,6 +10,8 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.config.AppConfig
+import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
+import com.next.level.solutions.calculator.fb.mp.extensions.core.launchIO
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
@@ -24,6 +26,7 @@ class SplashComponent(
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<Configuration>,
   private val appConfig: AppConfig,
+  private val appUpdate: AppUpdate,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   private val _progress: MutableValue<Float> by lazy { MutableValue(0f) }
@@ -31,6 +34,13 @@ class SplashComponent(
 
   init {
     launchMain { runProgress() }
+
+    launchIO {
+      delay(300)
+      appUpdate.checkAppUpdate(appConfig.app.appUpdateType) {
+
+      }
+    }
   }
 
   @Composable

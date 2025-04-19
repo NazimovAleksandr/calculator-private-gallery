@@ -2,6 +2,8 @@ import com.google.devtools.ksp.KspExperimental
 import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+private val demo = true
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.compose.multiplatform)
@@ -13,7 +15,7 @@ plugins {
   alias(libs.plugins.google.services)
   alias(libs.plugins.firebase.crashlytics)
 
-  alias(libs.plugins.room)
+  alias(libs.plugins.androidx.room)
   alias(libs.plugins.ksp)
 }
 
@@ -38,17 +40,20 @@ kotlin {
   sourceSets {
     androidMain.dependencies {
       implementation(compose.preview)
+
       implementation(libs.androidx.activity.compose)
       implementation(libs.androidx.splashscreen)
       implementation(libs.androidx.cardview)
-      implementation(libs.bundles.admob)
+      implementation(libs.androidx.media3.exoplayer)
+      implementation(libs.androidx.media3.ui)
+
+      implementation(libs.android.app.update)
+      implementation(libs.android.app.update.ktx)
 
       implementation(libs.koin.android)
-
       implementation(libs.math.parser)
 
-      implementation(libs.media3.exoplayer)
-      implementation(libs.media3.ui)
+      implementation(libs.bundles.admob)
     }
 
     commonMain.dependencies {
@@ -60,6 +65,10 @@ kotlin {
       implementation(compose.components.uiToolingPreview)
 
       implementation(libs.compose.shadow)
+
+      implementation(libs.androidx.datastore)
+      implementation(libs.androidx.room.runtime)
+      implementation(libs.androidx.sqlite.bundled)
 
       implementation(libs.androidx.lifecycle.viewmodel)
       implementation(libs.androidx.lifecycle.runtime.compose)
@@ -77,11 +86,6 @@ kotlin {
       // koin
       implementation(libs.koin.core)
       implementation(libs.koin.compose)
-
-      implementation(libs.datastore)
-
-      implementation(libs.room.runtime)
-      implementation(libs.sqlite.bundled)
 
       implementation(libs.coil3.compose)
       implementation(libs.coil3.video)
@@ -126,10 +130,7 @@ android {
   }
 
   defaultConfig {
-    val appId = "com.next.level.solutions.calculator.fb.mp.demo"
-    val demo = appId.contains("demo")
-
-    applicationId = appId
+    applicationId = applicationId()
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
 
@@ -188,7 +189,7 @@ dependencies {
   debugImplementation(compose.uiTooling)
 
   ksp(libs.koin.ksp.compiler)
-  ksp(libs.room.compiler)
+  ksp(libs.androidx.room.compiler)
 }
 
 ksp {
@@ -198,4 +199,9 @@ ksp {
 
 room {
   schemaDirectory("$projectDir/schemas")
+}
+
+fun applicationId(): String {
+  val appId = "com.next.level.solutions.calculator.fb.mp"
+  return if (demo) "$appId.demo" else appId
 }
