@@ -1,21 +1,19 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.analytics
 
+import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.app.metrica.AppMetrica
 import dev.gitlive.firebase.analytics.FirebaseAnalytics
 
 class AppAnalytics(
   private val firebaseAnalytics: FirebaseAnalytics,
+  private val appMetrica: AppMetrica,
 ) {
   fun logEvent(event: String, vararg params: Pair<String, Any>) {
-    firebaseAnalytics.logEvent(event, paramsToMap(params.toList()))
+    firebaseAnalytics.logEvent(event, params.toMap())
+    appMetrica.logEvent(event, *params)
   }
 
-  private fun paramsToMap(list: List<Pair<String, Any>>?): Map<String, Any>? {
-    list ?: return null
-
-    return try {
-      mapOf(*list.map { it.first to it.second }.toTypedArray())
-    } catch (_: Exception) {
-      null
-    }
+  fun reportAdRevenue(type: String, appAdRevenue: AppAdRevenue) {
+    appMetrica.reportAdRevenue(type, appAdRevenue)
   }
 }

@@ -50,6 +50,8 @@ kotlin {
       implementation(libs.android.app.update)
       implementation(libs.android.app.update.ktx)
 
+      implementation(libs.android.appmetrica)
+
       implementation(libs.koin.android)
       implementation(libs.math.parser)
 
@@ -165,7 +167,6 @@ android {
 
   bundle {
     language {
-      @Suppress("UnstableApiUsage")
       enableSplit = false
     }
   }
