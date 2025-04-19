@@ -32,6 +32,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat.checkSelfPermission
@@ -121,11 +122,13 @@ class MainActivity : ComponentActivity() {
           App(
             componentContext = componentContext,
           )
+
+          LaunchedEffect(key1 = Unit) {
+            appUpdate.setIntentSender(intentSender)
+          }
         },
       )
     }
-
-    appUpdate.setIntentSender(intentSender)
   }
 
   override fun onStart() {

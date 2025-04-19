@@ -20,9 +20,11 @@ import com.next.level.solutions.calculator.fb.mp.data.datastore.AppDatastore
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.ecosystem.config.AppConfig
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
 import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
+import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.extensions.core.hexString
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.utils.KoinFactory
@@ -38,6 +40,8 @@ class RootComponent(
   private val adsManager: AdsManager,
   private val factory: KoinFactory,
   private val appConfig: AppConfig,
+  private val appUpdate: AppUpdate,
+  private val appAnalytics: AppAnalytics,
   appEventListener: AppEventListener,
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
 
@@ -111,7 +115,12 @@ class RootComponent(
   private fun Child.Action.doSomething(): Action? {
     when (this) {
       is Action.AppOpen -> adsManager.appOpen.show {}
-      is Action.InitAppConfig -> appConfig.init()
+      is Action.InitAppConfig -> appConfig.init { action(Action.CheckAppUpdate) }
+
+      is Action.CheckAppUpdate -> appUpdate.checkAppUpdate(
+        result =  { appAnalytics.logEvent("app_update", "result" to it) },
+        type = appConfig.app.appUpdateType,
+      )
     }
 
     return null
@@ -216,6 +225,7 @@ class RootComponent(
     object ActivateCollapseSecurity : Action
     object DeactivateCollapseSecurity : Action
     object InitAppConfig : Action
+    object CheckAppUpdate : Action
   }
 
   abstract class Child(

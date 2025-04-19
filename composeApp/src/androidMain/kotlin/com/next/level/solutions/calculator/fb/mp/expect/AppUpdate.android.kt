@@ -33,22 +33,27 @@ actual class AppUpdate(
   fun result(result: Boolean) {
     resultListener?.let { it(result) }
     resultListener = null
+    intentSender = null
   }
 
   private fun checkAppUpdate(@AppUpdateType updateType: Int) {
-    val intentSender: ActivityResultLauncher<IntentSenderRequest> = intentSender ?: return
+    val updateRequestLauncher: ActivityResultLauncher<IntentSenderRequest> = intentSender ?: return
 
     val appUpdateInfoTask: Task<AppUpdateInfo?> = appUpdateManager.appUpdateInfo
 
     appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-      if (appUpdateInfo?.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+      if (
+        appUpdateInfo?.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
         && appUpdateInfo.isUpdateTypeAllowed(updateType)
       ) {
         appUpdateManager.startUpdateFlowForResult(
           appUpdateInfo,
-          intentSender,
+          updateRequestLauncher,
           AppUpdateOptions.newBuilder(updateType).build(),
         )
+      } else {
+        resultListener = null
+        intentSender = null
       }
     }
   }

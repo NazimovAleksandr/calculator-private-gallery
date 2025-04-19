@@ -1,8 +1,10 @@
 package com.next.level.solutions.calculator.fb.mp.ecosystem.config
 
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.entity.config.AdsConfig
 import com.next.level.solutions.calculator.fb.mp.entity.config.ApplicationConfig
 import com.next.level.solutions.calculator.fb.mp.entity.config.SplashConfig
+import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.expect.PlatformExp
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
@@ -29,11 +31,11 @@ class AppConfig(
   var splashConfig: SplashConfig = SplashConfig()
     private set
 
-  fun init() {
-    networkManager.runAfterNetworkConnection(block = ::fetch)
+  fun init(onCompleted: () -> Unit) {
+    networkManager.runAfterNetworkConnection(block = { fetch(onCompleted) })
   }
 
-  private fun fetch() {
+  private fun fetch(onCompleted: () -> Unit) {
     CoroutineScope(Dispatchers.IO).launch {
       try {
         config.settings {
@@ -52,6 +54,8 @@ class AppConfig(
       splashConfig = formJson(config["splash"], ::SplashConfig)
 
       Logger.d("AppConfig", "fetched")
+
+      onCompleted()
     }
   }
 
