@@ -147,7 +147,20 @@ android {
 
       set("appName", appName)
       set("resizeableActivity", false)
+      set("admobAppId", if (demo) AdMob.APP_ID_DEMO else AdMob.APP_ID)
     }
+
+    val adMobInterId = if (demo) AdMob.INTER_ID_DEMO else AdMob.INTER_ID
+    val adMobNativeId = if (demo) AdMob.NATIVE_ID_DEMO else AdMob.NATIVE_ID
+    val adMobAppOpenId = if (demo) AdMob.APP_OPEN_ID_DEMO else AdMob.APP_OPEN_ID
+
+    buildConfigField("String", "ADMOB_INTER_ID", "\"$adMobInterId\"")
+    buildConfigField("String", "ADMOB_NATIVE_ID", "\"$adMobNativeId\"")
+    buildConfigField("String", "ADMOB_APP_OPEN_ID", "\"$adMobAppOpenId\"")
+
+    val appMetricaApiKey = if (demo) AppMetrica.API_KEY_DEMO else AppMetrica.API_KEY
+
+    buildConfigField("String", "APP_METRICA_API_KEY", "\"$appMetricaApiKey\"")
   }
 
   buildFeatures {
@@ -205,4 +218,21 @@ room {
 fun applicationId(): String {
   val appId = "com.next.level.solutions.calculator.fb.mp"
   return if (demo) "$appId.demo" else appId
+}
+
+object AdMob {
+  const val APP_ID = "ca-app-pub-3553146986356490~5718920444"
+  const val INTER_ID = "ca-app-pub-3553146986356490/9513635734"
+  const val NATIVE_ID = "ca-app-pub-3553146986356490/7019860998"
+  const val APP_OPEN_ID = "ca-app-pub-3553146986356490/9729258159"
+
+  const val APP_ID_DEMO = "ca-app-pub-3940256099942544~3347511713"
+  const val INTER_ID_DEMO = "ca-app-pub-3940256099942544/1033173712"
+  const val NATIVE_ID_DEMO = "ca-app-pub-3940256099942544/2247696110"
+  const val APP_OPEN_ID_DEMO = "ca-app-pub-3940256099942544/9257395921"
+}
+
+object AppMetrica {
+  const val API_KEY = "b2389ce4-66de-4e04-aa10-82d2bdd81d51"
+  const val API_KEY_DEMO = "d64a9879-2806-4f7d-aae9-aadb0fc631f3"
 }

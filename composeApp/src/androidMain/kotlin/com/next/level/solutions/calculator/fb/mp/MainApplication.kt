@@ -15,13 +15,8 @@ class MainApplication : Application() {
 
     FirebaseApp.initializeApp(this)
 
-    val apiKey = when (packageName.contains("demo")) {
-      true -> "d64a9879-2806-4f7d-aae9-aadb0fc631f3"
-      else -> "b2389ce4-66de-4e04-aa10-82d2bdd81d51"
-    }
-
     val config = AppMetricaConfig
-      .newConfigBuilder(apiKey)
+      .newConfigBuilder(BuildConfig.APP_METRICA_API_KEY)
       .build()
 
     AppMetrica.activate(this, config)

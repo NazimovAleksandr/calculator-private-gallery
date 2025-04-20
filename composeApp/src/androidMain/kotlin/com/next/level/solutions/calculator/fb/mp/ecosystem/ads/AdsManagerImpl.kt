@@ -14,6 +14,8 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.app_open.AdsAppOp
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInter
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
+import com.unity3d.ads.metadata.MetaData
+import com.vungle.ads.VunglePrivacySettings
 
 class AdsManagerImpl(
   override val inter: AdsInter,
@@ -46,10 +48,10 @@ class AdsManagerImpl(
     }
 
     networkManager.runAfterNetworkConnection {
-//      initAds(onComplete)
+      initAds(onComplete)
     }
 
-//    state = true
+    state = true
   }
 
   override fun consentState(): Boolean {
@@ -64,8 +66,8 @@ class AdsManagerImpl(
       val initializationComplete: (InitializationStatus) -> Unit = {
         onComplete.invoke()
 
-//        unity3d(activity)
-//        vungle()
+        unity3d()
+        vungle()
 
         inter.load()
         native.init()
@@ -92,8 +94,13 @@ class AdsManagerImpl(
     consent.requestConsentInfoUpdate(activity, params, load, checkConsentStatus)
   }
 
+  private fun unity3d(): Unit = MetaData(activity).init()
+  private fun vungle(): Unit = VunglePrivacySettings.setGDPRStatus(true, "v1.0.0")
 //  private fun mintegral(activity: Activity): Unit? = MBridgeSDKFactory.getMBridgeSDK()?.setConsentStatus(activity, ON)
 //  private fun appLovin(activity: Activity): Unit = AppLovinPrivacySettings.setHasUserConsent(true, activity)
-//  private fun vungle(): Unit = VunglePrivacySettings.setGDPRStatus(true, "v1.0.0")
-//  private fun unity3d(activity: Activity): Unit = MetaData(activity).add("gdpr.consent", true).commit()
+
+  private fun MetaData.init() {
+    set("gdpr.consent", true)
+    commit()
+  }
 }

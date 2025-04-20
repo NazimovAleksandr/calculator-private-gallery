@@ -13,6 +13,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
+import com.next.level.solutions.calculator.fb.mp.BuildConfig
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
@@ -32,7 +33,7 @@ class AdsNativeImpl(
   private var adLoadErrorCount: Int = 0
   private var maxAdLoadErrors: Int = 2
 
-  private var adUnitId: String = "ca-app-pub-3940256099942544/2247696110"
+  private var adUnitId: String = BuildConfig.ADMOB_NATIVE_ID
 
   @Suppress("PrivatePropertyName")
   private val TAG = this::class.simpleName.toString()

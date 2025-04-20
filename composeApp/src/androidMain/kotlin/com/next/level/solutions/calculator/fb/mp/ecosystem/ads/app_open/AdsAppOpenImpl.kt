@@ -8,6 +8,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.appopen.AppOpenAd
+import com.next.level.solutions.calculator.fb.mp.BuildConfig
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
@@ -30,7 +31,7 @@ class AdsAppOpenImpl(
   private var adLoadErrorCount: Int = 0
   private var maxAdLoadErrors: Int = 2
 
-  private var adUnitId: String = "ca-app-pub-3940256099942544/9257395921"
+  private var adUnitId: String = BuildConfig.ADMOB_APP_OPEN_ID
 
   @Suppress("PrivatePropertyName")
   private val TAG = this::class.simpleName.toString()

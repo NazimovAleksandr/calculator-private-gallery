@@ -56,11 +56,11 @@ ktor = "3.1.0"
 gson = "2.12.1"
 
 ad-admob = "24.2.0"
-#ad-mediation-vungle = "7.4.2.0"
-#ad-mediation-unity = "4.13.0.0"
+ad-mediation-vungle = "7.4.2.0"
+ad-mediation-facebook = "6.19.0.1"
+ad-mediation-unity = "4.14.1.0"
+ad-mediation-unity-ads = "4.14.1"
 #ad-mediation-pangle = "6.4.0.6.0"
-#ad-mediation-unity-ads = "4.13.0"
-#ad-mediation-facebook = "6.18.0.0"
 #ad-mediation-applovin = "13.0.1.0"
 #ad-mediation-mintegral = "16.8.61.0"
 
@@ -138,11 +138,11 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 #ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 ad-core = { module = "com.google.android.gms:play-services-ads", version.ref = "ad-admob" }
-#ad-mediation-unity = { module = "com.google.ads.mediation:unity", version.ref = "ad-mediation-unity" }
-#ad-mediation-vungle = { module = "com.google.ads.mediation:vungle", version.ref = "ad-mediation-vungle" }
+ad-mediation-vungle = { module = "com.google.ads.mediation:vungle", version.ref = "ad-mediation-vungle" }
+ad-mediation-facebook = { module = "com.google.ads.mediation:facebook", version.ref = "ad-mediation-facebook" }
+ad-mediation-unity = { module = "com.google.ads.mediation:unity", version.ref = "ad-mediation-unity" }
+ad-mediation-unity-ads = { module = "com.unity3d.ads:unity-ads", version.ref = "ad-mediation-unity-ads" }
 #ad-mediation-pangle = { module = "com.google.ads.mediation:pangle", version.ref = "ad-mediation-pangle" }
-#ad-mediation-unity-ads = { module = "com.unity3d.ads:unity-ads", version.ref = "ad-mediation-unity-ads" }
-#ad-mediation-facebook = { module = "com.google.ads.mediation:facebook", version.ref = "ad-mediation-facebook" }
 #ad-mediation-applovin = { module = "com.google.ads.mediation:applovin", version.ref = "ad-mediation-applovin" }
 #ad-mediation-mintegral = { module = "com.google.ads.mediation:mintegral", version.ref = "ad-mediation-mintegral" }
 
@@ -175,11 +175,11 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 [bundles]
 admob = [
     "ad-core",
-    #"ad-mediation-facebook",
+    "ad-mediation-vungle",
+    "ad-mediation-facebook",
+    "ad-mediation-unity",
+    "ad-mediation-unity-ads",
     #"ad-mediation-mintegral",
     #"ad-mediation-pangle",
-    #"ad-mediation-unity-ads",
-    #"ad-mediation-unity",
     #"ad-mediation-applovin",
-    #"ad-mediation-vungle",
 ]

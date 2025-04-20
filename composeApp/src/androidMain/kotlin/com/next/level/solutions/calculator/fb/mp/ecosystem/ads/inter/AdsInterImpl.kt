@@ -11,6 +11,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.next.level.solutions.calculator.fb.mp.BuildConfig
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
@@ -33,7 +34,7 @@ class AdsInterImpl(
   private var adLoadErrorCount: Int = 0
   private var maxAdLoadErrors: Int = 2
 
-  private var adUnitId: String = "ca-app-pub-3940256099942544/1033173712"
+  private var adUnitId: String = BuildConfig.ADMOB_INTER_ID
 
   private val state = mutableStateOf(false)
 
