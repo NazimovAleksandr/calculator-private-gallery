@@ -20,6 +20,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNativeImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.app.metrica.AppMetrica
+import com.next.level.solutions.calculator.fb.mp.ecosystem.billing.BillingManager
 import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
 import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
@@ -46,6 +47,7 @@ actual val platformModule: Module
     singleOf<AdsInter, Activity, AppAnalytics, NetworkManager>(::AdsInterImpl)
     singleOf<AdsAppOpen, Activity, AppAnalytics, NetworkManager>(::AdsAppOpenImpl)
     singleOf<AdsNative, Context, AppAnalytics, NetworkManager>(::AdsNativeImpl)
+    singleOf(::BillingManager)
 
     singleOf(::AppEventListener)
     singleOf(::AppMetrica)

@@ -51,6 +51,8 @@ kotlin {
       implementation(libs.android.app.update.ktx)
 
       implementation(libs.android.appmetrica)
+      implementation(libs.android.billing)
+      implementation(libs.android.billing.ktx)
 
       implementation(libs.koin.android)
       implementation(libs.math.parser)

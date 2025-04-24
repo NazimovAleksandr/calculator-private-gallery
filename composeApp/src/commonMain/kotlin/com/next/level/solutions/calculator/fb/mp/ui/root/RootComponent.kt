@@ -21,6 +21,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.ecosystem.billing.BillingManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.config.AppConfig
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
 import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
@@ -42,6 +43,7 @@ class RootComponent(
   private val appConfig: AppConfig,
   private val appUpdate: AppUpdate,
   private val appAnalytics: AppAnalytics,
+  private val billingManager: BillingManager,
   appEventListener: AppEventListener,
 ) : ComponentContext by componentContext, InstanceKeeper.Instance {
 
@@ -121,6 +123,8 @@ class RootComponent(
           result =  { appAnalytics.logEvent("app_update", "result" to it) },
           type = appConfig.app.appUpdateType,
         )
+
+        billingManager.init()
       }
     }
 

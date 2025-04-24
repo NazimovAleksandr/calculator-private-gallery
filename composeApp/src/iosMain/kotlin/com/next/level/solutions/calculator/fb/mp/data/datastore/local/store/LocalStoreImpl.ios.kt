@@ -4,4 +4,8 @@ class LocalStoreImpl : LocalStore {
   override var darkTheme: Boolean
     get() = true
     set(value) {}
+
+  override var bought: Boolean
+    get() = false
+    set(value) {}
 }

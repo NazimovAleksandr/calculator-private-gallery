@@ -44,13 +44,6 @@ internal fun SettingsContent(
   component: SettingsComponent,
   modifier: Modifier = Modifier,
 ) {
-//  fun logicHandler(signal: Store.Signal) {
-//    when (signal) {
-//      is SettingsComponent.Signal.Rate5Stars -> context.openMarket()
-//      is SettingsComponent.Signal.Share -> context.shareApp()
-//    }
-//  }
-
   Content(
     component = component,
     modifier = modifier,

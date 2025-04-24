@@ -9,4 +9,5 @@ class LocalStoreImpl(
   sharedPreferences: SharedPreferences
 ) : LocalStore {
   override var darkTheme: Boolean by sharedPreferences.delegate(true)
+  override var bought: Boolean by sharedPreferences.delegate(false)
 }

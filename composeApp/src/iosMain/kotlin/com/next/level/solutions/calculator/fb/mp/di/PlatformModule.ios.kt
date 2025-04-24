@@ -10,6 +10,7 @@ import com.next.level.solutions.calculator.fb.mp.data.datastore.produce.path.Pro
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManagerImpl
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.app.metrica.AppMetrica
+import com.next.level.solutions.calculator.fb.mp.ecosystem.billing.BillingManager
 import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
 import com.next.level.solutions.calculator.fb.mp.expect.AppUpdate
 import com.next.level.solutions.calculator.fb.mp.file.visibility.manager.FileVisibilityManager
@@ -37,6 +38,7 @@ actual val platformModule: Module
     singleOf<LocalStore>(::LocalStoreImpl)
 
     singleOf<AdsManager>(::AdsManagerImpl)
+    singleOf(::BillingManager)
 
     singleOf(::AppEventListener)
     singleOf(::AppMetrica)
