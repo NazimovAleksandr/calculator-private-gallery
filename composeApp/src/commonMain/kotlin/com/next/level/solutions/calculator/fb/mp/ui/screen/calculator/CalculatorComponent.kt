@@ -461,6 +461,7 @@ class CalculatorComponent(
   private fun resetPassword() {
     checkedPasswordCount = 0
     launch { appDatastore.passwordState("") }
+
     navigation.replaceCurrent(
       Configuration.calculator(
         changeMode = handler.changeMode,
@@ -475,7 +476,7 @@ class CalculatorComponent(
     launchMain {
       appDatastore.passwordState(password)
 
-      when (false) {
+      when (handler.changeMode) {
         true -> {
 //        analytics.calculator.passwordChange()
           navigation.pop()
