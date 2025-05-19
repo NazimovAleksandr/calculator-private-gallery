@@ -102,7 +102,7 @@ class FileVisibilityManagerImpl(
     val time = measureTime {
       files = folder
         .files(withHidden = true)
-        .mapNotNull { file ->
+        .map { file ->
           if (constructor == null) {
             constructor = when {
               file.isImage() -> ::PhotoModelUI
@@ -116,7 +116,7 @@ class FileVisibilityManagerImpl(
           for (key in fileDataJson.keys()) {
             val value = try {
               fileDataJson.get(key)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
               null
             }
 
@@ -140,7 +140,7 @@ class FileVisibilityManagerImpl(
             else -> file.name
           }
 
-          constructor?.invoke(
+          constructor.invoke(
             /* path = */ path,
             /* name = */ name,
             /* folder = */ file.folder(),
@@ -693,15 +693,22 @@ class FileVisibilityManagerImpl(
     }
   }
 
-  private fun fileDataFile(fileType: PickerType): File {
-    val filesData = File(documents, "$hiddenDirectory/${fileType.name}/$fileData")
-    if (!filesData.exists()) filesData.createNewFile()
+  private fun fileDataFile(fileType: PickerType): File? {
+    val apps = File(documents, hiddenDirectory).create()
+    val folder = File(apps, fileType.name).create()
+    val filesData = File(folder, fileData)
 
-    return filesData
+    return try {
+      if (!filesData.exists()) filesData.createNewFile()
+
+      filesData
+    } catch (_: Exception) {
+      null
+    }
   }
 
-  private fun File.fileDataJson(): JSONObject {
-    val jsonString = readText().ifEmpty { "{}" }
+  private fun File?.fileDataJson(): JSONObject {
+    val jsonString = this?.readText()?.ifEmpty { "{}" } ?: "{}"
     return JSONObject(jsonString)
   }
 
@@ -722,7 +729,7 @@ class FileVisibilityManagerImpl(
       jsonObjectOld.put(key, jsonObjectNew.get(key))
     }
 
-    filesData.writeText(jsonObjectOld.toString().replace("\\", ""))
+    filesData?.writeText(jsonObjectOld.toString().replace("\\", ""))
   }
 
   private fun List<FileDataUI>.removeFromFileData(
@@ -737,7 +744,7 @@ class FileVisibilityManagerImpl(
       jsonObjectOld.remove(key)
     }
 
-    filesData.writeText(jsonObjectOld.toString().replace("\\", ""))
+    filesData?.writeText(jsonObjectOld.toString().replace("\\", ""))
   }
 
   private fun File.folder(): String {
@@ -799,7 +806,7 @@ class FileVisibilityManagerImpl(
 
         millis = time?.toLong() ?: 0
       }
-    } catch (ignore: Exception) {
+    } catch (_: Exception) {
     }
 
     return millis.getMediaDurationString()
