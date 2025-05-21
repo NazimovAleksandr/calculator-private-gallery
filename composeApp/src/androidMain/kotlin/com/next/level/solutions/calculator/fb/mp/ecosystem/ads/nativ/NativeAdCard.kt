@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.ads.nativead.MediaView
@@ -194,6 +195,7 @@ private fun AdCard(
       val adIconView = adView.findViewById<ImageView>(R.id.ad_app_icon)
       val adHeadlineView = adView.findViewById<TextView>(R.id.ad_headline)
       val adBodyView = adView.findViewById<TextView>(R.id.ad_body)
+      val adBodyBigView = adView.findViewById<TextView>(R.id.ad_body_big)
       val adCallToActionView = adView.findViewById<TextView>(R.id.ad_call_to_action)
       val adAdvertiserView = adView.findViewById<TextView>(R.id.ad_advertiser)
       val adMediaView = adView.findViewById<MediaView>(R.id.ad_media)
@@ -213,9 +215,15 @@ private fun AdCard(
         adIconView?.setImageDrawable(nativeAd.icon?.drawable)
         adHeadlineView?.text = nativeAd.headline
         adBodyView?.text = nativeAd.body
+        adBodyBigView?.text = nativeAd.body
         adCallToActionView?.text = nativeAd.callToAction
         adAdvertiserView?.text = nativeAd.advertiser
         adMediaView?.mediaContent = nativeAd.mediaContent
+
+        when (nativeAd.mediaContent == null) {
+          true -> adBodyView?.isVisible = false
+          else -> adBodyBigView?.isVisible = false
+        }
 
         adView.setNativeAd(nativeAd)
         adView.requestLayoutWithDelay(500)
