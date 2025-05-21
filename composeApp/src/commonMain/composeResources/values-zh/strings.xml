@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">计算器 - 私人画廊</string>
+    <string name="version">版本</string>
+
+    <string name="share">分享</string>
+    <string name="creating_new_password">创建新密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="enter_four_digit">输入4位数字密码，然后按“=”</string>
+    <string name="reset">重置</string>
+    <string name="password_do_not_match">密码不匹配</string>
+    <string name="cant_enter_more_15">不能输入超过15个数字。</string>
+
+    <string name="select_language">选择语言</string>
+    <string name="done">完成</string>
+    <string name="continue_">继续</string>
+    <string name="welcome_to_calculator">欢迎使用计算器</string>
+
+    <string name="by_clicking_continue">点击继续表示您同意</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="and">和</string>
+    <string name="tos">服务条款</string>
+
+    <string name="security_question">安全问题</string>
+    <string name="skip">跳过</string>
+    <string name="enter_secret_word">输入秘密词</string>
+
+    <string-array name="questions">
+        <item>你最喜欢的电影是什么？</item>
+        <item>你最喜欢的艺术家是谁？</item>
+        <item>你在哪个城市出生？</item>
+        <item>你的第一辆车是什么？</item>
+        <item>你参加的第一个音乐会是哪一个？</item>
+        <item>你是哪一年上大学的？</item>
+    </string-array>
+
+    <string name="need_to_remember">需要记住</string>
+    <string name="your_answer">您的答案</string>
+    <string name="tip_to_reset_password">重置密码提示</string>
+    <string name="i_got_it">明白了</string>
+
+    <string name="home">首页</string>
+    <string name="calculator_lock">计算器锁</string>
+    <string name="private_web_browser">私人浏览器</string>
+    <string name="browser">浏览器</string>
+    <string name="photos">照片</string>
+    <string name="videos">视频</string>
+    <string name="files">文件</string>
+    <string name="notes">笔记</string>
+    <string name="recycle_bin">回收站</string>
+
+    <string name="add_photos">添加照片</string>
+    <string name="add_videos">添加视频</string>
+    <string name="add_files">添加文件</string>
+    <string name="empty">空</string>
+    <string name="choose_images_from">从这里选择图片</string>
+    <string name="choose_videos_from">从这里选择视频</string>
+    <string name="gallery">图库</string>
+    <string name="folder">文件夹</string>
+    <string name="all_images">所有图片</string>
+    <string name="all_videos">所有视频</string>
+
+    <string name="no_photos_selected">没有选中照片</string>
+    <string name="no_videos_selected">没有选中视频</string>
+    <string name="no_files_selected">没有选中文件</string>
+
+    <string name="hide">隐藏 %1$s</string>
+    <item>可见</item>
+    <string name="restore">恢复</string>
+    <string name="delete">删除</string>
+    <string name="application_not_found">未找到应用程序</string>
+
+    <string name="secret_notes">私密笔记</string>
+    <string name="add_new_notes">添加新笔记</string>
+    <string name="create_notes">创建笔记</string>
+    <string name="enter_title">输入标题</string>
+    <string name="type_your_secret_note">输入您的私密笔记…</string>
+
+    <string name="settings">设置</string>
+    <string name="social">社交</string>
+    <string name="theme">主题</string>
+    <string name="security">安全</string>
+    <string name="change_password">更改密码</string>
+    <string name="change_security_question">更改安全问题</string>
+    <string name="take_a_picture">拍照</string>
+    <string name="language">语言</string>
+    <string name="more">更多</string>
+    <string name="rate_5_stars">给5星评价</string>
+    <string name="share_with_friends">与朋友分享</string>
+
+    <string name="let_me_recommend">我推荐这款应用</string>
+    <string name="search">搜索</string>
+    <string name="link_copied">链接已复制</string>
+    <string name="search_or_type_url">搜索或输入网址</string>
+    <string name="cancel">取消</string>
+    <string name="wrong_answer">错误答案</string>
+
+    <string name="sort_by">排序方式：</string>
+    <string name="date_added">添加日期</string>
+    <string name="file_size">文件大小</string>
+    <string name="date">日期</string>
+    <string name="size">大小</string>
+    <string name="name">名称</string>
+
+    <string name="next">下一步</string>
+    <string name="ob_1">创建一个4位数密码</string>
+    <string name="ob_2">忘记密码时请输入 '%1$s='</string>
+    <string name="ob_3">开始保护您的照片和视频</string>
+
+    <string name="okay">好的</string>
+    <string name="advertising">广告</string>
+    <string name="trash">垃圾箱</string>
+
+    <string name="re_enter_your_password">请重新输入密码以确认，然后按“=”</string>
+    <string name="history">历史记录</string>
+    <string name="your_history_is_empty">您的浏览历史为空</string>
+    <string name="are_you_sure_you_want">确定要删除全部浏览历史吗？</string>
+    <string name="delete_all">全部删除</string>
+
+    <string name="need_access">需要访问权限</string>
+    <string name="allow_access_to">允许访问您的照片和视频以管理媒体文件。</string>
+    <string name="allow">允许</string>
+
+    <string name="restoring_previously_hidden_files">正在恢复之前隐藏的文件</string>
+    <string name="thank_you_for_helping">感谢您对项目开发的支持</string>
+    <string name="ads">观看广告以支持本项目</string>
+    <string name="ad_will_be_shown">将显示广告</string>
+</resources>

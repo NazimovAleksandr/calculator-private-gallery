@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Calculator - Pribadong Gallery</string>
+    <string name="version">Bersyon</string>
+
+    <string name="share">Ibahagi</string>
+    <string name="creating_new_password">Gumagawa ng Bagong Password</string>
+    <string name="confirm_password">Kumpirmahin ang Password</string>
+    <string name="enter_four_digit">Maglagay ng 4-digit na password at pindutin ang \"=\"</string>
+    <string name="reset">I-reset</string>
+    <string name="password_do_not_match">Hindi magkatugma ang password</string>
+    <string name="cant_enter_more_15">Hindi maaaring maglagay ng higit sa 15 digit</string>
+
+    <string name="select_language">Pumili ng Wika</string>
+    <string name="done">Tapos</string>
+    <string name="continue_">Magpatuloy</string>
+    <string name="welcome_to_calculator">Maligayang pagdating sa Calculator</string>
+
+    <string name="by_clicking_continue">Sa pag-click ng magpatuloy, sumasang-ayon ka sa</string>
+    <string name="privacy_policy">Patakaran sa Privacy</string>
+    <string name="and">at</string>
+    <string name="tos">Mga Tuntunin ng Serbisyo</string>
+
+    <string name="security_question">Tanong sa Seguridad</string>
+    <string name="skip">Laktawan</string>
+    <string name="enter_secret_word">Ilagay ang lihim na salita</string>
+
+    <string-array name="questions">
+        <item>Ano ang paborito mong pelikula?</item>
+        <item>Sino ang paborito mong artista?</item>
+        <item>Saang lungsod ka ipinanganak?</item>
+        <item>Ano ang iyong unang kotse?</item>
+        <item>Ano ang unang concert na iyong pinuntahan?</item>
+        <item>Anong taon ka pumasok sa kolehiyo?</item>
+    </string-array>
+
+    <string name="need_to_remember">Kailangang tandaan</string>
+    <string name="your_answer">Iyong sagot</string>
+    <string name="tip_to_reset_password">Tip para i-reset ang password</string>
+    <string name="i_got_it">Nakuha ko</string>
+
+    <string name="home">Home</string>
+    <string name="calculator_lock">Calculator Lock</string>
+    <string name="private_web_browser">Pribadong Web Browser</string>
+    <string name="browser">Browser</string>
+    <string name="photos">Mga Larawan</string>
+    <string name="videos">Mga Video</string>
+    <string name="files">Mga File</string>
+    <string name="notes">Mga Tala</string>
+    <string name="recycle_bin">Recycle Bin</string>
+
+    <string name="add_photos">Magdagdag ng Larawan</string>
+    <string name="add_videos">Magdagdag ng Video</string>
+    <string name="add_files">Magdagdag ng File</string>
+    <string name="empty">Walang laman</string>
+    <string name="choose_images_from">Pumili ng Larawan Mula Sa</string>
+    <string name="choose_videos_from">Pumili ng Video Mula Sa</string>
+    <string name="gallery">Gallery</string>
+    <string name="folder">Folder</string>
+    <string name="all_images">Lahat ng Larawan</string>
+    <string name="all_videos">Lahat ng Video</string>
+
+    <string name="no_photos_selected">Walang napiling larawan</string>
+    <string name="no_videos_selected">Walang napiling video</string>
+    <string name="no_files_selected">Walang napiling file</string>
+
+    <string name="hide">Itago ang %1$s</string>
+    <string name="visible">Nakikita</string>
+    <string name="restore">Ibalik</string>
+    <string name="delete">Burahin</string>
+    <string name="application_not_found">Hindi Mahanap ang App</string>
+
+    <string name="secret_notes">Mga Lihim na Tala</string>
+    <string name="add_new_notes">Magdagdag ng Bagong Tala</string>
+    <string name="create_notes">Gumawa ng Tala</string>
+    <string name="enter_title">Ilagay ang Pamagat</string>
+    <string name="type_your_secret_note">I-type ang iyong lihim na tala...</string>
+
+    <string name="settings">Mga Setting</string>
+    <string name="social">Sosyal</string>
+    <string name="theme">Tema</string>
+    <string name="security">Seguridad</string>
+    <string name="change_password">Palitan ang Password</string>
+    <string name="change_security_question">Palitan ang tanong sa seguridad</string>
+    <string name="take_a_picture">Kumuha ng Larawan</string>
+    <string name="language">Wika</string>
+    <string name="more">Higit Pa</string>
+    <string name="rate_5_stars">I-rate ng 5 Bituin</string>
+    <string name="share_with_friends">Ibahagi sa mga Kaibigan</string>
+
+    <string name="let_me_recommend">Hayaan mong irekomenda ko sa iyo ang app na ito</string>
+    <string name="search">Maghanap</string>
+    <string name="link_copied">Nakopya ang Link</string>
+    <string name="search_or_type_url">Maghanap o mag-type ng URL</string>
+    <string name="cancel">Kanselahin</string>
+    <string name="wrong_answer">Maling sagot</string>
+
+    <string name="sort_by">Ayusin Ayon Sa:</string>
+    <string name="date_added">Petsa ng Pagdagdag</string>
+    <string name="file_size">Laki ng File</string>
+    <string name="date">Petsa</string>
+    <string name="size">Laki</string>
+    <string name="name">Pangalan</string>
+
+    <string name="next">Susunod</string>
+    <string name="ob_1">Gumawa ng 4-digit na password</string>
+    <string name="ob_2">I-type ang '%1$s=' kung nakalimutan mo ang password</string>
+    <string name="ob_3">Simulan ang pag-secure ng iyong mga larawan at video</string>
+
+    <string name="okay">Sige</string>
+    <string name="advertising">Advertising</string>
+    <string name="trash">Basurahan</string>
+
+    <string name="re_enter_your_password">Ilagay muli ang iyong password para kumpirmahin at pindutin ang \"=\"</string>
+    <string name="history">Kasaysayan</string>
+    <string name="your_history_is_empty">Walang laman ang iyong kasaysayan</string>
+    <string name="are_you_sure_you_want">Sigurado ka bang gusto mong burahin ang iyong buong browsing history?</string>
+    <string name="delete_all">Burahin Lahat</string>
+
+    <string name="need_access">Kailangan ng Access</string>
+    <string name="allow_access_to">Payagan ang access sa iyong mga larawan at video para pamahalaan ang iyong media files</string>
+    <string name="allow">Payagan</string>
+
+    <string name="restoring_previously_hidden_files">Ibinabalik ang mga dating nakatagong file</string>
+    <string name="thank_you_for_helping">Salamat sa iyong tulong sa pag-unlad ng proyekto</string>
+    <string name="ads">Panoorin ang mga Ad, suportahan ang proyekto</string>
+    <string name="ad_will_be_shown">Ipapakita ang Ad</string>
+</resources>

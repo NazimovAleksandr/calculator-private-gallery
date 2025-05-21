@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">حاسبة - معرض خاص</string>
+    <string name="version">الإصدار</string>
+
+    <string name="share">مشاركة</string>
+    <string name="creating_new_password">إنشاء كلمة مرور جديدة</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="enter_four_digit">أدخل كلمة مرور مكونة من 4 أرقام ثم اضغط \"=\"</string>
+    <string name="reset">إعادة تعيين</string>
+    <string name="password_do_not_match">كلمة المرور غير متطابقة</string>
+    <string name="cant_enter_more_15">لا يمكن إدخال أكثر من 15 رقمًا</string>
+
+    <string name="select_language">اختر اللغة</string>
+    <string name="done">تم</string>
+    <string name="continue_">متابعة</string>
+    <string name="welcome_to_calculator">مرحبًا بك في الحاسبة</string>
+
+    <string name="by_clicking_continue">بالنقر على متابعة، فإنك توافق على</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="and">و</string>
+    <string name="tos">شروط الخدمة</string>
+
+    <string name="security_question">سؤال الأمان</string>
+    <string name="skip">تخطي</string>
+    <string name="enter_secret_word">أدخل الكلمة السرية</string>
+
+    <string-array name="questions">
+        <item>ما هو فيلمك المفضل؟</item>
+        <item>من هو فنانك المفضل؟</item>
+        <item>في أي مدينة ولدت؟</item>
+        <item>ما هي أول سيارة امتلكتها؟</item>
+        <item>ما هو أول حفل موسيقي حضرته؟</item>
+        <item>في أي عام دخلت الجامعة؟</item>
+    </string-array>
+
+    <string name="need_to_remember">يجب تذكره</string>
+    <string name="your_answer">إجابتك</string>
+    <string name="tip_to_reset_password">نصيحة لإعادة تعيين كلمة المرور</string>
+    <string name="i_got_it">فهمت</string>
+
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="calculator_lock">قفل الحاسبة</string>
+    <string name="private_web_browser">متصفح ويب خاص</string>
+    <string name="browser">المتصفح</string>
+    <string name="photos">الصور</string>
+    <string name="videos">الفيديوهات</string>
+    <string name="files">الملفات</string>
+    <string name="notes">الملاحظات</string>
+    <string name="recycle_bin">سلة المحذوفات</string>
+
+    <string name="add_photos">إضافة صور</string>
+    <string name="add_videos">إضافة فيديوهات</string>
+    <string name="add_files">إضافة ملفات</string>
+    <string name="empty">فارغ</string>
+    <string name="choose_images_from">اختر الصور من</string>
+    <string name="choose_videos_from">اختر الفيديوهات من</string>
+    <string name="gallery">المعرض</string>
+    <string name="folder">المجلد</string>
+    <string name="all_images">كل الصور</string>
+    <string name="all_videos">كل الفيديوهات</string>
+
+    <string name="no_photos_selected">لم يتم اختيار أي صور</string>
+    <string name="no_videos_selected">لم يتم اختيار أي فيديوهات</string>
+    <string name="no_files_selected">لم يتم اختيار أي ملفات</string>
+
+    <string name="hide">إخفاء %1$s</string>
+    <string name="visible">مرئي</string>
+    <string name="restore">استعادة</string>
+    <string name="delete">حذف</string>
+    <string name="application_not_found">التطبيق غير موجود</string>
+
+    <string name="secret_notes">ملاحظات سرية</string>
+    <string name="add_new_notes">إضافة ملاحظات جديدة</string>
+    <string name="create_notes">إنشاء ملاحظات</string>
+    <string name="enter_title">أدخل العنوان</string>
+    <string name="type_your_secret_note">اكتب ملاحظتك السرية...</string>
+
+    <string name="settings">الإعدادات</string>
+    <string name="social">اجتماعي</string>
+    <string name="theme">السمة</string>
+    <string name="security">الأمان</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="change_security_question">تغيير سؤال الأمان</string>
+    <string name="take_a_picture">التقاط صورة</string>
+    <string name="language">اللغة</string>
+    <string name="more">المزيد</string>
+    <string name="rate_5_stars">قيم بـ 5 نجوم</string>
+    <string name="share_with_friends">مشاركة مع الأصدقاء</string>
+
+    <string name="let_me_recommend">اسمح لي أن أوصيك بهذا التطبيق</string>
+    <string name="search">بحث</string>
+    <string name="link_copied">تم نسخ الرابط</string>
+    <string name="search_or_type_url">ابحث أو اكتب عنوان URL</string>
+    <string name="cancel">إلغاء</string>
+    <string name="wrong_answer">إجابة خاطئة</string>
+
+    <string name="sort_by">ترتيب حسب:</string>
+    <string name="date_added">تاريخ الإضافة</string>
+    <string name="file_size">حجم الملف</string>
+    <string name="date">التاريخ</string>
+    <string name="size">الحجم</string>
+    <string name="name">الاسم</string>
+
+    <string name="next">التالي</string>
+    <string name="ob_1">إنشاء كلمة مرور مكونة من 4 أرقام</string>
+    <string name="ob_2">أدخل '%1$s=' إذا نسيت كلمة المرور</string>
+    <string name="ob_3">ابدأ في تأمين صورك وفيديوهاتك</string>
+
+    <string name="okay">حسنًا</string>
+    <string name="advertising">إعلانات</string>
+    <string name="trash">المهملات</string>
+
+    <string name="re_enter_your_password">أعد إدخال كلمة المرور لتأكيدها ثم اضغط \"=\"</string>
+    <string name="history">السجل</string>
+    <string name="your_history_is_empty">سجل التصفح فارغ</string>
+    <string name="are_you_sure_you_want">هل أنت متأكد أنك تريد حذف سجل التصفح بالكامل؟</string>
+    <string name="delete_all">حذف الكل</string>
+
+    <string name="need_access">تحتاج إلى إذن</string>
+    <string name="allow_access_to">اسمح بالوصول إلى صورك وفيديوهاتك لإدارة ملفات الوسائط.</string>
+    <string name="allow">السماح</string>
+
+    <string name="restoring_previously_hidden_files">استعادة الملفات المخفية سابقًا</string>
+    <string name="thank_you_for_helping">شكرًا لك على مساعدتك في تطوير المشروع</string>
+    <string name="ads">شاهد الإعلانات، ادعم المشروع</string>
+    <string name="ad_will_be_shown">سيتم عرض الإعلان</string>
+</resources>

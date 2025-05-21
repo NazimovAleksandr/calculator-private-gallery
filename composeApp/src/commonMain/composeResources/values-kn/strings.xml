@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">ಕ್ಯಾಲ್ಕುಲೇಟರ್ - ಖಾಸಗಿ ಗ್ಯಾಲರಿ</string>
+    <string name="version">ಆವೃತ್ತಿ</string>
+
+    <string name="share">ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="creating_new_password">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ರಚನೆ</string>
+    <string name="confirm_password">ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ</string>
+    <string name="enter_four_digit">4-ಅಂಕಿಯ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ ಮತ್ತು "=" ಒತ್ತಿರಿ</string>
+    <string name="reset">ಮರುಹೊಂದಿಸಿ</string>
+    <string name="password_do_not_match">ಪಾಸ್‌ವರ್ಡ್‍ಗಳು ಹೊಂದುತ್ತಿಲ್ಲ</string>
+    <string name="cant_enter_more_15">15 ಅಂಕೆಗಳಿಗಿಂತ ಹೆಚ್ಚು ನಮೂದಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+
+    <string name="select_language">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="done">ಮುಗಿಸಿ</string>
+    <string name="continue_">ಮುಂದುವರೆಸಿ</string>
+    <string name="welcome_to_calculator">ಕ್ಯಾಲ್ಕುಲೇಟರ್‍ಗೆ ಸುಸ್ವಾಗತ</string>
+
+    <string name="by_clicking_continue">ಮುಂದುವರೆಸುವ ಮೂಲಕ, ನೀವು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೀರಿ</string>
+    <string name="privacy_policy">ಗೌಪ್ಯತಾ ನೀತಿ</string>
+    <string name="and">ಮತ್ತು</string>
+    <string name="tos">ಸೇವಾ ನಿಯಮಗಳು</string>
+
+    <string name="security_question">ಸುರಕ್ಷತಾ ಪ್ರಶ್ನೆ</string>
+    <string name="skip">ಬಿಟ್ಟುಬಿಡಿ</string>
+    <string name="enter_secret_word">ರಹಸ್ಯ ಪದವನ್ನು ನಮೂದಿಸಿ</string>
+
+    <string-array name="questions">
+        <item>ನಿಮ್ಮ ನೆಚ್ಚಿನ ಚಲನಚಿತ್ರ ಯಾವುದು?</item>
+        <item>ನಿಮ್ಮ ನೆಚ್ಚಿನ ಕಲಾವಿದ ಯಾರು?</item>
+        <item>ನೀವು ಹುಟ್ಟಿದ ನಗರ ಯಾವುದು?</item>
+        <item>ನಿಮ್ಮ ಮೊದಲ ಕಾರು ಯಾವುದು?</item>
+        <item>ನೀವು ಹೋದ ಮೊದಲ ಕಛೇರಿ ಯಾವುದು?</item>
+        <item>ನೀವು ಯಾವ ವರ್ಷ ಕಾಲೇಜಿಗೆ ಸೇರಿದಿರಿ?</item>
+    </string-array>
+
+    <string name="need_to_remember">ನೆನಪಿಡಲೇಬೇಕಾದದ್ದು</string>
+    <string name="your_answer">ನಿಮ್ಮ ಉತ್ತರ</string>
+    <string name="tip_to_reset_password">ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸಲು ಸುಳಿವು</string>
+    <string name="i_got_it">ಅರ್ಥವಾಯಿತು</string>
+
+    <string name="home">ಮುಖಪುಟ</string>
+    <string name="calculator_lock">ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಲಾಕ್</string>
+    <string name="private_web_browser">ಖಾಸಗಿ ವೆಬ್ ಬ್ರೌಸರ್</string>
+    <string name="browser">ಬ್ರೌಸರ್</string>
+    <string name="photos">ಚಿತ್ರಗಳು</string>
+    <string name="videos">ವೀಡಿಯೊಗಳು</string>
+    <string name="files">ಫೈಲ್‍ಗಳು</string>
+    <string name="notes">ಟಿಪ್ಪಣಿಗಳು</string>
+    <string name="recycle_bin">ಮರುಬಳಕೆ ಪೆಟ್ಟಿಗೆ</string>
+
+    <string name="add_photos">ಚಿತ್ರಗಳನ್ನು ಸೇರಿಸಿ</string>
+    <string name="add_videos">ವೀಡಿಯೊಗಳನ್ನು ಸೇರಿಸಿ</string>
+    <string name="add_files">ಫೈಲ್‍ಗಳನ್ನು ಸೇರಿಸಿ</string>
+    <string name="empty">ಖಾಲಿ</string>
+    <string name="choose_images_from">ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="choose_videos_from">ವೀಡಿಯೊಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="gallery">ಗ್ಯಾಲರಿ</string>
+    <string name="folder">ಫೋಲ್ಡರ್</string>
+    <string name="all_images">ಎಲ್ಲಾ ಚಿತ್ರಗಳು</string>
+    <string name="all_videos">ಎಲ್ಲಾ ವೀಡಿಯೊಗಳು</string>
+
+    <string name="no_photos_selected">ಯಾವುದೇ ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿಲ್ಲ</string>
+    <string name="no_videos_selected">ಯಾವುದೇ ವೀಡಿಯೊಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿಲ್ಲ</string>
+    <string name="no_files_selected">ಯಾವುದೇ ಫೈಲ್‍ಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿಲ್ಲ</string>
+
+    <string name="hide">%1$s ಅನ್ನು ಮರೆಮಾಡಿ</string>
+    <string name="visible">ಗೋಚರ</string>
+    <string name="restore">ಮರುಸ್ಥಾಪಿಸಿ</string>
+    <string name="delete">ಅಳಿಸಿ</string>
+    <string name="application_not_found">ಅಪ್ಲಿಕೇಶನ್ ಸಿಗಲಿಲ್ಲ</string>
+
+    <string name="secret_notes">ರಹಸ್ಯ ಟಿಪ್ಪಣಿಗಳು</string>
+    <string name="add_new_notes">ಹೊಸ ಟಿಪ್ಪಣಿಗಳನ್ನು ಸೇರಿಸಿ</string>
+    <string name="create_notes">ಟಿಪ್ಪಣಿಗಳನ್ನು ರಚಿಸಿ</string>
+    <string name="enter_title">ಶೀರ್ಷಿಕೆ ನಮೂದಿಸಿ</string>
+    <string name="type_your_secret_note">ನಿಮ್ಮ ರಹಸ್ಯ ಟಿಪ್ಪಣಿಯನ್ನು ಟೈಪ್ ಮಾಡಿ…</string>
+
+    <string name="settings">ಸೆಟ್ಟಿಂಗ್‍ಗಳು</string>
+    <string name="social">ಸಾಮಾಜಿಕ</string>
+    <string name="theme">ಥೀಮ್</string>
+    <string name="security">ಸುರಕ್ಷತೆ</string>
+    <string name="change_password">ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸಿ</string>
+    <string name="change_security_question">ಸುರಕ್ಷತಾ ಪ್ರಶ್ನೆಯನ್ನು ಬದಲಾಯಿಸಿ</string>
+    <string name="take_a_picture">ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ</string>
+    <string name="language">ಭಾಷೆ</string>
+    <string name="more">ಹೆಚ್ಚು</string>
+    <string name="rate_5_stars">5 ನಕ್ಷತ್ರಗಳನ್ನು ನೀಡಿ</string>
+    <string name="share_with_friends">ಸ್ನೇಹಿತರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ</string>
+
+    <string name="let_me_recommend">ನಾನು ಈ ಅಪ್ಲಿಕೇಶನ್‍ಅನ್ನು ಶಿಫಾರಸು ಮಾಡುತ್ತೇನೆ</string>
+    <string name="search">ಹುಡುಕಿ</string>
+    <string name="link_copied">ಲಿಂಕ್ ನಕಲಿಸಲಾಗಿದೆ</string>
+    <string name="search_or_type_url">ಹುಡುಕಿ ಅಥವಾ URL ಟೈಪ್ ಮಾಡಿ</string>
+    <string name="cancel">ರದ್ದುಗೊಳಿಸಿ</string>
+    <string name="wrong_answer">ತಪ್ಪು ಉತ್ತರ</string>
+
+    <string name="sort_by">ವರ್ಗೀಕರಿಸು:</string>
+    <string name="date_added">ದಿನಾಂಕ ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="file_size">ಫೈಲ್ ಗಾತ್ರ</string>
+    <string name="date">ದಿನಾಂಕ</string>
+    <string name="size">ಗಾತ್ರ</string>
+    <string name="name">ಹೆಸರು</string>
+
+    <string name="next">ಮುಂದಿನದು</string>
+    <string name="ob_1">4-ಅಂಕಿಯ ಪಾಸ್‌ವರ್ಡ್ ರಚಿಸಿ</string>
+    <string name="ob_2">ಪಾಸ್‌ವರ್ಡ್ ಮರೆತರೆ '%1$s=' ನಮೂದಿಸಿ</string>
+    <string name="ob_3">ನಿಮ್ಮ ಚಿತ್ರಗಳು ಮತ್ತು ವೀಡಿಯೊಗಳನ್ನು ಸುರಕ್ಷಿತಗೊಳಿಸಲು ಪ್ರಾರಂಭಿಸಿ</string>
+
+    <string name="okay">ಸರಿ</string>
+    <string name="advertising">ಪ್ರಕಟಣೆ</string>
+    <string name="trash">ಜಂಕ್</string>
+
+    <string name="re_enter_your_password">ಪರಿಶೀಲನೆಗಾಗಿ ಪಾಸ್‌ವರ್ಡ್‍ಅನ್ನು ಮರುನಮೂದಿಸಿ ಮತ್ತು "=" ಒತ್ತಿರಿ</string>
+    <string name="history">ಇತಿಹಾಸ</string>
+    <string name="your_history_is_empty">ನಿಮ್ಮ ಇತಿಹಾಸ ಖಾಲಿಯಾಗಿದೆ</string>
+    <string name="are_you_sure_you_want">ನಿಮ್ಮ ಇಡೀ ಬ್ರೌಸಿಂಗ್ ಇತಿಹಾಸವನ್ನು ಅಳಿಸಲು ಬಯಸುವಿರಾ?</string>
+    <string name="delete_all">ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ</string>
+
+    <string name="need_access">ಪ್ರವೇಶ ಅಗತ್ಯವಿದೆ</string>
+    <string name="allow_access_to">ಮೀಡಿಯಾ ಫೈಲ್‍ಗಳನ್ನು ನಿರ್ವಹಿಸಲು ಚಿತ್ರಗಳು ಮತ್ತು ವೀಡಿಯೊಗಳಿಗೆ ಪ್ರವೇಶ ಅನುಮತಿಸಿ.</string>
+    <string name="allow">ಅನುಮತಿಸಿ</string>
+
+    <string name="restoring_previously_hidden_files">ಹಿಂದೆ ಮರೆಮಾಡಲಾದ ಫೈಲ್‍ಗಳನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="thank_you_for_helping">ಪ್ರಾಜೆಕ್ಟ್‍ನ ಅಭಿವೃದ್ಧಿಗೆ ನೀವು ನೀಡಿದ ಸಹಾಯಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು</string>
+    <string name="ads">ಪ್ರಕಟಣೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ, ಪ್ರಾಜೆಕ್ಟ್‍ಗೆ ಬೆಂಬಲ ನೀಡಿ</string>
+    <string name="ad_will_be_shown">ಪ್ರಕಟಣೆ ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ</string>
+</resources>

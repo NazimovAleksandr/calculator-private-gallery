@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Calcolatrice - Galleria Privata</string>
+    <string name="version">Versione</string>
+
+    <string name="share">Condividi</string>
+    <string name="creating_new_password">Creazione della nuova password</string>
+    <string name="confirm_password">Conferma password</string>
+    <string name="enter_four_digit">Inserisci una password di 4 cifre e premi “=”</string>
+    <string name="reset">Reimposta</string>
+    <string name="password_do_not_match">Le password non corrispondono</string>
+    <string name="cant_enter_more_15">Non puoi inserire più di 15 cifre.</string>
+
+    <string name="select_language">Seleziona lingua</string>
+    <string name="done">Fatto</string>
+    <string name="continue_">Continua</string>
+    <string name="welcome_to_calculator">Benvenuto nella Calcolatrice</string>
+
+    <string name="by_clicking_continue">Cliccando su continua, accetti la</string>
+    <string name="privacy_policy">Politica sulla privacy</string>
+    <string name="and">e i</string>
+    <string name="tos">Termini del servizio</string>
+
+    <string name="security_question">Domanda di sicurezza</string>
+    <string name="skip">Salta</string>
+    <string name="enter_secret_word">Inserisci parola segreta</string>
+
+    <string-array name="questions">
+        <item>Qual è il tuo film preferito?</item>
+        <item>Qual è il tuo artista preferito?</item>
+        <item>In quale città sei nato?</item>
+        <item>Qual era la tua prima auto?</item>
+        <item>Qual è stato il tuo primo concerto?</item>
+        <item>In quale anno hai iniziato l'università?</item>
+    </string-array>
+
+    <string name="need_to_remember">Da ricordare</string>
+    <string name="your_answer">La tua risposta</string>
+    <string name="tip_to_reset_password">Suggerimento per reimpostare la password</string>
+    <string name="i_got_it">Ho capito</string>
+
+    <string name="home">Home</string>
+    <string name="calculator_lock">Blocco calcolatrice</string>
+    <string name="private_web_browser">Browser web privato</string>
+    <string name="browser">Browser</string>
+    <string name="photos">Foto</string>
+    <string name="videos">Video</string>
+    <string name="files">File</string>
+    <string name="notes">Note</string>
+    <string name="recycle_bin">Cestino</string>
+
+    <string name="add_photos">Aggiungi foto</string>
+    <string name="add_videos">Aggiungi video</string>
+    <string name="add_files">Aggiungi file</string>
+    <string name="empty">Vuoto</string>
+    <string name="choose_images_from">Scegli immagini da</string>
+    <string name="choose_videos_from">Scegli video da</string>
+    <string name="gallery">Galleria</string>
+    <string name="folder">Cartella</string>
+    <string name="all_images">Tutte le immagini</string>
+    <string name="all_videos">Tutti i video</string>
+
+    <string name="no_photos_selected">Nessuna foto selezionata</string>
+    <string name="no_videos_selected">Nessun video selezionato</string>
+    <string name="no_files_selected">Nessun file selezionato</string>
+
+    <string name="hide">Nascondi %1$s</string>
+    <string name="visible">Visibile</string>
+    <string name="restore">Ripristina</string>
+    <string name="delete">Elimina</string>
+    <string name="application_not_found">Applicazione non trovata</string>
+
+    <string name="secret_notes">Note segrete</string>
+    <string name="add_new_notes">Aggiungi nuove note</string>
+    <string name="create_notes">Crea note</string>
+    <string name="enter_title">Inserisci titolo</string>
+    <string name="type_your_secret_note">Digita la tua nota segreta…</string>
+
+    <string name="settings">Impostazioni</string>
+    <string name="social">Social</string>
+    <string name="theme">Tema</string>
+    <string name="security">Sicurezza</string>
+    <string name="change_password">Cambia password</string>
+    <string name="change_security_question">Cambia domanda di sicurezza</string>
+    <string name="take_a_picture">Scatta una foto</string>
+    <string name="language">Lingua</string>
+    <string name="more">Altro</string>
+    <string name="rate_5_stars">Vota con 5 stelle</string>
+    <string name="share_with_friends">Condividi con amici</string>
+
+    <string name="let_me_recommend">Consiglio questa applicazione</string>
+    <string name="search">Cerca</string>
+    <string name="link_copied">Link copiato</string>
+    <string name="search_or_type_url">Cerca o digita URL</string>
+    <string name="cancel">Annulla</string>
+    <string name="wrong_answer">Risposta errata</string>
+
+    <string name="sort_by">Ordina per:</string>
+    <string name="date_added">Data aggiunta</string>
+    <string name="file_size">Dimensione file</string>
+    <string name="date">Data</string>
+    <string name="size">Dimensione</string>
+    <string name="name">Nome</string>
+
+    <string name="next">Avanti</string>
+    <string name="ob_1">Crea una password di 4 cifre</string>
+    <string name="ob_2">Inserisci '%1$s=' se dimentichi la password</string>
+    <string name="ob_3">Proteggi foto e video</string>
+
+    <string name="okay">Okay</string>
+    <string name="advertising">Pubblicità</string>
+    <string name="trash">Cestino</string>
+
+    <string name="re_enter_your_password">Ridigita la password per confermare e premi “=”</string>
+    <string name="history">Storico</string>
+    <string name="your_history_is_empty">Lo storico è vuoto</string>
+    <string name="are_you_sure_you_want">Sei sicuro di voler eliminare tutto lo storico di navigazione?</string>
+    <string name="delete_all">Elimina tutto</string>
+
+    <string name="need_access">Richiesto accesso</string>
+    <string name="allow_access_to">Consenti l'accesso a foto e video per gestire i tuoi file multimediali.</string>
+    <string name="allow">Consenti</string>
+
+    <string name="restoring_previously_hidden_files">Ripristino dei file precedentemente nascosti</string>
+    <string name="thank_you_for_helping">Grazie per aver contribuito allo sviluppo del progetto</string>
+    <string name="ads">Guarda gli annunci, sostieni il progetto</string>
+    <string name="ad_will_be_shown">Verrà mostrato un annuncio</string>
+</resources>

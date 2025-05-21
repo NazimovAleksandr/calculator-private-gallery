@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Kalkulator - Privat Galleri</string>
+    <string name="version">Versjon</string>
+
+    <string name="share">Del</string>
+    <string name="creating_new_password">Oppretter ny passord</string>
+    <string name="confirm_password">Bekreft passord</string>
+    <string name="enter_four_digit">Skriv inn et 4-sifret passord og trykk på «=»</string>
+    <string name="reset">Tilbakestill</string>
+    <string name="password_do_not_match">Passordene stemmer ikke overens</string>
+    <string name="cant_enter_more_15">Du kan ikke skrive mer enn 15 siffer.</string>
+
+    <string name="select_language">Velg språk</string>
+    <string name="done">Ferdig</string>
+    <string name="continue_">Fortsett</string>
+    <string name="welcome_to_calculator">Velkommen til Kalkulator</string>
+
+    <string name="by_clicking_continue">Ved å klikke på fortsett godtar du</string>
+    <string name="privacy_policy">Personvernregler</string>
+    <string name="and">og</string>
+    <string name="tos">Brukervilkår</string>
+
+    <string name="security_question">Sikkerhetsspørsmål</string>
+    <string name="skip">Hopp over</string>
+    <string name="enter_secret_word">Skriv inn hemmelig ord</string>
+
+    <string-array name="questions">
+        <item>Hva er favorittfilmen din?</item>
+        <item>Hvem er din favorittartist?</item>
+        <item>Hvilken by ble du født i?</item>
+        <item>Hva var den første bilen din?</item>
+        <item>Hva var det første konsertet du gikk på?</item>
+        <item>Hvilket år begynte du på universitetet?</item>
+    </string-array>
+
+    <string name="need_to_remember">Må huskes</string>
+    <string name="your_answer">Din besvarelse</string>
+    <string name="tip_to_reset_password">Tips for å tilbakestille passord</string>
+    <string name="i_got_it">Forstått</string>
+
+    <string name="home">Hjem</string>
+    <string name="calculator_lock">Kalkulatorlås</string>
+    <string name="private_web_browser">Privat nettleser</string>
+    <string name="browser">Nettleser</string>
+    <string name="photos">Bilder</string>
+    <string name="videos">Videoer</string>
+    <string name="files">Filer</string>
+    <string name="notes">Notater</string>
+    <string name="recycle_bin">Søppel</string>
+
+    <string name="add_photos">Legg til bilder</string>
+    <string name="add_videos">Legg til videoer</string>
+    <string name="add_files">Legg til filer</string>
+    <string name="empty">Tom</string>
+    <string name="choose_images_from">Velg bilder fra</string>
+    <string name="choose_videos_from">Velg videoer fra</string>
+    <string name="gallery">Galleri</string>
+    <string name="folder">Mappe</string>
+    <string name="all_images">Alle bilder</string>
+    <string name="all_videos">Alle videoer</string>
+
+    <string name="no_photos_selected">Ingen bilder valgt</string>
+    <string name="no_videos_selected">Ingen videoer valgt</string>
+    <string name="no_files_selected">Ingen filer valgt</string>
+
+    <string name="hide">Skjul %1$s</string>
+    <string name="visible">Synlig</string>
+    <string name="restore">Gjenopprett</string>
+    <string name="delete">Slett</string>
+    <string name="application_not_found">Applikasjonen ble ikke funnet</string>
+
+    <string name="secret_notes">Hemmelige notater</string>
+    <string name="add_new_notes">Legg til nye notater</string>
+    <string name="create_notes">Lag notater</string>
+    <string name="enter_title">Skriv tittel</string>
+    <string name="type_your_secret_note">Skriv ditt hemmelige notat…</string>
+
+    <string name="settings">Innstillinger</string>
+    <string name="social">Sosialt</string>
+    <string name="theme">Tema</string>
+    <string name="security">Sikkerhet</string>
+    <string name="change_password">Endre passord</string>
+    <string name="change_security_question">Endre sikkerhetsspørsmål</string>
+    <string name="take_a_picture">Ta et bilde</string>
+    <string name="language">Språk</string>
+    <string name="more">Mer</string>
+    <string name="rate_5_stars">Gi 5 stjerner</string>
+    <string name="share_with_friends">Del med venner</string>
+
+    <string name="let_me_recommend">La meg anbefale denne applikasjonen</string>
+    <string name="search">Søk</string>
+    <string name="link_copied">Lenken kopiert</string>
+    <string name="search_or_type_url">Søk eller skriv inn URL</string>
+    <string name="cancel">Avbryt</string>
+    <string name="wrong_answer">Feil svar</string>
+
+    <string name="sort_by">Sorter etter:</string>
+    <string name="date_added">Dato lagt til</string>
+    <string name="file_size">Filstørrelse</string>
+    <string name="date">Dato</string>
+    <string name="size">Størrelse</string>
+    <string name="name">Navn</string>
+
+    <string name="next">Neste</string>
+    <string name="ob_1">Lag et 4-sifret passord</string>
+    <string name="ob_2">Skriv inn '%1$s=' hvis du glemmer passordet</string>
+    <string name="ob_3">Begynn å sikre bildene og videoene dine</string>
+
+    <string name="okay">Greit</string>
+    <string name="advertising">Annonser</string>
+    <string name="trash">Søppel</string>
+
+    <string name="re_enter_your_password">Skriv passordet på nytt for å bekrefte, og trykk på «=»</string>
+    <string name="history">Historie</string>
+    <string name="your_history_is_empty">Historien din er tom</string>
+    <string name="are_you_sure_you_want">Er du sikker på at du vil slette hele nettlesingshistorikken din?</string>
+    <string name="delete_all">Slett alle</string>
+
+    <string name="need_access">Trenger tilgang</string>
+    <string name="allow_access_to">Gi tilgang til bilder og videoer for å administrere dine mediafiler.</string>
+    <string name="allow">Tillat</string>
+
+    <string name="restoring_previously_hidden_files">Gjenoppretter tidligere skjulte filer</string>
+    <string name="thank_you_for_helping">Takk for hjelpen med prosjektutviklingen</string>
+    <string name="ads">Se annonser, støtt prosjektet</string>
+    <string name="ad_will_be_shown">En annons vil bli vist</string>
+</resources>

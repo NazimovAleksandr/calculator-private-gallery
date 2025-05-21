@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">کیلکولیٹر - نجی گیلری</string>
+    <string name="version">ورژن</string>
+
+    <string name="share">شئیر کریں</string>
+    <string name="creating_new_password">نیا پاس ورڈ بنانا</string>
+    <string name="confirm_password">پاس ورڈ کی تصدیق کریں</string>
+    <string name="enter_four_digit">ایک چار عددی پاس ورڈ درج کریں اور پھر "=" دبائیں</string>
+    <string name="reset">دوبارہ ترتیب دیں</string>
+    <string name="password_do_not_match">پاس ورڈ مماثل نہیں ہیں</string>
+    <string name="cant_enter_more_15">آپ 15 سے زائد اعداد درج نہیں کر سکتے۔</string>
+
+    <string name="select_language">زبان منتخب کریں</string>
+    <string name="done">تمام</string>
+    <string name="continue_">جاری رکھیں</string>
+    <string name="welcome_to_calculator">کیلکولیٹر میں خوش آمدید</string>
+
+    <string name="by_clicking_continue">جاری رکھنے پر، آپ مندرجہ سے اتفاق کرتے ہیں</string>
+    <string name="privacy_policy">رازداری کی پالیسی</string>
+    <string name="and">اور</string>
+    <string name="tos">خدمت کی شرائط</string>
+
+    <string name="security_question">حِفاظت کا سوال</string>
+    <string name="skip">چھوڑ دیں</string>
+    <string name="enter_secret_word">خفیہ لفظ درج کریں</string>
+
+    <string-array name="questions">
+        <item>آپ کی پسندیدہ فلم کون سی ہے؟</item>
+        <item>آپ کا پسندیدہ فنکار کون ہے؟</item>
+        <item>آپ کس شہر میں پیدا ہوئے؟</item>
+        <item>آپ کی پہلی گاڑی کون سی تھی؟</item>
+        <item>آپ کا پہلا کنسرٹ کون سا تھا؟</item>
+        <item>آپ یونیورسٹی میں کس سال داخل ہوئے؟</item>
+    </string-array>
+
+    <string name="need_to_remember">یاد رکھنا ضروری ہے</string>
+    <string name="your_answer">آپ کا جواب</string>
+    <string name="tip_to_reset_password">پاس ورڈ دوبارہ ترتیب دینے کا طریقہ</string>
+    <string name="i_got_it">سمجھ گیا</string>
+
+    <string name="home">ہوم</string>
+    <string name="calculator_lock">کیلکولیٹر لاک</string>
+    <string name="private_web_browser">نجی ویب براؤزر</string>
+    <string name="browser">براؤزر</string>
+    <string name="photos">تصاویر</string>
+    <string name="videos">ویڈیوز</string>
+    <string name="files">فائلیں</string>
+    <string name="notes">نوٹس</string>
+    <string name="recycle_bin">کچرا</string>
+
+    <string name="add_photos">تصاویر شامل کریں</string>
+    <string name="add_videos">ویڈیوز شامل کریں</string>
+    <string name="add_files">فائلیں شامل کریں</string>
+    <string name="empty">خالی</string>
+    <string name="choose_images_from">تصاویر منتخب کریں</string>
+    <string name="choose_videos_from">ویڈیوز منتخب کریں</string>
+    <string name="gallery">گیلری</string>
+    <string name="folder">فولڈر</string>
+    <string name="all_images">تمام تصاویر</string>
+    <string name="all_videos">تمام ویڈیوز</string>
+
+    <string name="no_photos_selected">کوئی تصویر منتخب نہیں</string>
+    <string name="no_videos_selected">کوئی ویڈیو منتخب نہیں</string>
+    <string name="no_files_selected">کوئی فائل منتخب نہیں</string>
+
+    <string name="hide">%1$s چھپائیں</string>
+    <string name="visible">ظاہر</string>
+    <string name="restore">بحال کریں</string>
+    <string name="delete">حذف کریں</string>
+    <string name="application_not_found">درخواست نہیں ملی</string>
+
+    <string name="secret_notes">خفیہ نوٹ</string>
+    <string name="add_new_notes">نئے نوٹس شامل کریں</string>
+    <string name="create_notes">نوٹس بنائیں</string>
+    <string name="enter_title">عنوان درج کریں</string>
+    <string name="type_your_secret_note">اپنا خفیہ نوٹ ٹائپ کریں…</string>
+
+    <string name="settings">ترتیبات</string>
+    <string name="social">سماجی</string>
+    <string name="theme">تھیم</string>
+    <string name="security">حفاطت</string>
+    <string name="change_password">پاس ورڈ تبدیل کریں</string>
+    <string name="change_security_question">حفاطت کا سوال بدلیں</string>
+    <string name="take_a_picture">تصویر لیں</string>
+    <string name="language">زبان</string>
+    <string name="more">مزید</string>
+    <string name="rate_5_stars">5 ستارے ریٹ کریں</string>
+    <string name="share_with_friends">دوستوں کے ساتھ شئیر کریں</string>
+
+    <string name="let_me_recommend">میں آپ کو یہ ایپلیکیشن سفارش کرنا چاہتا ہوں</string>
+    <string name="search">تلاش کریں</string>
+    <string name="link_copied">لنک کاپی کر دیا گیا</string>
+    <string name="search_or_type_url">تلاش کریں یا URL درج کریں</string>
+    <string name="cancel">منسوخ کریں</string>
+    <string name="wrong_answer">غلط جواب</string>
+
+    <string name="sort_by">ترتیب دیں:</string>
+    <string name="date_added">تاریخ شامل کی گئی</string>
+    <string name="file_size">فائل کا حجم</string>
+    <string name="date">تاریخ</string>
+    <string name="size">حجم</string>
+    <string name="name">نام</string>
+
+    <string name="next">اگلا</string>
+    <string name="ob_1">4 عددی پاس ورڈ بنائیں</string>
+    <string name="ob_2">پاس ورڈ بھولنے پر '%1$s=' درج کریں</string>
+    <string name="ob_3">اپنی تصاویر اور ویڈیوز کو محفوظ کرنے کا آغاز کریں</string>
+
+    <string name="okay">ٹھیک ہے</string>
+    <string name="advertising">اعلانات</string>
+    <string name="trash">کچرا</string>
+
+    <string name="re_enter_your_password">تصدیق کے لیے اپنا پاس ورڈ دوبارہ درج کریں اور پھر "=" دبائیں</string>
+    <string name="history">تاریخ</string>
+    <string name="your_history_is_empty">آپ کی تاریخ خالی ہے</string>
+    <string name="are_you_sure_you_want">کیا آپ اپنی تمام براؤزنگ تاریخ کو حذف کرنا چاہتے ہیں؟</string>
+    <string name="delete_all">سب کو حذف کر دیں</string>
+
+    <string name="need_access">ایکسس کی ضرورت ہے</string>
+    <string name="allow_access_to">اپنی میڈیا فائلز کو منظم کرنے کے لیے اپنی تصاویر اور ویڈیوز کے لیے رسائی کی اجازت دیں۔</string>
+    <string name="allow">اجازت دیں</string>
+
+    <string name="restoring_previously_hidden_files">پہلے چھپی فائلز کو بحال کر رہے ہیں</string>
+    <string name="thank_you_for_helping">پراجیکٹ کی ترقی میں مدد کے لیے شکریہ</string>
+    <string name="ads">اعلانات دیکھیں، پراجیکٹ کی حمایت کریں</string>
+    <string name="ad_will_be_shown">ایک اشتہار دکھایا جائے گا</string>
+</resources>

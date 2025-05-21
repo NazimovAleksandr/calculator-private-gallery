@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Calculadora - Galería Privada</string>
+    <string name="version">Versión</string>
+
+    <string name="share">Compartir</string>
+    <string name="creating_new_password">Creando nueva contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="enter_four_digit">Ingrese una contraseña de 4 dígitos y luego presione \"=\"</string>
+    <string name="reset">Restablecer</string>
+    <string name="password_do_not_match">Las contraseñas no coinciden</string>
+    <string name="cant_enter_more_15">No se pueden ingresar más de 15 dígitos</string>
+
+    <string name="select_language">Seleccionar idioma</string>
+    <string name="done">Hecho</string>
+    <string name="continue_">Continuar</string>
+    <string name="welcome_to_calculator">Bienvenido a la Calculadora</string>
+
+    <string name="by_clicking_continue">Al hacer clic en continuar, aceptas la</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="and">y</string>
+    <string name="tos">Términos de servicio</string>
+
+    <string name="security_question">Pregunta de seguridad</string>
+    <string name="skip">Saltar</string>
+    <string name="enter_secret_word">Ingrese palabra secreta</string>
+
+    <string-array name="questions">
+        <item>¿Cuál es tu película favorita?</item>
+        <item>¿Quién es tu artista favorito?</item>
+        <item>¿En qué ciudad naciste?</item>
+        <item>¿Cuál fue tu primer auto?</item>
+        <item>¿Cuál fue el primer concierto al que asististe?</item>
+        <item>¿En qué año ingresaste a la universidad?</item>
+    </string-array>
+
+    <string name="need_to_remember">Necesitas recordar</string>
+    <string name="your_answer">Tu respuesta</string>
+    <string name="tip_to_reset_password">Consejo para restablecer la contraseña</string>
+    <string name="i_got_it">Entendido</string>
+
+    <string name="home">Inicio</string>
+    <string name="calculator_lock">Bloqueo de calculadora</string>
+    <string name="private_web_browser">Navegador web privado</string>
+    <string name="browser">Navegador</string>
+    <string name="photos">Fotos</string>
+    <string name="videos">Videos</string>
+    <string name="files">Archivos</string>
+    <string name="notes">Notas</string>
+    <string name="recycle_bin">Papelera de reciclaje</string>
+
+    <string name="add_photos">Agregar fotos</string>
+    <string name="add_videos">Agregar videos</string>
+    <string name="add_files">Agregar archivos</string>
+    <string name="empty">Vacío</string>
+    <string name="choose_images_from">Elegir imágenes de</string>
+    <string name="choose_videos_from">Elegir videos de</string>
+    <string name="gallery">Galería</string>
+    <string name="folder">Carpeta</string>
+    <string name="all_images">Todas las imágenes</string>
+    <string name="all_videos">Todos los videos</string>
+
+    <string name="no_photos_selected">No hay fotos seleccionadas</string>
+    <string name="no_videos_selected">No hay videos seleccionados</string>
+    <string name="no_files_selected">No hay archivos seleccionados</string>
+
+    <string name="hide">Ocultar %1$s</string>
+    <string name="visible">Visible</string>
+    <string name="restore">Restaurar</string>
+    <string name="delete">Eliminar</string>
+    <string name="application_not_found">Aplicación no encontrada</string>
+
+    <string name="secret_notes">Notas secretas</string>
+    <string name="add_new_notes">Agregar nuevas notas</string>
+    <string name="create_notes">Crear notas</string>
+    <string name="enter_title">Ingresar título</string>
+    <string name="type_your_secret_note">Escribe tu nota secreta...</string>
+
+    <string name="settings">Configuración</string>
+    <string name="social">Social</string>
+    <string name="theme">Tema</string>
+    <string name="security">Seguridad</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="change_security_question">Cambiar pregunta de seguridad</string>
+    <string name="take_a_picture">Tomar una foto</string>
+    <string name="language">Idioma</string>
+    <string name="more">Más</string>
+    <string name="rate_5_stars">Calificar con 5 estrellas</string>
+    <string name="share_with_friends">Compartir con amigos</string>
+
+    <string name="let_me_recommend">Permíteme recomendarte esta aplicación</string>
+    <string name="search">Buscar</string>
+    <string name="link_copied">Enlace copiado</string>
+    <string name="search_or_type_url">Buscar o escribir URL</string>
+    <string name="cancel">Cancelar</string>
+    <string name="wrong_answer">Respuesta incorrecta</string>
+
+    <string name="sort_by">Ordenar por:</string>
+    <string name="date_added">Fecha de agregado</string>
+    <string name="file_size">Tamaño del archivo</string>
+    <string name="date">Fecha</string>
+    <string name="size">Tamaño</string>
+    <string name="name">Nombre</string>
+
+    <string name="next">Siguiente</string>
+    <string name="ob_1">Crear una contraseña de 4 dígitos</string>
+    <string name="ob_2">Ingresa '%1$s=' si olvidas tu contraseña</string>
+    <string name="ob_3">Comienza a proteger tus fotos y videos</string>
+
+    <string name="okay">De acuerdo</string>
+    <string name="advertising">Publicidad</string>
+    <string name="trash">Basura</string>
+
+    <string name="re_enter_your_password">Vuelve a ingresar tu contraseña para confirmar y luego presiona \"=\"</string>
+    <string name="history">Historial</string>
+    <string name="your_history_is_empty">Tu historial está vacío</string>
+    <string name="are_you_sure_you_want">¿Estás seguro de que deseas eliminar todo tu historial de navegación?</string>
+    <string name="delete_all">Eliminar todo</string>
+
+    <string name="need_access">Necesita acceso</string>
+    <string name="allow_access_to">Permite el acceso a tus fotos y videos para gestionar tus archivos multimedia</string>
+    <string name="allow">Permitir</string>
+
+    <string name="restoring_previously_hidden_files">Restaurando archivos previamente ocultos</string>
+    <string name="thank_you_for_helping">Gracias por tu ayuda en el desarrollo del proyecto</string>
+    <string name="ads">Mira los anuncios, apoya el proyecto</string>
+    <string name="ad_will_be_shown">Se mostrará un anuncio</string>
+</resources>

@@ -126,8 +126,8 @@ private fun Content(
         .padding(top = 2.dp, bottom = 36.dp)
     ) {
       modelValue?.languages?.forEach { items ->
-        Column(
-          verticalArrangement = Arrangement.spacedBy(space = 12.dp),
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
           modifier = Modifier
         ) {
           val firstLanguage = items[0]
@@ -135,6 +135,8 @@ private fun Content(
           LanguageCard(
             language = firstLanguage?.name,
             selected = firstLanguage == modelValue?.selected,
+            modifier = Modifier
+              .weight(weight = 1f)
           ) {
             if (firstLanguage != null) {
               component?.action(
@@ -148,6 +150,8 @@ private fun Content(
           LanguageCard(
             language = secondLanguage?.name,
             selected = secondLanguage == modelValue?.selected,
+            modifier = Modifier
+              .weight(weight = 1f)
           ) {
             if (secondLanguage != null) {
               component?.action(
@@ -171,6 +175,7 @@ private fun Content(
 private fun LanguageCard(
   language: String?,
   selected: Boolean,
+  modifier: Modifier = Modifier,
   onClick: () -> Unit,
 ) {
   val backgroundColor = when (selected) {
@@ -182,8 +187,7 @@ private fun LanguageCard(
     language != null -> Row(
       horizontalArrangement = Arrangement.Start,
       verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier
-        .fillMaxWidth()
+      modifier = modifier
         .clip(shape = MaterialTheme.shapes.large)
         .background(color = backgroundColor)
         .clickable(onClick = onClick)
@@ -200,8 +204,7 @@ private fun LanguageCard(
     }
 
     else -> Box(
-      modifier = Modifier
-        .fillMaxWidth()
+      modifier = modifier
     )
   }
 

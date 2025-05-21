@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">계산기 - 개인 갤러리</string>
+    <string name="version">버전</string>
+
+    <string name="share">공유하기</string>
+    <string name="creating_new_password">새로운 비밀번호 생성 중</string>
+    <string name="confirm_password">비밀번호 확인</string>
+    <string name="enter_four_digit">4자리 비밀번호를 입력한 후 “=”을(를) 누르세요</string>
+    <string name="reset">초기화</string>
+    <string name="password_do_not_match">비밀번호가 일치하지 않습니다</string>
+    <string name="cant_enter_more_15">15자 이상 입력할 수 없습니다.</string>
+
+    <string name="select_language">언어 선택</string>
+    <string name="done">완료</string>
+    <string name="continue_">계속</string>
+    <string name="welcome_to_calculator">계산기에 오신 것을 환영합니다</string>
+
+    <string name="by_clicking_continue">계속을 클릭하면 다음에 동의하는 것입니다</string>
+    <string name="privacy_policy">개인정보 보호정책</string>
+    <string name="and">및</string>
+    <string name="tos">이용 약관</string>
+
+    <string name="security_question">보안 질문</string>
+    <string name="skip">건너뛰기</string>
+    <string name="enter_secret_word">비밀 단어 입력</string>
+
+    <string-array name="questions">
+        <item>당신이 좋아하는 영화는 무엇입니까?</item>
+        <item>당신이 좋아하는 아티스트는 누구입니까?</item>
+        <item>당신이 태어난 도시는 어디입니까?</item>
+        <item>당신의 첫 차량은 무엇이었습니까?</item>
+        <item>당신이 처음 참석한 콘서트는 무엇입ника요?</item>
+        <item>대학에 입학한 해는 언제입니까?</item>
+    </string-array>
+
+    <string name="need_to_remember">기억해야 할 사항</string>
+    <string name="your_answer">당신의 답변</string>
+    <string name="tip_to_reset_password">비밀번호 초기화 힌트</string>
+    <string name="i_got_it">알겠습니다</string>
+
+    <string name="home">홈</string>
+    <string name="calculator_lock">계산기 잠금</string>
+    <string name="private_web_browser">개인 웹 브라우저</string>
+    <string name="browser">브라우저</string>
+    <string name="photos">사진</string>
+    <string name="videos">동영상</string>
+    <string name="files">파일</string>
+    <string name="notes">노트</string>
+    <string name="recycle_bin">휴지통</string>
+
+    <string name="add_photos">사진 추가</string>
+    <string name="add_videos">동영상 추가</string>
+    <string name="add_files">파일 추가</string>
+    <string name="empty">비어 있음</string>
+    <string name="choose_images_from">이미지 선택</string>
+    <string name="choose_videos_from">동영상 선택</string>
+    <string name="gallery">갤러리</string>
+    <string name="folder">폴더</string>
+    <string name="all_images">모든 이미지</string>
+    <string name="all_videos">모든 동영상</string>
+
+    <string name="no_photos_selected">선택된 사진 없음</string>
+    <string name="no_videos_selected">선택된 동영상 없음</string>
+    <string name="no_files_selected">선택된 파일 없음</string>
+
+    <string name="hide">%1$s 숨기기</string>
+    <string name="visible">표시됨</string>
+    <string name="restore">복원</string>
+    <string name="delete">삭제</string>
+    <string name="application_not_found">앱을 찾을 수 없습니다</string>
+
+    <string name="secret_notes">비밀 노트</string>
+    <string name="add_new_notes">새로운 노트 추가</string>
+    <string name="create_notes">노트 작성</string>
+    <string name="enter_title">제목 입력</string>
+    <string name="type_your_secret_note">비밀 노트를 입력하세요…</string>
+
+    <string name="settings">설정</string>
+    <string name="social">소셜</string>
+    <string name="theme">테마</string>
+    <string name="security">보안</string>
+    <string name="change_password">비밀번호 변경</string>
+    <string name="change_security_question">보안 질문 변경</string>
+    <string name="take_a_picture">사진 찍기</string>
+    <string name="language">언어</string>
+    <string name="more">더 보기</string>
+    <string name="rate_5_stars">별 5개로 평가하기</string>
+    <string name="share_with_friends">친구와 공유하기</string>
+
+    <string name="let_me_recommend">이 앱을 추천해 드립니다</string>
+    <string name="search">검색</string>
+    <string name="link_copied">링크 복사됨</string>
+    <string name="search_or_type_url">검색 또는 URL 입력</string>
+    <string name="cancel">취소</string>
+    <string name="wrong_answer">잘못된 답변입니다</string>
+
+    <string name="sort_by">정렬 기준:</string>
+    <string name="date_added">추가 날짜</string>
+    <string name="file_size">파일 크기</string>
+    <string name="date">날짜</string>
+    <string name="size">크기</string>
+    <string name="name">이름</string>
+
+    <string name="next">다음</string>
+    <string name="ob_1">4자리 비밀번호 생성</string>
+    <string name="ob_2">비밀번호를 잊은 경우 '%1$s=' 입력</string>
+    <string name="ob_3">사진과 동영상을 보호 시작</string>
+
+    <string name="okay">확인</string>
+    <string name="advertising">광고</string>
+    <string name="trash">휴지통</string>
+
+    <string name="re_enter_your_password">확인을 위해 비밀번호를 다시 입력하고 “=”을(를) 누르세요</string>
+    <string name="history">기록</string>
+    <string name="your_history_is_empty">기록이 비어 있습니다</string>
+    <string name="are_you_sure_you_want">전체 검색 기록을 삭제하시겠습니까?</string>
+    <string name="delete_all">모두 삭제</string>
+
+    <string name="need_access">접근 권한 필요</string>
+    <string name="allow_access_to">미디어 파일 관리를 위해 사진 및 동영상 접근 권한을 허용해 주세요.</string>
+    <string name="allow">허용</string>
+
+    <string name="restoring_previously_hidden_files">이전에 숨겨진 파일을 복원 중입니다</string>
+    <string name="thank_you_for_helping">프로젝트 개발에 도움 주셔서 감사합니다</string>
+    <string name="ads">광고를 시청하여 프로젝트를 지원해 주세요</string>
+    <string name="ad_will_be_shown">광고가 표시됩니다</string>
+</resources>

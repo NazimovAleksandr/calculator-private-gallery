@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">कैलकुलेटर - प्राइवेट गैलरी</string>
+    <string name="version">संस्करण</string>
+
+    <string name="share">शेयर करें</string>
+    <string name="creating_new_password">नया पासवर्ड बनाना</string>
+    <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
+    <string name="enter_four_digit">एक 4-अंकीय पासवर्ड दर्ज करें और फिर “=” दबाएँ</string>
+    <string name="reset">रीसेट करें</string>
+    <string name="password_do_not_match">पासवर्ड मेल नहीं खाते हैं</string>
+    <string name="cant_enter_more_15">15 से अधिक अंक दर्ज नहीं किए जा सकते।</string>
+
+    <string name="select_language">भाषा चुनें</string>
+    <string name="done">हो गया</string>
+    <string name="continue_">जारी रखें</string>
+    <string name="welcome_to_calculator">कैलकुलेटर में आपका स्वागत है</string>
+
+    <string name="by_clicking_continue">जारी रखने पर, आप सहमत होते हैं</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="and">और</string>
+    <string name="tos">सेवा की शर्तें</string>
+
+    <string name="security_question">सुरक्षा प्रश्न</string>
+    <string name="skip">छोड़ें</string>
+    <string name="enter_secret_word">गुप्त शब्द दर्ज करें</string>
+
+    <string-array name="questions">
+        <item>आपकी पसंदीदा फिल्म कौन सी है?</item>
+        <item>आपका पसंदीदा कलाकार कौन है?</item>
+        <item>आपका जन्म किस शहर में हुआ था?</item>
+        <item>आपकी पहली कार कौन सी थी?</item>
+        <item>आपने पहला कॉन्सर्ट कौन सा देखा था?</item>
+        <item>आपने किस वर्ष कॉलेज में दाखिला लिया?</item>
+    </string-array>
+
+    <string name="need_to_remember">याद रखने योग्य</string>
+    <string name="your_answer">आपका उत्तर</string>
+    <string name="tip_to_reset_password">पासवर्ड रीसेट करने की टिप</string>
+    <string name="i_got_it">मैं समझ गया</string>
+
+    <string name="home">मुख्य पृष्ठ</string>
+    <string name="calculator_lock">कैलकुलेटर लॉक</string>
+    <string name="private_web_browser">निजी वेब ब्राउज़र</string>
+    <string name="browser">ब्राउज़र</string>
+    <string name="photos">फ़ोटो</string>
+    <string name="videos">वीडियो</string>
+    <string name="files">फ़ाइलें</string>
+    <string name="notes">नोट्स</string>
+    <string name="recycle_bin">रीसायकल बिन</string>
+
+    <string name="add_photos">फ़ोटो जोड़ें</string>
+    <string name="add_videos">वीडियो जोड़ें</string>
+    <string name="add_files">फ़ाइलें जोड़ें</string>
+    <string name="empty">खाली</string>
+    <string name="choose_images_from">छवियाँ चुनें</string>
+    <string name="choose_videos_from">वीडियो चुनें</string>
+    <string name="gallery">गैलरी</string>
+    <string name="folder">फ़ोल्डर</string>
+    <string name="all_images">सभी छवियाँ</string>
+    <string name="all_videos">सभी वीडियो</string>
+
+    <string name="no_photos_selected">कोई फ़ोटो चयनित नहीं है</string>
+    <string name="no_videos_selected">कोई वीडियो चयनित नहीं है</string>
+    <string name="no_files_selected">कोई फ़ाइल चयनित नहीं है</string>
+
+    <string name="hide">%1$s छिपाएँ</string>
+    <string name="visible">दृश्यमान</string>
+    <string name="restore">पुनर्स्थापित करें</string>
+    <string name="delete">हटाएँ</string>
+    <string name="application_not_found">एप्लिकेशन नहीं मिला</string>
+
+    <string name="secret_notes">गुप्त नोट्स</string>
+    <string name="add_new_notes">नया नोट जोड़ें</string>
+    <string name="create_notes">नोट बनाएँ</string>
+    <string name="enter_title">शीर्षक दर्ज करें</string>
+    <string name="type_your_secret_note">अपना गुप्त नोट टाइप करें…</string>
+
+    <string name="settings">सेटिंग्स</string>
+    <string name="social">सोशल</string>
+    <string name="theme">थीम</string>
+    <string name="security">सुरक्षा</string>
+    <string name="change_password">पासवर्ड बदलें</string>
+    <string name="change_security_question">सुरक्षा प्रश्न बदलें</string>
+    <string name="take_a_picture">चित्र लें</string>
+    <string name="language">भाषा</string>
+    <string name="more">अधिक</string>
+    <string name="rate_5_stars">5 स्टार दें</string>
+    <string name="share_with_friends">दोस्तों के साथ शेयर करें</string>
+
+    <string name="let_me_recommend">मैं आपको यह एप्लिकेशन सुझाऊँगा</string>
+    <string name="search">खोजें</string>
+    <string name="link_copied">लिंक कॉपी कर लिया गया</string>
+    <string name="search_or_type_url">खोजें या URL टाइप करें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="wrong_answer">गलत उत्तर</string>
+
+    <string name="sort_by">क्रमबद्ध करें:</string>
+    <string name="date_added">तिथि जोड़ी</string>
+    <string name="file_size">फ़ाइल का आकार</string>
+    <string name="date">तिथि</string>
+    <string name="size">आकार</string>
+    <string name="name">नाम</string>
+
+    <string name="next">अगला</string>
+    <string name="ob_1">4-अंकीय पासवर्ड बनाएँ</string>
+    <string name="ob_2">अपना पासवर्ड भूल जाने पर '%1$s=' दर्ज करें</string>
+    <string name="ob_3">अपनी तस्वीरों और वीडियो को सुरक्षित करना शुरू करें</string>
+
+    <string name="okay">ठीक है</string>
+    <string name="advertising">विज्ञापन</string>
+    <string name="trash">कचरा</string>
+
+    <string name="re_enter_your_password">पुष्टि के लिए अपना पासवर्ड दोबारा दर्ज करें और फिर “=” दबाएँ</string>
+    <string name="history">इतिहास</string>
+    <string name="your_history_is_empty">आपका इतिहास खाली है</string>
+    <string name="are_you_sure_you_want">क्या आप अपना पूरा ब्राउज़िंग इतिहास हटाना चाहते हैं?</string>
+    <string name="delete_all">सभी हटाएँ</string>
+
+    <string name="need_access">एक्सेस की आवश्यकता है</string>
+    <string name="allow_access_to">अपनी मीडिया फ़ाइलों को प्रबंधित करने के लिए फ़ोटो और वीडियो तक एक्सेस दें।</string>
+    <string name="allow">अनुमति दें</string>
+
+    <string name="restoring_previously_hidden_files">पहले छिपी हुई फ़ाइलों को पुनर्स्थापित कर रहा है</string>
+    <string name="thank_you_for_helping">प्रोजेक्ट के विकास में आपकी मदद के लिए धन्यवाद</string>
+    <string name="ads">विज्ञापन देखें, प्रोजेक्ट का समर्थन करें</string>
+    <string name="ad_will_be_shown">एक विज्ञापन दिखाया जाएगा</string>
+</resources>

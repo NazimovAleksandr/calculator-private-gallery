@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">ক্যালকুলেটর - প্রাইভেট গ্যালারি</string>
+    <string name="version">সংস্করণ</string>
+
+    <string name="share">শেয়ার করুন</string>
+    <string name="creating_new_password">নতুন পাসওয়ার্ড তৈরি করা হচ্ছে</string>
+    <string name="confirm_password">পাসওয়ার্ড নিশ্চিত করুন</string>
+    <string name="enter_four_digit">একটি 4-অঙ্কের পাসওয়ার্ড লিখুন এবং তারপর \"=\" টিপুন</string>
+    <string name="reset">রিসেট</string>
+    <string name="password_do_not_match">পাসওয়ার্ড মেলে না</string>
+    <string name="cant_enter_more_15">15 টির বেশি অঙ্ক প্রবেশ করা যাবে না</string>
+
+    <string name="select_language">ভাষা নির্বাচন করুন</string>
+    <string name="done">সম্পন্ন</string>
+    <string name="continue_">চালিয়ে যান</string>
+    <string name="welcome_to_calculator">ক্যালকুলেটরে আপনাকে স্বাগতম</string>
+
+    <string name="by_clicking_continue">চালিয়ে যান ক্লিক করে, আপনি সম্মত হন</string>
+    <string name="privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="and">এবং</string>
+    <string name="tos">সেবার শর্তাবলী</string>
+
+    <string name="security_question">নিরাপত্তা প্রশ্ন</string>
+    <string name="skip">এড়িয়ে যান</string>
+    <string name="enter_secret_word">গোপন শব্দ লিখুন</string>
+
+    <string-array name="questions">
+        <item>আপনার প্রিয় চলচ্চিত্র কী?</item>
+        <item>আপনার প্রিয় শিল্পী কে?</item>
+        <item>আপনি কোন শহরে জন্মগ্রহণ করেছেন?</item>
+        <item>আপনার প্রথম গাড়ি কী ছিল?</item>
+        <item>আপনার প্রথম কনসার্ট কোনটি ছিল?</item>
+        <item>আপনি কলেজে কোন বছর প্রবেশ করেছেন?</item>
+    </string-array>
+
+    <string name="need_to_remember">মনে রাখতে হবে</string>
+    <string name="your_answer">আপনার উত্তর</string>
+    <string name="tip_to_reset_password">পাসওয়ার্ড রিসেট করার টিপ</string>
+    <string name="i_got_it">আমি বুঝেছি</string>
+
+    <string name="home">হোম</string>
+    <string name="calculator_lock">ক্যালকুলেটর লক</string>
+    <string name="private_web_browser">প্রাইভেট ওয়েব ব্রাউজার</string>
+    <string name="browser">ব্রাউজার</string>
+    <string name="photos">ছবি</string>
+    <string name="videos">ভিডিও</string>
+    <string name="files">ফাইল</string>
+    <string name="notes">নোট</string>
+    <string name="recycle_bin">রিসাইকেল বিন</string>
+
+    <string name="add_photos">ছবি যোগ করুন</string>
+    <string name="add_videos">ভিডিও যোগ করুন</string>
+    <string name="add_files">ফাইল যোগ করুন</string>
+    <string name="empty">খালি</string>
+    <string name="choose_images_from">ছবি নির্বাচন করুন</string>
+    <string name="choose_videos_from">ভিডিও নির্বাচন করুন</string>
+    <string name="gallery">গ্যালারি</string>
+    <string name="folder">ফোল্ডার</string>
+    <string name="all_images">সমস্ত ছবি</string>
+    <string name="all_videos">সমস্ত ভিডিও</string>
+
+    <string name="no_photos_selected">কোনো ছবি নির্বাচন করা হয়নি</string>
+    <string name="no_videos_selected">কোনো ভিডিও নির্বাচন করা হয়নি</string>
+    <string name="no_files_selected">কোনো ফাইল নির্বাচন করা হয়নি</string>
+
+    <string name="hide">%1$s লুকান</string>
+    <string name="visible">দৃশ্যমান</string>
+    <string name="restore">পুনরুদ্ধার</string>
+    <string name="delete">মুছুন</string>
+    <string name="application_not_found">অ্যাপ্লিকেশন পাওয়া যায়নি</string>
+
+    <string name="secret_notes">গোপন নোট</string>
+    <string name="add_new_notes">নতুন নোট যোগ করুন</string>
+    <string name="create_notes">নোট তৈরি করুন</string>
+    <string name="enter_title">শিরোনাম লিখুন</string>
+    <string name="type_your_secret_note">আপনার গোপন নোট লিখুন...</string>
+
+    <string name="settings">সেটিংস</string>
+    <string name="social">সামাজিক</string>
+    <string name="theme">থিম</string>
+    <string name="security">নিরাপত্তা</string>
+    <string name="change_password">পাসওয়ার্ড পরিবর্তন করুন</string>
+    <string name="change_security_question">নিরাপত্তা প্রশ্ন পরিবর্তন করুন</string>
+    <string name="take_a_picture">ছবি তুলুন</string>
+    <string name="language">ভাষা</string>
+    <string name="more">আরও</string>
+    <string name="rate_5_stars">5 তারা দিন</string>
+    <string name="share_with_friends">বন্ধুদের সাথে শেয়ার করুন</string>
+
+    <string name="let_me_recommend">আমি আপনাকে এই অ্যাপ্লিকেশনটি সুপারিশ করতে চাই</string>
+    <string name="search">খুঁজুন</string>
+    <string name="link_copied">লিংক কপি করা হয়েছে</string>
+    <string name="search_or_type_url">খুঁজুন বা URL টাইপ করুন</string>
+    <string name="cancel">বাতিল</string>
+    <string name="wrong_answer">ভুল উত্তর</string>
+
+    <string name="sort_by">সাজান:</string>
+    <string name="date_added">যোগের তারিখ</string>
+    <string name="file_size">ফাইলের আকার</string>
+    <string name="date">তারিখ</string>
+    <string name="size">আকার</string>
+    <string name="name">নাম</string>
+
+    <string name="next">পরবর্তী</string>
+    <string name="ob_1">4-অঙ্কের পাসওয়ার্ড তৈরি করুন</string>
+    <string name="ob_2">আপনি যদি পাসওয়ার্ড ভুলে যান '%1$s=' লিখুন</string>
+    <string name="ob_3">আপনার ছবি এবং ভিডিও সুরক্ষিত করা শুরু করুন</string>
+
+    <string name="okay">ঠিক আছে</string>
+    <string name="advertising">বিজ্ঞাপন</string>
+    <string name="trash">ট্র্যাশ</string>
+
+    <string name="re_enter_your_password">পাসওয়ার্ড নিশ্চিত করতে পুনরায় লিখুন এবং তারপর \"=\" টিপুন</string>
+    <string name="history">ইতিহাস</string>
+    <string name="your_history_is_empty">আপনার ইতিহাস খালি</string>
+    <string name="are_you_sure_you_want">আপনি কি নিশ্চিত যে আপনি আপনার সম্পূর্ণ ব্রাউজিং ইতিহাস মুছতে চান?</string>
+    <string name="delete_all">সব মুছুন</string>
+
+    <string name="need_access">অনুমতি প্রয়োজন</string>
+    <string name="allow_access_to">আপনার মিডিয়া ফাইল পরিচালনা করতে আপনার ছবি এবং ভিডিওতে অ্যাক্সেস অনুমতি দিন</string>
+    <string name="allow">অনুমতি দিন</string>
+
+    <string name="restoring_previously_hidden_files">পূর্বে লুকানো ফাইল পুনরুদ্ধার করা হচ্ছে</string>
+    <string name="thank_you_for_helping">প্রকল্পের উন্নয়নে আপনার সহায়তার জন্য ধন্যবাদ</string>
+    <string name="ads">বিজ্ঞাপন দেখুন, প্রকল্পটি সমর্থন করুন</string>
+    <string name="ad_will_be_shown">বিজ্ঞাপন দেখানো হবে</string>
+</resources>

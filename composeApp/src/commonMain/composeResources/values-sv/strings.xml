@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Miniräknare - Privat Galleri</string>
+    <string name="version">Version</string>
+
+    <string name="share">Dela</string>
+    <string name="creating_new_password">Skapar nytt lösenord</string>
+    <string name="confirm_password">Bekräfta lösenord</string>
+    <string name="enter_four_digit">Ange ett 4-siffrigt lösenord och tryck på "="</string>
+    <string name="reset">Återställ</string>
+    <string name="password_do_not_match">Lösenorden matchar inte</string>
+    <string name="cant_enter_more_15">Du kan inte ange mer än 15 siffror.</string>
+
+    <string name="select_language">Välj språk</string>
+    <string name="done">Klart</string>
+    <string name="continue_">Fortsätt</string>
+    <string name="welcome_to_calculator">Välkommen till Miniräknaren</string>
+
+    <string name="by_clicking_continue">Genom att klicka på fortsätt godtar du</string>
+    <string name="privacy_policy">Integritetspolicy</string>
+    <string name="and">och</string>
+    <string name="tos">Användarvillkor</string>
+
+    <string name="security_question">Säkerhetsfråga</string>
+    <string name="skip">Hoppa över</string>
+    <string name="enter_secret_word">Ange hemligt ord</string>
+
+    <string-array name="questions">
+        <item>Vad är din favoritfilm?</item>
+        <item>Vem är din favoritartist?</item>
+        <item>I vilken stad föddes du?</item>
+        <item>Vad var din första bil?</item>
+        <item>Vilken var din första konsert?</item>
+        <item>Vilket år började du på universitetet?</item>
+    </string-array>
+
+    <string name="need_to_remember">Måste komma ihåg</string>
+    <string name="your_answer">Ditt svar</string>
+    <string name="tip_to_reset_password">Tips för att återställa lösenord</string>
+    <string name="i_got_it">Jag fattar</string>
+
+    <string name="home">Start</string>
+    <string name="calculator_lock">Miniräknarlås</string>
+    <string name="private_web_browser">Privat webbläsare</string>
+    <string name="browser">Webbläsare</string>
+    <string name="photos">Foton</string>
+    <string name="videos">Videor</string>
+    <string name="files">Filer</string>
+    <string name="notes">Anteckningar</string>
+    <string name="recycle_bin">Papperskorg</string>
+
+    <string name="add_photos">Lägg till foton</string>
+    <string name="add_videos">Lägg till videor</string>
+    <string name="add_files">Lägg till filer</string>
+    <string name="empty">Tomt</string>
+    <string name="choose_images_from">Välj bilder från</string>
+    <string name="choose_videos_from">Välj videor från</string>
+    <string name="gallery">Galleri</string>
+    <string name="folder">Mapp</string>
+    <string name="all_images">Alla bilder</string>
+    <string name="all_videos">Alla videor</string>
+
+    <string name="no_photos_selected">Inga foton valda</string>
+    <string name="no_videos_selected">Inga videor valda</string>
+    <string name="no_files_selected">Inga filer valda</string>
+
+    <string name="hide">Dölj %1$s</string>
+    <string name="visible">Synlig</string>
+    <string name="restore">Återställ</string>
+    <string name="delete">Ta bort</string>
+    <string name="application_not_found">Programmet hittades inte</string>
+
+    <string name="secret_notes">Hemliga anteckningar</string>
+    <string name="add_new_notes">Lägg till nya anteckningar</string>
+    <string name="create_notes">Skapa anteckningar</string>
+    <string name="enter_title">Ange titel</string>
+    <string name="type_your_secret_note">Skriv din hemliga anteckning…</string>
+
+    <string name="settings">Inställningar</string>
+    <string name="social">Socialt</string>
+    <string name="theme">Tema</string>
+    <string name="security">Säkerhet</string>
+    <string name="change_password">Ändra lösenord</string>
+    <string name="change_security_question">Ändra säkerhetsfråga</string>
+    <string name="take_a_picture">Ta ett foto</string>
+    <string name="language">Språk</string>
+    <string name="more">Mer</string>
+    <string name="rate_5_stars">Ge 5 stjärnor</string>
+    <string name="share_with_friends">Dela med vänner</string>
+
+    <string name="let_me_recommend">Låt mig rekommendera denna app</string>
+    <string name="search">Sök</string>
+    <string name="link_copied">Länken kopierad</string>
+    <string name="search_or_type_url">Sök eller skriv in URL</string>
+    <string name="cancel">Avbryt</string>
+    <string name="wrong_answer">Fel svar</string>
+
+    <string name="sort_by">Sortera efter:</string>
+    <string name="date_added">Datum tillagt</string>
+    <string name="file_size">Filens storlek</string>
+    <string name="date">Datum</string>
+    <string name="size">Storlek</string>
+    <string name="name">Namn</string>
+
+    <string name="next">Nästa</string>
+    <string name="ob_1">Skapa ett 4-siffrigt lösenord</string>
+    <string name="ob_2">Ange '%1$s=' om du glömmer lösenordet</string>
+    <string name="ob_3">Börja skydda dina bilder och videor</string>
+
+    <string name="okay">Okej</string>
+    <string name="advertising">Annons</string>
+    <string name="trash">Papperskorg</string>
+
+    <string name="re_enter_your_password">Skriv lösenordet igen för att bekräfta och tryck på "="</string>
+    <string name="history">Historik</string>
+    <string name="your_history_is_empty">Din historik är tom</string>
+    <string name="are_you_sure_you_want">Är du säker på att du vill ta bort all surfhistorik?</string>
+    <string name="delete_all">Ta bort allt</string>
+
+    <string name="need_access">Behöver tillgång</string>
+    <string name="allow_access_to">Tillåt åtkomst till dina bilder och videor för att hantera dina mediafiler.</string>
+    <string name="allow">Tillåt</string>
+
+    <string name="restoring_previously_hidden_files">Återställer tidigare dolda filer</string>
+    <string name="thank_you_for_helping">Tack för hjälpen med projektutvecklingen</string>
+    <string name="ads">Titta på annonser, stöd projektet</string>
+    <string name="ad_will_be_shown">En annons kommer att visas</string>
+</resources>

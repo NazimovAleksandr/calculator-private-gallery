@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">電卓 - プライベートギャラリー</string>
+    <string name="version">バージョン</string>
+
+    <string name="share">共有する</string>
+    <string name="creating_new_password">新しいパスワードを作成中</string>
+    <string name="confirm_password">パスワードを確認</string>
+    <string name="enter_four_digit">4桁のパスワードを入力し、「＝」を押してください</string>
+    <string name="reset">リセット</string>
+    <string name="password_do_not_match">パスワードが一致しません</string>
+    <string name="cant_enter_more_15">15桁以上は入力できません。</string>
+
+    <string name="select_language">言語を選択</string>
+    <string name="done">完了</string>
+    <string name="continue_">続ける</string>
+    <string name="welcome_to_calculator">電卓へようこそ</string>
+
+    <string name="by_clicking_continue">「続ける」をクリックすると、以下の内容に同意したものとみなされます</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="and">および</string>
+    <string name="tos">利用規約</string>
+
+    <string name="security_question">セキュリティ質問</string>
+    <string name="skip">スキップ</string>
+    <string name="enter_secret_word">秘密の言葉を入力</string>
+
+    <string-array name="questions">
+        <item>お気に入りの映画は？</item>
+        <item>お気に入りのアーティストは？</item>
+        <item>生まれた都市は？</item>
+        <item>初めての車は？</item>
+        <item>初めて参加したコンサートは？</item>
+        <item>大学に入った年は？</item>
+    </string-array>
+
+    <string name="need_to_remember">覚えておくべきこと</string>
+    <string name="your_answer">あなたの回答</string>
+    <string name="tip_to_reset_password">パスワード再設定のヒント</string>
+    <string name="i_got_it">わかりました</string>
+
+    <string name="home">ホーム</string>
+    <string name="calculator_lock">電卓ロック</string>
+    <string name="private_web_browser">プライベートブラウザ</string>
+    <string name="browser">ブラウザ</string>
+    <string name="photos">写真</string>
+    <string name="videos">動画</string>
+    <string name="files">ファイル</string>
+    <string name="notes">ノート</string>
+    <string name="recycle_bin">ごみ箱</string>
+
+    <string name="add_photos">写真を追加</string>
+    <string name="add_videos">動画を追加</string>
+    <string name="add_files">ファイルを追加</string>
+    <string name="empty">空</string>
+    <string name="choose_images_from">画像を選択</string>
+    <string name="choose_videos_from">動画を選択</string>
+    <string name="gallery">ギャラリー</string>
+    <string name="folder">フォルダ</string>
+    <string name="all_images">すべての画像</string>
+    <string name="all_videos">すべての動画</string>
+
+    <string name="no_photos_selected">写真が選択されていません</string>
+    <string name="no_videos_selected">動画が選択されていません</string>
+    <string name="no_files_selected">ファイルが選択されていません</string>
+
+    <string name="hide">%1$s を隠す</string>
+    <string name="visible">表示</string>
+    <string name="restore">復元</string>
+    <string name="delete">削除</string>
+    <string name="application_not_found">アプリケーションが見つかりません</string>
+
+    <string name="secret_notes">シークレットノート</string>
+    <string name="add_new_notes">新規ノートを追加</string>
+    <string name="create_notes">ノートを作成</string>
+    <string name="enter_title">タイトルを入力</string>
+    <string name="type_your_secret_note">シークレットノートを入力…</string>
+
+    <string name="settings">設定</string>
+    <string name="social">ソーシャル</string>
+    <string name="theme">テーマ</string>
+    <string name="security">セキュリティ</string>
+    <string name="change_password">パスワード変更</string>
+    <string name="change_security_question">セキュリティ質問を変更</string>
+    <string name="take_a_picture">写真を撮る</string>
+    <string name="language">言語</string>
+    <string name="more">その他</string>
+    <string name="rate_5_stars">5スターで評価してください</string>
+    <string name="share_with_friends">友達と共有</string>
+
+    <string name="let_me_recommend">このアプリをお勧めします</string>
+    <string name="search">検索</string>
+    <string name="link_copied">リンクをコピーしました</string>
+    <string name="search_or_type_url">検索またはURLを入力</string>
+    <string name="cancel">キャンセル</string>
+    <string name="wrong_answer">不正な回答</string>
+
+    <string name="sort_by">並び替え:</string>
+    <string name="date_added">追加日</string>
+    <string name="file_size">ファイルサイズ</string>
+    <string name="date">日付</string>
+    <string name="size">サイズ</string>
+    <string name="name">名前</string>
+
+    <string name="next">次へ</string>
+    <string name="ob_1">4桁のパスワードを作成</string>
+    <string name="ob_2">パスワードを忘れた場合は '%1$s=' を入力</string>
+    <string name="ob_3">写真や動画を保護し始めましょう</string>
+
+    <string name="okay">OK</string>
+    <string name="advertising">広告</string>
+    <string name="trash">ごみ箱</string>
+
+    <string name="re_enter_your_password">確認のためにパスワードを再入力し、「＝」を押してください</string>
+    <string name="history">履歴</string>
+    <string name="your_history_is_empty">履歴は空です</string>
+    <string name="are_you_sure_you_want">ブラウジング履歴をすべて削除してもよろしいですか？</string>
+    <string name="delete_all">すべて削除</string>
+
+    <string name="need_access">アクセスが必要です</string>
+    <string name="allow_access_to">メディアファイルを管理するために写真や動画へのアクセスを許可してください。</string>
+    <string name="allow">許可</string>
+
+    <string name="restoring_previously_hidden_files">以前隠されていたファイルを復元しています</string>
+    <string name="thank_you_for_helping">プロジェクト開発へのご協力ありがとうございます</string>
+    <string name="ads">広告を見て、プロジェクトを支援してください</string>
+    <string name="ad_will_be_shown">広告が表示されます</string>
+</resources>

@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">கணிப்பான் - தனியுரிமை காட்சியகம்</string>
+    <string name="version">பதிப்பு</string>
+
+    <string name="share">பகிர்</string>
+    <string name="creating_new_password">புதிய கடவுச்சொல் உருவாக்கம்</string>
+    <string name="confirm_password">கடவுச்சொல்லை உறுதிப்படுத்தவும்</string>
+    <string name="enter_four_digit">4 இலக்க கடவுச்சொல்லை உள்ளிடவும், பின் “=” ஐ அழுத்தவும்</string>
+    <string name="reset">மீட்டமை</string>
+    <string name="password_do_not_match">கடவுச்சொல் பொருந்தவில்லை</string>
+    <string name="cant_enter_more_15">15 இலக்கங்களுக்கு மேல் உள்ளிட முடியாது.</string>
+
+    <string name="select_language">மொழியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="done">முடிந்தது</string>
+    <string name="continue_">தொடரவும்</string>
+    <string name="welcome_to_calculator">கணிப்பானில் உங்களை வரவேற்கிறோம்</string>
+
+    <string name="by_clicking_continue">தொடர கிளிக் செய்வதன் மூலம், நீங்கள் ஒப்புக்கொள்கிறீர்கள்</string>
+    <string name="privacy_policy">தனியுரிமை கொள்கை</string>
+    <string name="and">மற்றும்</string>
+    <string name="tos">சேவை நிபந்தனைகள்</string>
+
+    <string name="security_question">பாதுகாப்பு கேள்வி</string>
+    <string name="skip">தவிர்க்கவும்</string>
+    <string name="enter_secret_word">ரகசிய வார்த்தையை உள்ளிடவும்</string>
+
+    <string-array name="questions">
+        <item>உங்கள் பிடித்த படம் எது?</item>
+        <item>உங்கள் பிடித்த கலைஞர் யார்?</item>
+        <item>நீங்கள் பிறந்த நகரம் எது?</item>
+        <item>உங்கள் முதல் கார் எது?</item>
+        <item>நீங்கள் பார்த்த முதல் கச்சேரி எது?</item>
+        <item>நீங்கள் பல்கலைக்கழகத்தில் சேர்ந்த ஆண்டு எது?</item>
+    </string-array>
+
+    <string name="need_to_remember">நினைவில் கொள்ள வேண்டியது</string>
+    <string name="your_answer">உங்கள் பதில்</string>
+    <string name="tip_to_reset_password">கடவுச்சொல்லை மீட்டமைக்கும் குறிப்பு</string>
+    <string name="i_got_it">புரிந்தது</string>
+
+    <string name="home">முகப்பு</string>
+    <string name="calculator_lock">கணிப்பான் பூட்டு</string>
+    <string name="private_web_browser">தனியுரிமை இணைய உலாவி</string>
+    <string name="browser">உலாவி</string>
+    <string name="photos">புகைப்படங்கள்</string>
+    <string name="videos">காணொலிகள்</string>
+    <string name="files">கோப்புகள்</string>
+    <string name="notes">குறிப்புகள்</string>
+    <string name="recycle_bin">குப்பைத்தொட்டி</string>
+
+    <string name="add_photos">புகைப்படங்களைச் சேர்க்கவும்</string>
+    <string name="add_videos">காணொலிகளைச் சேர்க்கவும்</string>
+    <string name="add_files">கோப்புகளைச் சேர்க்கவும்</string>
+    <string name="empty">காலி</string>
+    <string name="choose_images_from">படங்களைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="choose_videos_from">காணொலிகளைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="gallery">காட்சியகம்</string>
+    <string name="folder">கோப்புறை</string>
+    <string name="all_images">அனைத்து படங்கள்</string>
+    <string name="all_videos">அனைத்து காணொலிகள்</string>
+
+    <string name="no_photos_selected">எந்த புகைப்படமும் தேர்ந்தெடுக்கப்படவில்லை</string>
+    <string name="no_videos_selected">எந்த காணொலியும் தேர்ந்தெடுக்கப்படவில்லை</string>
+    <string name="no_files_selected">எந்த கோப்பும் தேர்ந்தெடுக்கப்படவில்லை</string>
+
+    <string name="hide">%1$s ஐ மறைக்கவும்</string>
+    <string name="visible">தெரியும்</string>
+    <string name="restore">மீட்கவும்</string>
+    <string name="delete">நீக்கவும்</string>
+    <string name="application_not_found">பயன்பாடு கிடைக்கவில்லை</string>
+
+    <string name="secret_notes">ரகசிய குறிப்புகள்</string>
+    <string name="add_new_notes">புதிய குறிப்புகளைச் சேர்க்கவும்</string>
+    <string name="create_notes">குறிப்புகளை உருவாக்கவும்</string>
+    <string name="enter_title">தலைப்பை உள்ளிடவும்</string>
+    <string name="type_your_secret_note">உங்கள் ரகசிய குறிப்பை டைப் செய்யவும்…</string>
+
+    <string name="settings">அமைப்புகள்</string>
+    <string name="social">சமூகம்</string>
+    <string name="theme">தீம்</string>
+    <string name="security">பாதுகாப்பு</string>
+    <string name="change_password">கடவுச்சொல்லை மாற்றவும்</string>
+    <string name="change_security_question">பாதுகாப்பு கேள்வியை மாற்றவும்</string>
+    <string name="take_a_picture">புகைப்படம் எடுக்கவும்</string>
+    <string name="language">மொழி</string>
+    <string name="more">மேலும்</string>
+    <string name="rate_5_stars">5 நட்சத்திரங்கள் வழங்கவும்</string>
+    <string name="share_with_friends">நண்பர்களுடன் பகிரவும்</string>
+
+    <string name="let_me_recommend">இந்த பயன்பாட்டை பரிந்துரைக்கிறேன்</string>
+    <string name="search">தேடவும்</string>
+    <string name="link_copied">இணைப்பு நகலெடுக்கப்பட்டது</string>
+    <string name="search_or_type_url">தேடவும் அல்லது URL ஐ உள்ளிடவும்</string>
+    <string name="cancel">ரத்து செய்யவும்</string>
+    <string name="wrong_answer">தவறான பதில்</string>
+
+    <string name="sort_by">வகைப்படுத்து:</string>
+    <string name="date_added">தேதி சேர்க்கப்பட்டது</string>
+    <string name="file_size">கோப்பின் அளவு</string>
+    <string name="date">தேதி</string>
+    <string name="size">அளவு</string>
+    <string name="name">பெயர்</string>
+
+    <string name="next">அடுத்தது</string>
+    <string name="ob_1">4 இலக்க கடவுச்சொல்லை உருவாக்கவும்</string>
+    <string name="ob_2">கடவுச்சொல்லை மறந்தால் '%1$s=' ஐ உள்ளிடவும்</string>
+    <string name="ob_3">உங்கள் புகைப்படங்கள் மற்றும் காணொலிகளை பாதுகாக்கத் தொடங்கவும்</string>
+
+    <string name="okay">சரி</string>
+    <string name="advertising">விளம்பரம்</string>
+    <string name="trash">குப்பை</string>
+
+    <string name="re_enter_your_password">உறுதிப்படுத்த, கடவுச்சொல்லை மீண்டும் உள்ளிடவும், பின் “=” ஐ அழுத்தவும்</string>
+    <string name="history">வரலாறு</string>
+    <string name="your_history_is_empty">உங்கள் வரலாறு காலியாக உள்ளது</string>
+    <string name="are_you_sure_you_want">உங்கள் முழு உலாவும் வரலாற்றையும் நீக்க விரும்புகிறீர்களா?</string>
+    <string name="delete_all">அனைத்தையும் நீக்கவும்</string>
+
+    <string name="need_access">அணுக வேண்டும்</string>
+    <string name="allow_access_to">உங்கள் ஊடக கோப்புகளை மேலாண்மை செய்ய புகைப்படங்கள் மற்றும் காணொலிகளுக்கு அணுக அனுமதி வழங்கவும்.</string>
+    <string name="allow">அனுமதி</string>
+
+    <string name="restoring_previously_hidden_files">முன்பு மறைக்கப்பட்ட கோப்புகளை மீட்கிறது</string>
+    <string name="thank_you_for_helping">திட்ட வளர்ச்சியில் உங்கள் உதவிக்கு நன்றி</string>
+    <string name="ads">விளம்பரங்களை பார்க்கவும், திட்டத்தை ஆதரிக்கவும்</string>
+    <string name="ad_will_be_shown">விளம்பரம் காட்டப்போகிறது</string>
+</resources>

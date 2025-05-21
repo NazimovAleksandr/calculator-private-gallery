@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">કેલ્ક્યુલેટર - પ્રાઇવેટ ગેલેરી</string>
+    <string name="version">આવૃત્તિ</string>
+
+    <string name="share">શેર કરો</string>
+    <string name="creating_new_password">નવો પાસવર્ડ બનાવો</string>
+    <string name="confirm_password">પાસવર્ડ પુષ્ટિ કરો</string>
+    <string name="enter_four_digit">4-અંકોનો પાસવર્ડ દાખલ કરો અને પછી “=” દબાવો</string>
+    <string name="reset">રીસેટ કરો</string>
+    <string name="password_do_not_match">પાસવર્ડ મેળ નથી ખાતો</string>
+    <string name="cant_enter_more_15">15 અંકોથી વધુ દાખલ કરી શકાય નહીં.</string>
+
+    <string name="select_language">ભાષા પસંદ કરો</string>
+    <string name="done">પૂર્ણ</string>
+    <string name="continue_">ચાલુ રાખો</string>
+    <string name="welcome_to_calculator">કેલ્ક્યુલેટરમાં આપનું સ્વાગત છે</string>
+
+    <string name="by_clicking_continue">ચાલુ રાખવા માટે ક્લિક કરીને, તમે સહમત થાઓ છો</string>
+    <string name="privacy_policy">ગોપનીયતા નીતિ</string>
+    <string name="and">અને</string>
+    <string name="tos">સેવાની શરતો</string>
+
+    <string name="security_question">સુરક્ષા પ્રશ્ન</string>
+    <string name="skip">છોડી દો</string>
+    <string name="enter_secret_word">ગુપ્ત શબ્દ દાખલ કરો</string>
+
+    <string-array name="questions">
+        <item>તમને કઈ ફિલ્મ પસંદ છે?</item>
+        <item>તમને કોણ પસંદ છે?</item>
+        <item>તમે કઈ જગ્યાએ જન્મ્યા હતા?</item>
+        <item>તમારી પહેલી કાર કઈ હતી?</item>
+        <item>તમે પહેલી કોન્સર્ટ ક્યાં હતી?</item>
+        <item>તમે ક્યારે કૉલેજમાં પ્રવેશ લીધો?</item>
+    </string-array>
+
+    <string name="need_to_remember">યાદ રાખવાની જરૂર</string>
+    <string name="your_answer">તમારો જવાબ</string>
+    <string name="tip_to_reset_password">પાસવર્ડ રીસેટ કરવાની ટિપ</string>
+    <string name="i_got_it">હું સમજ્યો</string>
+
+    <string name="home">મુખ્ય પૃષ્ઠ</string>
+    <string name="calculator_lock">કેલ્ક્યુલેટર લૉક</string>
+    <string name="private_web_browser">ખાનગી વેબ બ્રાઉઝર</string>
+    <string name="browser">બ્રાઉઝર</string>
+    <string name="photos">ફોટો</string>
+    <string name="videos">વીડિયો</string>
+    <string name="files">ફાઇલો</string>
+    <string name="notes">નોંધો</string>
+    <string name="recycle_bin">રિસાયકલ બિન</string>
+
+    <string name="add_photos">ફોટો ઉમેરો</string>
+    <string name="add_videos">વીડિયો ઉમેરો</string>
+    <string name="add_files">ફાઇલો ઉમેરો</string>
+    <string name="empty">ખાલી</string>
+    <string name="choose_images_from">છબીઓ પસંદ કરો</string>
+    <string name="choose_videos_from">વીડિયો પસંદ કરો</string>
+    <string name="gallery">ગેલેરી</string>
+    <string name="folder">ફોલ્ડર</string>
+    <string name="all_images">બધી છબીઓ</string>
+    <string name="all_videos">બધા વીડિયો</string>
+
+    <string name="no_photos_selected">કોઈ ફોટો પસંદ નથી</string>
+    <string name="no_videos_selected">કોઈ વીડિયો પસંદ નથી</string>
+    <string name="no_files_selected">કોઈ ફાઇલ પસંદ નથી</string>
+
+    <string name="hide">%1$s છુપાવો</string>
+    <string name="visible">દૃશ્યમાન</string>
+    <string name="restore">પુનઃસ્થાપિત કરો</string>
+    <string name="delete">કાઢી નાખો</string>
+    <string name="application_not_found">એપ્લિકેશન મળી નથી</string>
+
+    <string name="secret_notes">ગુપ્ત નોંધો</string>
+    <string name="add_new_notes">નવી નોંધ ઉમેરો</string>
+    <string name="create_notes">નોંધ બનાવો</string>
+    <string name="enter_title">શીર્ષક દાખલ કરો</string>
+    <string name="type_your_secret_note">તમારી ગુપ્ત નોંધ ટાઇપ કરો…</string>
+
+    <string name="settings">સેટિંગ્સ</string>
+    <string name="social">સોશિયલ</string>
+    <string name="theme">થીમ</string>
+    <string name="security">સુરક્ષા</string>
+    <string name="change_password">પાસવર્ડ બદલો</string>
+    <string name="change_security_question">સુરક્ષા પ્રશ્ન બદલો</string>
+    <string name="take_a_picture">ફોટો લો</string>
+    <string name="language">ભાષા</string>
+    <string name="more">વધુ</string>
+    <string name="rate_5_stars">5 સ્ટાર આપો</string>
+    <string name="share_with_friends">મિત્રો સાથે શેર કરો</string>
+
+    <string name="let_me_recommend">હું આ એપ્લિકેશન સલાહ આપું છું</string>
+    <string name="search">શોધો</string>
+    <string name="link_copied">લિંક કૉપિ થઈ ગઈ છે</string>
+    <string name="search_or_type_url">શોધો અથવા URL ટાઇપ કરો</string>
+    <string name="cancel">રદ કરો</string>
+    <string name="wrong_answer">ખોટો જવાબ</string>
+
+    <string name="sort_by">ક્રમમાં ગોઠવો:</string>
+    <string name="date_added">તારીખ ઉમેરાઈ</string>
+    <string name="file_size">ફાઇલનું કદ</string>
+    <string name="date">તારીખ</string>
+    <string name="size">કદ</string>
+    <string name="name">નામ</string>
+
+    <string name="next">આગળ</string>
+    <string name="ob_1">4-અંકોનો પાસવર્ડ બનાવો</string>
+    <string name="ob_2">જો તમે પાસવર્ડ ભૂલી જાઓ તો '%1$s=' દાખલ કરો</string>
+    <string name="ob_3">તમારી ફોટો અને વીડિયો સુરક્ષિત કરવાનું શરૂ કરો</string>
+
+    <string name="okay">ઠીક છે</string>
+    <string name="advertising">જાહેરાત</string>
+    <string name="trash">કચરો</string>
+
+    <string name="re_enter_your_password">પુષ્ટિ કરવા માટે તમારો પાસવર્ડ ફરીથી દાખલ કરો અને પછી “=” દબાવો</string>
+    <string name="history">ઇતિહાસ</string>
+    <string name="your_history_is_empty">તમારો ઇતિહાસ ખાલી છે</string>
+    <string name="are_you_sure_you_want">શું તમે તમારો સંપૂર્ણ બ્રાઉઝિંગ ઇતિહાસ કાઢી નાખવા માંગો છો?</string>
+    <string name="delete_all">બધા કાઢી નાખો</string>
+
+    <string name="need_access">ઍક્સેસની જરૂર</string>
+    <string name="allow_access_to">તમારી મીડિયા ફાઇલો મેનેજ કરવા માટે ફોટો અને વીડિયો માટે ઍક્સેસ આપો.</string>
+    <string name="allow">પરવાનગી આપો</string>
+
+    <string name="restoring_previously_hidden_files">અગાઉ છુપાયેલી ફાઇલો પુનઃસ્થાપિત કરી રહ્યા છીએ</string>
+    <string name="thank_you_for_helping">પ્રોજેક્ટના વિકાસમાં તમારી મદદ બદલ આભાર</string>
+    <string name="ads">જાહેરાતો જુઓ, પ્રોજેક્ટને ટેકો આપો</string>
+    <string name="ad_will_be_shown">જાહેરાત દર્શાવવામાં આવશે</string>
+</resources>

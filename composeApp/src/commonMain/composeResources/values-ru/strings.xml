@@ -1,46 +1,46 @@
 <resources>
-    <string name="app_name">Калькулятор - Частная галерея</string>
+    <string name="app_name">Калькулятор - Приватная галерея</string>
     <string name="version">Версия</string>
 
     <string name="share">Поделиться</string>
     <string name="creating_new_password">Создание нового пароля</string>
     <string name="confirm_password">Подтвердите пароль</string>
-    <string name="enter_four_digit">Введите 4-значный пароль, затем нажмите "="</string>
-    <string name="reset">Сброс</string>
+    <string name="enter_four_digit">Введите 4-значный пароль и нажмите «=»</string>
+    <string name="reset">Сбросить</string>
     <string name="password_do_not_match">Пароли не совпадают</string>
-    <string name="cant_enter_more_15">Нельзя ввести больше 15 цифр.</string>
+    <string name="cant_enter_more_15">Нельзя ввести более 15 цифр.</string>
 
     <string name="select_language">Выберите язык</string>
     <string name="done">Готово</string>
     <string name="continue_">Продолжить</string>
     <string name="welcome_to_calculator">Добро пожаловать в Калькулятор</string>
 
-    <string name="by_clicking_continue">Нажимая "Продолжить", вы соглашаетесь с</string>
+    <string name="by_clicking_continue">Нажав «Продолжить», вы соглашаетесь с</string>
     <string name="privacy_policy">Политикой конфиденциальности</string>
     <string name="and">и</string>
-    <string name="tos">Условиями обслуживания</string>
+    <string name="tos">Условиями использования</string>
 
-    <string name="security_question">Контрольный вопрос</string>
+    <string name="security_question">Вопрос безопасности</string>
     <string name="skip">Пропустить</string>
     <string name="enter_secret_word">Введите секретное слово</string>
 
     <string-array name="questions">
         <item>Какой ваш любимый фильм?</item>
-        <item>Кто ваш любимый артист?</item>
+        <item>Какой ваш любимый артист?</item>
         <item>В каком городе вы родились?</item>
-        <item>Какая была ваша первая машина?</item>
-        <item>Какой был первый концерт, который вы посетили?</item>
-        <item>В каком году вы поступили в колледж?</item>
+        <item>Какая у вас была первая машина?</item>
+        <item>На каком концерте вы были впервые?</item>
+        <item>В каком году вы поступили в университет?</item>
     </string-array>
 
-    <string name="need_to_remember">Необходимо запомнить</string>
+    <string name="need_to_remember">Нужно запомнить</string>
     <string name="your_answer">Ваш ответ</string>
-    <string name="tip_to_reset_password">Совет по сбросу пароля</string>
-    <string name="i_got_it">Понял</string>
+    <string name="tip_to_reset_password">Подсказка для сброса пароля</string>
+    <string name="i_got_it">Понятно</string>
 
-    <string name="home">Дом</string>
+    <string name="home">Главная</string>
     <string name="calculator_lock">Блокировка калькулятора</string>
-    <string name="private_web_browser">Приватный веб-браузер</string>
+    <string name="private_web_browser">Приватный браузер</string>
     <string name="browser">Браузер</string>
     <string name="photos">Фото</string>
     <string name="videos">Видео</string>
@@ -52,15 +52,15 @@
     <string name="add_videos">Добавить видео</string>
     <string name="add_files">Добавить файлы</string>
     <string name="empty">Пусто</string>
-    <string name="choose_images_from">Выберите изображения из</string>
-    <string name="choose_videos_from">Выберите видео из</string>
+    <string name="choose_images_from">Выбрать изображения из</string>
+    <string name="choose_videos_from">Выбрать видео из</string>
     <string name="gallery">Галерея</string>
     <string name="folder">Папка</string>
     <string name="all_images">Все изображения</string>
     <string name="all_videos">Все видео</string>
 
-    <string name="no_photos_selected">Фотографии не выбраны</string>
-    <string name="no_videos_selected">Видео не выбраны</string>
+    <string name="no_photos_selected">Фото не выбрано</string>
+    <string name="no_videos_selected">Видео не выбрано</string>
     <string name="no_files_selected">Файлы не выбраны</string>
 
     <string name="hide">Скрыть %1$s</string>
@@ -70,27 +70,27 @@
     <string name="application_not_found">Приложение не найдено</string>
 
     <string name="secret_notes">Секретные заметки</string>
-    <string name="add_new_notes">Добавить новую заметку</string>
-    <string name="create_notes">Создать заметку</string>
+    <string name="add_new_notes">Добавить новые заметки</string>
+    <string name="create_notes">Создать заметки</string>
     <string name="enter_title">Введите заголовок</string>
-    <string name="type_your_secret_note">Введите вашу секретную заметку…</string>
+    <string name="type_your_secret_note">Введите свою секретную заметку…</string>
 
     <string name="settings">Настройки</string>
-    <string name="social">Социальное</string>
+    <string name="social">Социальные сети</string>
     <string name="theme">Тема</string>
     <string name="security">Безопасность</string>
     <string name="change_password">Изменить пароль</string>
-    <string name="change_security_question">Изменить контрольный вопрос</string>
+    <string name="change_security_question">Изменить вопрос безопасности</string>
     <string name="take_a_picture">Сделать фото</string>
     <string name="language">Язык</string>
-    <string name="more">Больше</string>
+    <string name="more">Еще</string>
     <string name="rate_5_stars">Оцените на 5 звезд</string>
     <string name="share_with_friends">Поделиться с друзьями</string>
 
-    <string name="let_me_recommend">Позвольте мне порекомендовать вам это приложение</string>
+    <string name="let_me_recommend">Рекомендую это приложение</string>
     <string name="search">Поиск</string>
     <string name="link_copied">Ссылка скопирована</string>
-    <string name="search_or_type_url">Введите запрос или URL</string>
+    <string name="search_or_type_url">Поиск или введите URL</string>
     <string name="cancel">Отмена</string>
     <string name="wrong_answer">Неправильный ответ</string>
 
@@ -103,25 +103,25 @@
 
     <string name="next">Далее</string>
     <string name="ob_1">Создайте 4-значный пароль</string>
-    <string name="ob_2">Введите '%1$s=' если забыли пароль</string>
+    <string name="ob_2">Введите '%1$s=', если забудете пароль</string>
     <string name="ob_3">Начните защищать свои фото и видео</string>
 
-    <string name="okay">Окей</string>
+    <string name="okay">Хорошо</string>
     <string name="advertising">Реклама</string>
-    <string name="trash">Мусор</string>
+    <string name="trash">Корзина</string>
 
-    <string name="re_enter_your_password">Введите пароль повторно для подтверждения, затем нажмите "="</string>
+    <string name="re_enter_your_password">Повторно введите пароль для подтверждения и нажмите «=»</string>
     <string name="history">История</string>
-    <string name="your_history_is_empty">Ваша история пуста</string>
-    <string name="are_you_sure_you_want">Вы уверены, что хотите удалить всю историю браузера?</string>
-    <string name="delete_all">Удалить все</string>
+    <string name="your_history_is_empty">История пуста</string>
+    <string name="are_you_sure_you_want">Вы уверены, что хотите удалить всю историю просмотров?</string>
+    <string name="delete_all">Удалить всё</string>
 
     <string name="need_access">Требуется доступ</string>
-    <string name="allow_access_to">Разрешите доступ к фото и видео для управления медиафайлами.</string>
+    <string name="allow_access_to">Разрешите доступ к фото и видео, чтобы управлять медиафайлами.</string>
     <string name="allow">Разрешить</string>
 
-    <string name="restoring_previously_hidden_files">Восстановление ранее скрытых файлов</string>
-    <string name="thank_you_for_helping">Спасибо вам за помощь в развитии проекта</string>
+    <string name="restoring_previously_hidden_files">Восстанавливаем ранее скрытые файлы</string>
+    <string name="thank_you_for_helping">Спасибо за помощь в разработке проекта</string>
     <string name="ads">Посмотрите рекламу, поддержите проект</string>
-    <string name="ad_will_be_shown">Реклама будет показана</string>
+    <string name="ad_will_be_shown">Будет показана реклама</string>
 </resources>

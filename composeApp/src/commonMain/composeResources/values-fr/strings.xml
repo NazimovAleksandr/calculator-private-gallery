@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Calculatrice - Galerie Privée</string>
+    <string name="version">Version</string>
+
+    <string name="share">Partager</string>
+    <string name="creating_new_password">Création d'un nouveau mot de passe</string>
+    <string name="confirm_password">Confirmer le mot de passe</string>
+    <string name="enter_four_digit">Entrez un mot de passe à 4 chiffres puis appuyez sur « = »</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="password_do_not_match">Les mots de passe ne correspondent pas</string>
+    <string name="cant_enter_more_15">Vous ne pouvez pas entrer plus de 15 chiffres.</string>
+
+    <string name="select_language">Sélectionner la langue</string>
+    <string name="done">Terminé</string>
+    <string name="continue_">Continuer</string>
+    <string name="welcome_to_calculator">Bienvenue dans la calculatrice</string>
+
+    <string name="by_clicking_continue">En cliquant sur continuer, vous acceptez la</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="and">et les</string>
+    <string name="tos">Conditions d'utilisation</string>
+
+    <string name="security_question">Question de sécurité</string>
+    <string name="skip">Passer</string>
+    <string name="enter_secret_word">Entrez le mot secret</string>
+
+    <string-array name="questions">
+        <item>Quel est votre film préféré ?</item>
+        <item>Quel est votre artiste préféré ?</item>
+        <item>Dans quelle ville êtes-vous né ?</item>
+        <item>Quelle était votre première voiture ?</item>
+        <item>Quel était le premier concert auquel vous avez assisté ?</item>
+        <item>En quelle année êtes-vous entré à l'université ?</item>
+    </string-array>
+
+    <string name="need_to_remember">À retenir</string>
+    <string name="your_answer">Votre réponse</string>
+    <string name="tip_to_reset_password">Indice pour réinitialiser le mot de passe</string>
+    <string name="i_got_it">J'ai compris</string>
+
+    <string name="home">Accueil</string>
+    <string name="calculator_lock">Verrou de la calculatrice</string>
+    <string name="private_web_browser">Navigateur web privé</string>
+    <string name="browser">Navigateur</string>
+    <string name="photos">Photos</string>
+    <string name="videos">Vidéos</string>
+    <string name="files">Fichiers</string>
+    <string name="notes">Notes</string>
+    <string name="recycle_bin">Corbeille</string>
+
+    <string name="add_photos">Ajouter des photos</string>
+    <string name="add_videos">Ajouter des vidéos</string>
+    <string name="add_files">Ajouter des fichiers</string>
+    <string name="empty">Vide</string>
+    <string name="choose_images_from">Choisir les images depuis</string>
+    <string name="choose_videos_from">Choisir les vidéos depuis</string>
+    <string name="gallery">Galerie</string>
+    <string name="folder">Dossier</string>
+    <string name="all_images">Toutes les images</string>
+    <string name="all_videos">Toutes les vidéos</string>
+
+    <string name="no_photos_selected">Aucune photo sélectionnée</string>
+    <string name="no_videos_selected">Aucune vidéo sélectionnée</string>
+    <string name="no_files_selected">Aucun fichier sélectionné</string>
+
+    <string name="hide">Masquer %1$s</string>
+    <string name="visible">Visible</string>
+    <string name="restore">Restaurer</string>
+    <string name="delete">Supprimer</string>
+    <string name="application_not_found">Application introuvable</string>
+
+    <string name="secret_notes">Notes secrètes</string>
+    <string name="add_new_notes">Ajouter une nouvelle note</string>
+    <string name="create_notes">Créer des notes</string>
+    <string name="enter_title">Entrer le titre</string>
+    <string name="type_your_secret_note">Tapez votre note secrète…</string>
+
+    <string name="settings">Paramètres</string>
+    <string name="social">Réseaux sociaux</string>
+    <string name="theme">Thème</string>
+    <string name="security">Sécurité</string>
+    <string name="change_password">Changer le mot de passe</string>
+    <string name="change_security_question">Changer la question de sécurité</string>
+    <string name="take_a_picture">Prendre une photo</string>
+    <string name="language">Langue</string>
+    <string name="more">Plus</string>
+    <string name="rate_5_stars">Donnez 5 étoiles</string>
+    <string name="share_with_friends">Partager avec des amis</string>
+
+    <string name="let_me_recommend">Je vous recommande cette application</string>
+    <string name="search">Rechercher</string>
+    <string name="link_copied">Lien copié</string>
+    <string name="search_or_type_url">Rechercher ou taper l'URL</string>
+    <string name="cancel">Annuler</string>
+    <string name="wrong_answer">Mauvaise réponse</string>
+
+    <string name="sort_by">Trier par :</string>
+    <string name="date_added">Date d'ajout</string>
+    <string name="file_size">Taille du fichier</string>
+    <string name="date">Date</string>
+    <string name="size">Taille</string>
+    <string name="name">Nom</string>
+
+    <string name="next">Suivant</string>
+    <string name="ob_1">Créer un mot de passe à 4 chiffres</string>
+    <string name="ob_2">Entrez '%1$s=' si vous oubliez votre mot de passe</string>
+    <string name="ob_3">Commencez à sécuriser vos photos et vidéos</string>
+
+    <string name="okay">OK</string>
+    <string name="advertising">Publicité</string>
+    <string name="trash">Corbeille</string>
+
+    <string name="re_enter_your_password">Retaper votre mot de passe pour confirmer, puis appuyez sur « = »</string>
+    <string name="history">Historique</string>
+    <string name="your_history_is_empty">Votre historique est vide</string>
+    <string name="are_you_sure_you_want">Êtes-vous sûr(e) de vouloir supprimer tout votre historique de navigation ?</string>
+    <string name="delete_all">Tout supprimer</string>
+
+    <string name="need_access">Besoin d'accès</string>
+    <string name="allow_access_to">Autorisez l'accès à vos photos et vidéos pour gérer vos fichiers médias.</string>
+    <string name="allow">Autoriser</string>
+
+    <string name="restoring_previously_hidden_files">Restauration des fichiers cachés précédemment</string>
+    <string name="thank_you_for_helping">Merci pour votre aide dans le développement du projet</string>
+    <string name="ads">Regardez les publicités, soutenez le projet</string>
+    <string name="ad_will_be_shown">Une publicité sera affichée</string>
+</resources>
