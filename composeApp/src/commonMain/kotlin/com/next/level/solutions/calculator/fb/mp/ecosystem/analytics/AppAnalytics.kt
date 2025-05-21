@@ -8,9 +8,9 @@ class AppAnalytics(
   private val firebaseAnalytics: FirebaseAnalytics,
   private val appMetrica: AppMetrica,
 ) {
-  fun logEvent(event: String, vararg params: Pair<String, Any>) {
-    firebaseAnalytics.logEvent(event, params.toMap())
-    appMetrica.logEvent(event, *params)
+  fun logEvent(event: AppAnalyticsEvent, vararg params: Pair<String, Any>) {
+    firebaseAnalytics.logEvent(event.value, params.toMap())
+    appMetrica.logEvent(event.value, *params)
   }
 
   fun reportAdRevenue(type: String, appAdRevenue: AppAdRevenue) {

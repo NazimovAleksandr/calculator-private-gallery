@@ -21,6 +21,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AdsManager
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.DividerSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalyticsEvent
 import com.next.level.solutions.calculator.fb.mp.ecosystem.config.AppConfig
 import com.next.level.solutions.calculator.fb.mp.expect.AppEvent
 import com.next.level.solutions.calculator.fb.mp.expect.AppEventListener
@@ -118,7 +119,7 @@ class RootComponent(
 
       is Action.InitAppConfig -> appConfig.init {
         appUpdate.checkAppUpdate(
-          result =  { appAnalytics.logEvent("app_update", "result" to it) },
+          result =  { appAnalytics.logEvent(AppAnalyticsEvent.AppUpdate, "result" to it) },
           type = appConfig.app.appUpdateType,
         )
       }

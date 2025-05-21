@@ -11,6 +11,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import com.next.level.solutions.calculator.fb.mp.BuildConfig
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalyticsEvent
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import io.appmetrica.analytics.AdType
@@ -53,6 +54,7 @@ class AdsAppOpenImpl(
       network = network.toString(),
     )
 
+    analytics.logEvent(AppAnalyticsEvent.Paid, "type" to AdType.APP_OPEN.name)
     analytics.reportAdRevenue(AdType.APP_OPEN.name, appAdRevenue)
   }
 

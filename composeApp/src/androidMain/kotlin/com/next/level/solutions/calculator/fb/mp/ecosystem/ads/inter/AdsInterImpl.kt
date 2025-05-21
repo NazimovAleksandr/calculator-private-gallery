@@ -14,6 +14,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.next.level.solutions.calculator.fb.mp.BuildConfig
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.AppAdRevenue
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytics
+import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalyticsEvent
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import io.appmetrica.analytics.AdType
@@ -56,6 +57,7 @@ class AdsInterImpl(
       network = network.toString(),
     )
 
+    analytics.logEvent(AppAnalyticsEvent.Paid, "type" to AdType.INTERSTITIAL.name)
     analytics.reportAdRevenue(AdType.INTERSTITIAL.name, appAdRevenue)
   }
 
