@@ -14,6 +14,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytic
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalyticsEvent
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
+import dev.gitlive.firebase.analytics.FirebaseAnalyticsParam
 import io.appmetrica.analytics.AdType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +55,10 @@ class AdsAppOpenImpl(
       network = network.toString(),
     )
 
-    analytics.logEvent(AppAnalyticsEvent.Paid, "type" to AdType.APP_OPEN.name)
+    analytics.logEvent(
+      AppAnalyticsEvent.Paid,
+      FirebaseAnalyticsParam.PAYMENT_TYPE to AdType.APP_OPEN.name,
+    )
     analytics.reportAdRevenue(AdType.APP_OPEN.name, appAdRevenue)
   }
 

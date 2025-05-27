@@ -19,6 +19,7 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalytic
 import com.next.level.solutions.calculator.fb.mp.ecosystem.analytics.AppAnalyticsEvent
 import com.next.level.solutions.calculator.fb.mp.utils.Logger
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
+import dev.gitlive.firebase.analytics.FirebaseAnalyticsParam
 import io.appmetrica.analytics.AdType
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -66,7 +67,10 @@ class AdsNativeImpl(
       network = network.toString(),
     )
 
-    analytics.logEvent(AppAnalyticsEvent.Paid, "type" to AdType.NATIVE.name)
+    analytics.logEvent(
+      AppAnalyticsEvent.Paid,
+      FirebaseAnalyticsParam.PAYMENT_TYPE to AdType.NATIVE.name,
+    )
     analytics.reportAdRevenue(AdType.NATIVE.name, appAdRevenue)
   }
 
