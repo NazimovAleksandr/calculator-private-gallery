@@ -65,6 +65,7 @@ ad-mediation-unity-ads = "4.14.2"
 #ad-mediation-mintegral = "16.8.61.0"
 
 firebase-crashlytics = "3.0.3"
+firebase-perf = "1.4.2"
 google-services = "4.4.2"
 #firebaseBom = "33.10.0"
 gitlive-firebase = "2.1.0"
@@ -154,6 +155,7 @@ ad-mediation-unity-ads = { module = "com.unity3d.ads:unity-ads", version.ref = "
 gitlive-firebase-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "gitlive-firebase" }
 gitlive-firebase-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "gitlive-firebase" }
 gitlive-firebase-config = { module = "dev.gitlive:firebase-config", version.ref = "gitlive-firebase" }
+gitlive-firebase-perf = { module = "dev.gitlive:firebase-perf", version.ref = "gitlive-firebase" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 
 [plugins]
@@ -168,6 +170,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-perf" }
 
 androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

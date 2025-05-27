@@ -14,6 +14,7 @@ plugins {
 
   alias(libs.plugins.google.services)
   alias(libs.plugins.firebase.crashlytics)
+  alias(libs.plugins.firebase.perf)
 
   alias(libs.plugins.androidx.room)
   alias(libs.plugins.ksp)
@@ -101,6 +102,7 @@ kotlin {
       api(libs.gitlive.firebase.crashlytics)
       api(libs.gitlive.firebase.analytics)
       api(libs.gitlive.firebase.config)
+      api(libs.gitlive.firebase.perf)
     }
 
     // KSP Common sourceSet
