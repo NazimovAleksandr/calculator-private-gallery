@@ -35,7 +35,7 @@ fun Modifier.sharedElementExt(
   if (sharedTransitionScope != null && animatedVisibilityScope != null) {
     with(sharedTransitionScope) {
       it.sharedElement(
-        state = rememberSharedContentState(key = key),
+        sharedContentState = rememberSharedContentState(key = key),
         animatedVisibilityScope = animatedVisibilityScope,
         boundsTransform = boundsTransform,
         placeHolderSize = placeHolderSize,
