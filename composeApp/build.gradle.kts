@@ -115,6 +115,8 @@ kotlin {
     compilations.configureEach {
       compileTaskProvider.get().compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        freeCompilerArgs.add("-P")
+        freeCompilerArgs.add("plugin:androidx.compose.compiler.plugins.kotlin:sourceInformation=true")
       }
     }
   }
