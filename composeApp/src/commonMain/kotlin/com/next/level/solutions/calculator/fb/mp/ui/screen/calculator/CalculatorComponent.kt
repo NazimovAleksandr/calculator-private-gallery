@@ -99,6 +99,10 @@ class CalculatorComponent(
     }
   }
 
+  override fun interOff() {
+    toHome()
+  }
+
   private fun initialModel(): Model {
 //    analytics.calculator.pinCreateScreenOpen()
 
@@ -219,7 +223,7 @@ class CalculatorComponent(
 
       buttons.equal -> when {
         creatingPassword -> allRaw to allRaw.also { checkPassword() }
-        allRaw.isEmpty() && enteredRaw.isPassword() -> emptyList<String>() to allRaw.also { toHome() }
+        allRaw.isEmpty() && enteredRaw.isPassword() -> emptyList<String>() to allRaw.also { interOn(dialogNavigation) }
         allRaw.isEmpty() && enteredRaw.isResetPassword() -> enteredRaw to allRaw.also { resetPassword() }
         else -> allRaw + enteredRaw to emptyList()
       }
@@ -236,7 +240,7 @@ class CalculatorComponent(
 
         allRaw.isEmpty() -> null.percent(enteredRaw.asString()).toList().map { it.toString() } to emptyList()
 
-        else ->  {
+        else -> {
           val entered = allRaw
             .dropLast(1)
             .asString()
@@ -501,8 +505,6 @@ class CalculatorComponent(
   }
 
   private fun toHome() {
-//    adsManager.inter.show {
-//    }
     when (handler.lockMode) {
       true -> {
         rootComponent.action(RootComponent.Action.LockOff)
@@ -522,7 +524,7 @@ class CalculatorComponent(
   }
 
   private fun String?.isNotNullAndZero(): Boolean {
-    return this!= null && this != buttons.zero
+    return this != null && this != buttons.zero
   }
 
   private fun String?.forPassword(): Boolean {

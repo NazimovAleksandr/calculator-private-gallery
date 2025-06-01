@@ -16,7 +16,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 
 class LottieComponent(
   componentContext: ComponentContext,
-  adsManager: AdsManager,
+  private val adsManager: AdsManager,
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<RootComponent.Configuration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
@@ -53,7 +53,7 @@ class LottieComponent(
 
   private fun RootComponent.Child.Action.doSomething(): Action? {
     when (this) {
-      is Action.EndAnimation -> navigation.pop()//adsManager.inter.show {  }
+      is Action.EndAnimation -> adsManager.inter.show(navigation::pop)
     }
 
     return null

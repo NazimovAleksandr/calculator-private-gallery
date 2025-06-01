@@ -101,7 +101,7 @@ class BrowserHistoryComponent(
     launchIO {
       val items: List<BrowserHistoryUI> = _model.value.items.first().mapNotNull { it.data }
       appDatabase.delete(*items.toTypedArray())
-//      adsManager.inter.show { }
+      interOn(innerDialogNavigation)
     }
   }
 

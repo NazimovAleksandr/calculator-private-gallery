@@ -2,6 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.need.to.remember
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.replaceCurrent
@@ -14,12 +15,14 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
+import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.home
 
 class NeedToRememberComponent(
   componentContext: ComponentContext,
-  private val adsManager: AdsManager,
+  adsManager: AdsManager,
   private val navigation: StackNavigation<Configuration>,
+  private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   private val handler: Handler = instance<Handler>(componentContext)
@@ -40,15 +43,16 @@ class NeedToRememberComponent(
     }
   }
 
-  private fun Action.OK.doSomething() {
-    toString()
-
-//    adsManager.inter.show {
-//    }
+  override fun interOff() {
     when (handler.changeMode) {
       true -> navigation.pop()
       else -> navigation.replaceCurrent(Configuration.home())
     }
+  }
+
+  private fun Action.OK.doSomething() {
+    toString()
+    interOn(dialogNavigation)
   }
 
   /**

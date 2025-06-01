@@ -15,7 +15,6 @@ import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.inter.AdsInter
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.AdsNative
 import com.next.level.solutions.calculator.fb.mp.utils.NetworkManager
 import com.unity3d.ads.metadata.MetaData
-import com.vungle.ads.VunglePrivacySettings
 
 class AdsManagerImpl(
   override val inter: AdsInter,
@@ -67,7 +66,7 @@ class AdsManagerImpl(
         onComplete.invoke()
 
         unity3d()
-        vungle()
+//        vungle()
 
         inter.load()
         native.init()
@@ -95,7 +94,7 @@ class AdsManagerImpl(
   }
 
   private fun unity3d(): Unit = MetaData(activity).init()
-  private fun vungle(): Unit = VunglePrivacySettings.setGDPRStatus(true, "v1.0.0")
+//  private fun vungle(): Unit = VunglePrivacySettings.setGDPRStatus(true, "v1.0.0")
 //  private fun mintegral(activity: Activity): Unit? = MBridgeSDKFactory.getMBridgeSDK()?.setConsentStatus(activity, ON)
 //  private fun appLovin(activity: Activity): Unit = AppLovinPrivacySettings.setHasUserConsent(true, activity)
 

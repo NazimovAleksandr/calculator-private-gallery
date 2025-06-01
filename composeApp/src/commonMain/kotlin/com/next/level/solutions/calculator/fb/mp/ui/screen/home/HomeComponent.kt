@@ -24,7 +24,6 @@ import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configura
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.browser
 import com.next.level.solutions.calculator.fb.mp.ui.root.hiddenFiles
-import com.next.level.solutions.calculator.fb.mp.ui.root.interDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.needAccessDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.restoreDataDialog
 import com.next.level.solutions.calculator.fb.mp.ui.root.settings
@@ -64,7 +63,6 @@ class HomeComponent(
     checkExternalStorage() ?: return
 
     when (this) {
-      is Action.Ad -> dialogNavigation.activate(DialogConfiguration.interDialog())
       is Action.Settings -> navigation.pushNew(Configuration.settings())
       is Action.OnStart -> launchIO { restoreOldHiddenFiles() }
       is Action.RestoreDataOn -> restoreDataOn()
@@ -201,7 +199,6 @@ class HomeComponent(
   sealed interface Action : RootComponent.Child.Action {
     object Settings : Action
     object Browser : Action
-    object Ad : Action
     object Notes : Action
     object Trash : Action
     object Photos : Action

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -97,10 +96,10 @@ private fun Content(
       text = "$count",
       style = TextStyleFactory.FS36.w600(),
       modifier = Modifier
-        .size(size = 120.dp)
-        .clip(shape = CircleShape)
+        .size(size = 100.dp)
+        .clip(shape = MaterialTheme.shapes.extraLarge)
         .background(color = MaterialTheme.colorScheme.primary)
-        .border(width = 2.dp, shape = CircleShape, color = MaterialTheme.colorScheme.onBackground)
+        .border(width = 2.dp, shape = MaterialTheme.shapes.extraLarge, color = MaterialTheme.colorScheme.onBackground)
         .wrapContentSize()
     )
   }
@@ -119,7 +118,7 @@ private fun Content(
 
     if (visibleState) {
       while (count > 0) {
-        delay(1000)
+        delay(700)
         count--
       }
 

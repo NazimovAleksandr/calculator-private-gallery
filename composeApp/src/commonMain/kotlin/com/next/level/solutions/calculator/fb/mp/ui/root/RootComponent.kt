@@ -246,6 +246,12 @@ class RootComponent(
       Logger.w(TAG, "init: hex = ${this.hexString()}")
     }
 
+    fun interOn(dialogNavigation: SlotNavigation<DialogConfiguration>) {
+      dialogNavigation.activate(DialogConfiguration.interDialog(::interOff))
+    }
+
+    open fun interOff() {}
+
     @Composable
     fun ColumnScope.nativeAdCard(
       size: NativeSize?,

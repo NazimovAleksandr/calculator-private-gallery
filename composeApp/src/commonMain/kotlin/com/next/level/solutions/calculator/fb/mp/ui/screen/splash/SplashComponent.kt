@@ -40,23 +40,7 @@ class SplashComponent(
 
   override fun action(action: Action) {}
 
-  private suspend fun runProgress() {
-    when {
-      progress.value >= 1f -> interOff()//adsManager.inter.show(::interOff)
-      progress.value > 0.7f -> incrementProgress(incrementTime())
-      progress.value > 0.9f -> incrementProgress(incrementTime())
-      else -> incrementProgress(appConfig.splashConfig.incrementTime)
-    }
-  }
-
-  private suspend fun incrementProgress(delayTime: Long) {
-    _progress.value += 0.001f
-
-    delay(delayTime)
-    runProgress()
-  }
-
-  private fun interOff() {
+  override fun interOff() {
 //    analytics.splash.splashLoaded()
 
     launchMain {
@@ -68,6 +52,22 @@ class SplashComponent(
 
       navigation.replaceCurrent(configuration)
     }
+  }
+
+  private suspend fun runProgress() {
+    when {
+      progress.value >= 1f -> adsManager.inter.show(::interOff)
+      progress.value > 0.7f -> incrementProgress(incrementTime())
+      progress.value > 0.9f -> incrementProgress(incrementTime())
+      else -> incrementProgress(appConfig.splashConfig.incrementTime)
+    }
+  }
+
+  private suspend fun incrementProgress(delayTime: Long) {
+    _progress.value += 0.001f
+
+    delay(delayTime)
+    runProgress()
   }
 
   private fun incrementTime(): Long = when {

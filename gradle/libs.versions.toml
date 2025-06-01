@@ -56,8 +56,8 @@ ktor = "3.1.0"
 gson = "2.12.1"
 
 ad-admob = "24.3.0"
-ad-mediation-vungle = "7.4.2.0"
-ad-mediation-facebook = "6.20.0.0"
+#ad-mediation-vungle = "7.4.2.0"
+#ad-mediation-facebook = "6.20.0.0"
 ad-mediation-unity = "4.14.2.0"
 ad-mediation-unity-ads = "4.14.2"
 #ad-mediation-pangle = "6.4.0.6.0"
@@ -139,8 +139,8 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 #ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 ad-core = { module = "com.google.android.gms:play-services-ads", version.ref = "ad-admob" }
-ad-mediation-vungle = { module = "com.google.ads.mediation:vungle", version.ref = "ad-mediation-vungle" }
-ad-mediation-facebook = { module = "com.google.ads.mediation:facebook", version.ref = "ad-mediation-facebook" }
+#ad-mediation-vungle = { module = "com.google.ads.mediation:vungle", version.ref = "ad-mediation-vungle" }
+#ad-mediation-facebook = { module = "com.google.ads.mediation:facebook", version.ref = "ad-mediation-facebook" }
 ad-mediation-unity = { module = "com.google.ads.mediation:unity", version.ref = "ad-mediation-unity" }
 ad-mediation-unity-ads = { module = "com.unity3d.ads:unity-ads", version.ref = "ad-mediation-unity-ads" }
 #ad-mediation-pangle = { module = "com.google.ads.mediation:pangle", version.ref = "ad-mediation-pangle" }

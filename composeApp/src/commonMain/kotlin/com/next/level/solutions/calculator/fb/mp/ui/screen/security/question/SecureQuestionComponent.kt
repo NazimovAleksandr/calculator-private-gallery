@@ -2,6 +2,7 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.security.question
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.slot.SlotNavigation
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.replaceCurrent
@@ -15,14 +16,16 @@ import com.next.level.solutions.calculator.fb.mp.extensions.core.instance
 import com.next.level.solutions.calculator.fb.mp.extensions.core.launchMain
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent
 import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.Configuration
+import com.next.level.solutions.calculator.fb.mp.ui.root.RootComponent.DialogConfiguration
 import com.next.level.solutions.calculator.fb.mp.ui.root.home
 import com.next.level.solutions.calculator.fb.mp.ui.root.needToRemember
 
 class SecureQuestionComponent(
   componentContext: ComponentContext,
-  private val adsManager: AdsManager,
+  adsManager: AdsManager,
   private val appDatastore: AppDatastore,
   private val navigation: StackNavigation<Configuration>,
+  private val dialogNavigation: SlotNavigation<DialogConfiguration>,
 ) : RootComponent.Child(adsManager), ComponentContext by componentContext {
 
   private val handler: Handler = instance<Handler>(componentContext)
@@ -48,12 +51,16 @@ class SecureQuestionComponent(
     }
   }
 
+  override fun interOff() {
+    skip()
+  }
+
   private suspend fun RootComponent.Child.Action.doSomething(): Action? {
     when (this) {
       is Action.Question -> question = value
       is Action.Answer -> answer = value
       is Action.SaveAnswer -> saveAnswer()
-      is Action.Skip -> skip()
+      is Action.Skip -> interOn(dialogNavigation)
     }
 
     return null
@@ -83,8 +90,6 @@ class SecureQuestionComponent(
 
   private fun skip() {
 //    analytics.securityQuestion.secretQuestionSkipped()
-//    adsManager.inter.show {
-//    }
     when (handler.changeMode) {
       true -> navigation.pop()
       else -> navigation.replaceCurrent(Configuration.home())
