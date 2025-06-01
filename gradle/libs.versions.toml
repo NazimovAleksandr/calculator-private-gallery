@@ -178,8 +178,8 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 [bundles]
 admob = [
     "ad-core",
-    "ad-mediation-vungle",
-    "ad-mediation-facebook",
+#    "ad-mediation-vungle",
+#    "ad-mediation-facebook",
     "ad-mediation-unity",
     "ad-mediation-unity-ads",
     #"ad-mediation-mintegral",

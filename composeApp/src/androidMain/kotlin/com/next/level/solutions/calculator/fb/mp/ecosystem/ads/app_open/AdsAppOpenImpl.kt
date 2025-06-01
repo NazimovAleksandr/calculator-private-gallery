@@ -56,8 +56,8 @@ class AdsAppOpenImpl(
     )
 
     analytics.logEvent(
-      AppAnalyticsEvent.Paid,
-      FirebaseAnalyticsParam.PAYMENT_TYPE to AdType.APP_OPEN.name,
+      AppAnalyticsEvent.AdPaid,
+      FirebaseAnalyticsParam.AD_FORMAT to AdType.APP_OPEN.name,
     )
     analytics.reportAdRevenue(AdType.APP_OPEN.name, appAdRevenue)
   }
@@ -128,6 +128,13 @@ class AdsAppOpenImpl(
   private fun loadCallback() = object : AppOpenAd.AppOpenAdLoadCallback() {
     override fun onAdFailedToLoad(adError: LoadAdError) {
       Logger.e(TAG, "onAdFailedToLoad: ${adError.message}")
+
+      analytics.logEvent(
+        AppAnalyticsEvent.AdLoadError,
+        FirebaseAnalyticsParam.AD_FORMAT to AdType.APP_OPEN.name,
+        FirebaseAnalyticsParam.CONTENT_TYPE to adError.code,
+        FirebaseAnalyticsParam.CONTENT to adError.message,
+      )
 
       adLoadErrorCount++
 

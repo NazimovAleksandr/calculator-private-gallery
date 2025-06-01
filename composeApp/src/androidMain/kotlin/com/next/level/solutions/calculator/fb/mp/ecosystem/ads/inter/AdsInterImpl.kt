@@ -59,8 +59,8 @@ class AdsInterImpl(
     )
 
     analytics.logEvent(
-      AppAnalyticsEvent.Paid,
-      FirebaseAnalyticsParam.PAYMENT_TYPE to AdType.INTERSTITIAL.name,
+      AppAnalyticsEvent.AdPaid,
+      FirebaseAnalyticsParam.AD_FORMAT to AdType.INTERSTITIAL.name,
     )
     analytics.reportAdRevenue(AdType.INTERSTITIAL.name, appAdRevenue)
   }
@@ -125,6 +125,13 @@ class AdsInterImpl(
   private fun adLoadListener() = object : InterstitialAdLoadCallback() {
     override fun onAdFailedToLoad(adError: LoadAdError) {
       Logger.e(TAG, "onAdFailedToLoad: ${adError.message}")
+
+      analytics.logEvent(
+        AppAnalyticsEvent.AdLoadError,
+        FirebaseAnalyticsParam.AD_FORMAT to AdType.INTERSTITIAL.name,
+        FirebaseAnalyticsParam.CONTENT_TYPE to adError.code,
+        FirebaseAnalyticsParam.CONTENT to adError.message,
+      )
 
       adLoadErrorCount++
 

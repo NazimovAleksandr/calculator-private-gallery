@@ -31,6 +31,7 @@ class AdsNativeImpl(
 
   private var adLoader: AdLoader? = null
   private val ad: MutableStateFlow<NativeAd?> = MutableStateFlow(null)
+  private var onPaid: Boolean = true
 
   private var adLoadErrorCount: Int = 0
   private var maxAdLoadErrors: Int = 2
@@ -54,6 +55,8 @@ class AdsNativeImpl(
   override fun onPaidEvent(adValue: AdValue) {
     Logger.d(TAG, "onPaidEvent")
 
+    onPaid = true
+
     val nativeAd = ad.value
     val adInfo = nativeAd?.responseInfo?.loadedAdapterResponseInfo
     val network = adInfo?.adSourceName
@@ -68,8 +71,8 @@ class AdsNativeImpl(
     )
 
     analytics.logEvent(
-      AppAnalyticsEvent.Paid,
-      FirebaseAnalyticsParam.PAYMENT_TYPE to AdType.NATIVE.name,
+      AppAnalyticsEvent.AdPaid,
+      FirebaseAnalyticsParam.AD_FORMAT to AdType.NATIVE.name,
     )
     analytics.reportAdRevenue(AdType.NATIVE.name, appAdRevenue)
   }
@@ -118,7 +121,12 @@ class AdsNativeImpl(
   }
 
   private fun loadAd() {
-    if (adLoader?.isLoading == false && adLoadErrorCount < maxAdLoadErrors) {
+    if (
+      adLoader?.isLoading == false
+      && adLoadErrorCount < maxAdLoadErrors
+      && onPaid
+    ) {
+      onPaid = false
       adLoader?.loadAd(AdRequest.Builder().build())
     }
   }
@@ -126,6 +134,13 @@ class AdsNativeImpl(
   private fun loadCallback() = object : AdListener() {
     override fun onAdFailedToLoad(adError: LoadAdError) {
       Logger.e(TAG, "onAdFailedToLoad: ${adError.message}")
+
+      analytics.logEvent(
+        AppAnalyticsEvent.AdLoadError,
+        FirebaseAnalyticsParam.AD_FORMAT to AdType.NATIVE.name,
+        FirebaseAnalyticsParam.CONTENT_TYPE to adError.code,
+        FirebaseAnalyticsParam.CONTENT to adError.message,
+      )
 
       adLoadErrorCount++
 
