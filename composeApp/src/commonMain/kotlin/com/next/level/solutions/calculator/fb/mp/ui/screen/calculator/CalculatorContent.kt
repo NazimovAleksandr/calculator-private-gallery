@@ -2,11 +2,9 @@ package com.next.level.solutions.calculator.fb.mp.ui.screen.calculator
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -25,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.next.level.solutions.calculator.fb.mp.ecosystem.ads.nativ.NativeSize
@@ -39,7 +35,7 @@ import com.next.level.solutions.calculator.fb.mp.ui.icons.all.Light
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.buttons.Buttons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CalculatorButtons
 import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.CreatingPassword
-import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.TextAutoSize
+import com.next.level.solutions.calculator.fb.mp.ui.screen.calculator.composable.EnteredNumber
 import com.next.level.solutions.calculator.fb.mp.ui.theme.TextStyleFactory
 import com.next.level.solutions.calculator.fb.mp.utils.withNotNull
 
@@ -149,47 +145,45 @@ private fun Content(
 
       Spacer(modifier = Modifier.weight(weight = 1f))
     } else {
-      Box(
+      ToggleButton(
+        initChecked = darkTheme,
+        thumb = {
+          Image(
+            vector = if (darkTheme) MagicIcons.All.Dark else MagicIcons.All.Light,
+            modifier = Modifier
+              .height(height = 24.dp)
+              .width(width = 30.dp)
+              .clip(shape = CircleShape)
+              .background(color = MaterialTheme.colorScheme.surface)
+              .padding(start = if (darkTheme) 1.8.dp else 0.dp)
+              .padding(vertical = 3.dp, horizontal = 6.dp)
+          )
+        },
+        onCheckedChange = {
+          component?.action(CalculatorComponent.Action.ChangeTheme(darkTheme = it))
+        },
         modifier = Modifier
-          .fillMaxWidth()
           .padding(horizontal = 20.dp)
-          .weight(weight = 1f)
-      ) {
-        Text(
-          text = allNumber,
-          overflow = TextOverflow.Ellipsis,
-          style = TextStyleFactory.FS36.w400(),
-          textAlign = TextAlign.End,
-          modifier = Modifier
-        )
+          .align(alignment = Alignment.Start)
+      )
 
-        ToggleButton(
-          initChecked = darkTheme,
-          thumb = {
-            Image(
-              vector = if (darkTheme) MagicIcons.All.Dark else MagicIcons.All.Light,
-              modifier = Modifier
-                .height(height = 24.dp)
-                .width(width = 30.dp)
-                .clip(shape = CircleShape)
-                .background(color = MaterialTheme.colorScheme.surface)
-                .padding(start = if (darkTheme) 1.8.dp else 0.dp)
-                .padding(vertical = 3.dp, horizontal = 6.dp)
-            )
-          },
-          onCheckedChange = {
-            component?.action(CalculatorComponent.Action.ChangeTheme(darkTheme = it))
-          }
-        )
-      }
+      Spacer(modifier = Modifier.weight(weight = 1f))
+
+      EnteredNumber(
+        text = allNumber,
+        style = TextStyleFactory.FS20.w400(),
+        modifier = Modifier
+          .padding(horizontal = 20.dp)
+          .align(alignment = Alignment.End)
+      )
     }
 
-    TextAutoSize(
+    EnteredNumber(
       text = enteredNumber,
-      darkTheme = darkTheme,
-      style = TextStyleFactory.FS90.w300(
-        textAlign = TextAlign.End,
-      ),
+      style = when (creatingPassword) {
+        true -> TextStyleFactory.FS90.w300(textAlign = TextAlign.End)
+        false -> TextStyleFactory.FS36.w300(textAlign = TextAlign.End)
+      },
       modifier = Modifier
         .padding(horizontal = 20.dp)
         .align(alignment = Alignment.End)
